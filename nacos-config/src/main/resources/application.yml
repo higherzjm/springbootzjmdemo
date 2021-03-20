@@ -1,0 +1,28 @@
+server:
+  port: 8082 #启动端口 命令行注入
+
+spring:
+  application:
+    name: service1
+  cloud:
+    nacos:
+      config:
+        #enabled: false #关闭配置
+        server-addr: 127.0.0.1:8848,127.0.0.1:8849,127.0.0.1:8850 # 配置中心地址,配置多个集群负载均衡
+        file-extension: yaml #dataid 的名称就是application的name加file-extension   service1.yaml
+        namespace: be2963a2-1d2e-4ff0-bb6a-06986d206ba8 # 开发环境  指定 具体的namespace
+        group: TEST_GROUP # 测试组
+        shared-dataids: ext-config-common04.properties,ext-config-common05.properties   #共享配置把group固定为DEFAULT_GROUP
+        refreshable-dataids: ext-config-common04.properties   #哪些共享配置的 Data Id 在配置变化时，应 用中是否可动态刷新， 感知到最新的配置值
+        ext-config[0]:
+          data-id: ext-config-common01.properties
+        ext-config[1]:
+          data-id: ext-config-common02.properties
+          group: GLOBALE_GROUP
+        ext-config[2]:
+          data-id: ext-config-common03.properties
+          group: REFRESH_GROUP
+          refresh: true  #动态刷新配置
+
+  #共享DataId的配置相比扩展的 Data Id 配置，它把group固定为DEFAULT_GROUP，建议使用扩展的 Data Id 配 置，因为扩展的 Data Id 配置也可以实现共享DataId配置,扩展ID的分组名称可以自定义
+  #多个共享配 置间的一个优先级的关系我们约定：按照配置出现的先后顺序，即后面的优先级要高于前面
