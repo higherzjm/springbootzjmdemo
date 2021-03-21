@@ -22,25 +22,25 @@ public class NacosConfigBootstrap {
     @Autowired
     ConfigurableApplicationContext applicationContext;
     //通过value注解读取配置信息
-    //@Value("${common.name}")
+    @Value("${common.bootstrap}")
     private String config1;
 
+    //http://localhost:8082/configs
     @GetMapping("/configs")
     public String getConfigs() {
         //读取配置信息
-//        return config1;
         return applicationContext.getEnvironment().getProperty("common.name");
     }
-    //http://localhost:8080/configs2
+    //http://localhost:8082/configs2
     @GetMapping(value = "/configs2")
     public String getConfigs2() {
         String name = applicationContext.getEnvironment().getProperty("common.name");
         String age = applicationContext.getEnvironment().getProperty("common.age");
         String address = applicationContext.getEnvironment().getProperty("common.address");
         String birthday = applicationContext.getEnvironment().getProperty("common.birthday");
-        String fullname = applicationContext.getEnvironment().getProperty("common.fullname");
+        String fullName = applicationContext.getEnvironment().getProperty("common.fullname");
         String a1 = applicationContext.getEnvironment().getProperty("common.a1");
         String a2 = applicationContext.getEnvironment().getProperty("common.a2");
-        return config1 + "+" + name + "+" + age + "+" + address + "+" + birthday + "+" + fullname + "+ " + a1 + "+" + a2;
+        return config1 + "+" + name + "+" + age + "+" + address + "+" + birthday + "+" + fullName + "+ " + a1 + "+" + a2;
     }
 }
