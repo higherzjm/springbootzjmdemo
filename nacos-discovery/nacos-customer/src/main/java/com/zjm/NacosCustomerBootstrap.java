@@ -12,21 +12,17 @@ import org.springframework.web.bind.annotation.RestController;
  **/
 @SpringBootApplication
 @RestController
-public class NacosDiscoveryBootstrap {
+public class NacosCustomerBootstrap {
     public static void main(String[] args) {
-        SpringApplication.run(NacosDiscoveryBootstrap.class, args);
+        SpringApplication.run(NacosCustomerBootstrap.class, args);
     }
 
 
-    //http://localhost:8083/test
+    //http://localhost:8084/test
     @GetMapping("/test")
     public String test() {
-        return "NacosDiscovery";
+        return "NacosCustomer";
     }
 
-    @GetMapping("/studentName/{name}")
-    public String studentName(@PathVariable("name") String name){
-        return "my name is "+name;
-    }
 
 }
