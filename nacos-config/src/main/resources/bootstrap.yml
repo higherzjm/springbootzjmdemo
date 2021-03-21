@@ -1,7 +1,9 @@
 server:
   port: 8082 #启动端口 命令行注入
+
 common:
   bootstrap: 星期日
+
 spring:
   application:
     name: service1
@@ -9,7 +11,7 @@ spring:
     nacos:
       config:
         #enabled: false #关闭配置
-        server-addr: 127.0.0.1:8848,127.0.0.1:8849,127.0.0.1:8850 # 配置中心地址,配置多个集群负载均衡
+        server-addr: 127.0.0.1:8848   # ,127.0.0.1:8849,127.0.0.1:8850配置中心地址,配置多个集群负载均衡
         file-extension: yaml #dataid 的名称就是application的name加file-extension   service1.yaml
         namespace: be2963a2-1d2e-4ff0-bb6a-06986d206ba8 # 开发环境  指定 具体的namespace
         group: TEST_GROUP # 测试组

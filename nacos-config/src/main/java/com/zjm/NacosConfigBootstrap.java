@@ -23,7 +23,7 @@ public class NacosConfigBootstrap {
     ConfigurableApplicationContext applicationContext;
     //通过value注解读取配置信息
     @Value("${common.bootstrap}")
-    private String config1;
+    private String bootstrapValue;
 
     //http://localhost:8082/configs
     @GetMapping("/configs")
@@ -41,6 +41,6 @@ public class NacosConfigBootstrap {
         String fullName = applicationContext.getEnvironment().getProperty("common.fullname");
         String a1 = applicationContext.getEnvironment().getProperty("common.a1");
         String a2 = applicationContext.getEnvironment().getProperty("common.a2");
-        return config1 + "+" + name + "+" + age + "+" + address + "+" + birthday + "+" + fullName + "+ " + a1 + "+" + a2;
+        return bootstrapValue + "+" + name + "+" + age + "+" + address + "+" + birthday + "+" + fullName + "+ " + a1 + "+" + a2;
     }
 }

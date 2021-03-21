@@ -9,6 +9,7 @@ spring:
       discovery:
         server-addr: 192.168.0.1:8848
         namespace: be2963a2-1d2e-4ff0-bb6a-06986d206ba8
+        cluster-name: DEFAULT
 logging:
     level:
       root: info
