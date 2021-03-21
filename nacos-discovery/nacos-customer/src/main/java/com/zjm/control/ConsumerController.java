@@ -2,8 +2,6 @@ package com.zjm.control;
 
 import com.zjm.client.ProviderClient;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,7 +15,7 @@ public class ConsumerController {
 
     //动态代理对象，内部远程调用服务生产者
     @Autowired
-   private ProviderClient providerClient;
+    ProviderClient providerClient;
 
 
     @GetMapping("/feignServiceTest/{name}")
