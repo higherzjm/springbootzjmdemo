@@ -15,9 +15,9 @@ public class ConsumerController {
 
     //动态代理对象，内部远程调用服务生产者
     @Autowired
-    ProviderClient providerClient;
+   private ProviderClient providerClient;
 
-
+    //http://localhost:8091/feignServiceTest/钟南山
     @GetMapping("/feignServiceTest/{name}")
     public String feignServiceTest(@PathVariable("name") String name){
         String  feignServiceTest = providerClient.studentName(name);

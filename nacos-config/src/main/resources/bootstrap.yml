@@ -11,9 +11,9 @@ spring:
     nacos:
       config:
         #enabled: false #关闭配置
-        server-addr: 127.0.0.1:8848   # ,127.0.0.1:8849,127.0.0.1:8850配置中心地址,配置多个集群负载均衡
+        server-addr: 127.0.0.1:9002   # ,127.0.0.1:8849,127.0.0.1:8850配置中心地址,配置多个集群负载均衡
         file-extension: yaml #dataid 的名称就是application的name加file-extension   service1.yaml
-        namespace: be2963a2-1d2e-4ff0-bb6a-06986d206ba8 # 开发环境  指定 具体的namespace
+        namespace: a6476a6f-12a7-46c9-aa35-4437ab7c7c1c # 开发环境  指定 具体的namespace
         group: TEST_GROUP # 测试组
         shared-dataids: ext-config-common04.properties,ext-config-common05.properties   #共享配置把group固定为DEFAULT_GROUP
         refreshable-dataids: ext-config-common04.properties   #哪些共享配置的 Data Id 在配置变化时，应 用中是否可动态刷新， 感知到最新的配置值

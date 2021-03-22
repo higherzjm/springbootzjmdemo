@@ -11,5 +11,5 @@ import org.springframework.web.bind.annotation.PathVariable;
 public interface ProviderClient {
 
     @GetMapping("/studentName/{name}")
-    public String studentName(@PathVariable("name") String name);
+     String studentName(@PathVariable("name") String name);
 }

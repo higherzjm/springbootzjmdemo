@@ -28,6 +28,7 @@ public class NacosProvideBootstrap {
 
     @GetMapping("/studentName/{name}")
     public String studentName(@PathVariable("name") String name){
+        System.out.println("我是服务提供者，接收的参数为："+name);
         return "my name is "+name;
     }
 

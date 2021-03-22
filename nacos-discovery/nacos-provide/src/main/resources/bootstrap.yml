@@ -7,8 +7,8 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 192.168.0.1:8848
-        namespace: be2963a2-1d2e-4ff0-bb6a-06986d206ba8
+        server-addr: 127.0.0.1:9002
+        namespace: a6476a6f-12a7-46c9-aa35-4437ab7c7c1c
 logging:
     level:
       root: info
