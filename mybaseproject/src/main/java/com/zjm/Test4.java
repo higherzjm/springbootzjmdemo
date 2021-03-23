@@ -11,7 +11,7 @@ public class Test4 {
     public static void main(String[] args){
 
         Test4 test4 = new Test4();
-        //从父几点递归子节点逐级汇总
+        //从父几点递归子节点逐级汇总1
         test4.test1();
 
     }
@@ -37,7 +37,9 @@ public class Test4 {
         v3.setVoList(voList);
         VO v9 = new VO("v9", 1);
         VO v10 = new VO("v10", 1);
-        voList = Arrays.asList(v9, v10);
+        VO v11 = new VO("v11", 1);
+        VO v12= new VO("v12", 1);
+        voList = Arrays.asList(v9, v10,v11,v12);
         v5.setVoList(voList);
         total(v0);
         System.out.println(v0);
