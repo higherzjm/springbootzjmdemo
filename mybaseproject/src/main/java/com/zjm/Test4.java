@@ -1,6 +1,9 @@
 package com.zjm;
 
 
+import lombok.Data;
+
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 
@@ -17,61 +20,107 @@ public class Test4 {
     }
 
     public void test1() {
-        VO v0 = new VO("v0", 1);
-        VO v1 = new VO("v1", 1);
-        VO v2 = new VO("v2", 1);
-        List<VO> voList = Arrays.asList(v1, v2);
-        v0.setVoList(voList);
+        SchoolVO v0 = new SchoolVO("v0", 1,2);
+        SchoolVO v1 = new SchoolVO("v1", 1,2);
+        SchoolVO v2 = new SchoolVO("v2", 1,2);
+        List<SchoolVO> SchoolVOList = Arrays.asList(v1, v2);
+        v0.setSubSchoolVOList(SchoolVOList);
 
-        VO v3 = new VO("v3", 1);
-        VO v4 = new VO("v4", 1);
-        voList = Arrays.asList(v3, v4);
-        v1.setVoList(voList);
-        VO v5 = new VO("v5", 1);
-        VO v6 = new VO("v6", 1);
-        voList = Arrays.asList(v5, v6);
-        v2.setVoList(voList);
-        VO v7 = new VO("v7", 1);
-        VO v8 = new VO("v8", 1);
-        voList = Arrays.asList(v7, v8);
-        v3.setVoList(voList);
-        VO v9 = new VO("v9", 1);
-        VO v10 = new VO("v10", 1);
-        VO v11 = new VO("v11", 1);
-        VO v12= new VO("v12", 1);
-        voList = Arrays.asList(v9, v10,v11,v12);
-        v5.setVoList(voList);
-        total(v0);
+        SchoolVO v3 = new SchoolVO("v3", 1,2);
+        SchoolVO v4 = new SchoolVO("v4", 1,2);
+        SchoolVOList = Arrays.asList(v3, v4);
+        v1.setSubSchoolVOList(SchoolVOList);
+        SchoolVO v5 = new SchoolVO("v5", 1,2);
+        SchoolVO v6 = new SchoolVO("v6", 1,2);
+        SchoolVOList = Arrays.asList(v5, v6);
+        v2.setSubSchoolVOList(SchoolVOList);
+        SchoolVO v7 = new SchoolVO("v7", 1,2);
+        SchoolVO v8 = new SchoolVO("v8", 1,2);
+        SchoolVOList = Arrays.asList(v7, v8);
+        v3.setSubSchoolVOList(SchoolVOList);
+        SchoolVO v9 = new SchoolVO("v9", 1,2);
+        SchoolVO v10 = new SchoolVO("v10", 1,2);
+        SchoolVO v11 = new SchoolVO("v11", 1,2);
+        SchoolVO v12= new SchoolVO("v12", 1,2);
+        SchoolVOList = Arrays.asList(v9, v10,v11,v12);
+        v5.setSubSchoolVOList(SchoolVOList);
+
+
+        //statisticslBySign(v0);//单一字段逐级累计
+        statisticslByOverall(v0);//多字段同时逐级累加
         System.out.println(v0);
 
 
     }
-
-    int total(VO vo) {
-        List<VO> voList = vo.getVoList();
-        if (voList == null) {
-            return vo.getNum();
+    //单个字段逐级累加
+    int statisticslBySign(SchoolVO SchoolVO) {
+        List<SchoolVO> SchoolVOList = SchoolVO.getSubSchoolVOList();
+        if (SchoolVOList == null) {
+            return SchoolVO.getTeacherNum();
         }
-        int sum = vo.getNum();
-        for (VO vo1 : voList) {
-            sum = sum + total(vo1);
+        int sum = SchoolVO.getTeacherNum();
+        for (SchoolVO SchoolVO1 : SchoolVOList) {
+            sum = sum + statisticslBySign(SchoolVO1);
         }
-        vo.setNum(sum);
+        SchoolVO.setTeacherNum(sum);
         return sum;
+    }
+    //多字段同时逐级累加
+    StatisticsVO statisticslByOverall(SchoolVO schoolVO) {
+        List<SchoolVO> SchoolVOList = schoolVO.getSubSchoolVOList();
+        if (SchoolVOList == null) {
+            StatisticsVO statisticsVO = new StatisticsVO();
+            statisticsVO.setStudentNum(schoolVO.getStudentNum() == null ? 0 : schoolVO.getStudentNum());
+            statisticsVO.setTeacherNum(schoolVO.getTeacherNum() == null ? 0 : schoolVO.getTeacherNum());
+            return statisticsVO;
+        }
+        Integer totalStudentNum = schoolVO.getStudentNum() == null ? 0 : schoolVO.getStudentNum();
+        Integer totalTeacherNum = schoolVO.getTeacherNum() == null ? 0 : schoolVO.getTeacherNum();
+        for (SchoolVO SchoolVO1 : SchoolVOList) {
+            StatisticsVO statisticsVO = statisticslByOverall(SchoolVO1);
+            totalStudentNum = totalStudentNum + statisticsVO.getStudentNum();
+            totalTeacherNum = totalTeacherNum + statisticsVO.getTeacherNum();
+        }
+        schoolVO.setTeacherNum(totalTeacherNum);
+        schoolVO.setStudentNum(totalStudentNum);
+        StatisticsVO statisticsVO = new StatisticsVO();
+        statisticsVO.setTeacherNum(totalTeacherNum);
+        statisticsVO.setStudentNum(totalStudentNum);
+        return statisticsVO;
+    }
+
+    //需要累加的属性
+    @Data
+    class StatisticsVO {
+        private Integer teacherNum;
+        private Integer studentNum;
+
     }
 }
 
-class VO {
-    Integer num;
-    String name;
-    List<VO> voList;
+class SchoolVO {
+    //教师人数
+    private Integer teacherNum;
+    //学生人数
+    private Integer studentNum;
+    //学校名称
+    private String name;
+    private List<SchoolVO> subSchoolVOList;
 
-    public Integer getNum() {
-        return num;
+    public Integer getStudentNum() {
+        return studentNum;
     }
 
-    public void setNum(Integer num) {
-        this.num = num;
+    public void setStudentNum(Integer studentNum) {
+        this.studentNum = studentNum;
+    }
+
+    public Integer getTeacherNum() {
+        return teacherNum;
+    }
+
+    public void setTeacherNum(Integer teacherNum) {
+        this.teacherNum = teacherNum;
     }
 
     public String getName() {
@@ -82,16 +131,28 @@ class VO {
         this.name = name;
     }
 
-    public List<VO> getVoList() {
-        return voList;
+    public List<SchoolVO> getSubSchoolVOList() {
+        return subSchoolVOList;
     }
 
-    public VO(String name, Integer num) {
-        this.num = num;
+    public void setSubSchoolVOList(List<SchoolVO> subSchoolVOList) {
+        this.subSchoolVOList = subSchoolVOList;
+    }
+
+    public SchoolVO(String name, Integer teacherNum,Integer studentNum) {
+        this.teacherNum = teacherNum;
+        this.studentNum=studentNum;
         this.name = name;
     }
 
-    public void setVoList(List<VO> voList) {
-        this.voList = voList;
+
+
+    @Override
+    public String toString() {
+        return "SchoolVO{" +
+                "teacherNum=" + teacherNum +
+                ", name='" + name + '\'' +
+                ", subSchoolVOList=" + subSchoolVOList +
+                '}';
     }
 }
