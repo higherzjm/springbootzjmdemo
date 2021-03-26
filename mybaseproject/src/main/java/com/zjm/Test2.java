@@ -1,13 +1,17 @@
 package com.zjm;
 
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import reactor.core.Exceptions;
 
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.*;
+
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 
@@ -18,18 +22,52 @@ public class Test2 {
     public static void main(String[] args) throws Exception {
 
         Test2 test1 = new Test2();
-        test1.test20();
+        test1.test22(Test2.class,test1.getClass().getDeclaredMethod("test21",Integer.class,Integer.class));
 
 
     }
 
+
+    public void test22(Class c, Method method) throws Exception {
+        method.invoke(c.newInstance(),2021,3);
+
+    }
+    class ThreadCallable implements Callable<String> {
+        private Integer year;
+        private Integer month;
+
+        public ThreadCallable(Integer year, Integer month) {
+            this.year = year;
+            this.month = month;
+        }
+
+        @Override
+        public String call() {
+            return "Ğ½×ÊÄê:"+year+";Ğ½×ÊÔÂ:"+month;
+        }
+    }
+    public void test21(Integer year,Integer month){
+        ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(1, 1, 1, TimeUnit.MILLISECONDS,
+                new LinkedBlockingQueue<>(1), new ThreadFactoryBuilder().setNameFormat("salary-calculation-pool-%d").build(),
+                new ThreadPoolExecutor.AbortPolicy());
+        CompletionService<String> completionService= new ExecutorCompletionService<>(threadPoolExecutor);
+        completionService.submit(new ThreadCallable(year,month));
+        try {
+            String callRetValue=completionService.take().get();
+            System.out.println("Ïß³Ì³Ø·µ»ØÖµ:"+callRetValue);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
     public void test20() {
-        String content = "${year!}å¹´${month!}æœˆå…¨éƒ¨å‘˜å·¥è–ªèµ„è¢«é©³å›çƒ¦è¯·åŠæ—¶åœ¨WEBç«¯è¿›è¡Œç¡®è®¤ã€‚é©³å›åŸå› ï¼š${reason!}";
+        String content = "${year!}Äê${month!}ÔÂÈ«²¿Ô±¹¤Ğ½×Ê±»²µ»Ø·³Çë¼°Ê±ÔÚWEB¶Ë½øĞĞÈ·ÈÏ¡£²µ»ØÔ­Òò£º${reason!}";
         Map<String, String> map = new HashMap<>();
         map.put("year", "2021");
         map.put("month", "6");
         map.put("year", "2021");
-        map.put("reason", "æˆ‘è¦é€€æ¬¾å‘—");
+        map.put("reason", "ÎÒÒªÍË¿îßÂ");
         try {
             StringWriter result = new StringWriter();
             Template t = new Template("default", new StringReader(content), new Configuration());
@@ -50,8 +88,8 @@ public class Test2 {
             aa(department.getSubDeparment());
         }
 
-        System.out.println("æ±‡æ€»ç»“æœï¼š" + total);
-        System.out.println("æ±‡æ€»ç»“æœï¼š" + department);
+        System.out.println("»ã×Ü½á¹û£º" + total);
+        System.out.println("»ã×Ü½á¹û£º" + department);
     }
 
     void aa(List<MyDepartment> departmentList) {

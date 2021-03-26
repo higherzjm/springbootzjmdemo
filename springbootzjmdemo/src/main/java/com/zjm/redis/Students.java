@@ -1,4 +1,4 @@
-package com.springboot.redis;
+package com.zjm.redis;
 
 import lombok.Builder;
 import lombok.Data;

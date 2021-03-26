@@ -1,4 +1,4 @@
-package com.springboot.redis;
+package com.zjm.redis;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

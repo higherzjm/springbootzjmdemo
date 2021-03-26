@@ -1,4 +1,4 @@
-package com.springboot.redis;
+package com.zjm.redis;
 
 import org.springframework.data.redis.connection.Message;
 import org.springframework.data.redis.listener.KeyspaceEventMessageListener;

@@ -1,4 +1,4 @@
-package com.springboot.redis;
+package com.zjm.redis;
 
 import io.netty.util.CharsetUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +8,6 @@ import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -45,7 +44,7 @@ public class MyRedisController {
         return "今日新闻--监听";
     }
 
-    //http://localhost:8080/redis/topicPublish  主题发布
+    //http://localhost:8081/redis/topicPublish  主题发布
     @RequestMapping("/topicPublish")
     public String topicPublish() {
         String topicName = "今日新闻";

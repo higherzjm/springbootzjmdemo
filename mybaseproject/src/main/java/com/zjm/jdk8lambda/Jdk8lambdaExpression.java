@@ -1,4 +1,5 @@
-package com.zjm;
+package com.zjm.jdk8lambda;
+
 
 import java.util.*;
 import java.util.function.Function;
@@ -154,6 +155,52 @@ public class Jdk8lambdaExpression {
                 .collect(toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
         System.out.println("倒序排序后:" + studentMap);
     }
+}
+class Student {
+    private int id;
+    private String name;
+    private int age;
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Student(int id, String name, int age) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                '}';
+    }
+
+
 }
 
 
