@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * @author zhujianming
  */
@@ -19,23 +21,34 @@ public class MyController {
 
     @PostMapping("/test1")
     public StudentInfo test1(@RequestBody @Validated RequestVO requestVO) {
-        return  myService.getStudentInfo1(requestVO);
+        return myService.getStudentInfo1(requestVO);
     }
+
     //http://localhost:8081/myboot/test2/张三/30
     @RequestMapping("/test2/{name}/{age}")
     public StudentInfo test2(
             @ApiParam(name = "name", value = "姓名", required = true) @PathVariable("name") String name,
             @ApiParam(name = "age", value = "年龄", required = true) @PathVariable("age") Integer age) {
-        return  myService.getStudentInfo2(name, age);
+        return myService.getStudentInfo2(name, age);
     }
-    //http://localhost:8081/myboot/test3/张三   带参数的请求不能过滤
-    @RequestMapping("/test3/{name}")
-    public String test3(@PathVariable("name") String name) {
-        return  "test3:"+name;
+
+    //http://localhost:8081/myboot/test3?name='张三'
+    @RequestMapping("/test3")
+    public String test3(@RequestParam("name") String name) {
+        return "test3:" + name;
     }
+
+    //http://localhost:8081/myboot/test4/{name}
     @RequestMapping("/test4")
-    public String test4() {
-        return  "test4";
+    public String test4(@RequestParam("name") String name) {
+        return name;
+    }
+
+    //http://localhost:8081/myboot/test4 请求转发
+    @RequestMapping("/requestForward")
+    public String test5(HttpServletRequest request) {
+        String msg= (String) request.getAttribute("msg");
+        return msg;
     }
 
 }
