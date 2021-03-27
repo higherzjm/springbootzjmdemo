@@ -28,6 +28,16 @@
             <artifactId>guava</artifactId>
             <version>11.0.2</version>
         </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>11.0.2</version>
+        </dependency>
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-core</artifactId>
+            <version>4.5.11</version>
+        </dependency>
     </dependencies>
 
 
