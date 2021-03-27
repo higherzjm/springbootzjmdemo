@@ -25,7 +25,7 @@ public class MyRedisController {
     @Autowired
     private RedisExpireMsgListener redisExpireMsgListener;
 
-    //http://localhost:8080/redis/getValue
+    //http://localhost:8081/redis/getValue
     @RequestMapping("/getValue")
     public String getValue() {
         String key = "今日新闻";
@@ -36,7 +36,7 @@ public class MyRedisController {
 
 //--------------------------------------------------------------------------------
 
-    //http://localhost:8080/redis/topicListener  主题监听
+    //http://localhost:8081/redis/topicListener  主题监听
     @RequestMapping("/topicListener")
     public String topicListener() {
         String topicName = "今日新闻";
@@ -52,7 +52,7 @@ public class MyRedisController {
         redisTemplate.getConnectionFactory().getConnection().publish(topicName.getBytes(CharsetUtil.UTF_8), topicValue.getBytes(CharsetUtil.UTF_8));
         return "今日新闻---主题发布";
     }
-    //http://localhost:8080/redis/setValue2
+    //http://localhost:8081/redis/setValue2
     @RequestMapping("/setValue2")
     public String setValue2() {
         String key = "今日新闻";
