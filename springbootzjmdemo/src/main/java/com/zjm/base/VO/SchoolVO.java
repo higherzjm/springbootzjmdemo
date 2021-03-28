@@ -14,7 +14,7 @@ public  class SchoolVO {
     private Integer studentNum;
     //学校名称
     private String name;
+    //子级school
     private List<SchoolVO> subSchoolVOList;
-
 
 }
