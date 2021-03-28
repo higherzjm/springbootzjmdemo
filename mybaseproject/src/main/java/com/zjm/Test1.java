@@ -155,16 +155,7 @@ public class Test1 {
         }
     }
 
-    public void test24() {
-        Thread thread = new Thread(new MyThread());
-        thread.start();
-        System.out.println("线程正在执行------------------");
 
-        //线程池
-        ExecutorService cachedThreadPool = Executors.newCachedThreadPool();
-        cachedThreadPool.execute(new MyThread());
-
-    }
 
     public void test23() {
         SimpleDateFormat dateTimeFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -758,19 +749,7 @@ class Department {
     }
 }
 
-class MyThread implements Runnable {
 
-    @Override
-    public void run() {
-        System.out.println("----------进入线程");
-        try {
-            Thread.sleep(6000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        System.out.println("----------线程执行结束");
-    }
-}
 
 class Student {
     private int id;
