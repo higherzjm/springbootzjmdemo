@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.concurrent.*;
 
 /**
+ * 线程池升级版
  * @author zhujianming
  */
 @Slf4j
@@ -22,11 +23,18 @@ public class TaskCallable {
                 new ThreadPoolExecutor.AbortPolicy());
         CompletionService<String> completionService = new ExecutorCompletionService<>(threadPoolExecutor);
         MyTaskCallable myTaskCallable = new MyTaskCallable("我是中国人");
-        completionService.submit(myTaskCallable);
+        try {
+            String subRet=completionService.submit(myTaskCallable).get();
+            log.info("subRet:"+subRet);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
 
         try {
-            String ret = completionService.take().get();
-            log.info(ret);
+            String takeRet = completionService.take().get();
+            log.info("takeRet:"+takeRet);
         } catch (Exception e) {
             e.printStackTrace();
         }
