@@ -18,13 +18,13 @@ import javax.servlet.http.HttpServletRequest;
 public class MyController {
     @Autowired
     private MyService myService;
-
+    //post请求，实体请求参数
     @PostMapping("/test1")
     public StudentInfo test1(@RequestBody @Validated RequestVO requestVO) {
         return myService.getStudentInfo1(requestVO);
     }
 
-    //http://localhost:8081/myboot/test2/张三/30
+    //http://localhost:8081/myboot/test2/张三/30 //get 请求，简单一个或多参数
     @RequestMapping("/test2/{name}/{age}")
     public StudentInfo test2(
             @ApiParam(name = "name", value = "姓名", required = true) @PathVariable("name") String name,
@@ -43,7 +43,10 @@ public class MyController {
     public String test4(@RequestParam("name") String name) {
         return name;
     }
-
+    @RequestMapping("/test5")
+    public String test5() {
+        return "无参数";
+    }
     //http://localhost:8081/myboot/test4 请求转发
     @RequestMapping("/requestForward")
     public String test5(HttpServletRequest request) {
