@@ -18,7 +18,7 @@ public class TreeSortStatisticsServiceImpl implements ITreeSortStatisticsService
         statisticslBySign(schoolVO);
         return schoolVO;
     }
-
+    //单独字段汇总
     int statisticslBySign(SchoolVO SchoolVO) {
         List<SchoolVO> SchoolVOList = SchoolVO.getSubSchoolVOList();
         if (SchoolVOList == null) {
@@ -31,7 +31,7 @@ public class TreeSortStatisticsServiceImpl implements ITreeSortStatisticsService
         SchoolVO.setTeacherNum(sum);
         return sum;
     }
-
+     //联合字段汇总
     @Override
     public SchoolVO tressStatisticsByOverall(SchoolVO schoolVO) {
         statisticsByOverall(schoolVO);

@@ -55,7 +55,11 @@ public class TreeSortStatisticsController {
         v11.setSubSchoolVOList(SchoolVOList);
         System.out.println(v0);
     }
-
+    @RequestMapping("/initTreeInfo")
+    public SchoolVO initTreeInfo() {
+        this.initOrResetTreeInfo();
+        return v0;
+    }
     @RequestMapping("/treeStatisticsBySign")
     public SchoolVO treeStatisticsBySign() {
         this.initOrResetTreeInfo();
