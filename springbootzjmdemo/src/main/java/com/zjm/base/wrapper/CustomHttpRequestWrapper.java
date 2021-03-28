@@ -22,7 +22,7 @@ import java.io.InputStreamReader;
 public class CustomHttpRequestWrapper extends HttpServletRequestWrapper {
 
     private byte[] requestBody = null;//用于将流保存下来
-
+    //自定义包装器
     public CustomHttpRequestWrapper(HttpServletRequest request) {
         super(request);
         try {
