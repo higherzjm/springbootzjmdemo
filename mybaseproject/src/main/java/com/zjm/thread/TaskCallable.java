@@ -18,9 +18,10 @@ public class TaskCallable {
     }
 
     public void test1() {
-        ExecutorService threadPoolExecutor = new ThreadPoolExecutor(8, 30, 60, TimeUnit.MILLISECONDS,
+        ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(8, 30, 60, TimeUnit.MILLISECONDS,
                 new LinkedBlockingQueue<>(100), new ThreadFactoryBuilder().setNameFormat("salary-calculation-pool-%d").build(),
                 new ThreadPoolExecutor.AbortPolicy());
+        threadPoolExecutor.allowCoreThreadTimeOut(true);//允许核心线程超时
         CompletionService<String> completionService = new ExecutorCompletionService<>(threadPoolExecutor);
         MyTaskCallable myTaskCallable = new MyTaskCallable("我是中国人");
         try {
@@ -41,7 +42,6 @@ public class TaskCallable {
 
     }
 }
-
 class MyTaskCallable implements Callable<String> {
     String param;
 

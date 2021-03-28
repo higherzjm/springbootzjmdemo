@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 /**
  * @author zhujianming
  */
@@ -15,7 +17,7 @@ import lombok.NoArgsConstructor;
 @ApiModel(description = "学生信息请求VO")
 @AllArgsConstructor
 @NoArgsConstructor
-public class RequestVO {
+public class RequestVO implements Serializable {
     @ApiModelProperty(value = "学生姓名")
     private String name;
     @ApiModelProperty(value = "学生年龄")
