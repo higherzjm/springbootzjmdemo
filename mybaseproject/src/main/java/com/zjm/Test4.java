@@ -44,7 +44,10 @@ public class Test4 {
         SchoolVO v12= new SchoolVO("v12", 1,2);
         SchoolVOList = Arrays.asList(v9, v10,v11,v12);
         v5.setSubSchoolVOList(SchoolVOList);
-
+        SchoolVO v13 = new SchoolVO("v13", 1,2);
+        SchoolVO v14= new SchoolVO("v14", 1,2);
+        SchoolVOList = Arrays.asList(v13, v14);
+        v11.setSubSchoolVOList(SchoolVOList);
 
         //statisticslBySign(v0);//单一字段逐级累计
         statisticslByOverall(v0);//多字段同时逐级累加
@@ -144,8 +147,6 @@ class SchoolVO {
         this.studentNum=studentNum;
         this.name = name;
     }
-
-
 
     @Override
     public String toString() {
