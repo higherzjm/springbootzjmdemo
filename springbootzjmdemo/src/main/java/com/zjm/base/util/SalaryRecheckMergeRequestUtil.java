@@ -21,10 +21,11 @@ import java.util.concurrent.*;
 @Configuration
 @Slf4j
 public class SalaryRecheckMergeRequestUtil {
-    //积攒请求的阻塞队列，一般在单请求高并发下使用
-    //public static LinkedBlockingDeque<SalaryRecheckMergeRequestVO> salaryRecheckRequestQueue = new LinkedBlockingDeque<>();
+    //积攒请求的阻塞队列，如果向一个已经满了的队列中添加元素或者从空队列中移除元素，都将会导致线程阻塞，
+    // 线程一直等待到有旧元素被移除或新元素被添加的时候，才能继续执行。符合这种情况的队列，称为阻塞队列。
+    public static LinkedBlockingDeque<SalaryRecheckMergeRequestVO> salaryRecheckRequestQueue = new LinkedBlockingDeque<>();
     //积攒请求的非阻塞队列
-    public static ConcurrentLinkedQueue<SalaryRecheckMergeRequestVO> salaryRecheckRequestQueue = new ConcurrentLinkedQueue<>();
+    //public static ConcurrentLinkedQueue<SalaryRecheckMergeRequestVO> salaryRecheckRequestQueue = new ConcurrentLinkedQueue<>();
 
     //批量请求
     @PostConstruct //被@PostConstruct注解的方法将在该被创建且该类中所有注入操作完成之后执行
@@ -33,26 +34,25 @@ public class SalaryRecheckMergeRequestUtil {
         scheduledExecutorService.scheduleAtFixedRate(() -> {
             // 把出queue的请求存储一次
             List<SalaryRecheckMergeRequestVO> salaryRecheckMergeRequestVOList = new ArrayList<>();
-
             for (int i = 0; i < salaryRecheckRequestQueue.size(); i++) {
-                SalaryRecheckMergeRequestVO salaryRecheckMergeRequestVO =salaryRecheckRequestQueue.poll();
+                SalaryRecheckMergeRequestVO salaryRecheckMergeRequestVO = salaryRecheckRequestQueue.poll();
                 if (Objects.nonNull(salaryRecheckMergeRequestVO)) {
                     salaryRecheckMergeRequestVOList.add(salaryRecheckMergeRequestVO);
                 }
             }
 
             if (!salaryRecheckMergeRequestVOList.isEmpty()) {
-                SalaryRecheckMergeRequestVO salaryRecheckMergeRequestVOException=null;
+                SalaryRecheckMergeRequestVO salaryRecheckMergeRequestVOException = null;
                 try {
                     // 通知请求的线程
                     for (SalaryRecheckMergeRequestVO salaryRecheckMergeRequestVO : salaryRecheckMergeRequestVOList) {
-                        log.info("请求地址:名称 "+salaryRecheckMergeRequestVO.getRequestPath()+":"+salaryRecheckMergeRequestVO.getRequestName());
-                        if (!StringUtils.isEmpty(salaryRecheckMergeRequestVO.getParamJsonStr())){
-                            JSONObject jsonObject=JSONObject.parseObject(salaryRecheckMergeRequestVO.getParamJsonStr());
-                            log.info("参数列表:"+jsonObject);
+                        log.info("请求地址:名称 " + salaryRecheckMergeRequestVO.getRequestPath() + ":" + salaryRecheckMergeRequestVO.getRequestName());
+                        if (!StringUtils.isEmpty(salaryRecheckMergeRequestVO.getParamJsonStr())) {
+                            JSONObject jsonObject = JSONObject.parseObject(salaryRecheckMergeRequestVO.getParamJsonStr());
+                            log.info("参数列表:" + jsonObject);
                         }
                         salaryRecheckMergeRequestVO.getCompletedFuture().complete("请求成功");
-                        salaryRecheckMergeRequestVOException=salaryRecheckMergeRequestVO;
+                        salaryRecheckMergeRequestVOException = salaryRecheckMergeRequestVO;
                     }
                 } catch (Throwable throwable) {
                     // 通知请求的线程-异常
