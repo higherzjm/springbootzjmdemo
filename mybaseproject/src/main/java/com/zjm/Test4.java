@@ -1,24 +1,51 @@
 package com.zjm;
 
 
+import cn.hutool.core.util.ObjectUtil;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.Test;
 
-import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
+import java.util.stream.Collectors;
 
 /**
  * @author zhujianming
  */
+@Slf4j
 public class Test4 {
     public static void main(String[] args){
 
-        Test4 test4 = new Test4();
-        //从父几点递归子节点逐级汇总1
-        test4.test1();
+      Integer a=1;
+      String b="1";
+      System.out.println(a.toString().equals(b));
 
     }
+    @Test
+    public void test3(){
+        Random random=new Random();
+        List<Integer> dataList=new ArrayList<>();
+        for (int i=0;i<7;i++){
+            //log.info(""+random.nextInt(31));
+            dataList.add(random.nextInt(31));
+        }
+        dataList=dataList.stream().sorted().collect(Collectors.toList());
+        log.info(dataList.toString());
 
+    }
+    @Test
+    public void test2(){
+        List<String> list=new ArrayList<>();
+        list.add("a");
+        boolean aa=ObjectUtil.isEmpty(list);
+        log.info(aa?"a":"b");
+
+    }
+    @Test
     public void test1() {
         SchoolVO v0 = new SchoolVO("v0", 1,2);
         SchoolVO v1 = new SchoolVO("v1", 1,2);
