@@ -1,6 +1,7 @@
 package com.zjm.redis;
 
 import io.netty.util.CharsetUtil;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.listener.ChannelTopic;
@@ -15,6 +16,7 @@ import java.util.concurrent.TimeUnit;
  */
 @RequestMapping("/redis")
 @RestController
+@Api(tags = "Redis应用")
 public class MyRedisController {
     @Autowired
     private RedisMessageListenerContainer messageListenerContainer;

@@ -6,6 +6,7 @@ import com.zjm.base.RequestVO;
 import com.zjm.base.StudentInfo;
 import com.zjm.base.util.JsonUtil;
 import com.zjm.base.util.SalaryRecheckMergeRequestUtil;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -20,6 +21,7 @@ import java.util.concurrent.ExecutionException;
  */
 @RequestMapping("/springBootBase")
 @RestController
+@Api(tags = "springBoot 基础应用")
 public class SpringBootBaseController {
     @Autowired
     private MyService myService;

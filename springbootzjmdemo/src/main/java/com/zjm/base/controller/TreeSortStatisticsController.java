@@ -2,6 +2,7 @@ package com.zjm.base.controller;
 
 import com.zjm.base.VO.SchoolVO;
 import com.zjm.base.service.ITreeSortStatisticsService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,6 +16,7 @@ import java.util.List;
  */
 @RequestMapping("/treeOperation")
 @RestController
+@Api(tags = "结构树应用")
 public class TreeSortStatisticsController {
     @Autowired
     private ITreeSortStatisticsService treeSortStatisticsService;
