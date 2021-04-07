@@ -19,7 +19,7 @@ import java.util.concurrent.ExecutionException;
 /**
  * @author zhujianming
  */
-@RequestMapping("/springBootBase")
+@RequestMapping("/base/springBootBase")
 @RestController
 @Api(tags = "springBoot 基础应用")
 public class SpringBootBaseController {

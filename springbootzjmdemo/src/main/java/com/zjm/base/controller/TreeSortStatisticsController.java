@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * @author zhujianming
  */
-@RequestMapping("/treeOperation")
+@RequestMapping("/base/treeOperation")
 @RestController
 @Api(tags = "结构树应用")
 public class TreeSortStatisticsController {

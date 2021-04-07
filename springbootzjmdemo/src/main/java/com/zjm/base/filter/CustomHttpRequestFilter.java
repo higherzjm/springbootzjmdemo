@@ -8,7 +8,7 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
-@WebFilter(urlPatterns = "/*", filterName = "customFilter")
+@WebFilter(urlPatterns = "/base/*", filterName = "customFilter")
 public class CustomHttpRequestFilter implements Filter {
 
     @Override

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
  * @author zhujianming
  * 合并请求，请求收集
  */
-@RequestMapping("/mergeRequest")
+@RequestMapping("/base/mergeRequest")
 @RestController
 @Slf4j
 @Api(tags = "合并请求，请求收集")
