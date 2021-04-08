@@ -31,18 +31,23 @@ public class SportsLotteryController {
 
     @PostMapping("/saveSportsLotteryHistoryPrize")
     @ApiOperation(value = "保存历史开奖号码", notes = "保存历史开奖号码")
-    public List<SportsLotteryHistoryPrizeVO> saveSportsLotteryHistoryPrize(@RequestBody @Validated SportsLotteryHistoryPrizeVO sportsLotteryHistoryPrizeVO) {
+    public List<SportsLotteryHistoryPrizeVO> saveSportsLotteryHistoryPrize(@RequestBody @Validated List<SportsLotteryHistoryPrizeVO> sportsLotteryHistoryPrizeVOList) {
         String sportsLotteryType = "";
-        if ("1".equals(sportsLotteryHistoryPrizeVO.getSportsLotteryType())) {
+        if ("1".equals(sportsLotteryHistoryPrizeVOList.get(0).getSportsLotteryType())) {
             sportsLotteryType = "lotteryOf31Choose7List";
         }
         String redisValue = redisTemplate.opsForValue().get(sportsLotteryType);
-        List<SportsLotteryHistoryPrizeVO> sportsLotteryHistoryPrizeVOList = JSON.parseArray(redisValue, SportsLotteryHistoryPrizeVO.class);
-        if (sportsLotteryHistoryPrizeVOList == null) {
-            sportsLotteryHistoryPrizeVOList = new ArrayList<>();
+        List<SportsLotteryHistoryPrizeVO> sportsLotteryHistoryPrizeVOQueryList=null;
+        if (redisValue == null) {
+            sportsLotteryHistoryPrizeVOQueryList = new ArrayList<>();
+        }else {
+            JSONObject retJsonObject= (JSONObject) JSONObject.parse(redisValue);
+            sportsLotteryHistoryPrizeVOQueryList = (List<SportsLotteryHistoryPrizeVO>) retJsonObject.get(sportsLotteryType);
         }
-        sportsLotteryHistoryPrizeVOList.add(sportsLotteryHistoryPrizeVO);
-        redisTemplate.opsForValue().set(sportsLotteryType, sportsLotteryHistoryPrizeVOList.toString());
+        sportsLotteryHistoryPrizeVOQueryList.addAll(sportsLotteryHistoryPrizeVOList);
+        JSONObject valueJsonObject=new JSONObject();
+        valueJsonObject.put(sportsLotteryType,sportsLotteryHistoryPrizeVOList);
+        redisTemplate.opsForValue().set(sportsLotteryType, valueJsonObject.toString());
         return sportsLotteryHistoryPrizeVOList;
     }
 
@@ -53,7 +58,9 @@ public class SportsLotteryController {
         List<SportsLotteryHistoryPrizeVO> sportsLotteryHistoryPrizeVOList = null;
         if ("1".equals(sportsLotteryType)) {
             String redisValue = redisTemplate.opsForValue().get("lotteryOf31Choose7List");
-            sportsLotteryHistoryPrizeVOList = JSON.parseArray(redisValue, SportsLotteryHistoryPrizeVO.class);
+            if (redisValue!=null){
+                sportsLotteryHistoryPrizeVOList = (List<SportsLotteryHistoryPrizeVO>) ((JSONObject) JSONObject.parse(redisValue)).get("lotteryOf31Choose7List");
+            }
         }
         return sportsLotteryHistoryPrizeVOList;
     }
