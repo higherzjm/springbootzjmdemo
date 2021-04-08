@@ -15,6 +15,10 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
+import java.util.stream.Collectors;
+
+import static java.util.Map.Entry.comparingByKey;
+import static java.util.stream.Collectors.toMap;
 
 /**
  * @author zhujianming
@@ -31,38 +35,50 @@ public class SportsLotteryController {
 
     @PostMapping("/saveSportsLotteryHistoryPrize")
     @ApiOperation(value = "保存历史开奖号码", notes = "保存历史开奖号码")
-    public List<SportsLotteryHistoryPrizeVO> saveSportsLotteryHistoryPrize(@RequestBody @Validated List<SportsLotteryHistoryPrizeVO> sportsLotteryHistoryPrizeVOList) {
+    public JSONObject saveSportsLotteryHistoryPrize(@RequestBody @Validated List<SportsLotteryHistoryPrizeVO> sportsLotteryHistoryPrizeVOList) {
         String sportsLotteryType = "";
+        List<SportsLotteryHistoryPrizeVO> sportsLotteryHistoryPrizeSotreDataVOList=null;
         if ("1".equals(sportsLotteryHistoryPrizeVOList.get(0).getSportsLotteryType())) {
             sportsLotteryType = "lotteryOf31Choose7List";
+            String redisValue = redisTemplate.opsForValue().get("lotteryOf31Choose7List");
+            if (redisValue != null) {
+                sportsLotteryHistoryPrizeSotreDataVOList = JSON.parseArray(JSON.parseObject(redisValue).getString(sportsLotteryType), SportsLotteryHistoryPrizeVO.class);
+            }
         }
-        String redisValue = redisTemplate.opsForValue().get(sportsLotteryType);
-        List<SportsLotteryHistoryPrizeVO> sportsLotteryHistoryPrizeVOQueryList=null;
-        if (redisValue == null) {
-            sportsLotteryHistoryPrizeVOQueryList = new ArrayList<>();
+        if (sportsLotteryHistoryPrizeSotreDataVOList==null){
+            sportsLotteryHistoryPrizeSotreDataVOList=sportsLotteryHistoryPrizeVOList;
         }else {
-            JSONObject retJsonObject= (JSONObject) JSONObject.parse(redisValue);
-            sportsLotteryHistoryPrizeVOQueryList = (List<SportsLotteryHistoryPrizeVO>) retJsonObject.get(sportsLotteryType);
+            sportsLotteryHistoryPrizeSotreDataVOList.addAll(sportsLotteryHistoryPrizeVOList);
         }
-        sportsLotteryHistoryPrizeVOQueryList.addAll(sportsLotteryHistoryPrizeVOList);
-        JSONObject valueJsonObject=new JSONObject();
-        valueJsonObject.put(sportsLotteryType,sportsLotteryHistoryPrizeVOList);
-        redisTemplate.opsForValue().set(sportsLotteryType, valueJsonObject.toString());
-        return sportsLotteryHistoryPrizeVOList;
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put(sportsLotteryType, sportsLotteryHistoryPrizeSotreDataVOList);
+        redisTemplate.opsForValue().set(sportsLotteryType, jsonObject.toString());
+        return jsonObject;
     }
 
     @GetMapping("/querySportsLotteryHistoryPrize/{sportsLotteryType}")
     @ApiOperation(value = "查询历史开奖号码", notes = "查询历史开奖号码")
-    public List<SportsLotteryHistoryPrizeVO> querySportsLotteryHistoryPrize(
+    public Map<String, String> querySportsLotteryHistoryPrize(
             @ApiParam(name = "sportsLotteryType", value = "类型 1：双色球31选7, 2:大乐透31选5+12选2", required = true) @PathVariable("sportsLotteryType") String sportsLotteryType) {
-        List<SportsLotteryHistoryPrizeVO> sportsLotteryHistoryPrizeVOList = null;
+        List<SportsLotteryHistoryPrizeVO> sportsLotteryHistoryPrizeVOList = new ArrayList<>();
         if ("1".equals(sportsLotteryType)) {
             String redisValue = redisTemplate.opsForValue().get("lotteryOf31Choose7List");
-            if (redisValue!=null){
-                sportsLotteryHistoryPrizeVOList = (List<SportsLotteryHistoryPrizeVO>) ((JSONObject) JSONObject.parse(redisValue)).get("lotteryOf31Choose7List");
+            if (redisValue != null) {
+                sportsLotteryHistoryPrizeVOList = JSON.parseArray(JSON.parseObject(redisValue).getString("lotteryOf31Choose7List"), SportsLotteryHistoryPrizeVO.class);
             }
         }
-        return sportsLotteryHistoryPrizeVOList;
+        Map<String, String> sportsLotteryHistoryPrizeMapVO = new HashMap<>();
+        sportsLotteryHistoryPrizeVOList.stream().map(s -> {
+            sportsLotteryHistoryPrizeMapVO.put(s.getPrizeDate(), s.getPrizeNum());
+            return null;
+        }).collect(Collectors.toList());
+
+        //排序
+        Map<String, String> sportsLotteryHistoryPrizeMapSortVO = sportsLotteryHistoryPrizeMapVO.entrySet()
+                .stream()
+                .sorted(Collections.reverseOrder(comparingByKey()))
+                .collect(toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
+        return sportsLotteryHistoryPrizeMapSortVO;
     }
 
     /**

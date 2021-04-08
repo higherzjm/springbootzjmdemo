@@ -2,6 +2,9 @@ package com.zjm;
 
 
 import cn.hutool.core.util.ObjectUtil;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
@@ -23,6 +26,22 @@ public class Test4 {
       Integer a=1;
       String b="1";
       System.out.println(a.toString().equals(b));
+
+    }
+
+    @Test
+    public void test4(){
+        JSONObject jsonObject=new JSONObject();
+        List<Student> studentList=new ArrayList<>();
+        Student student=new Student(1,"a",10);
+        studentList.add(student);
+        studentList.add(new Student(2,"b",20));
+        jsonObject.put("xx",studentList);
+
+        String aa=jsonObject.toJSONString();
+
+        List<Student> studentList1 = JSON.parseArray(JSON.parseObject(aa).getString("xx"), Student.class);
+        log.info(""+studentList1);
 
     }
     @Test

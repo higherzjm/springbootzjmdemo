@@ -3,7 +3,12 @@ package com.zjm;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -750,8 +755,10 @@ class Department {
 }
 
 
-
-class Student {
+@Data
+@Builder
+@NoArgsConstructor
+class Student implements Serializable {
     private int id;
     private String name;
     private int age;

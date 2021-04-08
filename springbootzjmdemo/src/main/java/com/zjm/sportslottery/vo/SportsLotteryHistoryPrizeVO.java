@@ -8,6 +8,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 /**
  * @author zhujianming
  */
@@ -16,7 +18,7 @@ import lombok.NoArgsConstructor;
 @ApiModel("体彩历史开奖号码")
 @NoArgsConstructor
 @AllArgsConstructor
-public class SportsLotteryHistoryPrizeVO {
+public class SportsLotteryHistoryPrizeVO implements Serializable {
     @ApiModelProperty(value = "类型 1：双色球31选7, 2:大乐透31选5+12选2")
     private String sportsLotteryType;
     @NotNull(message = "开奖时间不能为空")
