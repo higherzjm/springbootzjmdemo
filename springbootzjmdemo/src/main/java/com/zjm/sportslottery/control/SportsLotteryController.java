@@ -1,10 +1,10 @@
-package com.zjm.sportslottery;
+package com.zjm.sportslottery.control;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.zjm.sportslottery.util.ComparatorList;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -104,15 +104,6 @@ public class SportsLotteryController {
         dataList.addAll(dataList5);
         dataList.addAll(dataList2);
         return dataList.toString();
-    }
-
-}
-
-class ComparatorList implements Comparator<Integer> {
-    @Override
-    public int compare(Integer o1, Integer o2) {
-        // 这里返回的值，1升序 -1降序
-        return o1 > o2 ? 1 : -1;
     }
 
 }
