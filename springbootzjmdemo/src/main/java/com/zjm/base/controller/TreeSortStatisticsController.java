@@ -4,6 +4,7 @@ import com.zjm.base.VO.SchoolVO;
 import com.zjm.base.service.ITreeSortStatisticsService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -57,12 +58,12 @@ public class TreeSortStatisticsController {
         v11.setSubSchoolVOList(SchoolVOList);
         System.out.println(v0);
     }
-    @RequestMapping("/initTreeInfo")
+    @GetMapping("/initTreeInfo")
     public SchoolVO initTreeInfo() {
         this.initOrResetTreeInfo();
         return v0;
     }
-    @RequestMapping("/treeStatisticsBySign")
+    @GetMapping("/treeStatisticsBySign")
     public SchoolVO treeStatisticsBySign() {
         this.initOrResetTreeInfo();
 
@@ -71,7 +72,7 @@ public class TreeSortStatisticsController {
         return schoolVO;
     }
 
-    @RequestMapping("/tressStatisticsByOverall")
+    @GetMapping("/tressStatisticsByOverall")
     public SchoolVO tressStatisticsByOverall() {
         this.initOrResetTreeInfo();
 

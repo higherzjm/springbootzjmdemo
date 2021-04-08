@@ -1,5 +1,6 @@
 package com.zjm.sportslottery.vo;
 
+import javax.validation.constraints.NotNull;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -16,9 +17,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SportsLotteryHistoryPrizeVO {
-    @ApiModelProperty(value = "类型")
-    private String type;
-    @ApiModelProperty(value = "开奖时间")
+    @ApiModelProperty(value = "类型 1：双色球31选7, 2:大乐透31选5+12选2")
+    private String sportsLotteryType;
+    @NotNull(message = "开奖时间不能为空")
+    @ApiModelProperty(value = "开奖时间", required = true)
     private String prizeDate;
     @ApiModelProperty(value = "开奖号码")
     private String prizeNum;

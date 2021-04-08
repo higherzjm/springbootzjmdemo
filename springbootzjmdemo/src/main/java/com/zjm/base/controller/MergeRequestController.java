@@ -20,7 +20,7 @@ public class MergeRequestController {
     private IMergeRequestService mergeRequestService;
 
     //积攒请求
-    @RequestMapping("/mergeRequest")
+    @GetMapping("/mergeRequest")
     public Long mergeRequest() {
         return mergeRequestService.mergeRequest();
     }
