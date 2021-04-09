@@ -35,8 +35,8 @@
         </dependency>
         <dependency>
             <groupId>cn.hutool</groupId>
-            <artifactId>hutool-core</artifactId>
-            <version>4.5.11</version>
+            <artifactId>hutool-all</artifactId>
+            <version>5.6.2</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
