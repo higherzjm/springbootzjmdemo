@@ -44,6 +44,12 @@ public class SportsLotteryController {
             if (redisValue != null) {
                 sportsLotteryHistoryPrizeSotreDataVOList = JSON.parseArray(JSON.parseObject(redisValue).getString(sportsLotteryType), SportsLotteryHistoryPrizeVO.class);
             }
+        }else if ("2".equals(sportsLotteryHistoryPrizeVOList.get(0).getSportsLotteryType())){
+            sportsLotteryType = "lotteryOf35Choose7List";
+            String redisValue = redisTemplate.opsForValue().get("lotteryOf31Choose7List");
+            if (redisValue != null) {
+                sportsLotteryHistoryPrizeSotreDataVOList = JSON.parseArray(JSON.parseObject(redisValue).getString(sportsLotteryType), SportsLotteryHistoryPrizeVO.class);
+            }
         }
         if (sportsLotteryHistoryPrizeSotreDataVOList==null){
             sportsLotteryHistoryPrizeSotreDataVOList=sportsLotteryHistoryPrizeVOList;
@@ -66,10 +72,15 @@ public class SportsLotteryController {
             if (redisValue != null) {
                 sportsLotteryHistoryPrizeVOList = JSON.parseArray(JSON.parseObject(redisValue).getString("lotteryOf31Choose7List"), SportsLotteryHistoryPrizeVO.class);
             }
+        }else if ("2".equals(sportsLotteryType)){
+            String redisValue = redisTemplate.opsForValue().get("lotteryOf35Choose7List");
+            if (redisValue != null) {
+                sportsLotteryHistoryPrizeVOList = JSON.parseArray(JSON.parseObject(redisValue).getString("lotteryOf35Choose7List"), SportsLotteryHistoryPrizeVO.class);
+            }
         }
         Map<String, String> sportsLotteryHistoryPrizeMapVO = new HashMap<>();
         sportsLotteryHistoryPrizeVOList.stream().map(s -> {
-            sportsLotteryHistoryPrizeMapVO.put(s.getPrizeDate(), s.getPrizeNum());
+            sportsLotteryHistoryPrizeMapVO.put(s.getPrizeDate(), formatDatas(s.getPrizeNum()));
             return null;
         }).collect(Collectors.toList());
 
@@ -80,6 +91,19 @@ public class SportsLotteryController {
                 .collect(toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
         return sportsLotteryHistoryPrizeMapSortVO;
     }
+    private String formatDatas(String prizeNum){
+       String[] strs=prizeNum.split(" ");
+       String newPrizeNum="";
+       for (String str:strs){
+           if (!str.equals("#")&&str.length()==1){
+               str="0"+str+" ";
+           }else {
+               str=str+" ";
+           }
+           newPrizeNum=newPrizeNum+str;
+       }
+        return newPrizeNum.substring(0,newPrizeNum.lastIndexOf(" "));
+    }
 
     /**
      * @Description: 福建体彩31选7 每周一、三、六,每日开奖
@@ -88,15 +112,6 @@ public class SportsLotteryController {
     @GetMapping("/lotteryOf31Choose7")
     @ApiOperation(value = "体彩--31选7", notes = "notes:体彩--31选7")
     public String lotteryOf31Choose7() {
-        String redisValue = redisTemplate.opsForValue().get("lotteryOf31Choose7List");
-        JSONObject jsonObject = new JSONObject();
-        JSONArray jsonArray;
-        if (redisValue == null) {
-            jsonArray = new JSONArray();
-        } else {
-            jsonArray = JSON.parseArray(redisValue);
-        }
-
         Random random = new Random(System.currentTimeMillis());
         List<Integer> dataList = new ArrayList<>();
         for (int i = 0; i < 7; i++) {
@@ -105,16 +120,18 @@ public class SportsLotteryController {
         }
         ComparatorList cl = new ComparatorList();
         dataList.sort(cl);
-        jsonObject.put("lotteryOf31Choose7", dataList.toString());
-        jsonArray.add(dataList.toString());
-        redisTemplate.opsForValue().set("lotteryOf31Choose7List", jsonArray.toString());
-        return jsonArray.toString();
+        return dataList.toString();
     }
 
-    @GetMapping("/deleteLotteryOf31Choose7Cache")
+    @GetMapping("/deleteLotteryOf31Choose7Cache/{sportsLotteryType}")
     @ApiOperation(value = "体彩--删除缓存", notes = "notes:体彩--删除缓存")
-    public boolean deleteLotteryOf31Choose7Cache() {
-        return redisTemplate.delete("lotteryOf31Choose7List");
+    public boolean deleteLotteryOf31Choose7Cache(@ApiParam(name = "sportsLotteryType", value = "类型 1：双色球31选7, 2:大乐透31选5+12选2", required = true) @PathVariable("sportsLotteryType") String sportsLotteryType) {
+        if ("1".equals(sportsLotteryType)) {
+            return redisTemplate.delete("lotteryOf31Choose7List");
+        }else if ("2".equals(sportsLotteryType)){
+            return redisTemplate.delete("lotteryOf35Choose7List");
+        }
+        return false;
     }
 
 
