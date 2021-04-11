@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.zjm.sportslottery.util.ComparatorList;
 import com.zjm.sportslottery.vo.SportsLotteryHistoryPrizeVO;
+import com.zjm.sportslottery.vo.SportsLotteryRandomGenerationRuleVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -147,12 +148,12 @@ public class SportsLotteryController {
 
     private String analysisPrizeNumData(List<String> allPrizeNum, String sportsLotteryType) {
         int allPrizeNumSize = allPrizeNum.size();
-        if (allPrizeNumSize== 0) {
+        if (allPrizeNumSize == 0) {
             return "无数据";
         }
         int beforePrizeNumTotalSize = allPrizeNumSize * 5;
-        if (sportsLotteryType.equals("1")){
-            beforePrizeNumTotalSize=allPrizeNumSize*8;
+        if (sportsLotteryType.equals("1")) {
+            beforePrizeNumTotalSize = allPrizeNumSize * 8;
         }
         int afterPrizeNumTotalSize = allPrizeNumSize * 2;
 
@@ -262,23 +263,6 @@ public class SportsLotteryController {
         return newPrizeNum.substring(0, newPrizeNum.lastIndexOf(regex));
     }
 
-    /**
-     * 福建体彩31选7 每周一、三、六,每日开奖
-     * http://localhost:8081/sportsLottery/lotteryOf31Choose7
-     */
-    @GetMapping("/lotteryOf31Choose7")
-    @ApiOperation(value = "体彩--31选7", notes = "notes:体彩--31选7")
-    public String lotteryOf31Choose7() {
-        Random random = new Random(System.currentTimeMillis());
-        List<Integer> dataList = new ArrayList<>();
-        for (int i = 0; i < 7; i++) {
-            Integer data = random.nextInt(32);
-            addValue(data, dataList, 0);
-        }
-        ComparatorList cl = new ComparatorList();
-        dataList.sort(cl);
-        return dataList.toString();
-    }
 
     @GetMapping("/deleteLotteryOf31Choose7Cache/{sportsLotteryType}")
     @ApiOperation(value = "体彩--删除缓存", notes = "notes:体彩--删除缓存")
@@ -298,40 +282,104 @@ public class SportsLotteryController {
         } else {
             Random random = new Random(System.currentTimeMillis() + m);
             Integer data = random.nextInt(32);
-            log.info("data:" + data);
             m++;
             addValue(data, valueList, m);
         }
     }
 
+    @PostMapping("/sportsLotteryRandomGeneration")
+    @ApiOperation(value = "体彩随机生成", notes = "体彩随机生成")
+    public String sportsLotteryRandomGeneration(@RequestBody @Validated SportsLotteryRandomGenerationRuleVO sportsLotteryRandomGenerationRuleVO) {
+        List<String> executeResultList = new ArrayList<>();
+        executeRandomGenerationRule(sportsLotteryRandomGenerationRuleVO, executeResultList);
+        return executeResultList.toString();
+    }
 
     /**
-     * 大乐透（前区“35选5”＋后区“12选2”） 每周一、三、六
-     * http://localhost:8081/sportsLottery/lotteryOf35Choose7
+     * 随机生成处理程序
      */
-    @GetMapping("/lotteryOf35Choose7")
-    @ApiOperation(value = "体彩--35选7", notes = "notes:体彩--35选7")
-    public String lotteryOf35Choose7() {
+    private void executeRandomGenerationRule(SportsLotteryRandomGenerationRuleVO sportsLotteryRandomGenerationRuleVO, List<String> executeResultList) {
+
         List<Integer> dataList = new ArrayList<>();
         Random random = new Random(System.currentTimeMillis());
-        List<Integer> dataList5 = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            Integer data = random.nextInt(36);
-            addValue(data, dataList5, 0);
+        List<Integer> dataListBefore = new ArrayList<>();
+        if (sportsLotteryRandomGenerationRuleVO.getSportsLotteryType().equals("2")) {
+            /**
+             * 福建体彩31选7 每周一、三、六,每日开奖
+             * http://localhost:8081/sportsLottery/lotteryOf31Choose7
+             */
+            for (int i = 0; i < 5; i++) {
+                Integer data = random.nextInt(36);
+                addValue(data, dataListBefore, 0);
+            }
+        } else if (sportsLotteryRandomGenerationRuleVO.getSportsLotteryType().equals("1")) {
+            /**
+             * 大乐透（前区“35选5”＋后区“12选2”） 每周一、三、六
+             * http://localhost:8081/sportsLottery/lotteryOf35Choose7
+             */
+            for (int i = 0; i < 7; i++) {
+                Integer data = random.nextInt(32);
+                addValue(data, dataListBefore, 0);
+            }
         }
         ComparatorList cl = new ComparatorList();
-        dataList5.sort(cl);
+        dataListBefore.sort(cl);
+        dataList.addAll(dataListBefore);
+        List<Integer> dataListAfter = new ArrayList<>();
 
-        List<Integer> dataList2 = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
-            Integer data = random.nextInt(13);
-            addValue(data, dataList2, 0);
+        if (sportsLotteryRandomGenerationRuleVO.getSportsLotteryType().equals("2")) {
+
+            for (int i = 0; i < 2; i++) {
+                Integer data = random.nextInt(13);
+                addValue(data, dataListAfter, 0);
+            }
+            dataListAfter.sort(cl);
+            dataList.addAll(dataListAfter);
         }
-        dataList2.sort(cl);
+        String executeResult = dataList.toString();
+        log.info("executeResult:" + executeResult);
+        Integer between_1_10_size = dataListBefore.stream().filter(s -> s >= 1 && s <= 10).collect(Collectors.toList()).size();
+        Integer between_11_20_size = dataListBefore.stream().filter(s -> s >= 11 && s <= 20).collect(Collectors.toList()).size();
+        Integer between_21_30_size = dataListBefore.stream().filter(s -> s >= 21 && s <= 30).collect(Collectors.toList()).size();
+        Integer between_31_35_size = dataListBefore.stream().filter(s -> s >= 31 && s <= 35).collect(Collectors.toList()).size();
 
-        dataList.addAll(dataList5);
-        dataList.addAll(dataList2);
-        return dataList.toString();
+        if (sportsLotteryRandomGenerationRuleVO.getBetween_1_10_size() != between_1_10_size ||
+                sportsLotteryRandomGenerationRuleVO.getBetween_11_20_size() != between_11_20_size ||
+                sportsLotteryRandomGenerationRuleVO.getBetween_21_30_size() != between_21_30_size ||
+                sportsLotteryRandomGenerationRuleVO.getBetween_31_35_size() != between_31_35_size) {
+
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            executeRandomGenerationRule(sportsLotteryRandomGenerationRuleVO, executeResultList);
+
+        } else {
+            if (sportsLotteryRandomGenerationRuleVO.getSportsLotteryType().equals("2")) {
+                Integer after_1_3_size = dataListAfter.stream().filter(s -> s >= 1 && s <= 3).collect(Collectors.toList()).size();
+                Integer after_4_6_size = dataListAfter.stream().filter(s -> s >= 4 && s <= 6).collect(Collectors.toList()).size();
+                Integer after_7_9_size = dataListAfter.stream().filter(s -> s >= 7 && s <= 9).collect(Collectors.toList()).size();
+                Integer after_10_12_size = dataListAfter.stream().filter(s -> s >= 10 && s <= 12).collect(Collectors.toList()).size();
+                if (sportsLotteryRandomGenerationRuleVO.getAfter_1_3_size() != after_1_3_size ||
+                        sportsLotteryRandomGenerationRuleVO.getAfter_4_6_size() != after_4_6_size ||
+                        sportsLotteryRandomGenerationRuleVO.getAfter_7_9_size() != after_7_9_size ||
+                        sportsLotteryRandomGenerationRuleVO.getAfter_10_12_size() != after_10_12_size) {
+                    try {
+                        Thread.sleep(10);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    executeRandomGenerationRule(sportsLotteryRandomGenerationRuleVO, executeResultList);
+                } else {
+                    executeResultList.add(executeResult);
+                }
+
+            } else if (sportsLotteryRandomGenerationRuleVO.getSportsLotteryType().equals("1")) {
+                executeResultList.add(executeResult);
+            }
+        }
+
     }
 
 }
