@@ -60,5 +60,11 @@
             <artifactId>hutool-all</artifactId>
             <version>5.6.2</version>
         </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>tools</artifactId>
+            <version>RELEASE</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 </project>
