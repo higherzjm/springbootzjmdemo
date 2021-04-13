@@ -39,6 +39,17 @@ public class ConsistentHashingWithoutVirtualNodeTest {
         consistentHashing.addNode("S444");
         log.info("--------------------putData----------------------");
         consistentHashing.putData("D444");
+        consistentHashing.putData("D张三");
+        consistentHashing.putData("D李四");
+        consistentHashing.putData("D王五");
+        consistentHashing.putData("D李六");
+        consistentHashing.putData("D110");
+        consistentHashing.putData("D112");
+        consistentHashing.putData("D113");
+        consistentHashing.putData("D223");
+        consistentHashing.putData("D334");
+        consistentHashing.putData("D554");
+        consistentHashing.putData("D556");
         log.info("------------------------nodes_datas------------------");
         consistentHashing.printAllData();
     }

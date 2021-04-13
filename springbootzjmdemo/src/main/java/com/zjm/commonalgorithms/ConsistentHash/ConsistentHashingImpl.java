@@ -70,8 +70,8 @@ public class ConsistentHashingImpl implements ConsistentHashing {
         hashToNodes = new TreeMap<>();
         nodeToData = new HashMap<>();
         for(String server : nodes){
-            hashToNodes.put(getHash(server), server);
-            nodeToData.put(server, new LinkedList<>());
+            hashToNodes.put(getHash(server), server);//节点  hash键值对， (节点hash,节点编号)
+            nodeToData.put(server, new LinkedList<>());//节点存储数据键值对 ，(节点名称,数据列表)
         }
         //3. if virtual node number bigger than 0, add virtual node
         if(virtualNodeNum > 0){
@@ -101,11 +101,12 @@ public class ConsistentHashingImpl implements ConsistentHashing {
         //1. calculate data's hash value
         int currentHash = getHash(data);
         //2. get usual node(node's hash value is bigger than data's hash value), if usual node list is empty, get first node in loop
-        SortedMap<Integer, String> usableNodes = hashToNodes.tailMap(currentHash);
-        String node = usableNodes.isEmpty() ? hashToNodes.get(hashToNodes.firstKey()) : usableNodes.get(usableNodes.firstKey());
+        //获取普通节点（节点的哈希值大于数据的哈希值），如果普通节点列表为空，则获取循环中的第一个节点
+        SortedMap<Integer, String> usableNodes = hashToNodes.tailMap(currentHash);//根据数据hash获取临近节点hash  (tailMap(K fromKey)  获取大于等于后面的数据  )
+        String node = usableNodes.isEmpty() ? hashToNodes.get(hashToNodes.firstKey()) : usableNodes.get(usableNodes.firstKey());//获取第一个几点
         //3. add data to node
-        List<String> dataList = nodeToData.get(node);
-        dataList.add(data);
+        List<String> dataList = nodeToData.get(node);//获取节点已存数据
+        dataList.add(data);//节点中添加数据
         log.info("put data, data {} is placed to server {}, hash: {}", data, node, currentHash);
         return true;
     }
