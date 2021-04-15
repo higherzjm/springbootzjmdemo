@@ -102,7 +102,7 @@ public class ConsistentHashingImpl implements ConsistentHashing {
         int currentHash = getHash(data);
         //2. get usual node(node's hash value is bigger than data's hash value), if usual node list is empty, get first node in loop
         //获取普通节点（节点的哈希值大于数据的哈希值），如果普通节点列表为空，则获取循环中的第一个节点
-        SortedMap<Integer, String> usableNodes = hashToNodes.tailMap(currentHash);//根据数据hash获取临近节点hash  (tailMap(K fromKey)  获取大于等于后面的数据  )
+        SortedMap<Integer, String> usableNodes = hashToNodes.tailMap(currentHash);//根据数据hash获取大于等于此hash的节点
         String node = usableNodes.isEmpty() ? hashToNodes.get(hashToNodes.firstKey()) : usableNodes.get(usableNodes.firstKey());//获取第一个几点
         //3. add data to node
         List<String> dataList = nodeToData.get(node);//获取节点已存数据

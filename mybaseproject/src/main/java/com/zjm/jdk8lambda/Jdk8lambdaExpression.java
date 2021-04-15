@@ -1,6 +1,8 @@
 package com.zjm.jdk8lambda;
 
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -11,70 +13,71 @@ import static java.util.stream.Collectors.toMap;
 /**
  * @author zhujianming
  */
+@Slf4j
 public class Jdk8lambdaExpression {
     public static void main(String[] args) {
         Jdk8lambdaExpression jdk8New = new Jdk8lambdaExpression();
-        List<Student> studentList = Arrays.asList(new Student(1, "å¼ ä¸‰", 10), new Student(11, "å¼ ä¸‰2", 10),
-                new Student(2, "æå››", 20), new Student(3, "æå››2", 20), new Student(4, "ç‹äº”", 30),
-                new Student(5, "ç‹äº”", 30));
+        List<Student> studentList = Arrays.asList(new Student(1, "ÕÅÈı", 10), new Student(11, "ÕÅÈı2", 10),
+                new Student(2, "ÀîËÄ", 20), new Student(3, "ÀîËÄ2", 20), new Student(4, "ÍõÎå", 30),
+                new Student(5, "ÍõÎå", 30));
 
-        jdk8New.test1(studentList);//è½¬æ¢æˆmap
-        jdk8New.test2(studentList);//è·å–é›†åˆä¸­çš„æŒ‡å®šä¿¡æ¯åˆ—è¡¨
-        jdk8New.test3(studentList);//è¿‡æ»¤
-        jdk8New.test4(studentList);//æ’åº
-        jdk8New.test5(studentList);//é€’å½’
+        jdk8New.test1(studentList);//×ª»»³Émap
+        jdk8New.test2(studentList);//»ñÈ¡¼¯ºÏÖĞµÄÖ¸¶¨ĞÅÏ¢ÁĞ±í
+        jdk8New.test3(studentList);//¹ıÂË
+        jdk8New.test4(studentList);//ÅÅĞò
+        jdk8New.test5(studentList);//µİ¹é
         jdk8New.test6(null);
-        jdk8New.test7(studentList);//å»é‡
-        jdk8New.test8(studentList);//åˆ¤ç©º
-        jdk8New.test9(studentList);//æˆªå–
-        jdk8New.test10(studentList);//æ¡ä»¶æ ¡éªŒ
-        jdk8New.test11(studentList);//é›†åˆè½¬æ¢
-        jdk8New.test12(studentList);//åˆ†ç»„
-        jdk8New.test13(studentList);//è½¬æ¢æˆmapï¼Œå¹¶æŒ‰keyè¿›è¡Œæ’åº
+        jdk8New.test7(studentList);//È¥ÖØ
+        jdk8New.test8(studentList);//ÅĞ¿Õ
+        jdk8New.test9(studentList);//½ØÈ¡
+        jdk8New.test10(studentList);//Ìõ¼şĞ£Ñé
+        jdk8New.test11(studentList);//¼¯ºÏ×ª»»
+        jdk8New.test12(studentList);//·Ö×é
+        jdk8New.test13(studentList);//×ª»»³Émap£¬²¢°´key½øĞĞÅÅĞò
 
     }
 
-    //è½¬æ¢æˆmap,å¯ä»¥ç”¨åœ¨å¯¹ä¸€äº›é›†åˆè¿›è¡Œåˆ†ç»„ï¼Œæ¯”å¦‚æŒ‰å­¦ç”Ÿå¹´é¾„æˆ–å§“ååˆ†ç»„
+    //×ª»»³Émap,¿ÉÒÔÓÃÔÚ¶ÔÒ»Ğ©¼¯ºÏ½øĞĞ·Ö×é£¬±ÈÈç°´Ñ§ÉúÄêÁä»òĞÕÃû·Ö×é
     public void test1(List<Student> studentList) {
-        System.out.println("----------------è½¬æ¢æˆmap-------------------");
+        System.out.println("----------------×ª»»³Émap-------------------");
         Map<Integer, Student> studentMap = studentList.stream().collect(Collectors.toMap(Student::getId, Function.identity()));
         System.out.println(studentMap);
         Map<Integer, String> studentIdNameMap = studentList.stream().filter(s -> s.getId() == 1 || s.getId() == 2).collect(Collectors.toMap(Student::getAge, Student::getName));
         System.out.println(studentIdNameMap);
     }
 
-    //è·å–é›†åˆä¸­çš„æŒ‡å®šä¿¡æ¯åˆ—è¡¨ï¼Œå¯ä»¥ç”¨åœ¨å»é™¤é›†åˆä¸­çš„å†—ä½™ä¿¡æ¯ï¼Œæ¯”å¦‚æˆ‘å°±éœ€è¦è·å–å­¦ç”Ÿçš„å§“ååˆ—è¡¨
+    //»ñÈ¡¼¯ºÏÖĞµÄÖ¸¶¨ĞÅÏ¢ÁĞ±í£¬¿ÉÒÔÓÃÔÚÈ¥³ı¼¯ºÏÖĞµÄÈßÓàĞÅÏ¢£¬±ÈÈçÎÒ¾ÍĞèÒª»ñÈ¡Ñ§ÉúµÄĞÕÃûÁĞ±í
     public void test2(List<Student> studentList) {
-        System.out.println("----------------è·å–é›†åˆä¸­çš„æŒ‡å®šä¿¡æ¯åˆ—è¡¨-------------------");
+        System.out.println("----------------»ñÈ¡¼¯ºÏÖĞµÄÖ¸¶¨ĞÅÏ¢ÁĞ±í-------------------");
         List<String> studentNames = studentList.stream().map(Student::getName).collect(Collectors.toList());
         System.out.println(studentNames);
     }
 
-    //è¿‡æ»¤ï¼ŒæŒ‰æ¡ä»¶è·å–å­é›†åˆ
+    //¹ıÂË£¬°´Ìõ¼ş»ñÈ¡×Ó¼¯ºÏ
     public void test3(List<Student> studentList) {
-        System.out.println("----------------è¿‡æ»¤-------------------");
+        System.out.println("----------------¹ıÂË-------------------");
         List<Student> studentList1 = studentList.stream().filter(s -> s.getAge() >= 20).collect(Collectors.toList());
         System.out.println(studentList1);
     }
 
-    //æ’åºï¼Œæ•°æ®çš„æ­£åºæˆ–å€’åºæ’
+    //ÅÅĞò£¬Êı¾İµÄÕıĞò»òµ¹ĞòÅÅ
     public void test4(List<Student> studentList) {
-        System.out.println("----------------æ’åº-------------------");
+        System.out.println("----------------ÅÅĞò-------------------");
         List<Student> studentList1 = studentList.stream().sorted(Comparator.comparing(Student::getAge)).collect(Collectors.toList());
-        System.out.println("æ­£åº:" + studentList1);
+        System.out.println("ÕıĞò:" + studentList1);
         studentList1 = studentList.stream().sorted(Comparator.comparing(Student::getAge).reversed()).collect(Collectors.toList());
-        System.out.println("å€’åº:" + studentList1);
+        System.out.println("µ¹Ğò:" + studentList1);
     }
 
-    //é€’å½’ï¼Œè·Ÿforå¾ªç¯ä½œç”¨ä¸€æ ·
+    //µİ¹é£¬¸úforÑ­»·×÷ÓÃÒ»Ñù
     public void test5(List<Student> studentList) {
-        System.out.println("----------------é€’å½’-------------------");
-        System.out.println("listé›†åˆé€’å½’ï¼š");
+        System.out.println("----------------µİ¹é-------------------");
+        System.out.println("list¼¯ºÏµİ¹é£º");
         studentList.forEach(s -> {
             System.out.print(s + " ");
         });
         System.out.println("");
-        System.out.println(" mapé€’å½’ï¼š");
+        System.out.println(" mapµİ¹é£º");
         Map<Integer, String> stringIdNameMap = studentList.stream().collect(Collectors.toMap(Student::getId, Student::getName));
         stringIdNameMap.forEach((k, v) -> {
             System.out.print(k + ":" + v + " ");
@@ -82,47 +85,47 @@ public class Jdk8lambdaExpression {
         System.out.println("");
     }
 
-    //åˆ¤ç©º:orElseä¸ºç©ºè¿”å›æ–°çš„å€¼ï¼Œ orElseGetä¸ºç©ºgetæ–°å€¼
+    //ÅĞ¿Õ:orElseÎª¿Õ·µ»ØĞÂµÄÖµ£¬ orElseGetÎª¿ÕgetĞÂÖµ
     public void test6(List<Student> studentList) {
-        System.out.println("----------------åˆ¤ç©º-------------------");
+        System.out.println("----------------ÅĞ¿Õ-------------------");
         List<Student> studentsNew = Optional.ofNullable(studentList).orElse(Arrays.asList(new Student(22, "aa", 101), new Student(22, "bb", 102)));
         System.out.println(studentsNew);
         studentsNew = Optional.ofNullable(studentList).orElseGet(() -> Arrays.asList(new Student(22, "aa", 101), new Student(22, "bb", 102)));
         System.out.println(studentsNew);
     }
 
-    //å»é‡
+    //È¥ÖØ
     public void test7(List<Student> studentList) {
-        System.out.println("----------------å»é‡-------------------");
+        System.out.println("----------------È¥ÖØ-------------------");
         List<Integer> studentAges = studentList.stream().map(Student::getAge).distinct().collect(Collectors.toList());
         System.out.println(studentAges);
     }
 
-    //æˆªå–
+    //½ØÈ¡
     public void test8(List<Student> studentList) {
-        System.out.println("----------------æˆªå–-------------------");
+        System.out.println("----------------½ØÈ¡-------------------");
         List<Student> studentListLimt = studentList.stream().limit(2).collect(Collectors.toList());
         System.out.println(studentListLimt);
     }
 
-    //æ±‡æ€»ï¼Œä¸»è¦ç”¨åœ¨intï¼Œlongï¼Œdoubleç±»å‹çš„æ±‡æ€»ï¼ŒBigDecimalç±»å‹ä¸æ”¯æŒ
+    //»ã×Ü£¬Ö÷ÒªÓÃÔÚint£¬long£¬doubleÀàĞÍµÄ»ã×Ü£¬BigDecimalÀàĞÍ²»Ö§³Ö
     public void test9(List<Student> studentList) {
-        System.out.println("---------------- æ±‡æ€»-------------------");
+        System.out.println("---------------- »ã×Ü-------------------");
         IntSummaryStatistics intSummaryStatistics = studentList.stream().mapToInt(Student::getAge).summaryStatistics();
         System.out.println("sum:" + intSummaryStatistics.getSum() + ";max:" + intSummaryStatistics.getMax());
 
     }
 
-    //æ¡ä»¶æ ¡éªŒ,ä¸»è¦è¿”å›æ˜¯å¦é…æŸç§æ ¡éªŒæ¡ä»¶
+    //Ìõ¼şĞ£Ñé,Ö÷Òª·µ»ØÊÇ·ñÅäÄ³ÖÖĞ£ÑéÌõ¼ş
     public void test10(List<Student> studentList) {
-        System.out.println("---------------- æ¡ä»¶æ ¡éªŒ-------------------");
+        System.out.println("---------------- Ìõ¼şĞ£Ñé-------------------");
         boolean checkStatus = studentList.stream().anyMatch(s -> s.getAge() > 10);
         System.out.println(checkStatus);
     }
 
-    //é›†åˆè½¬æ¢ï¼Œè¯¥ç”¨æ³•å¾ˆå¤šå®é™…æƒ…å†µä¸‹æ ¹æ®æŒ‡å®šå‚æ•°è¿”å›æŒ‡å®šçš„ç»“æœå€¼
+    //¼¯ºÏ×ª»»£¬¸ÃÓÃ·¨ºÜ¶àÊµ¼ÊÇé¿öÏÂ¸ù¾İÖ¸¶¨²ÎÊı·µ»ØÖ¸¶¨µÄ½á¹ûÖµ
     public void test11(List<Student> studentList) {
-        System.out.println("----------------é›†åˆè½¬æ¢-------------------");
+        System.out.println("----------------¼¯ºÏ×ª»»-------------------");
         List<Map<String, Integer>> studentNameAgeList = studentList.stream().map(s -> {
             Map<String, Integer> stringIntegerMap = new HashMap<>();
             stringIntegerMap.put(s.getName(), s.getAge());
@@ -131,29 +134,29 @@ public class Jdk8lambdaExpression {
         System.out.println(studentNameAgeList);
     }
 
-    //åˆ†ç»„
+    //·Ö×é
     public void test12(List<Student> studentList) {
-        System.out.println("----------------é›†åˆæŒ‰å¹´é¾„åˆ†ç»„-------------------");
+        System.out.println("----------------¼¯ºÏ°´ÄêÁä·Ö×é-------------------");
         Map<Integer, List<Student>> salaryPayrollItemGroups = studentList.stream().collect(Collectors.groupingBy(Student::getAge));
         salaryPayrollItemGroups.forEach((k, v) -> System.out.println("k:" + k + ";v:" + v));
     }
 
-    //è½¬æ¢æˆmapï¼Œå¹¶è¿›è¡ŒæŒ‰keyæ’åº
+    //×ª»»³Émap£¬²¢½øĞĞ°´keyÅÅĞò
     public void test13(List<Student> studentList) {
-        System.out.println("----------------è½¬æ¢æˆmapï¼Œå¹¶è¿›è¡ŒæŒ‰keyæ’åº-------------------");
+        System.out.println("----------------×ª»»³Émap£¬²¢½øĞĞ°´keyÅÅĞò-------------------");
         Map<Integer, Student> studentMap = studentList.stream().collect(Collectors.toMap(Student::getId, Function.identity()));
-        System.out.println("æ’åºå‰:" + studentMap);
+        System.out.println("ÅÅĞòÇ°:" + studentMap);
         studentMap = studentMap.entrySet()
                 .stream()
                 .sorted(Map.Entry.comparingByKey())
                 .collect(toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
 
-        System.out.println("æ­£åºæ’åºå:" + studentMap);
+        System.out.println("ÕıĞòÅÅĞòºó:" + studentMap);
         studentMap = studentMap.entrySet()
                 .stream()
                 .sorted(Collections.reverseOrder(comparingByKey()))
-                .collect(toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
-        System.out.println("å€’åºæ’åºå:" + studentMap);
+                .collect(toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) ->e1));
+        System.out.println("µ¹ĞòÅÅĞòºó:" + studentMap);
     }
 }
 class Student {
