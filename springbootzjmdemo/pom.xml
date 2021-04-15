@@ -72,9 +72,10 @@
         </dependency>
         <!--自定义校验的实现类，必须依赖 -->
         <dependency>
-            　　<groupId>org.hibernate</groupId>
-            　　<artifactId>hibernate-validator</artifactId>
-            　　<version>5.2.4.Final</version>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>5.2.4.Final</version>
         </dependency>
+
     </dependencies>
 </project>
