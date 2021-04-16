@@ -1,6 +1,7 @@
 package com.zjm.jdk8lambda;
 
 
+import com.zjm.jdk8lambda.VO.Student;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.*;
@@ -14,9 +15,9 @@ import static java.util.stream.Collectors.toMap;
  * @author zhujianming
  */
 @Slf4j
-public class Jdk8lambdaExpression {
+public class BaseJdk8lambdaExpression {
     public static void main(String[] args) {
-        Jdk8lambdaExpression jdk8New = new Jdk8lambdaExpression();
+        BaseJdk8lambdaExpression jdk8New = new BaseJdk8lambdaExpression();
         List<Student> studentList = Arrays.asList(new Student(1, "张三", 10), new Student(11, "张三2", 10),
                 new Student(2, "李四", 20), new Student(3, "李四2", 20), new Student(4, "王五", 30),
                 new Student(5, "王五", 30));
@@ -158,52 +159,6 @@ public class Jdk8lambdaExpression {
                 .collect(toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) ->e1));
         System.out.println("倒序排序后:" + studentMap);
     }
-}
-class Student {
-    private int id;
-    private String name;
-    private int age;
-
-    public int getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public Student(int id, String name, int age) {
-        this.id = id;
-        this.name = name;
-        this.age = age;
-    }
-
-    @Override
-    public String toString() {
-        return "Student{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", age=" + age +
-                '}';
-    }
-
-
 }
 
 
