@@ -1,11 +1,14 @@
 package com.zjm.customannotation;
 
+import lombok.extern.slf4j.Slf4j;
+
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 /**
  * @author zhujianming
  */
+@Slf4j
 public class MyAnnotationValidation implements ConstraintValidator<MyAnnotation, Integer> {
     private int maxValue;
 
@@ -17,6 +20,7 @@ public class MyAnnotationValidation implements ConstraintValidator<MyAnnotation,
 
     @Override
     public boolean isValid(Integer value, ConstraintValidatorContext context) {
+        log.info("自定义注解校验中..................");
         return maxValue>value;
     }
 }
