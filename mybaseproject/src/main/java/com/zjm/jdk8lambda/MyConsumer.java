@@ -17,11 +17,14 @@ public class MyConsumer {
     @Test
     public void test1() {
         List<Student> studentList = Arrays.asList(new Student(0, "张三", 20), new Student(1, "李四", 0));
-        myConsumer1(studentList, s -> s.forEach(a -> a.setName("2021-" + a.getName())));
+        myConsumer1(studentList, s -> s.forEach(a ->
+                //员工姓名前缀加年份
+                a.setName("2021-" + a.getName())));
         log.info("" + studentList);
     }
 
     public void myConsumer1(List<Student> studentsList, Consumer<List<Student>> consumer) {
+        //员工姓名前缀加月份
         studentsList.forEach(s -> s.setName("11 " + s.getName()));
         consumer.accept(studentsList);
     }
