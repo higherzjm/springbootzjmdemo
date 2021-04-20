@@ -34,6 +34,7 @@ public class SymmetricEncryptionDecryptionUtil {
         log.info(jsonObject.toJSONString());
 
         String dataDecryptionStr = dataDecryption(jsonObject.get("datas").toString(),jsonObject.get("secretkey").toString());
+        log.info("dataDecryptionStr:"+dataDecryptionStr);
         JSONObject dataDecryptionJson = JSONObject.parseObject(dataDecryptionStr);
 
         log.info("studentInfoList2:"+dataDecryptionJson.get("studentInfoList2"));
