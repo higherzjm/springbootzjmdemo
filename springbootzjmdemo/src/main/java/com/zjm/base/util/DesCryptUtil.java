@@ -1,7 +1,7 @@
 package com.zjm.base.util;
 
 import com.alibaba.fastjson.JSONObject;
-import com.zjm.redis.Students;
+import com.zjm.redis.base.Students;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.apache.tomcat.util.codec.binary.Base64;

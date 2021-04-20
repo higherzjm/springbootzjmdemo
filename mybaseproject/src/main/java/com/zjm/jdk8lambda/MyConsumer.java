@@ -26,6 +26,6 @@ public class MyConsumer {
     public void myConsumer1(List<Student> studentsList, Consumer<List<Student>> consumer) {
         //员工姓名前缀加月份
         studentsList.forEach(s -> s.setName("11 " + s.getName()));
-        consumer.accept(studentsList);
+        consumer.accept(studentsList);//回调到调用该方法的地方
     }
 }
