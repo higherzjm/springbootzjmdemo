@@ -52,7 +52,7 @@ public class DistributedLockController {
     }
 
     @GetMapping("/test2")
-    @ApiOperation(value = "分布式锁设置测试2--处理完任务lua脚本手动失效")
+    @ApiOperation(value = "分布式锁设置测试2--处理完任务lua脚本手动释放")
     public String test2() {
         Jedis jedis = new Jedis("localhost", 6379);
         jedis.auth("123456");
