@@ -15,10 +15,7 @@ import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESKeySpec;
 import java.security.Key;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -32,6 +29,18 @@ public class Test4 {
         String b = "1";
         System.out.println(a.toString().equals(b));
 
+    }
+    @Test
+    public void test6(){
+        SortedMap<Integer, String> treemap =  new TreeMap<>();
+        // populating tree map
+        treemap.put(2, "two");
+        treemap.put(1, "one");
+        treemap.put(7, "six");
+        treemap.put(3, "three");
+        treemap.put(6, "six");
+        treemap.put(5, "five");
+        log.info("获取大于等于指定key的子map:"+treemap.tailMap(3));
     }
 
     @Test
