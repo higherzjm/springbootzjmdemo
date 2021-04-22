@@ -1,5 +1,5 @@
 server:
-   port: 8081
+  port: 8081
 spring:
   redis:
     host: 127.0.0.1
@@ -65,3 +65,10 @@ mybatis:
     map-underscore-to-camel-case: true
     default-fetch-size: 500
     default-statement-timeout: 80
+logging:
+  level:
+    com:
+      lucifer:
+        springboot:
+          cache:
+            mapper: debug
