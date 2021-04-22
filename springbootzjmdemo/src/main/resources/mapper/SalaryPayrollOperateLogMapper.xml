@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zjm.springtransaction.mapper.SalaryPayrollOperateLogMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.zjm.springtransaction.entity.SalaryPayrollOperateLog">
+        <id column="id" property="id" />
+        <result column="organization_code" property="organizationCode" />
+        <result column="payroll_record_id" property="payrollRecordId" />
+        <result column="year" property="year" />
+        <result column="month" property="month" />
+        <result column="employee_code" property="employeeCode" />
+        <result column="employee_name" property="employeeName" />
+        <result column="employee_no" property="employeeNo" />
+        <result column="operate_type" property="operateType" />
+        <result column="busi_type" property="busiType" />
+        <result column="busi_unit" property="busiUnit" />
+        <result column="operate_object" property="operateObject" />
+        <result column="content" property="content" />
+        <result column="create_time" property="createTime" />
+        <result column="create_user" property="createUser" />
+        <result column="update_time" property="updateTime" />
+        <result column="update_user" property="updateUser" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+ id,  organization_code,  payroll_record_id,  year,  month,  employee_code,  employee_name,  employee_no,  operate_type,  busi_type,  busi_unit,  operate_object,  content,  create_time,  create_user,  update_time,  update_user
+    </sql>
+
+    <select id="querySalaryPayrollOperateLog"
+            resultType="com.zjm.springtransaction.VO.SalaryPayrollOperateLogResultVO">
+        SELECT
+        fo.id operateLogId,
+        fo.create_time operateDateTime,
+        CONCAT( fo.employee_name, '(', fo.employee_no, ')' ) operateUser,
+        fo.operate_type,
+        fo.busi_unit,
+        fo.busi_type,
+        fo.`year`,
+        fo.`month`,
+        fo.operate_object,
+        fo.content
+        FROM
+        t_finance_salary_payroll_operate_log fo
+        WHERE
+        fo.organization_code = #{param.organizationCode}
+
+        <if test="param.year!=null and param.year!=''">
+            AND fo.year = #{param.year}
+        </if>
+        <if test="param.month!=null and param.month!=''">
+            AND fo.month = #{param.month}
+        </if>
+
+      <!--  <if test="param.operateTypeList!=null">
+            AND fo.operate_type in
+            <foreach item="item" collection="param.operateTypeList" separator="," open="(" close=")" index="">
+                #{item}
+            </foreach>
+        </if>
+
+        &lt;!&ndash; 操作开始日期 &ndash;&gt;
+        <if test="param.operateDateBegin!=null">
+            <![CDATA[
+                AND date_format(fo.create_time, '%Y-%m-%d') >= date_format(#{param.operateDateBegin}, '%Y-%m-%d')
+                ]]>
+        </if>
+        &lt;!&ndash; 操作结束日期 &ndash;&gt;
+        <if test="param.operateDateEnd!=null">
+            <![CDATA[
+                AND date_format(fo.create_time, '%Y-%m-%d') <= date_format(#{param.operateDateEnd}, '%Y-%m-%d')
+                ]]>
+        </if>-->
+
+        order by fo.create_time desc
+    </select>
+
+</mapper>

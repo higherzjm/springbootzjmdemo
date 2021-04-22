@@ -58,3 +58,10 @@ spring:
         #启用
         enabled: true
 
+mybatis:
+  type-aliases-package: com.zjm.springtransaction.entity
+  mapper-locations: classpath:mapper/*Mapper.xml
+  configuration:
+    map-underscore-to-camel-case: true
+    default-fetch-size: 500
+    default-statement-timeout: 80
