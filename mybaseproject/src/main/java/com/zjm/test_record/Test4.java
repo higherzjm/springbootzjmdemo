@@ -1,9 +1,10 @@
-package com.zjm;
+package com.zjm.test_record;
 
 
 import cn.hutool.core.util.ObjectUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.zjm.util.BigDecimalUtil;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Hex;
@@ -14,6 +15,8 @@ import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESKeySpec;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.security.Key;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -30,9 +33,16 @@ public class Test4 {
         System.out.println(a.toString().equals(b));
 
     }
+
     @Test
-    public void test6(){
-        SortedMap<Integer, String> treemap =  new TreeMap<>();
+    public void test7() {
+        int scale = 2;
+       log.info(""+org.apache.commons.lang3.StringUtils.isBlank(null));
+    }
+
+    @Test
+    public void test6() {
+        SortedMap<Integer, String> treemap = new TreeMap<>();
         // populating tree map
         treemap.put(2, "two");
         treemap.put(1, "one");
@@ -40,7 +50,7 @@ public class Test4 {
         treemap.put(3, "three");
         treemap.put(6, "six");
         treemap.put(5, "five");
-        log.info("获取大于等于指定key的子map:"+treemap.tailMap(3));
+        log.info("获取大于等于指定key的子map:" + treemap.tailMap(3));
     }
 
     @Test
@@ -59,12 +69,12 @@ public class Test4 {
             String encodeHexString = Hex.encodeHexString(bs);
             log.info("秘钥:" + encodeHexString);
             String jsonStr = jsonObject.toJSONString();
-            encodeHexString="5da7f76410efef58";
+            encodeHexString = "5da7f76410efef58";
             String encryptionStr = encryptionStr(jsonStr, encodeHexString);
-            log.info("加密结果:"+encryptionStr);
+            log.info("加密结果:" + encryptionStr);
 
-            String decrypStr=decrypStr(encryptionStr,encodeHexString);
-            log.info("解密结果:"+decrypStr);
+            String decrypStr = decrypStr(encryptionStr, encodeHexString);
+            log.info("解密结果:" + decrypStr);
         } catch (Exception e) {
             // TODO: handle exception
             e.printStackTrace();
@@ -83,6 +93,7 @@ public class Test4 {
         byte[] result = cipher.doFinal(jsonStr.getBytes());
         return Hex.encodeHexString(result);
     }
+
     //解密
     public String decrypStr(String encryptionStr, String encodeHexString) throws Exception {
         DESKeySpec desKeySpec = new DESKeySpec(Hex.decodeHex(encodeHexString)); //实例化DES密钥规则
