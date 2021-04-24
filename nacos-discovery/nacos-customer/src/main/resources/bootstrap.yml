@@ -22,4 +22,4 @@ logging:
 
 higher:
   providerFeign:
-    url: 127.0.0.1:8090
+    url: 192.168.0.4:8090
