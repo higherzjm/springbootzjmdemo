@@ -18,6 +18,7 @@ import javax.crypto.spec.DESKeySpec;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.security.Key;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -35,9 +36,16 @@ public class Test4 {
     }
 
     @Test
+    public void test8() {
+        LocalDate now = LocalDate.now();
+        log.info("" + now.withDayOfYear(1));
+        log.info("" + now.withDayOfMonth(1));
+    }
+
+    @Test
     public void test7() {
         int scale = 2;
-       log.info(""+org.apache.commons.lang3.StringUtils.isBlank(null));
+        log.info("" + org.apache.commons.lang3.StringUtils.isBlank(null));
     }
 
     @Test
