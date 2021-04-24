@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Administrator
  * @version 1.0
  **/
-@SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
+@SpringBootApplication
 @RestController
 @EnableFeignClients(basePackages = "com.zjm.client")
 @EnableDiscoveryClient
@@ -23,7 +23,7 @@ public class NacosCustomerBootstrap {
 
 
     //http://localhost:8091/test
-    @GetMapping("/test")
+    @GetMapping("/test2")
     public String test() {
         return "NacosCustomer";
     }

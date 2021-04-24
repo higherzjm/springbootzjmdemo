@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
  **/
 @RestController
 @EnableDiscoveryClient
-@SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
+@SpringBootApplication
 public class NacosProvideBootstrap {
     public static void main(String[] args) {
         SpringApplication.run(NacosProvideBootstrap.class, args);
