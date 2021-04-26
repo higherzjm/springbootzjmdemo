@@ -1,18 +1,18 @@
 package com.zjm.kindsmodels.bulider;
 
 /*
- *å¹³æ–¹å·¥ç¨‹é˜Ÿ
+ *Æ½·½¹¤³Ì¶Ó
  */
 public class PingfanBulider implements HouseBulider {
 
 	House house = new House();
 
 	public void buliderfloor() {
-		house.setFloor("å¹³æˆ¿floor");
+		house.setFloor("Æ½·¿floor");
 	}
 
 	public void buliderwall() {
-		house.setWall("å¹³æˆ¿wall");
+		house.setWall("Æ½·¿wall");
 	}
 
 	public House getHouse() {

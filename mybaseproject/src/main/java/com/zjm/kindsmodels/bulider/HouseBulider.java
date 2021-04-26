@@ -1,7 +1,7 @@
 package com.zjm.kindsmodels.bulider;
 
 /*
- * å·¥ç¨‹é˜Ÿ
+ * ¹¤³Ì¶Ó
  */
 public interface HouseBulider {
 	public void buliderwall();

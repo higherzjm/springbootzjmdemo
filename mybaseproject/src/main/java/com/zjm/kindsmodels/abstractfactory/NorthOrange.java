@@ -4,7 +4,7 @@ public class NorthOrange extends Orange {
 
 	@Override
 	public void get() {
-		System.out.println("åŒ—æ©˜å­");
+		System.out.println("ÎÒÊÇ±±éÙ×Ó");
 
 	}
 

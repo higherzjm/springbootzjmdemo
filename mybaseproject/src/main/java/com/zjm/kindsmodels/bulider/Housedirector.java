@@ -1,6 +1,6 @@
 package com.zjm.kindsmodels.bulider;
 
-//å·¥ç¨‹å¸ˆ
+//¹¤³ÌÊ¦
 
 public class Housedirector {
 

@@ -1,17 +1,17 @@
 package com.zjm.kindsmodels.bulider;
 
 /*
-å…¬å¯“å·¥ç¨‹é˜Ÿ
+¹«Ô¢¹¤³Ì¶Ó
 * */
 public class GongyuBulider implements HouseBulider {
 
 	House house = new House();
 	public void buliderfloor() {
-		house.setFloor("å…¬å¯“ floor");
+		house.setFloor("¹«Ô¢ floor");
 	}
 
 	public void buliderwall() {
-		house.setWall("å…¬å¯“wall");
+		house.setWall("¹«Ô¢wall");
 	}
 
 	public House getHouse() {
