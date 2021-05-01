@@ -37,18 +37,18 @@ public class SalaryPayrollOperateLogDTO implements Serializable {
     @ApiModelProperty(value = "组织机构编码",example = "ORG1343456435840925697")
     private String organizationCode;
 
-    @ApiModelProperty(value = "计薪年", required = true)
+    @ApiModelProperty(value = "计薪年", required = true,example ="2021")
     private Integer year;
 
-    @ApiModelProperty(value = "计薪月", required = true)
+    @ApiModelProperty(value = "计薪月", required = true,example ="4")
     private Integer month;
 
-    @ApiModelProperty(value = "操作时间-开始")
+    @ApiModelProperty(value = "操作时间-开始",example ="2020-01-01")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate operateDateBegin;
 
-    @ApiModelProperty(value = "操作时间-结束")
+    @ApiModelProperty(value = "操作时间-结束",example ="2021-01-01")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate operateDateEnd;

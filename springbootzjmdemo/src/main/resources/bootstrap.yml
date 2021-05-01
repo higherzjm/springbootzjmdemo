@@ -1,20 +1,25 @@
 server:
   port: 8081
 spring:
+  application:
+    name: springbootzjmdemo
   #cloud:
   #nacos:
   #discovery:
   #server-addr: 192.168.0.4:9002
   #namespace: a6476a6f-12a7-46c9-aa35-4437ab7c7c1c
-  redis:
-    host: 127.0.0.1
-    port: 6379
-    database: 0
-    password: 123456
+  cloud:
+    nacos:
+      config:
+        server-addr: 127.0.0.1:9002   # ,127.0.0.1:8849,127.0.0.1:8850配置中心地址,配置多个集群负载均衡
+        file-extension: yml
+        namespace: 47f87023-dda2-4fbe-a36b-ada1a1313cc4  # 指定 具体的namespace
+        shared-dataids: zjmcommon.yml,${spring.application.name}.yml
+        refreshable-dataids: zjmcommon.yml,${spring.application.name}.yml
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/myproject2021?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&useSSL=false
-    username: root
-    password: zjmcat
+    url: jdbc:mysql://${db.address}/myproject2021?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&useSSL=false
+    username: ${db.username}
+    password: ${db.password}
     driver-class-name: com.mysql.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
@@ -62,7 +67,6 @@ spring:
         reset-enable: true
         #启用
         enabled: true
-
 mybatis:
   type-aliases-package: com.zjm.springtransaction.entity
   mapper-locations: classpath:mapper/*Mapper.xml

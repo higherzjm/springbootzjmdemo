@@ -38,7 +38,7 @@ public class Test4 {
     @Test
     public void test8() {
         LocalDate now = LocalDate.now();
-        log.info("" + now.withDayOfYear(1));
+        log.info("000011111" + now.withDayOfYear(1));
         log.info("" + now.withDayOfMonth(1));
     }
 
