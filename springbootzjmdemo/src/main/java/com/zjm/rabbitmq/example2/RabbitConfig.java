@@ -73,7 +73,7 @@ public class RabbitConfig {
      * @param:
      * @return:
      */
-    @Bean(name = "connectionFactory")
+/*    @Bean(name = "connectionFactory")
     public ConnectionFactory connectionFactory() {
         CachingConnectionFactory connectionFactory = new CachingConnectionFactory(host, port);
         connectionFactory.setUsername(username);
@@ -81,7 +81,7 @@ public class RabbitConfig {
         connectionFactory.setVirtualHost("/");
         connectionFactory.setPublisherConfirms(true);
         return connectionFactory;
-    }
+    }*/
 
     /**
      * @author chezhenqi

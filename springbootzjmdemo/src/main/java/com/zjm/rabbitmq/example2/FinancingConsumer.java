@@ -16,16 +16,16 @@ public class FinancingConsumer {
 
     @RabbitListener(queues = "#{rabbitConfig.getQueueFinancingAdd()}")
     public void add(String content) {
-        log.info("financingConsumer.add():{}", content);
+        log.info("financingConsumer.add()监听:{}", content);
     }
 
     @RabbitListener(queues = "#{rabbitConfig.getQueueFinancingUpdate()}")
     public void update(String content) {
-        log.info("financingConsumer.update():{}", content);
+        log.info("financingConsumer.update()监听:{}", content);
     }
 
     @RabbitListener(queues = "#{rabbitConfig.getQueueFinancingDel()}")
     public void del(String content) {
-        log.info("financingConsumer.del():{}", content);
+        log.info("financingConsumer.del()监听:{}", content);
     }
 }

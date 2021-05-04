@@ -32,23 +32,23 @@ public class RabbitMqMsgProducerController {
     private RabbitTemplate rabbitTemplate;
     @Autowired
     private FinancingProducer financingProducer;
-   /* @Autowired
-    private DyCreateQueueService dyCreateQueueService;*/
+    @Autowired
+    private DyCreateQueueService dyCreateQueueService;
     /**
      * 创建队列并发送消息
      * @return
      */
-   /* @GetMapping("/dyCreateQueue")
-    @ApiOperation(value = "创建队列并发送消息", notes = "创建队列并发送消息")
+    @GetMapping("/dyCreateQueue")
+    @ApiOperation(value = "动态创建队列并发送消息", notes = "创建队列并发送消息")
     public String dyCreateQueue() {
         return "创建成功:"+ dyCreateQueueService.dyCreateQueue();
-    }*/
+    }
     /**
      * 创建队列并发送消息
      * @return
      */
     @GetMapping("/createQueueAndSendMsg")
-    @ApiOperation(value = "创建队列并发送消息", notes = "创建队列并发送消息")
+    @ApiOperation(value = "创建队列并监听发送消息", notes = "创建队列并监听发送消息")
     public String testSendMsg() {
         financingProducer.sendMessageAdd();
         financingProducer.sendMessageUpdate();
