@@ -1,15 +1,12 @@
 package com.zjm.rabbitmq.example1;
 
 import com.rabbitmq.client.AMQP;
-import org.springframework.amqp.core.BindingBuilder;
-import org.springframework.amqp.core.DirectExchange;
-import org.springframework.amqp.core.FanoutExchange;
+import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitAdmin;
 import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.amqp.core.Queue;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +22,7 @@ import java.time.ZoneOffset;
 public class DyCreateQueueService {
 
     @Autowired
+    @Qualifier("primarySimpleMessageListenerContainer")
     private SimpleMessageListenerContainer messageListenerContainer;
     /**
      * 设置路由key
@@ -36,9 +34,12 @@ public class DyCreateQueueService {
     public String dyCreateQueue() {
         Long second = LocalDateTime.now().toEpochSecond(ZoneOffset.of("+8"));
         String queueName="queueName"+second;
-        Queue queue = new Queue(queueName);
-        BindingBuilder.bind(queue).to(new DirectExchange(EXCHANGE, true, true)).with(ROUTINGKEY);
-        messageListenerContainer.addQueueNames(queueName);
+        ROUTINGKEY=ROUTINGKEY+second;
+        EXCHANGE=EXCHANGE+second;
+        Queue queue = new Queue(queueName,true);
+        DirectExchange directExchange=new DirectExchange(EXCHANGE, true, true);
+        Binding binding=BindingBuilder.bind(queue).to(directExchange).with(ROUTINGKEY);
+        messageListenerContainer.addQueues(queue);
         messageListenerContainer.start();
         return queueName;
     }
