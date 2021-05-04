@@ -1,8 +1,11 @@
 package com.zjm.rabbitmq;
 
+import com.zjm.rabbitmq.example1.DyCreateQueueService;
+import com.zjm.rabbitmq.example2.FinancingProducer;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.AmqpException;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageDeliveryMode;
@@ -22,12 +25,37 @@ import java.io.UnsupportedEncodingException;
  */
 @RequestMapping("/rabbitMpMsgProducer")
 @RestController
-@Api(tags = "rabbitmq消息生产者")
+@Api(tags = "rabbitmq消息中间件使用 ")
+@Slf4j
 public class RabbitMqMsgProducerController {
     @Autowired
     private RabbitTemplate rabbitTemplate;
-
-    /*//helloWorld 直连模式
+    @Autowired
+    private FinancingProducer financingProducer;
+   /* @Autowired
+    private DyCreateQueueService dyCreateQueueService;*/
+    /**
+     * 创建队列并发送消息
+     * @return
+     */
+   /* @GetMapping("/dyCreateQueue")
+    @ApiOperation(value = "创建队列并发送消息", notes = "创建队列并发送消息")
+    public String dyCreateQueue() {
+        return "创建成功:"+ dyCreateQueueService.dyCreateQueue();
+    }*/
+    /**
+     * 创建队列并发送消息
+     * @return
+     */
+    @GetMapping("/createQueueAndSendMsg")
+    @ApiOperation(value = "创建队列并发送消息", notes = "创建队列并发送消息")
+    public String testSendMsg() {
+        financingProducer.sendMessageAdd();
+        financingProducer.sendMessageUpdate();
+        financingProducer.sendMessageDel();
+        return "创建并发送成功！";
+    }
+    //helloWorld 直连模式
    @ApiOperation(value="helloWorld发送接口",notes="直接发送到队列")
     @GetMapping(value="/helloWorldSend/{msg}")
     public Object helloWorldSend(@ApiParam(name = "msg", value = "发送的消息", required = true)
@@ -40,21 +68,20 @@ public class RabbitMqMsgProducerController {
         rabbitTemplate.setConfirmCallback(new RabbitTemplate.ConfirmCallback() {
             @Override
             public void confirm(CorrelationData correlationData, boolean b, String s) {
-                System.out.println("confirm: " + correlationData.getId() + ",s=" + s + ",b:" + b);
+                log.info("消息发送确认回调: " + correlationData + ",s=" + s + ",b:" + b);
             }
         });
         rabbitTemplate.setReturnCallback(new RabbitTemplate.ReturnCallback() {
             @Override
             public void returnedMessage(Message message, int i, String s, String s1, String s2) {
-                System.out.printf("");
+                log.info("消息发送返回回调: " + message + ","+i + ","+s+"," +s1+","+s2);
             }
         });
-        rabbitTemplate.send("helloWorldqueue",new Message(msg.getBytes("UTF-8"),messageProperties));
+        rabbitTemplate.send("financingadd",new Message(msg.getBytes("UTF-8"),messageProperties));
         return "message sended : "+msg;
     }
-*/
 
-   /*
+
     //工作队列模式
     @ApiOperation(value="workqueue发送接口",notes="发送到所有监听该队列的消费")
     @GetMapping(value="/workqueueSend/{msg}")
@@ -62,9 +89,9 @@ public class RabbitMqMsgProducerController {
                                     @PathVariable("msg") String msg) throws AmqpException, UnsupportedEncodingException {
         MessageProperties messageProperties = new MessageProperties();
         messageProperties.setContentType(MessageProperties.CONTENT_TYPE_TEXT_PLAIN);
-        //制造多个消息进行发送操作
+        //制造多个消息进行发送操作fanout
         for (int i = 0; i <10 ; i++) {
-            rabbitTemplate.send("work_sb_mq_q",  new Message(msg.getBytes("UTF-8"),messageProperties));
+            rabbitTemplate.send("insureadd",  new Message(msg.getBytes("UTF-8"),messageProperties));
         }
         return "message sended : "+msg;
     }
@@ -78,7 +105,7 @@ public class RabbitMqMsgProducerController {
         MessageProperties messageProperties = new MessageProperties();
         messageProperties.setContentType(MessageProperties.CONTENT_TYPE_TEXT_PLAIN);
         //fanout模式只往exchange里发送消息。分发到exchange下的所有queue
-        rabbitTemplate.send("fanoutExchange", "", new Message(msg.getBytes("UTF-8"),messageProperties));
+        rabbitTemplate.send("myexchange", "", new Message(msg.getBytes("UTF-8"),messageProperties));
         return "message sended : "+msg;
     }
 
@@ -95,10 +122,9 @@ public class RabbitMqMsgProducerController {
         MessageProperties messageProperties = new MessageProperties();
         messageProperties.setContentType(MessageProperties.CONTENT_TYPE_TEXT_PLAIN);
         //fanout模式只往exchange里发送消息。分发到exchange下的所有queue
-        rabbitTemplate.send("directExchange", routingKey, new Message(msg.getBytes("UTF-8"),messageProperties));
+        rabbitTemplate.send("myexchange", routingKey, new Message(msg.getBytes("UTF-8"),messageProperties));
         return "message sended : routingKey >"+routingKey+";message > "+msg;
     }
-
 
     //topic 工作模式   交换机类型 topic
     @ApiOperation(value="topic发送接口",notes="发送到topicExchange。exchange转发消息时，会往routingKey匹配的queue发送，*代表一个单词，#代表0个或多个单词。")
@@ -112,13 +138,11 @@ public class RabbitMqMsgProducerController {
         MessageProperties messageProperties = new MessageProperties();
         messageProperties.setContentType(MessageProperties.CONTENT_TYPE_TEXT_PLAIN);
         //fanout模式只往exchange里发送消息。分发到exchange下的所有queue
-        rabbitTemplate.send("topicExchange", routingKey, new Message(msg.getBytes("UTF-8"),messageProperties));
+        rabbitTemplate.send("myexchange", routingKey, new Message(msg.getBytes("UTF-8"),messageProperties));
         return "message sended : routingKey >"+routingKey+";message > "+msg;
     }
 
-    *//**
-     * 发送带有过期时间的消息
-     *//*
+    //发送带有过期时间的消息
     @GetMapping("/sendDlx/{msg}")
     public Object sendDlx(String routingKey,@ApiParam(name = "msg", value = "发送的消息", required = true)
     @PathVariable("msg") String msg) throws AmqpException, UnsupportedEncodingException {
@@ -132,8 +156,8 @@ public class RabbitMqMsgProducerController {
         messageProperties.setExpiration("10000");
 
         //fanout模式只往exchange里发送消息。分发到exchange下的所有queue
-        rabbitTemplate.send("orderExchange", routingKey, new Message(msg.getBytes("UTF-8"),messageProperties));
+        rabbitTemplate.send("myexchange", routingKey, new Message(msg.getBytes("UTF-8"),messageProperties));
 
         return "message sended : routingKey >"+routingKey+";message > "+msg;
-    }*/
+    }
 }
