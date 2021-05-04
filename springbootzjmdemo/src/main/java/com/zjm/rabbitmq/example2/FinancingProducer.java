@@ -20,14 +20,14 @@ public class FinancingProducer {
     private RabbitConfig rabbitConfig;
 
     public void sendMessageAdd() {
-        rabbitTemplate.convertAndSend(rabbitConfig.getQueueFinancingAdd(), "financingAdd");
+        rabbitTemplate.convertAndSend(rabbitConfig.getQueueFinancingAdd(), "向financingAdd队列发送消息");
     }
 
     public void sendMessageUpdate() {
-        rabbitTemplate.convertAndSend(rabbitConfig.getQueueFinancingUpdate(), "financingUpdate");
+        rabbitTemplate.convertAndSend(rabbitConfig.getQueueFinancingUpdate(), "向financingUpdate队列发送消息");
     }
 
     public void sendMessageDel() {
-        rabbitTemplate.convertAndSend(rabbitConfig.getQueueFinancingDel(), "financingDel");
+        rabbitTemplate.convertAndSend(rabbitConfig.getQueueFinancingDel(), "向financingDel队列发送消息");
     }
 }

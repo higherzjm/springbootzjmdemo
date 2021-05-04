@@ -69,8 +69,8 @@ spring:
         enabled: true
   #设置服务器收到消息确认回调  还需要再配置类中定制rabbitTemplate
   rabbitmq:
-    host: 192.168.0.5
-    port: 15672
+    host: 127.0.0.1
+    port: 5672
     username: guest
     password: guest
     publisher-confirm-type: correlated
