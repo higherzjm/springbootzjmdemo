@@ -32,7 +32,7 @@ public class RabbitMqMsgCustomerController {
 
     //直连模式的多个消费者，会分到其中一个消费者进行消费。类似task模式
     //通过注入RabbitContainerFactory对象，来设置一些属性，相当于task里的channel.basicQos
-   /* @RabbitListener(queues="helloWorldqueue")
+/*    @RabbitListener(queues="helloWorldqueue")
     public void helloWorldReceive(String message, @Header(AmqpHeaders.DELIVERY_TAG) long deliveryTag, Channel channel) {
 
         System.out.println("helloWorld模式 received message : " +message);
@@ -43,8 +43,8 @@ public class RabbitMqMsgCustomerController {
         }
     }*/
 
-    //工作队列模式
-  /*  @RabbitListener(queues="work_sb_mq_q")
+    /*//工作队列模式
+    @RabbitListener(queues="work_sb_mq_q")
     public void wordQueueReceiveq1(String message) {
 
         System.out.println("工作队列模式1 received message : " +message);
@@ -54,10 +54,10 @@ public class RabbitMqMsgCustomerController {
     public void wordQueueReceiveq2(String message) {
 
         System.out.println("工作队列模式2 received message : " +message);
-    }*/
+    }
 
 
-   /* //pub/sub模式进行消息监听
+    //pub/sub模式进行消息监听
     @RabbitListener(queues="fanout.q1")
     public void fanoutReceiveq1(String message) {
 
@@ -81,17 +81,17 @@ public class RabbitMqMsgCustomerController {
     public void routingReceiveq2(String message) {
 
         System.out.println("Routing路由模式routingReceiveq22222 received message : " +message);
-    }*/
+    }
 
 
     //topic 模式
     //注意这个模式会有优先匹配原则。例如发送routingKey=hunan.IT,那匹配到hunan.*(hunan.IT,hunan.eco),之后就不会再去匹配*.ITd
-  /*  @RabbitListener(queues="topic_sb_mq_q1")
+    @RabbitListener(queues="topic_sb_mq_q1")
     public void topicReceiveq1(String message) {
         System.out.println("Topic模式 topic_sb_mq_q1 received message : " +message);
-    }*/
+    }
 
-    /*@RabbitListener(queues="topic_sb_mq_q2")
+    @RabbitListener(queues="topic_sb_mq_q2")
     public void topicReceiveq2(String message) {
         System.out.println("Topic模式 topic_sb_mq_q2 received  message : " +message);
     }

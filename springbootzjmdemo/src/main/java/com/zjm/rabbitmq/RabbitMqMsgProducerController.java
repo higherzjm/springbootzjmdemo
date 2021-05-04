@@ -27,8 +27,8 @@ public class RabbitMqMsgProducerController {
     @Autowired
     private RabbitTemplate rabbitTemplate;
 
-    //helloWorld 直连模式
-    /*@ApiOperation(value="helloWorld发送接口",notes="直接发送到队列")
+    /*//helloWorld 直连模式
+   @ApiOperation(value="helloWorld发送接口",notes="直接发送到队列")
     @GetMapping(value="/helloWorldSend/{msg}")
     public Object helloWorldSend(@ApiParam(name = "msg", value = "发送的消息", required = true)
                                      @PathVariable("msg") String msg) throws AmqpException, UnsupportedEncodingException {
@@ -52,9 +52,9 @@ public class RabbitMqMsgProducerController {
         rabbitTemplate.send("helloWorldqueue",new Message(msg.getBytes("UTF-8"),messageProperties));
         return "message sended : "+msg;
     }
+*/
 
-
-
+   /*
     //工作队列模式
     @ApiOperation(value="workqueue发送接口",notes="发送到所有监听该队列的消费")
     @GetMapping(value="/workqueueSend/{msg}")
