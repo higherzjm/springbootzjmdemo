@@ -43,8 +43,13 @@ public class RabbitMqMsgPublish {
         MessageProperties messageProperties = new MessageProperties();
         messageProperties.setContentType(MessageProperties.CONTENT_TYPE_TEXT_PLAIN);
         rabbitTemplate.send("baseQueue", new Message(msg.getBytes("UTF-8"), messageProperties));
-        log.info("发送回调的消息:" + MyListener.sendConfirmRetmsg);
-        return "message sended : " + msg;
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        log.info("发送回调的消息:" + RabbitMqConfirmSendListener.sendConfirmRetMsg);
+        return "发送的消息: " + msg;
     }
 
 
@@ -61,7 +66,12 @@ public class RabbitMqMsgPublish {
 
         log.info("添加列表的新学生 : " + jsonObject.toJSONString());
         amqpTemplate.convertAndSend("newStudentsRegister", "newStudentLists", jsonObject.toJSONString());
-        log.info("发送回调的消息:" + MyListener.sendConfirmRetmsg);
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        log.info("发送回调的消息:" + RabbitMqConfirmSendListener.sendConfirmRetMsg);
     }
 
     @GetMapping("/sendNotice")
@@ -69,6 +79,11 @@ public class RabbitMqMsgPublish {
     public void sendMessage2() {
         String message = "领导您好,本次添加2名新学生!";
         amqpTemplate.convertAndSend("newStudentsRegister", "addNewStudentNotice", message);
-        log.info("发送回调的消息:" + MyListener.sendConfirmRetmsg);
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        log.info("发送回调的消息:" + RabbitMqConfirmSendListener.sendConfirmRetMsg);
     }
 }

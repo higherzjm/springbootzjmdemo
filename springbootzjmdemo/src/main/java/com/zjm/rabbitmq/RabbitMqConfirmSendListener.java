@@ -6,14 +6,16 @@ import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.connection.CorrelationData;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
+@Component
 @Slf4j
-public class MyListener implements ServletContextListener {
+public class RabbitMqConfirmSendListener implements ServletContextListener {
     @Autowired
     private RabbitTemplate rabbitTemplate;
-    public static JSONObject sendConfirmRetmsg=new JSONObject();
+    public static JSONObject sendConfirmRetMsg=new JSONObject();
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         //发消息
@@ -21,9 +23,9 @@ public class MyListener implements ServletContextListener {
             @Override
             public void confirm(CorrelationData correlationData, boolean b, String s) {
                 log.info("消息发送确认回调: " + correlationData + ",s=" + s + ",b:" + b);
-                sendConfirmRetmsg.put("correlationData",correlationData);
-                sendConfirmRetmsg.put("s",s);
-                sendConfirmRetmsg.put("b",b);
+                sendConfirmRetMsg.put("correlationData",correlationData);
+                sendConfirmRetMsg.put("s",s);
+                sendConfirmRetMsg.put("b",b);
             }
         });
         rabbitTemplate.setReturnCallback(new RabbitTemplate.ReturnCallback() {
