@@ -74,16 +74,13 @@ spring:
     username: guest
     password: guest
     publisher-confirm-type: correlated
-    #设置服务端正确将消息传到队列的确认回调 还需要再配置类中定制rabbitTemplate
     publisher-returns: true
-  #只要抵达队列,以异步发送优先回调spring.rabbitmq.publisher-returns
-    template:
-      mandatory: true
-  #开启消费端手动ack,再业务中进行确认   利用方法参数中的通道Channel
-    listener:
-      simple:
-       acknowledge-mode: manual
-    virtual-host: /
+    #template:
+      #mandatory: true
+    #listener:
+      #simple:
+       #acknowledge-mode: manual
+    #virtual-host: /
 mybatis:
   type-aliases-package: com.zjm.springtransaction.entity
   mapper-locations: classpath:mapper/*Mapper.xml
