@@ -34,7 +34,10 @@ public class RabbitMqConfirmSendListener implements ServletContextListener {
                 log.info("消息发送返回回调: " + message + ","+i + ","+s+"," +s1+","+s2);
             }
         });
+        //开启发送邮件的线程
+        new Thread(new SendMessageThread()).start();
     }
+
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
         //在这里做数据备份操作
