@@ -19,6 +19,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.security.Key;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -40,6 +41,7 @@ public class Test4 {
         LocalDate now = LocalDate.now();
         log.info("000011111" + now.withDayOfYear(1));
         log.info("" + now.withDayOfMonth(1));
+        log.info(""+LocalDateTime.now().withSecond(59).withNano(999999999).withMinute(37));
     }
 
     @Test
