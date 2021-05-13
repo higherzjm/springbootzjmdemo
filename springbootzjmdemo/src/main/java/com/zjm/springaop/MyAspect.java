@@ -1,6 +1,7 @@
 package com.zjm.springaop;
 
 import com.zjm.base.VO.SchoolVO;
+import com.zjm.springtransaction.entity.SalaryPayrollOperateLog;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -32,16 +33,18 @@ public class MyAspect {
     public void aspectMapperPointCut2()
     {
     }
-    @Before("aspectMapperPointCut2() && execution(public * *.save*(..)) && args(baseModel)")
-    public void beforeInsert2(BaseEntity baseModel)
+    @Before("aspectMapperPointCut2() && execution(public * *.save*(..)) && args(salaryPayrollOperateLog)")
+    public void beforeInsert2(SalaryPayrollOperateLog salaryPayrollOperateLog)
     {
-        log.info("切面2");
-        baseModel.setId(UUID.randomUUID().toString());
-        baseModel.setCreateTime(LocalDateTime.now());
-        baseModel.setUpdateTime(LocalDateTime.now());
-        baseModel.setCreateUser("创建人");
-        baseModel.setUpdateUser("更新人");
+        log.info("ISpringTransactionService切面");
+        salaryPayrollOperateLog.setId(UUID.randomUUID().toString());
+        salaryPayrollOperateLog.setCreateTime(LocalDateTime.now());
+        salaryPayrollOperateLog.setUpdateTime(LocalDateTime.now());
+        salaryPayrollOperateLog.setCreateUser("创建人");
+        salaryPayrollOperateLog.setUpdateUser("更新人");
     }
+
+
 
 
 
