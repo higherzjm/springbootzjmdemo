@@ -20,7 +20,7 @@ public class MyConsumer {
         myConsumer1(studentList, s -> s.forEach(a ->
                 //员工姓名前缀加年份
                 a.setName("2021-" + a.getName())));
-        log.info("" + studentList);
+        System.out.println("---" + studentList);
     }
 
     public void myConsumer1(List<Student> studentsList, Consumer<List<Student>> consumer) {
