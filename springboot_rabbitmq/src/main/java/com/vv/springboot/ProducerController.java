@@ -16,7 +16,7 @@ import java.io.UnsupportedEncodingException;
 @RestController
 public class ProducerController {
 
-	@Autowired
+	//@Autowired
 	private RabbitTemplate rabbitTemplate;
 	
 	//helloWorld 直连模式

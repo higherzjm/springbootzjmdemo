@@ -20,7 +20,7 @@ spring:
     url: jdbc:mysql://${db.address}/myproject2021?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&useSSL=false
     username: ${db.username}
     password: ${db.password}
-    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
       #初始化大小
