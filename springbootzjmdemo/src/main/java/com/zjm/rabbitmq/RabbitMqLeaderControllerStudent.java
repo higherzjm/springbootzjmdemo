@@ -26,9 +26,9 @@ import java.util.List;
 @Api(tags = "rabbitmq消息中间件使用")
 @Slf4j
 public class RabbitMqLeaderControllerStudent {
-    @Autowired
+    //@Autowired
     private RabbitTemplate rabbitTemplate;
-    @Autowired
+    //@Autowired
     private AmqpTemplate amqpTemplate;
 
 

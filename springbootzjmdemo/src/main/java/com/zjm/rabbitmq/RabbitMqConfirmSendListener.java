@@ -10,10 +10,10 @@ import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
-@Component
+//@Component
 @Slf4j
 public class RabbitMqConfirmSendListener implements ServletContextListener {
-    @Autowired
+    //@Autowired
     private RabbitTemplate rabbitTemplate;
     public static JSONObject sendConfirmRetMsg=new JSONObject();
     @Override
@@ -35,7 +35,7 @@ public class RabbitMqConfirmSendListener implements ServletContextListener {
             }
         });
         //开启发送邮件的线程
-        new Thread(new SendMessageThread()).start();
+        //new Thread(new SendMessageThread()).start();
     }
 
     @Override

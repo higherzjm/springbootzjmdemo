@@ -1,5 +1,6 @@
 package com.zjm.thread.cachedthreadpool;
 
+
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.*;
@@ -36,6 +37,7 @@ public class CachedThreadPool {
         Future<String> future = cachedThreadPool.submit(new MyTaskCallable("我是中国人submit"));
         log.info("ret:" + future.get());
         log.info("该方法执行结束----------------");
+
 
     }
     /**
