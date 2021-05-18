@@ -145,7 +145,17 @@
     </dependencies>
     <profiles>
         <profile>
-            <id>springbootzjmdemo1.0</id>
+            <id>a</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <profileActive>local</profileActive>
+                <application.name>springbootzjmdemo</application.name>
+            </properties>
+        </profile>
+        <profile>
+            <id>z</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
