@@ -111,23 +111,6 @@
             <version>3.4.1</version>
         </dependency>
         <!--  数据库连接 end-->
-
-      <!--  <dependency>
-            <groupId>org.mybatis.spring.boot</groupId>
-            <artifactId>mybatis-spring-boot-starter</artifactId>
-            <version>1.3.2</version>
-        </dependency>-->
-        <!--<dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-            <version>2.2.5.RELEASE</version>
-        </dependency>-->
-     <!--   <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
-            &lt;!&ndash;<version>2.1.0.RELEASE</version>&ndash;&gt;
-            &lt;!&ndash;<version>0.9.0.RELEASE</version>&ndash;&gt;
-        </dependency>-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
@@ -145,23 +128,26 @@
     </dependencies>
     <profiles>
         <profile>
-            <id>a</id>
+            <id>test</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
                 <profileActive>local</profileActive>
-                <application.name>springbootzjmdemo</application.name>
+                <application.name>springbootzjmdemo_test</application.name>
+                <nacos.config.address>127.0.0.1:9002</nacos.config.address>
+                <nacos.discovery.address>127.0.0.1:9002</nacos.discovery.address>
             </properties>
         </profile>
         <profile>
-            <id>z</id>
+            <id>dev</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <profileActive>local</profileActive>
-                <application.name>springbootzjmdemo</application.name>
+                <application.name>springbootzjmdemo_dev</application.name>
+                <nacos.config.address>127.0.0.1:9002</nacos.config.address>
+                <nacos.discovery.address>127.0.0.1:9002</nacos.discovery.address>
             </properties>
         </profile>
     </profiles>

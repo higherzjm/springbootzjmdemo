@@ -2,7 +2,7 @@ server:
   port: 8081
 spring:
   application:
-    name: springbootzjmdemo
+    name: springbootzjmdemo_test
   #cloud:
   #nacos:
   #discovery:
@@ -11,7 +11,7 @@ spring:
   cloud:
     nacos:
       config:
-        server-addr: 127.0.0.1:9002   # ,127.0.0.1:8849,127.0.0.1:8850配置中心地址,配置多个集群负载均衡
+        server-addr: 127.0.0.1:9002      # ,127.0.0.1:8849,127.0.0.1:8850配置中心地址,配置多个集群负载均衡
         file-extension: yml
         namespace: 47f87023-dda2-4fbe-a36b-ada1a1313cc4  # 指定 具体的namespace
         shared-dataids: zjmcommon.yml,${spring.application.name}.yml
@@ -81,13 +81,13 @@ spring:
       #simple:
        #acknowledge-mode: manual
     #virtual-host: /
-mybatis:
-  type-aliases-package: com.zjm.springtransaction.entity
-  mapper-locations: classpath:mapper/*Mapper.xml
-  configuration:
-    map-underscore-to-camel-case: true
-    default-fetch-size: 500
-    default-statement-timeout: 80
+#mybatis:
+#  type-aliases-package: com.zjm.springtransaction.entity
+#  mapper-locations: classpath:mapper/*Mapper.xml
+#  configuration:
+#    map-underscore-to-camel-case: true
+#    default-fetch-size: 500
+#    default-statement-timeout: 80
 logging:
   level:
     com:
