@@ -1,4 +1,4 @@
-package com.zjm.kindsmodels.proxy;
+package com.zjm.kindsmodels.proxy.example1;
 
 /*
  * subject（抽象主题角色）：

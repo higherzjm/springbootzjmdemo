@@ -1,6 +1,6 @@
 package com.zjm.jdk8lambda;
 
-import com.zjm.jdk8lambda.VO.Student;
+import com.zjm.VO.Student;
 import org.junit.Test;
 
 import java.util.Optional;
