@@ -12,6 +12,7 @@ public class ProxyHandler implements InvocationHandler {
         //targetObject.getClass().getClassLoader()：被代理对象的类加载器
         //targetObject.getClass().getInterfaces()：被代理对象的实现接口
         //this 当前对象，该对象实现了InvocationHandler接口所以有invoke方法，通过invoke方法可以调用被代理对象的方法
+        //代理缓存被代理的接口信息，同一个接口调用不同的方法不会重复执行此方法，只会执行一次
         return Proxy.newProxyInstance(targetObject.getClass().getClassLoader(),targetObject.getClass().getInterfaces(),this);
     }
     //该方法在代理对象调用方法时调用
@@ -20,7 +21,5 @@ public class ProxyHandler implements InvocationHandler {
         System.out.println("记录日志");
         return method.invoke(targetObject,args);
     }
-    public static void  main(String[] args){
-        System.out.println("我是代理处理器");
-    }
+
 }
