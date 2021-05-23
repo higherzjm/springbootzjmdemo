@@ -8,12 +8,12 @@ import java.lang.reflect.Parameter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Test1 {
+public class BaseTest {
     private static Class<?> clazz;
 
     {
         try {
-            clazz = Class.forName("com.zjm.javaReflect.Test1");
+            clazz = Class.forName("com.zjm.javaReflect.BaseTest");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -82,7 +82,7 @@ public class Test1 {
     }
 
     public static void main(String[] args) throws Exception {
-        Test1 test1 = new Test1();
+        BaseTest test1 = new BaseTest();
         //test1.test1();
         //test1.test2();
         test1.test3(clazz);
