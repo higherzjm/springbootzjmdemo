@@ -1,7 +1,7 @@
 package com.zjm.javaReflect.example1;
 
-import com.sun.xml.internal.bind.v2.TODO;
 import com.zjm.VO.Student;
+import lombok.extern.slf4j.Slf4j;
 
 import java.lang.reflect.Method;
 import java.util.*;
@@ -9,10 +9,12 @@ import java.util.*;
 /**
  * @author zhujianming
  */
+@Slf4j
 public class MainClass {
     private Map<Class, Method[]> map = new HashMap<>();
 
     public static void main(String[] args) {
+
         MainClass mainClass = new MainClass();
 
         List<Class> classList = Arrays.asList(MyClass1.class, MyClass2.class);
