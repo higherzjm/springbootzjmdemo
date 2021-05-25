@@ -12,11 +12,11 @@ public class MainClass {
 		car.show();
 		System.out.println("---------");
 
-		Car swimcar = new SwimCarDecorator(car);
-		swimcar.show();
+		Car swimCar = new SwimCarDecorator(car);
+		swimCar.show();
 		System.out.println("---------");
 
-		Car flySwimCar = new FlyCarDecorator(swimcar);
+		Car flySwimCar = new FlyCarDecorator(swimCar);
 		flySwimCar.show();
 	}
 }
