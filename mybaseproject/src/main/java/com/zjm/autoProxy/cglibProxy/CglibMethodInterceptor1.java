@@ -6,7 +6,7 @@ import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.MethodInterceptor;
 import net.sf.cglib.proxy.MethodProxy;
 
-public class CglibProxyExample implements MethodInterceptor {
+public class CglibMethodInterceptor1 implements MethodInterceptor {
 
     /**
      * 生成CGLIB代理对象
@@ -14,7 +14,7 @@ public class CglibProxyExample implements MethodInterceptor {
      * @param cls Class类
      * @return Class类的CGLIB代理对象
      */
-    public Object getProxy(Class cls) {
+    Object getProxy(Class cls) {
         // CGLIB <u>enhancer</u>增强类对象
         Enhancer enhancer = new Enhancer();
         // 设置增强类型
