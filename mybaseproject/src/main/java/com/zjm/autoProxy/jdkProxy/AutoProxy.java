@@ -1,4 +1,4 @@
-package com.zjm.kindsmodels.proxy;
+package com.zjm.autoProxy.jdkProxy;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
@@ -16,7 +16,7 @@ public class AutoProxy implements InvocationHandler {
 			throws Throwable {
 		Object result = null;
 
-		System.out.println("å”®å‰å¤„ç†");
+		System.out.println("ÊÛÇ°´¦Àí");
 
 		try {
 			result = method.invoke(realSetBooks, args);
@@ -28,8 +28,8 @@ public class AutoProxy implements InvocationHandler {
 			e.printStackTrace();
 		}
 
-		System.out.println("æ‰“å…«æŠ˜");
-		System.out.println("è‡ªåŠ¨ä»£ç†"+(Double) result * 0.8+"å…ƒ");
+		System.out.println("´ò°ËÕÛ");
+		System.out.println("×Ô¶¯´úÀí"+(Double) result * 0.8+"Ôª");
 		return result;
 	}
 

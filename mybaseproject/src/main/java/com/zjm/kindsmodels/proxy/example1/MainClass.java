@@ -1,4 +1,4 @@
-package com.zjm.kindsmodels.proxy;
+package com.zjm.kindsmodels.proxy.example1;
 
 import java.lang.reflect.Proxy;
 
@@ -12,7 +12,7 @@ public class MainClass {
     public static void main(String[] args) {
 
 
-        staticProxy();//手动代理
+        //staticProxy();//手动代理
         autoProxy();//动态代理
     }
 

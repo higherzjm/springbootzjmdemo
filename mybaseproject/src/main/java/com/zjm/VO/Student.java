@@ -1,4 +1,4 @@
-package com.zjm.jdk8lambda.VO;
+package com.zjm.VO;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

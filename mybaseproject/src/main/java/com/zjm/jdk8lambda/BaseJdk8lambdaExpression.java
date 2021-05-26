@@ -1,7 +1,7 @@
 package com.zjm.jdk8lambda;
 
 
-import com.zjm.jdk8lambda.VO.Student;
+import com.zjm.VO.Student;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.*;

@@ -18,7 +18,7 @@ public class MybatisPlusConfig {
     /**
      * 设置属性
      */
-    @Bean
+    //@Bean
     public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
         MybatisSqlSessionFactoryBean sqlSessionFactory = new MybatisSqlSessionFactoryBean();
         sqlSessionFactory.setDataSource(dataSource);
@@ -27,7 +27,5 @@ public class MybatisPlusConfig {
         sqlSessionFactory.setMapperLocations(resolver.getResources("classpath:/mapper/*.xml")); // Mapper包路径
         sqlSessionFactory.setTypeAliasesPackage("zjmPackage");
         return sqlSessionFactory.getObject();
-
-
     }
 }

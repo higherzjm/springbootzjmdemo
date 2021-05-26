@@ -1,8 +1,8 @@
 server:
-  port: 8081
+  port: 8082
 spring:
   application:
-    name: springbootzjmdemo_test
+    name: springbootzjmdemo
   #cloud:
   #nacos:
   #discovery:
@@ -81,13 +81,6 @@ spring:
       #simple:
        #acknowledge-mode: manual
     #virtual-host: /
-#mybatis:
-#  type-aliases-package: com.zjm.springtransaction.entity
-#  mapper-locations: classpath:mapper/*Mapper.xml
-#  configuration:
-#    map-underscore-to-camel-case: true
-#    default-fetch-size: 500
-#    default-statement-timeout: 80
 logging:
   level:
     com:
@@ -95,3 +88,10 @@ logging:
         springboot:
           cache:
             mapper: debug
+mybatis-plus:
+  global-config:
+    db-config:
+      id-type: input
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl   #控制台打印数据库执行脚本
+  mapperLocations: classpath:mapper/**/*Mapper.xml   # 指定mapper配置文件路径
