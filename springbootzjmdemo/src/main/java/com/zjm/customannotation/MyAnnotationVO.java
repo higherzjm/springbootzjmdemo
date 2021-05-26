@@ -19,8 +19,10 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class MyAnnotationVO implements Serializable {
     @ApiModelProperty(value = "姓名")
+    @CheckIsNotEmpty(message = "不可为空")
     private String name;
-    @MyAnnotation(MaxValue =50)
+    @CheckValueLegal(MaxValue =50)
     @ApiModelProperty(value = "年龄")
+    @CheckIsNotEmpty(message = "不可为空")
     private Integer age;
 }

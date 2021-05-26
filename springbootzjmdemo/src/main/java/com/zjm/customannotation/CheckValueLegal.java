@@ -10,8 +10,8 @@ import java.lang.annotation.*;
 @Target({ElementType.ANNOTATION_TYPE, ElementType.METHOD, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@Constraint(validatedBy = MyAnnotationValidation.class)
-public @interface MyAnnotation {
+@Constraint(validatedBy = CheckValueLegalValidation.class)
+public @interface CheckValueLegal {
     int MaxValue() default 100;
 
     String message() default "格式有误";
@@ -20,4 +20,5 @@ public @interface MyAnnotation {
     Class<?>[] groups() default {};
 
     Class<? extends Payload>[] payload() default {};
+
 }
