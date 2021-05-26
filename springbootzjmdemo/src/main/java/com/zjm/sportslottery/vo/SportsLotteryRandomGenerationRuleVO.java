@@ -2,15 +2,12 @@ package com.zjm.sportslottery.vo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import io.swagger.models.auth.In;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @author zhujianming
