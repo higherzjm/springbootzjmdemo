@@ -13,23 +13,23 @@ public class SalaryPayrollOperateLogResultVO {
 
     @ApiModelProperty(value = "操作日志id")
     private String operateLogId;
-    @ApiModelProperty(value = "操作时间：YYYY-MM-dd HH24:mm:ss")
-    private String operateDateTime;
-    /*@ApiModelProperty(value = "操作人:员工姓名(员工编号)")
-     private String operateUser;
-     @ApiModelProperty(value = "操作类型code:操作类型根据业务类型区分")
-     private Integer operateType;
-     @ApiModelProperty(value = "页面类型code:1 ：总览 2：详细")
-     private Integer busiUnit;
-     @ApiModelProperty("业务类型：1：HR复核 2：财务复核")
-     private Integer busiType;*/
+    /*@ApiModelProperty(value = "操作时间：YYYY-MM-dd HH24:mm:ss")
+   private String operateDateTime;
+   @ApiModelProperty(value = "操作人:员工姓名(员工编号)")
+    private String operateUser;
+    @ApiModelProperty(value = "操作类型code:操作类型根据业务类型区分")
+    private Integer operateType;
+    @ApiModelProperty(value = "页面类型code:1 ：总览 2：详细")
+    private Integer busiUnit;
+    @ApiModelProperty("业务类型：1：HR复核 2：财务复核")
+    private Integer busiType;*/
     @ApiModelProperty(value = "薪资年")
     private Integer year;
     @ApiModelProperty(value = "薪资月")
     private Integer month;
-  /*  @ApiModelProperty(value = "操作内容描述")
+    @ApiModelProperty(value = "操作内容描述")
     private String content;
-    @ApiModelProperty(value = "操作对象：显示单笔操作的操作对象，格式：员工姓名(员工编号)")
+/*    @ApiModelProperty(value = "操作对象：显示单笔操作的操作对象，格式：员工姓名(员工编号)")
     private String operateObject;
     @ApiModelProperty(value = "页面类型名称:总览,详细")
     private String busiUnitName;
