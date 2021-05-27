@@ -1,12 +1,15 @@
 package com.zjm.springtransaction.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.zjm.springtransaction.DTO.SalaryPayrollOperateLogDTO;
 import com.zjm.springtransaction.VO.SalaryPayrollOperateLogResultVO;
 import com.zjm.springtransaction.entity.SalaryPayrollOperateLog;
 import com.zjm.springtransaction.mapper.SalaryPayrollOperateLogMapper;
 import com.zjm.springtransaction.service.ISpringTransactionService;
+import io.swagger.models.auth.In;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,49 +28,42 @@ public class SpringTransactionServiceImpl implements ISpringTransactionService {
     private SalaryPayrollOperateLogMapper salaryPayrollOperateLogMapper;
 
     @Override
-    //@Transactional(propagation = Propagation.NOT_SUPPORTED) //加了事务可消息避免不可重复读，做到请求过程中读到的数据都same
-    @Transactional
     public List<SalaryPayrollOperateLogResultVO> findSalaryPayrollOperateLogResult(SalaryPayrollOperateLogDTO salaryPayrollOperateLogDTO) {
         List<SalaryPayrollOperateLogResultVO> salaryPayrollOperateLogResultVOList = salaryPayrollOperateLogMapper.querySalaryPayrollOperateLog(salaryPayrollOperateLogDTO);
-        log.info("query1:" + salaryPayrollOperateLogResultVOList.size());
-//        try {
-//            Thread.sleep(5000);
-//        } catch (InterruptedException e) {
-//
-//        }
-        Thread thread = new Thread(new ThreadImplRunnable(salaryPayrollOperateLogMapper));
-        thread.start();
-
-        salaryPayrollOperateLogResultVOList = salaryPayrollOperateLogMapper.querySalaryPayrollOperateLog(salaryPayrollOperateLogDTO);
-        log.info("query1:" + salaryPayrollOperateLogResultVOList.size());
         return salaryPayrollOperateLogResultVOList;
     }
 
+    public boolean checkExistSalaryPayrollOperateLogInMonth(String organizationCode, Integer month) {
+        LambdaQueryWrapper<SalaryPayrollOperateLog> lambdaQueryWrapper = new LambdaQueryWrapper<SalaryPayrollOperateLog>().eq(SalaryPayrollOperateLog::getMonth, month)
+                .eq(SalaryPayrollOperateLog::getOrganizationCode, organizationCode).select(SalaryPayrollOperateLog::getId,SalaryPayrollOperateLog::getYear);
+        SalaryPayrollOperateLog salaryPayrollOperateLog = salaryPayrollOperateLogMapper.selectOne(lambdaQueryWrapper);
+        return salaryPayrollOperateLog != null;
+    }
 
+    /**
+     * mysql默认隔离级别为可重复读，同一接口同时请求多次读到的数据会一致，
+     * 如下代码加事务请求两次会插入两条，不加事务就不会
+     * propagation==Propagation.NOT_SUPPORTED   传播级别不支持事务 或 isolation= Isolation.READ_UNCOMMITTED 隔离级别为读未提交，这样只会拆入一条
+     **/
+    //@Transactional(propagation=Propagation.NOT_SUPPORTED,isolation= Isolation.READ_UNCOMMITTED)
     @Override
-    public void saveSalaryPayrollOperateLogResult(SalaryPayrollOperateLog salaryPayrollOperateLog) {
+    public void saveSalaryPayrollOperateLogResult(SalaryPayrollOperateLog salaryPayrollOperateLog, String actionNum) {
         log.info("salaryPayrollOperateLog:" + salaryPayrollOperateLog);
         salaryPayrollOperateLog.setId(UUID.randomUUID().toString());
-        salaryPayrollOperateLogMapper.insert(salaryPayrollOperateLog);
-    }
-
-    class ThreadImplRunnable implements Runnable {
-
-        private SalaryPayrollOperateLogMapper salaryPayrollOperateLogMapper;
-
-        public ThreadImplRunnable(SalaryPayrollOperateLogMapper salaryPayrollOperateLogMapper) {
-            this.salaryPayrollOperateLogMapper = salaryPayrollOperateLogMapper;
-        }
-
-        /**
-         * 重写run方法
-         */
-        @Override
-        public void run() {
-            SalaryPayrollOperateLog salaryPayrollOperateLog = SalaryPayrollOperateLog.builder().organizationCode("ORG1343456435840925697")
-                    .month(4).year(2021).updateTime(LocalDateTime.now()).build();
-            salaryPayrollOperateLog.setId(UUID.randomUUID().toString());
+         //判断是否存在
+        if (!checkExistSalaryPayrollOperateLogInMonth(salaryPayrollOperateLog.getOrganizationCode(), salaryPayrollOperateLog.getMonth())) {
+            log.info("可插入");
             salaryPayrollOperateLogMapper.insert(salaryPayrollOperateLog);
+        }else {
+            log.info("已存在");
+        }
+        if ("1".equals(actionNum)) {
+            try {
+                Thread.sleep(10000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
+
 }

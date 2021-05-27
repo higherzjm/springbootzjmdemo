@@ -11,5 +11,5 @@ import java.util.List;
  */
 public interface ISpringTransactionService {
     List<SalaryPayrollOperateLogResultVO> findSalaryPayrollOperateLogResult(SalaryPayrollOperateLogDTO salaryPayrollOperateLogDTO);
-    void  saveSalaryPayrollOperateLogResult(SalaryPayrollOperateLog salaryPayrollOperateLog);
+    void  saveSalaryPayrollOperateLogResult(SalaryPayrollOperateLog salaryPayrollOperateLog,String actionNum);
 }

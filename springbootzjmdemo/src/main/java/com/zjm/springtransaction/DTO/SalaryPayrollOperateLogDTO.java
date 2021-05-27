@@ -57,6 +57,9 @@ public class SalaryPayrollOperateLogDTO implements Serializable {
     @ApiModelProperty(value = "操作类型(无需前端传值)")
     private List<Integer> operateTypeList;
 
+    @ApiModelProperty(value = "操作编码(测试事务使用)")
+    private String actionNum;
+
 
 
 
