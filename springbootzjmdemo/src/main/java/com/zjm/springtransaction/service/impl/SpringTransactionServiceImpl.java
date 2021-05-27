@@ -57,6 +57,7 @@ public class SpringTransactionServiceImpl implements ISpringTransactionService {
         }else {
             log.info("已存在");
         }
+        //测试高并发的时候使用
         if ("1".equals(actionNum)) {
             try {
                 Thread.sleep(10000);

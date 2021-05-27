@@ -142,24 +142,27 @@
         </dependency>
     </dependencies>
     <profiles>
+        <!--测试环境 -->
         <profile>
             <id>test</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <profileActive>local</profileActive>
+                <profileActive>test</profileActive>
                 <application.name>springbootzjmdemo_test</application.name>
                 <nacos.config.address>127.0.0.1:9002</nacos.config.address>
                 <nacos.discovery.address>127.0.0.1:9002</nacos.discovery.address>
             </properties>
         </profile>
+        <!--开发环境 -->
         <profile>
             <id>dev</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
+                <profileActive>dev</profileActive>
                 <application.name>springbootzjmdemo_dev</application.name>
                 <nacos.config.address>127.0.0.1:9002</nacos.config.address>
                 <nacos.discovery.address>127.0.0.1:9002</nacos.discovery.address>

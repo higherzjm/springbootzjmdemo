@@ -33,15 +33,20 @@ public class MyAspect {
     public void aspectMapperPointCut2()
     {
     }
-    @Before("aspectMapperPointCut2() && execution(public * *.save*(..)) && args(salaryPayrollOperateLog)")
-    public void beforeInsert2(SalaryPayrollOperateLog salaryPayrollOperateLog)
+    @Before("aspectMapperPointCut2() && execution(public * *.save*(..)) && args(salaryPayrollOperateLog,actionNum)")
+    public void beforeInsert2(SalaryPayrollOperateLog salaryPayrollOperateLog,String actionNum)
     {
         log.info("ISpringTransactionService切面");
         salaryPayrollOperateLog.setId(UUID.randomUUID().toString());
         salaryPayrollOperateLog.setCreateTime(LocalDateTime.now());
         salaryPayrollOperateLog.setUpdateTime(LocalDateTime.now());
-        salaryPayrollOperateLog.setCreateUser("创建人");
-        salaryPayrollOperateLog.setUpdateUser("更新人");
+        if ("1".equals(actionNum)) {
+            salaryPayrollOperateLog.setCreateUser("actionNum-1创建人");
+            salaryPayrollOperateLog.setUpdateUser("actionNum-1更新人");
+        }else {
+            salaryPayrollOperateLog.setCreateUser("未知创建人");
+            salaryPayrollOperateLog.setUpdateUser("未知更新人");
+        }
     }
 
 
