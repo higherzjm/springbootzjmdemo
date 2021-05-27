@@ -11,8 +11,6 @@ import java.text.DecimalFormat;
 
 /**
  * @description: 金额处理类
- * @author: linzhisheng
- * @since: 2020/9/19 20:49
  */
 public class BigDecimalUtil {
 
