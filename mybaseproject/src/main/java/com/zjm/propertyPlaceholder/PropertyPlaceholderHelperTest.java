@@ -7,7 +7,7 @@ import org.springframework.util.PropertyPlaceholderHelper;
 import java.util.Properties;
 
 /**
- * @Description: å‚æ•°å ä½ç¬¦æµ‹è¯•
+ * @Description: ²ÎÊıÕ¼Î»·û²âÊÔ
  * @Author: zhujianming
  * @Date: 2021/5/27
  * @param:
@@ -26,21 +26,21 @@ public class PropertyPlaceholderHelperTest {
         props.setProperty("age", "18");
 
         String result = helper.replacePlaceholders(text, props);
-        log.info("ç®€å•å‚æ•°:" + result);
+        log.info("¼òµ¥²ÎÊı:" + result);
 
         /**
-         * é€’å½’
+         * µİ¹é
          */
         text = "message=${message}";
         props.setProperty("message", "hi,${name}");
         result = helper.replacePlaceholders(text, props);
-        log.info("é€’å½’å†…åµŒå‚æ•°:" + result);
+        log.info("µİ¹éÄÚÇ¶²ÎÊı:" + result);
 
     }
 
 
     /**
-     * å…¶ä»–ç¬¦å·
+     * ÆäËû·ûºÅ
      */
     @Test
     public void test2() {
@@ -54,7 +54,7 @@ public class PropertyPlaceholderHelperTest {
 
         String result = helper.replacePlaceholders(text, props);
 
-        log.info("å…¶ä»–ç¬¦å·:"+result);
+        log.info("ÆäËû·ûºÅ:"+result);
 
 
     }
