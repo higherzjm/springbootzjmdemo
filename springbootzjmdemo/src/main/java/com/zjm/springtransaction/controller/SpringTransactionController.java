@@ -40,7 +40,7 @@ public class SpringTransactionController {
     public String saveSalaryPayrollOperateLogResult(@RequestBody @Validated SalaryPayrollOperateLogDTO salaryPayrollOperateLogDTO) {
          SalaryPayrollOperateLog salaryPayrollOperateLog=new SalaryPayrollOperateLog();
          BeanUtil.copyProperties(salaryPayrollOperateLogDTO,salaryPayrollOperateLog);
-         springTransactionService.saveSalaryPayrollOperateLogResult(salaryPayrollOperateLog);
+         springTransactionService.saveSalaryPayrollOperateLogResult(salaryPayrollOperateLog,salaryPayrollOperateLogDTO.getActionNum());
          return "保存成功";
     }
 }
