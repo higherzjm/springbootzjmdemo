@@ -10,6 +10,7 @@ import java.util.function.Consumer;
 
 /**
  * @author zhujianming
+ * Consumer  函数式接口应用
  */
 @Slf4j
 public class MyConsumer {
