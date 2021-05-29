@@ -2,10 +2,7 @@ package com.zjm.jdk8lambda;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.lang.Nullable;
-import org.springframework.util.Assert;
-import org.springframework.util.PropertyPlaceholderHelper;
 
-import java.util.HashSet;
 
 /**
  * @author zhujianming
@@ -33,8 +30,9 @@ public class MyFunctionalInterface {
         }
     }
 
-    public String replacePlaceholders(String value, Integer age, MyFunctionalInterface.PlaceholderResolver placeholderResolver) {
-        return placeholderResolver.resolvePlaceholder(value, age);
+    public String replacePlaceholders(String name, Integer age, MyFunctionalInterface.PlaceholderResolver placeholderResolver) {
+        name=name+"-->调用函数里面修改";
+        return placeholderResolver.resolvePlaceholder(name, age);
     }
 
     @FunctionalInterface

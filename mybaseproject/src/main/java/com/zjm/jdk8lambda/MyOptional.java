@@ -1,6 +1,7 @@
 package com.zjm.jdk8lambda;
 
 import com.zjm.VO.Student;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
 import java.util.Optional;
@@ -8,14 +9,15 @@ import java.util.Optional;
 /**
  * @author zhujianming
  */
+@Slf4j
 public class MyOptional {
     @Test
-    public void  test1(){
+    public void test1() {
         Student student1 = new Student(123, "张三", 30);
         Optional<Integer> optional = Optional.ofNullable(student1).flatMap((e) -> Optional.of(e.getAge()));
         System.out.println("第一个学生的年龄:" + optional.get());
 
-        String name = Optional.ofNullable(student1).map((v)->v.getName()).get();
+        String name = Optional.ofNullable(student1).map((v) -> v.getName()).get();
         System.out.println("第一个学生的姓名:" + name);
 
         Student student2 = new Student(111, null, 30);
@@ -28,5 +30,18 @@ public class MyOptional {
             return student3;
         }).getName();
         System.out.println("第三个学生的名字:" + name3);
+    }
+
+    @Test
+    public void test2() {
+        String name = "张三";
+        name = Optional.ofNullable(name).orElse("未设置值");
+        log.info("nam:{}", name);
+        name = null;
+        name = Optional.ofNullable(name).orElse("未设置值");
+        log.info("nam:{}", name);
+
+
+
     }
 }
