@@ -3,6 +3,7 @@ package com.zjm.base.controller;
 import com.zjm.base.VO.SchoolVO;
 import com.zjm.base.service.ITreeSortStatisticsService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -59,11 +60,13 @@ public class TreeSortStatisticsController {
         System.out.println(v0);
     }
     @GetMapping("/initTreeInfo")
+    @ApiOperation(value = "树结构初始化数据", notes = "树结构初始化数据")
     public SchoolVO initTreeInfo() {
         this.initOrResetTreeInfo();
         return v0;
     }
     @GetMapping("/treeStatisticsBySign")
+    @ApiOperation(value = "树结构单一字段逐级统计", notes = "树结构单一字段逐级统计")
     public SchoolVO treeStatisticsBySign() {
         this.initOrResetTreeInfo();
 
@@ -73,6 +76,7 @@ public class TreeSortStatisticsController {
     }
 
     @GetMapping("/tressStatisticsByOverall")
+    @ApiOperation(value = "树结构多字段同时逐级统计", notes = "树结构多字段同时逐级统计")
     public SchoolVO tressStatisticsByOverall() {
         this.initOrResetTreeInfo();
 

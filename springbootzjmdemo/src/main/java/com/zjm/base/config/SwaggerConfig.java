@@ -17,7 +17,7 @@ public class SwaggerConfig {
 
         registrationBean.setFilter(new CustomHttpRequestFilter());
 
-        registrationBean.addUrlPatterns("/base/*");
+        registrationBean.addUrlPatterns("/base/treeOperation/*");
 
         registrationBean.setName("customFilter");
 
