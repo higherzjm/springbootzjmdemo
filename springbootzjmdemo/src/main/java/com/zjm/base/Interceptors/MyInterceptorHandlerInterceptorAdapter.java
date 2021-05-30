@@ -17,14 +17,19 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.concurrent.*;
-
+/**
+ * @Description: 拦截器   实现HandlerInterceptor接口或继承HandlerInterceptorAdapter抽象类都可以
+ * @Author: zhujianming
+ * @Date: 2021/5/30
+ *
+ **/
 @Slf4j
-public class MyInterceptor extends HandlerInterceptorAdapter {
+public class MyInterceptorHandlerInterceptorAdapter extends HandlerInterceptorAdapter {
     @Autowired
     private MyService myService;
     private CompletionService<String> completionService;
 
-    public MyInterceptor() {
+    public MyInterceptorHandlerInterceptorAdapter() {
         ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(8, 30, 60, TimeUnit.MILLISECONDS,
                 new LinkedBlockingQueue<>(100), new ThreadFactoryBuilder().setNameFormat("salary-calculation-pool-%d").build(),
                 new ThreadPoolExecutor.AbortPolicy());
@@ -35,12 +40,6 @@ public class MyInterceptor extends HandlerInterceptorAdapter {
     /**
      * 在请求处理之前进行调用（Controller方法调用之前）
      * 基于URL实现的拦截器
-     *
-     * @param request
-     * @param response
-     * @param handler
-     * @return
-     * @throws Exception
      */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {

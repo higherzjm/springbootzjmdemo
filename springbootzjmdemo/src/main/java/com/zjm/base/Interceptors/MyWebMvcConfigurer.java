@@ -6,16 +6,16 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-public class WebConfigurer implements WebMvcConfigurer {
+public class MyWebMvcConfigurer implements WebMvcConfigurer {
     //添加拦截器
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        // 拦截所有请求，通过判断是否有 @LoginRequired 注解 决定是否需要登录  
-        registry.addInterceptor(myInterceptor()).addPathPatterns("/base/**");
-}
+        registry.addInterceptor(myInterceptor()).addPathPatterns("/base/springBootBase/**");
+        registry.addInterceptor(new MyInterceptorHandlerInterceptor()).addPathPatterns("/base/encryptionAndDecryption/**");
+    }
 
     @Bean
-    public MyInterceptor myInterceptor() {
-        return new MyInterceptor();
+    public MyInterceptorHandlerInterceptorAdapter myInterceptor() {
+        return new MyInterceptorHandlerInterceptorAdapter();
     }
 }
