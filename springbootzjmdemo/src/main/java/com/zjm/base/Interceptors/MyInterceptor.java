@@ -124,17 +124,3 @@ public class MyInterceptor extends HandlerInterceptorAdapter {
     }
 }
 
-//复核线程任务调度
-class RecheckThreadTaskCallable implements Callable<String> {
-
-    private String retMsg;
-
-    public RecheckThreadTaskCallable(String retMsg) {
-        this.retMsg = retMsg;
-    }
-
-    @Override
-    public String call() throws Exception {
-        return retMsg;
-    }
-}
