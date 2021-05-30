@@ -3,6 +3,8 @@ server:
 spring:
   application:
     name: springbootzjmdemo
+#  profiles:
+#    active: dev
   #cloud:
   #nacos:
   #discovery:
