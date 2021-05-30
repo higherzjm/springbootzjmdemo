@@ -81,6 +81,7 @@ public class EncryptionAndDecryptionController {
         SecretKey secretKey = keyGenerator.generateKey();//生成一个密钥
         byte[] bs = secretKey.getEncoded();
         String encodeHexString = Hex.encodeHexString(bs);
+        log.info("秘钥为:"+encodeHexString);
         return encodeHexString;
     }
 

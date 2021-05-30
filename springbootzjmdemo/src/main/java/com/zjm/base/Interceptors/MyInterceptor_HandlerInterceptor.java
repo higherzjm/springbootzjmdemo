@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 public class MyInterceptor_HandlerInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        log.info("preHandle");
+        log.info("拦截器预选处理->preHandle");
         String path = request.getServletPath();
         log.info("path:" + path);
         return true;
@@ -25,12 +25,12 @@ public class MyInterceptor_HandlerInterceptor implements HandlerInterceptor {
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-        log.info("postHandle");
+        log.info("请求发送->postHandle");
     }
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-        log.info("afterCompletion");
+        log.info("请求结束->afterCompletion");
     }
 }
 
