@@ -24,12 +24,12 @@ import java.util.concurrent.*;
  * @Date: 2021/5/30
  **/
 @Slf4j
-public class MyInterceptorHandlerInterceptorAdapter extends HandlerInterceptorAdapter {
+public class MyInterceptor_HandlerInterceptorAdapter extends HandlerInterceptorAdapter {
     @Autowired
     private MyService myService;
     private CompletionService<String> completionService;
 
-    public MyInterceptorHandlerInterceptorAdapter() {
+    public MyInterceptor_HandlerInterceptorAdapter() {
         ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(8, 30, 60, TimeUnit.MILLISECONDS,
                 new LinkedBlockingQueue<>(100), new ThreadFactoryBuilder().setNameFormat("salary-calculation-pool-%d").build(),
                 new ThreadPoolExecutor.AbortPolicy());

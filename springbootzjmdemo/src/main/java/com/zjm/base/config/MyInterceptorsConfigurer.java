@@ -1,7 +1,7 @@
 package com.zjm.base.config;
 
-import com.zjm.base.Interceptors.MyInterceptorHandlerInterceptor;
-import com.zjm.base.Interceptors.MyInterceptorHandlerInterceptorAdapter;
+import com.zjm.base.Interceptors.MyInterceptor_HandlerInterceptor;
+import com.zjm.base.Interceptors.MyInterceptor_HandlerInterceptorAdapter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -13,11 +13,11 @@ public class MyInterceptorsConfigurer implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(myInterceptor()).addPathPatterns("/base/springBootBase/**");
-        registry.addInterceptor(new MyInterceptorHandlerInterceptor()).addPathPatterns("/base/encryptionAndDecryption/**");
+        registry.addInterceptor(new MyInterceptor_HandlerInterceptor()).addPathPatterns("/base/encryptionAndDecryption/**");
     }
 
     @Bean
-    public MyInterceptorHandlerInterceptorAdapter myInterceptor() {
-        return new MyInterceptorHandlerInterceptorAdapter();
+    public MyInterceptor_HandlerInterceptorAdapter myInterceptor() {
+        return new MyInterceptor_HandlerInterceptorAdapter();
     }
 }
