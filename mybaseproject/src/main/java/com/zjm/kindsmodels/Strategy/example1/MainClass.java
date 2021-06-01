@@ -1,4 +1,4 @@
-package com.zjm.kindsmodels.Strategy;
+package com.zjm.kindsmodels.Strategy.example1;
 
 /*策略模式
  * Strategy模式也叫策略模式是行为模式之一，

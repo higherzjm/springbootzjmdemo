@@ -1,4 +1,4 @@
-package com.zjm.kindsmodels.Strategy;
+package com.zjm.kindsmodels.Strategy.example1;
 
 /*
  * 达八折策略
