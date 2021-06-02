@@ -54,9 +54,19 @@ public class PropertyPlaceholderHelperTest {
 
         String result = helper.replacePlaceholders(text, props);
 
-        log.info("其他符号:"+result);
+        log.info("其他符号:" + result);
 
+    }
 
+    /**
+     * String原生
+     */
+    @Test
+    public void test3() {
+        String msg = "工号【%s】不存在";
+        log.info(String.format(msg, "1001"));
+        msg = "工号【%s】和姓名【%s】不匹配";
+        log.info(String.format(msg, "1002", "张三"));
     }
 
 }
