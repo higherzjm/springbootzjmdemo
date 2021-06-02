@@ -18,7 +18,7 @@ public class MyControllerAdvice {
   public Map<String,Object> exceptionHandler(Exception ex){
     Map<String,Object> map = new HashMap<String,Object>();
     map.put("code",100);
-    map.put("msg",ex.getMessage());
+    map.put("msg","自定义异常:"+ex.getMessage());
     return map;
   }
  
