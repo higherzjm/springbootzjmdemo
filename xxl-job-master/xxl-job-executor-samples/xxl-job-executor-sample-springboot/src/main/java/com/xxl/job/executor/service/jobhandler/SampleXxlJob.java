@@ -39,7 +39,7 @@ public class SampleXxlJob {
     @XxlJob("demoJobHandler")
     public void demoJobHandler() throws Exception {
         XxlJobHelper.log("XXL-JOB, Hello World.");
-        System.out.println("执行任务:"+ LocalDateTime.now());
+        System.out.println("demoJobHandler:"+ LocalDateTime.now());
 
         for (int i = 0; i < 5; i++) {
             XxlJobHelper.log("beat at:" + i);
@@ -47,7 +47,11 @@ public class SampleXxlJob {
         }
         // default success
     }
+    @XxlJob("demoJobHandler_myself")
+    public void demoJobHandler_myself() throws Exception {
+        System.out.println("demoJobHandler_myself:"+ LocalDateTime.now());
 
+    }
 
     /**
      * 2、分片广播任务
