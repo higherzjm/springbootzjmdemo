@@ -3,8 +3,8 @@ server:
 spring:
   application:
     name: springbootzjmdemo
-#  profiles:
-#    active: dev
+  profiles:
+    active: dev
   #cloud:
   #nacos:
   #discovery:
@@ -90,6 +90,7 @@ logging:
         springboot:
           cache:
             mapper: debug
+  config: classpath:logback.xml   #xxljob  使用
 mybatis-plus:
   global-config:
     db-config:
@@ -97,3 +98,26 @@ mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl   #控制台打印数据库执行脚本
   mapperLocations: classpath:mapper/**/*Mapper.xml   # 指定mapper配置文件路径
+
+xxl:
+  job:
+    admin:
+      #调度中心部署跟地址：如调度中心集群部署存在多个地址则用逗号分隔。
+      #执行器将会使用该地址进行"执行器心跳注册"和"任务结果回调"。
+      addresses: http://127.0.0.1:8331/xxl-job-admin
+
+    #分别配置执行器的名称、ip地址、端口号
+    #注意：如果配置多个执行器时，防止端口冲突
+    executor:
+      appname: xxl-job-springbootzjmdemo
+      ip: 127.0.0.1
+      port: 9995
+      address:
+      #执行器运行日志文件存储的磁盘位置，需要对该路径拥有读写权限
+      logpath: D:/learn/projects/xxllogs
+      #执行器Log文件定期清理功能，指定日志保存天数，日志文件过期自动删除。限制至少保持3天，否则功能不生效；
+      #-1表示永不删除
+      logretentiondays: -1
+    accessToken:
+
+

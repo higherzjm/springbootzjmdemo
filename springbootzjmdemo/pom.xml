@@ -16,6 +16,12 @@
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.3.4.RELEASE</version>
     </parent>
+   <!-- <parent>
+        <groupId>com.xuxueli</groupId>
+        <artifactId>xxl-job</artifactId>
+        <version>2.3.1-SNAPSHOT</version>
+    </parent>-->
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -145,33 +151,50 @@
             <artifactId>spring-cloud-context</artifactId>
             <version>2.2.8.RELEASE</version>
         </dependency>
+        <dependency>
+            <groupId>com.xuxueli</groupId>
+            <artifactId>xxl-job-core</artifactId>
+            <version>2.3.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <!-- <dependency>
+             <groupId>com.xuxueli</groupId>
+             <artifactId>xxl-job-core</artifactId>
+             <version>2.0.2</version>
+         </dependency>-->
     </dependencies>
 
     <profiles>
         <!--测试环境 -->
         <profile>
             <id>test</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
+            <!-- <activation>
+                 <activeByDefault>true</activeByDefault>
+             </activation>-->
             <properties>
-                <profileActive>test</profileActive>
-                <application.name>springbootzjmdemo_test</application.name>
+                <!--<profileActive>test</profileActive>-->
+                <application.name>springbootzjmdemo</application.name>
                 <nacos.config.address>127.0.0.1:9002</nacos.config.address>
                 <nacos.discovery.address>127.0.0.1:9002</nacos.discovery.address>
+                <!--<db.address>11</db.address>
+                <db.username>11</db.username>
+                <db.password>11</db.password>-->
             </properties>
         </profile>
         <!--开发环境 -->
         <profile>
             <id>dev</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
+            <!-- <activation>
+                 <activeByDefault>true</activeByDefault>
+             </activation>-->
             <properties>
-                <profileActive>dev</profileActive>
-                <application.name>springbootzjmdemo_dev</application.name>
+                <!--<profileActive>dev</profileActive>-->
+                <application.name>springbootzjmdemo</application.name>
                 <nacos.config.address>127.0.0.1:9002</nacos.config.address>
                 <nacos.discovery.address>127.0.0.1:9002</nacos.discovery.address>
+                <!-- <db.address>11</db.address>
+                 <db.username>11</db.username>
+                 <db.password>11</db.password>-->
             </properties>
         </profile>
     </profiles>
