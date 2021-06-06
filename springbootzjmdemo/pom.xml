@@ -16,11 +16,6 @@
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.3.4.RELEASE</version>
     </parent>
-   <!-- <parent>
-        <groupId>com.xuxueli</groupId>
-        <artifactId>xxl-job</artifactId>
-        <version>2.3.1-SNAPSHOT</version>
-    </parent>-->
 
     <dependencies>
         <dependency>
@@ -151,17 +146,13 @@
             <artifactId>spring-cloud-context</artifactId>
             <version>2.2.8.RELEASE</version>
         </dependency>
+        <!--xxl-job 定时任务-->
         <dependency>
             <groupId>com.xuxueli</groupId>
             <artifactId>xxl-job-core</artifactId>
             <version>2.3.1-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
-        <!-- <dependency>
-             <groupId>com.xuxueli</groupId>
-             <artifactId>xxl-job-core</artifactId>
-             <version>2.0.2</version>
-         </dependency>-->
     </dependencies>
 
     <profiles>
