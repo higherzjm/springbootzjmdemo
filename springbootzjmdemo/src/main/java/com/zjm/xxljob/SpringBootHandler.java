@@ -1,4 +1,4 @@
-package com.zjm.myxxljob;
+package com.zjm.xxljob;
 
 import com.xxl.job.core.handler.annotation.XxlJob;
 import org.springframework.stereotype.Component;
