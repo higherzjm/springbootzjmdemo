@@ -30,7 +30,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SalaryPayrollOperateLogDTO implements Serializable {
+public class LogInfoDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

@@ -1,7 +1,7 @@
 package com.zjm.springaop;
 
 import com.zjm.base.VO.SchoolVO;
-import com.zjm.springtransaction.entity.Loginfo;
+import com.zjm.springtransaction.entity.LogInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -34,10 +34,10 @@ public class MyAspect {
     {
     }
     @Before("aspectMapperPointCut2() && execution(public * *.save*(..)) && args(loginfo,actionNum)")
-    public void beforeInsert2(Loginfo loginfo,String actionNum)
+    public void beforeInsert2(LogInfo loginfo,String actionNum)
     {
         log.info("ISpringTransactionService切面");
-        loginfo.setId(UUID.randomUUID().toString());
+        loginfo.setId(UUID.randomUUID().toString().replace("-",""));
         loginfo.setCreateTime(LocalDateTime.now());
         loginfo.setUpdateTime(LocalDateTime.now());
         loginfo.setEmployeeName("切面插入的随机员工");

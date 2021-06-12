@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @TableName("log_info")
-public class Loginfo extends Model<Loginfo> {
+public class LogInfo extends Model<LogInfo> {
 
     private static final long serialVersionUID = 1L;
 

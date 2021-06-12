@@ -1,17 +1,15 @@
 package com.zjm.springtransaction.controller;
 
 import cn.hutool.core.bean.BeanUtil;
-import cn.hutool.extra.spring.SpringUtil;
-import com.zjm.springtransaction.DTO.SalaryPayrollOperateLogDTO;
-import com.zjm.springtransaction.VO.SalaryPayrollOperateLogResultVO;
-import com.zjm.springtransaction.entity.Loginfo;
+import com.zjm.springtransaction.DTO.LogInfoDTO;
+import com.zjm.springtransaction.VO.LogInfoResultVO;
+import com.zjm.springtransaction.entity.LogInfo;
 import com.zjm.springtransaction.service.ISpringTransactionService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,22 +28,22 @@ public class SpringTransactionController {
 
     @PostMapping("/findSalaryPayrollOperateLogResult")
     @ApiOperation(value = "查询日志", notes = "查询日志")
-    public List<SalaryPayrollOperateLogResultVO> findSalaryPayrollOperateLogResult(@RequestBody @Validated SalaryPayrollOperateLogDTO salaryPayrollOperateLogDTO) {
-        return springTransactionService.findSalaryPayrollOperateLogResult(salaryPayrollOperateLogDTO);
+    public List<LogInfoResultVO> findSalaryPayrollOperateLogResult(@RequestBody @Validated LogInfoDTO logInfoDTO) {
+        return springTransactionService.findSalaryPayrollOperateLogResult(logInfoDTO);
     }
 
     @PostMapping("/saveSalaryPayrollOperateLogResult")
     @ApiOperation(value = "保存日志", notes = "保存日志")
-    public String saveSalaryPayrollOperateLogResult(@RequestBody @Validated SalaryPayrollOperateLogDTO salaryPayrollOperateLogDTO) {
-        Loginfo salaryPayrollOperateLog = new Loginfo();
-        BeanUtil.copyProperties(salaryPayrollOperateLogDTO, salaryPayrollOperateLog);
-        springTransactionService.saveSalaryPayrollOperateLogResult(salaryPayrollOperateLog, salaryPayrollOperateLogDTO.getActionNum());
+    public String saveSalaryPayrollOperateLogResult(@RequestBody @Validated LogInfoDTO logInfoDTO) {
+        LogInfo logInfo = new LogInfo();
+        BeanUtil.copyProperties(logInfoDTO, logInfo);
+        springTransactionService.saveSalaryPayrollOperateLogResult(logInfo, logInfoDTO.getActionNum());
         return "保存成功";
     }
 
     @GetMapping("/queryDynamicTableInfo/{id}")
     @ApiOperation(value = "mybatis动态查询", notes = "mybatis动态查询")
-    public Loginfo queryDynamicTableInfo(@ApiParam(name = "id", value = "主键id") @PathVariable("id") String id) {
-        return springTransactionService.queryDynamicTableInfo(id, Loginfo.class);
+    public LogInfo queryDynamicTableInfo(@ApiParam(name = "id", value = "主键id") @PathVariable("id") String id) {
+        return springTransactionService.queryDynamicTableInfo(id, LogInfo.class);
     }
 }

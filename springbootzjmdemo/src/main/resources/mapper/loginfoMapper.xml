@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.zjm.springtransaction.mapper.SalaryPayrollOperateLogMapper">
+<mapper namespace="com.zjm.springtransaction.mapper.LogInfoMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.zjm.springtransaction.entity.Loginfo">
+    <resultMap id="BaseResultMap" type="com.zjm.springtransaction.entity.LogInfo">
         <id column="id" property="id" />
         <result column="employee_code" property="employeeCode" />
         <result column="employee_name" property="employeeName" />
@@ -21,7 +21,7 @@
     </sql>
 
     <select id="querySalaryPayrollOperateLog"
-            resultType="com.zjm.springtransaction.VO.SalaryPayrollOperateLogResultVO">
+            resultType="com.zjm.springtransaction.VO.LogInfoResultVO">
         SELECT
         fo.id operateLogId,
         fo.create_time,

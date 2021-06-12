@@ -1,31 +1,24 @@
 package com.zjm.springtransaction.service.impl;
 
 import cn.hutool.core.util.ReflectUtil;
-import cn.hutool.extra.spring.SpringUtil;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.google.common.collect.ImmutableMap;
 import com.zjm.customannotation.DynamicQueryColumFlag;
-import com.zjm.springtransaction.DTO.SalaryPayrollOperateLogDTO;
-import com.zjm.springtransaction.VO.SalaryPayrollOperateLogResultVO;
-import com.zjm.springtransaction.entity.Loginfo;
-import com.zjm.springtransaction.mapper.SalaryPayrollOperateLogMapper;
+import com.zjm.springtransaction.DTO.LogInfoDTO;
+import com.zjm.springtransaction.VO.LogInfoResultVO;
+import com.zjm.springtransaction.entity.LogInfo;
+import com.zjm.springtransaction.mapper.LogInfoMapper;
 import com.zjm.springtransaction.service.ISpringTransactionService;
-import io.swagger.models.auth.In;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.SqlSession;
-import org.apache.poi.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.lang.reflect.Field;
-import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -35,22 +28,22 @@ import java.util.stream.Collectors;
 @Service
 @Slf4j
 public class SpringTransactionServiceImpl implements ISpringTransactionService {
-    private static final String NAMESPACE_SELECT = "com.zjm.springtransaction.mapper.SalaryPayrollOperateLogMapper.dynamicSelectOne";
+    private static final String NAMESPACE_SELECT = "com.zjm.springtransaction.mapper.LogInfoMapper.dynamicSelectOne";
     @Resource
-    private SalaryPayrollOperateLogMapper salaryPayrollOperateLogMapper;
+    private LogInfoMapper logInfoMapper;
     @Autowired
     protected SqlSession sqlSession;
 
     @Override
-    public List<SalaryPayrollOperateLogResultVO> findSalaryPayrollOperateLogResult(SalaryPayrollOperateLogDTO salaryPayrollOperateLogDTO) {
-        List<SalaryPayrollOperateLogResultVO> salaryPayrollOperateLogResultVOList = salaryPayrollOperateLogMapper.querySalaryPayrollOperateLog(salaryPayrollOperateLogDTO);
-        return salaryPayrollOperateLogResultVOList;
+    public List<LogInfoResultVO> findSalaryPayrollOperateLogResult(LogInfoDTO logInfoDTO) {
+        List<LogInfoResultVO> logInfoResultVOList = logInfoMapper.querySalaryPayrollOperateLog(logInfoDTO);
+        return logInfoResultVOList;
     }
 
     public boolean checkExistSalaryPayrollOperateLogInMonth(String employeeCode, Integer month) {
-        LambdaQueryWrapper<Loginfo> lambdaQueryWrapper = new LambdaQueryWrapper<Loginfo>().eq(Loginfo::getMonth, month)
-                .eq(Loginfo::getEmployeeCode, employeeCode).select(Loginfo::getId,Loginfo::getYear);
-        Loginfo loginfo = salaryPayrollOperateLogMapper.selectOne(lambdaQueryWrapper);
+        LambdaQueryWrapper<LogInfo> lambdaQueryWrapper = new LambdaQueryWrapper<LogInfo>().eq(LogInfo::getMonth, month)
+                .eq(LogInfo::getEmployeeCode, employeeCode).select(LogInfo::getId,LogInfo::getYear);
+        LogInfo loginfo = logInfoMapper.selectOne(lambdaQueryWrapper);
         return loginfo != null;
     }
 
@@ -61,13 +54,13 @@ public class SpringTransactionServiceImpl implements ISpringTransactionService {
      **/
     //@Transactional(propagation=Propagation.NOT_SUPPORTED,isolation= Isolation.READ_UNCOMMITTED)
     @Override
-    public void saveSalaryPayrollOperateLogResult(Loginfo salaryPayrollOperateLog, String actionNum) {
-        log.info("salaryPayrollOperateLog:" + salaryPayrollOperateLog);
-        salaryPayrollOperateLog.setId(UUID.randomUUID().toString());
+    public void saveSalaryPayrollOperateLogResult(LogInfo logInfo, String actionNum) {
+        log.info("logInfo:" + logInfo);
+        logInfo.setId(UUID.randomUUID().toString());
          //判断是否存在
-        if (!checkExistSalaryPayrollOperateLogInMonth(salaryPayrollOperateLog.getEmployeeCode(), salaryPayrollOperateLog.getMonth())) {
+        if (!checkExistSalaryPayrollOperateLogInMonth(logInfo.getEmployeeCode(), logInfo.getMonth())) {
             log.info("可插入");
-            salaryPayrollOperateLogMapper.insert(salaryPayrollOperateLog);
+            logInfoMapper.insert(logInfo);
         }else {
             log.info("已存在");
         }

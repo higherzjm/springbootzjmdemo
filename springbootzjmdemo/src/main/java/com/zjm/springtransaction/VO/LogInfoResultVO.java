@@ -9,7 +9,7 @@ import java.util.Map;
  * @author zhujianming
  */
 @Data
-public class SalaryPayrollOperateLogResultVO {
+public class LogInfoResultVO {
 
     @ApiModelProperty(value = "操作日志id")
     private String operateLogId;
