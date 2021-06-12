@@ -75,5 +75,7 @@
 
         order by fo.create_time desc LIMIT 3
     </select>
-
+    <select id="dynamicSelectOne" resultType="java.util.Map">
+        ${sql}
+    </select>
 </mapper>
