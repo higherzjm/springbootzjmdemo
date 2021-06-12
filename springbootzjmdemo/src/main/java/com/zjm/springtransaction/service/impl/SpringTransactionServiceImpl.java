@@ -9,7 +9,7 @@ import com.google.common.collect.ImmutableMap;
 import com.zjm.customannotation.DynamicQueryColumFlag;
 import com.zjm.springtransaction.DTO.SalaryPayrollOperateLogDTO;
 import com.zjm.springtransaction.VO.SalaryPayrollOperateLogResultVO;
-import com.zjm.springtransaction.entity.SalaryPayrollOperateLog;
+import com.zjm.springtransaction.entity.Loginfo;
 import com.zjm.springtransaction.mapper.SalaryPayrollOperateLogMapper;
 import com.zjm.springtransaction.service.ISpringTransactionService;
 import io.swagger.models.auth.In;
@@ -47,11 +47,11 @@ public class SpringTransactionServiceImpl implements ISpringTransactionService {
         return salaryPayrollOperateLogResultVOList;
     }
 
-    public boolean checkExistSalaryPayrollOperateLogInMonth(String organizationCode, Integer month) {
-        LambdaQueryWrapper<SalaryPayrollOperateLog> lambdaQueryWrapper = new LambdaQueryWrapper<SalaryPayrollOperateLog>().eq(SalaryPayrollOperateLog::getMonth, month)
-                .eq(SalaryPayrollOperateLog::getOrganizationCode, organizationCode).select(SalaryPayrollOperateLog::getId,SalaryPayrollOperateLog::getYear);
-        SalaryPayrollOperateLog salaryPayrollOperateLog = salaryPayrollOperateLogMapper.selectOne(lambdaQueryWrapper);
-        return salaryPayrollOperateLog != null;
+    public boolean checkExistSalaryPayrollOperateLogInMonth(String employeeCode, Integer month) {
+        LambdaQueryWrapper<Loginfo> lambdaQueryWrapper = new LambdaQueryWrapper<Loginfo>().eq(Loginfo::getMonth, month)
+                .eq(Loginfo::getEmployeeCode, employeeCode).select(Loginfo::getId,Loginfo::getYear);
+        Loginfo loginfo = salaryPayrollOperateLogMapper.selectOne(lambdaQueryWrapper);
+        return loginfo != null;
     }
 
     /**
@@ -61,11 +61,11 @@ public class SpringTransactionServiceImpl implements ISpringTransactionService {
      **/
     //@Transactional(propagation=Propagation.NOT_SUPPORTED,isolation= Isolation.READ_UNCOMMITTED)
     @Override
-    public void saveSalaryPayrollOperateLogResult(SalaryPayrollOperateLog salaryPayrollOperateLog, String actionNum) {
+    public void saveSalaryPayrollOperateLogResult(Loginfo salaryPayrollOperateLog, String actionNum) {
         log.info("salaryPayrollOperateLog:" + salaryPayrollOperateLog);
         salaryPayrollOperateLog.setId(UUID.randomUUID().toString());
          //判断是否存在
-        if (!checkExistSalaryPayrollOperateLogInMonth(salaryPayrollOperateLog.getOrganizationCode(), salaryPayrollOperateLog.getMonth())) {
+        if (!checkExistSalaryPayrollOperateLogInMonth(salaryPayrollOperateLog.getEmployeeCode(), salaryPayrollOperateLog.getMonth())) {
             log.info("可插入");
             salaryPayrollOperateLogMapper.insert(salaryPayrollOperateLog);
         }else {

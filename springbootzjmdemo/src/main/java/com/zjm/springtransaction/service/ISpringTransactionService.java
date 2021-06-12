@@ -2,7 +2,7 @@ package com.zjm.springtransaction.service;
 
 import com.zjm.springtransaction.DTO.SalaryPayrollOperateLogDTO;
 import com.zjm.springtransaction.VO.SalaryPayrollOperateLogResultVO;
-import com.zjm.springtransaction.entity.SalaryPayrollOperateLog;
+import com.zjm.springtransaction.entity.Loginfo;
 
 import java.util.List;
 
@@ -11,6 +11,6 @@ import java.util.List;
  */
 public interface ISpringTransactionService {
     List<SalaryPayrollOperateLogResultVO> findSalaryPayrollOperateLogResult(SalaryPayrollOperateLogDTO salaryPayrollOperateLogDTO);
-    void  saveSalaryPayrollOperateLogResult(SalaryPayrollOperateLog salaryPayrollOperateLog,String actionNum);
+    void  saveSalaryPayrollOperateLogResult(Loginfo loginfo, String actionNum);
     <T> T queryDynamicTableInfo(String id, Class<T> dataClazz);
 }

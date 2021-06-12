@@ -3,20 +3,12 @@
 <mapper namespace="com.zjm.springtransaction.mapper.SalaryPayrollOperateLogMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.zjm.springtransaction.entity.SalaryPayrollOperateLog">
+    <resultMap id="BaseResultMap" type="com.zjm.springtransaction.entity.Loginfo">
         <id column="id" property="id" />
-        <result column="organization_code" property="organizationCode" />
-        <result column="payroll_record_id" property="payrollRecordId" />
-        <result column="year" property="year" />
-        <result column="month" property="month" />
         <result column="employee_code" property="employeeCode" />
         <result column="employee_name" property="employeeName" />
-        <result column="employee_no" property="employeeNo" />
-        <result column="operate_type" property="operateType" />
-        <result column="busi_type" property="busiType" />
-        <result column="busi_unit" property="busiUnit" />
-        <result column="operate_object" property="operateObject" />
-        <result column="content" property="content" />
+        <result column="year" property="year" />
+        <result column="month" property="month" />
         <result column="create_time" property="createTime" />
         <result column="create_user" property="createUser" />
         <result column="update_time" property="updateTime" />
@@ -25,26 +17,21 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
- id,  organization_code,  payroll_record_id,  year,  month,  employee_code,  employee_name,  employee_no,  operate_type,  busi_type,  busi_unit,  operate_object,  content,  create_time,  create_user,  update_time,  update_user
+   id,employee_code,employee_name,year,month,create_time,create_user,update_time,update_user
     </sql>
 
     <select id="querySalaryPayrollOperateLog"
             resultType="com.zjm.springtransaction.VO.SalaryPayrollOperateLogResultVO">
         SELECT
         fo.id operateLogId,
-        fo.create_time operateDateTime,
-        CONCAT( fo.employee_name, '(', fo.employee_no, ')' ) operateUser,
-        fo.operate_type,
-        fo.busi_unit,
-        fo.busi_type,
+        fo.create_time,
+        fo.create_user,
         fo.`year`,
-        fo.`month`,
-        fo.operate_object,
-        fo.content
+        fo.`month`
         FROM
-        t_finance_salary_payroll_operate_log fo
+        log_info fo
         WHERE
-        fo.organization_code = #{param.organizationCode}
+          1=1
 
         <if test="param.year!=null and param.year!=''">
             AND fo.year = #{param.year}

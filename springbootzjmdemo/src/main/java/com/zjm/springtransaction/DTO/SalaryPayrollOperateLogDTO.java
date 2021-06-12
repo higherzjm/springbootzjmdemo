@@ -34,8 +34,8 @@ public class SalaryPayrollOperateLogDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "组织机构编码",example = "ORG1343456435840925697")
-    private String organizationCode;
+    @ApiModelProperty(value = "员工编码",example = "OA1343456435840925697")
+    private String employeeCode;
 
     @ApiModelProperty(value = "计薪年", required = true,example ="2021")
     private Integer year;
@@ -54,8 +54,6 @@ public class SalaryPayrollOperateLogDTO implements Serializable {
     private LocalDate operateDateEnd;
 
 
-    @ApiModelProperty(value = "操作类型(无需前端传值)")
-    private List<Integer> operateTypeList;
 
     @ApiModelProperty(value = "操作编码(测试事务使用)")
     private String actionNum;

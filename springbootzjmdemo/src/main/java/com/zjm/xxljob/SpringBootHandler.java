@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @Component
 public class SpringBootHandler{
 
-    @XxlJob("springBootHandler")
+    @XxlJob("xxlJobSpringBootHandler")
     public void springBootHandler() throws Exception {
         System.out.println("springBootHandler:"+ LocalDateTime.now());
 

@@ -1,7 +1,7 @@
 package com.zjm.springaop;
 
 import com.zjm.base.VO.SchoolVO;
-import com.zjm.springtransaction.entity.SalaryPayrollOperateLog;
+import com.zjm.springtransaction.entity.Loginfo;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -33,19 +33,20 @@ public class MyAspect {
     public void aspectMapperPointCut2()
     {
     }
-    @Before("aspectMapperPointCut2() && execution(public * *.save*(..)) && args(salaryPayrollOperateLog,actionNum)")
-    public void beforeInsert2(SalaryPayrollOperateLog salaryPayrollOperateLog,String actionNum)
+    @Before("aspectMapperPointCut2() && execution(public * *.save*(..)) && args(loginfo,actionNum)")
+    public void beforeInsert2(Loginfo loginfo,String actionNum)
     {
         log.info("ISpringTransactionService切面");
-        salaryPayrollOperateLog.setId(UUID.randomUUID().toString());
-        salaryPayrollOperateLog.setCreateTime(LocalDateTime.now());
-        salaryPayrollOperateLog.setUpdateTime(LocalDateTime.now());
+        loginfo.setId(UUID.randomUUID().toString());
+        loginfo.setCreateTime(LocalDateTime.now());
+        loginfo.setUpdateTime(LocalDateTime.now());
+        loginfo.setEmployeeName("切面插入的随机员工");
         if ("1".equals(actionNum)) {
-            salaryPayrollOperateLog.setCreateUser("actionNum-1创建人");
-            salaryPayrollOperateLog.setUpdateUser("actionNum-1更新人");
+            loginfo.setCreateUser("actionNum-1创建人");
+            loginfo.setUpdateUser("actionNum-1更新人");
         }else {
-            salaryPayrollOperateLog.setCreateUser("未知创建人");
-            salaryPayrollOperateLog.setUpdateUser("未知更新人");
+            loginfo.setCreateUser("未知创建人");
+            loginfo.setUpdateUser("未知更新人");
         }
     }
 

@@ -4,7 +4,7 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.extra.spring.SpringUtil;
 import com.zjm.springtransaction.DTO.SalaryPayrollOperateLogDTO;
 import com.zjm.springtransaction.VO.SalaryPayrollOperateLogResultVO;
-import com.zjm.springtransaction.entity.SalaryPayrollOperateLog;
+import com.zjm.springtransaction.entity.Loginfo;
 import com.zjm.springtransaction.service.ISpringTransactionService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -27,6 +27,7 @@ import java.util.List;
 public class SpringTransactionController {
     @Autowired
     private ISpringTransactionService springTransactionService;
+
     @PostMapping("/findSalaryPayrollOperateLogResult")
     @ApiOperation(value = "查询日志", notes = "查询日志")
     public List<SalaryPayrollOperateLogResultVO> findSalaryPayrollOperateLogResult(@RequestBody @Validated SalaryPayrollOperateLogDTO salaryPayrollOperateLogDTO) {
@@ -36,14 +37,15 @@ public class SpringTransactionController {
     @PostMapping("/saveSalaryPayrollOperateLogResult")
     @ApiOperation(value = "保存日志", notes = "保存日志")
     public String saveSalaryPayrollOperateLogResult(@RequestBody @Validated SalaryPayrollOperateLogDTO salaryPayrollOperateLogDTO) {
-         SalaryPayrollOperateLog salaryPayrollOperateLog=new SalaryPayrollOperateLog();
-         BeanUtil.copyProperties(salaryPayrollOperateLogDTO,salaryPayrollOperateLog);
-         springTransactionService.saveSalaryPayrollOperateLogResult(salaryPayrollOperateLog,salaryPayrollOperateLogDTO.getActionNum());
-         return "保存成功";
+        Loginfo salaryPayrollOperateLog = new Loginfo();
+        BeanUtil.copyProperties(salaryPayrollOperateLogDTO, salaryPayrollOperateLog);
+        springTransactionService.saveSalaryPayrollOperateLogResult(salaryPayrollOperateLog, salaryPayrollOperateLogDTO.getActionNum());
+        return "保存成功";
     }
+
     @GetMapping("/queryDynamicTableInfo/{id}")
     @ApiOperation(value = "mybatis动态查询", notes = "mybatis动态查询")
-    public SalaryPayrollOperateLog queryDynamicTableInfo(@ApiParam(name = "id", value = "主键id") @PathVariable("id") String id) {
-        return springTransactionService.queryDynamicTableInfo(id,SalaryPayrollOperateLog.class);
+    public Loginfo queryDynamicTableInfo(@ApiParam(name = "id", value = "主键id") @PathVariable("id") String id) {
+        return springTransactionService.queryDynamicTableInfo(id, Loginfo.class);
     }
 }
