@@ -8,14 +8,12 @@ import com.zjm.springtransaction.entity.SalaryPayrollOperateLog;
 import com.zjm.springtransaction.service.ISpringTransactionService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -42,5 +40,10 @@ public class SpringTransactionController {
          BeanUtil.copyProperties(salaryPayrollOperateLogDTO,salaryPayrollOperateLog);
          springTransactionService.saveSalaryPayrollOperateLogResult(salaryPayrollOperateLog,salaryPayrollOperateLogDTO.getActionNum());
          return "保存成功";
+    }
+    @GetMapping("/queryDynamicTableInfo/{id}")
+    @ApiOperation(value = "mybatis动态查询", notes = "mybatis动态查询")
+    public SalaryPayrollOperateLog queryDynamicTableInfo(@ApiParam(name = "id", value = "主键id") @PathVariable("id") String id) {
+        return springTransactionService.queryDynamicTableInfo(id,SalaryPayrollOperateLog.class);
     }
 }

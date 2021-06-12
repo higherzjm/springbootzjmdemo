@@ -1,6 +1,12 @@
 package com.zjm.springtransaction.service.impl;
 
+import cn.hutool.core.util.ReflectUtil;
+import cn.hutool.extra.spring.SpringUtil;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.google.common.collect.ImmutableMap;
+import com.zjm.customannotation.DynamicQueryColumFlag;
 import com.zjm.springtransaction.DTO.SalaryPayrollOperateLogDTO;
 import com.zjm.springtransaction.VO.SalaryPayrollOperateLogResultVO;
 import com.zjm.springtransaction.entity.SalaryPayrollOperateLog;
@@ -8,15 +14,20 @@ import com.zjm.springtransaction.mapper.SalaryPayrollOperateLogMapper;
 import com.zjm.springtransaction.service.ISpringTransactionService;
 import io.swagger.models.auth.In;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.poi.util.StringUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
+import java.lang.reflect.Field;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author zhujianming
@@ -24,8 +35,11 @@ import java.util.UUID;
 @Service
 @Slf4j
 public class SpringTransactionServiceImpl implements ISpringTransactionService {
+    private static final String NAMESPACE_SELECT = "com.zjm.springtransaction.mapper.SalaryPayrollOperateLogMapper.dynamicSelectOne";
     @Resource
     private SalaryPayrollOperateLogMapper salaryPayrollOperateLogMapper;
+    @Autowired
+    protected SqlSession sqlSession;
 
     @Override
     public List<SalaryPayrollOperateLogResultVO> findSalaryPayrollOperateLogResult(SalaryPayrollOperateLogDTO salaryPayrollOperateLogDTO) {
@@ -67,4 +81,80 @@ public class SpringTransactionServiceImpl implements ISpringTransactionService {
         }
     }
 
+    @Override
+    public <T> T queryDynamicTableInfo(String id, Class<T> dataClazz) {
+        String tableName = dataClazz.getAnnotation(TableName.class).value();
+        String tableColumns = getLogTableFields(dataClazz).stream().collect(Collectors.joining(","));
+        String sql = buildSelectSql(tableName, tableColumns, id);
+        return selectOne(sql, dataClazz);
+    }
+    /**
+     * 数据查询
+     *
+     * @param sql
+     * @return
+     */
+    protected <T> T selectOne(String sql, Class<T> resultClass) {
+        Map<String, Object> result = selectOne(sql);
+        if (result != null) {
+            Map<String, Object> tempMap = new HashMap<>();
+            result.forEach((key, value) -> tempMap.put(com.baomidou.mybatisplus.core.toolkit.StringUtils.underlineToCamel(key), value));
+            try {
+                //注意不能使用BeanUtil.toBean， 日期类型Date跟LocalDateTime无法转化
+                T resultObject = resultClass.newInstance();
+                tempMap.forEach((key, value) -> ReflectUtil.setFieldValue(resultObject, key, value));
+                return resultObject;
+            } catch (Exception e) {
+            }
+        }
+        return null;
+    }
+    /**
+     * 查询一条数据
+     *
+     * @param sql
+     * @return
+     */
+    protected Map<String, Object> selectOne(String sql) {
+        return sqlSession.selectOne(NAMESPACE_SELECT, ImmutableMap.of("sql", sql));
+    }
+    /**
+     * 获取实体需要记录的字段对应的库表字段
+     *
+     * @param dataClazz
+     * @return
+     */
+    protected List<String> getLogTableFields(Class dataClazz) {
+        List<Field> fieldList = getLogEntityFields(dataClazz);
+        return fieldList.stream().filter(field -> !StringUtils.isEmpty(field.getAnnotation(TableField.class).value()))
+                .map(field -> field.getAnnotation(TableField.class).value()).collect(Collectors.toList());
+    }
+
+    /**
+     * 获取实体需要记录的字段
+     *
+     * @param dataClazz
+     * @return
+     */
+    protected List<Field> getLogEntityFields(Class dataClazz) {
+        return Arrays.stream(dataClazz.getDeclaredFields()).filter(field -> field.getAnnotation(DynamicQueryColumFlag.class) != null)
+                .sorted((o1, o2) -> {
+                    int order1 = o1.getAnnotation(DynamicQueryColumFlag.class).order();
+                    int order2 = o2.getAnnotation(DynamicQueryColumFlag.class).order();
+                    return order1 - order2;
+                })
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * 构建查询语句
+     *
+     * @param tableName
+     * @param fields
+     * @param id
+     * @return
+     */
+    private String buildSelectSql(String tableName, String fields, String id) {
+        return String.format("select id, %s from %s where id = '%s'", fields, tableName, id);
+    }
 }

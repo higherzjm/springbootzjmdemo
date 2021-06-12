@@ -2,6 +2,7 @@ package com.zjm.springtransaction.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.zjm.customannotation.DynamicQueryColumFlag;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -33,11 +34,13 @@ public class SalaryPayrollOperateLog extends Model<SalaryPayrollOperateLog> {
 	 * 主键
 	 */
    @TableId(value="id", type= IdType.UUID)
+   //@DynamicQueryColumFlag(order = 1)
 	private String id;
 	/**
 	 * 组织编码
 	 */
 	@TableField("organization_code")
+	@DynamicQueryColumFlag(order =4)
 	private String organizationCode;
 	/**
 	 * 复核记录ID
@@ -48,11 +51,13 @@ public class SalaryPayrollOperateLog extends Model<SalaryPayrollOperateLog> {
 	 * 年份 格式YYYY
 	 */
 	@TableField("year")
+	@DynamicQueryColumFlag(order = 2)
 	private Integer year;
 	/**
 	 * 月份 
 	 */
 	@TableField("month")
+	@DynamicQueryColumFlag(order = 3)
 	private Integer month;
 	/**
 	 * 员工编码

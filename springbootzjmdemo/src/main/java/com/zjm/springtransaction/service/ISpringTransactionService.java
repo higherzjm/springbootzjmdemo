@@ -12,4 +12,5 @@ import java.util.List;
 public interface ISpringTransactionService {
     List<SalaryPayrollOperateLogResultVO> findSalaryPayrollOperateLogResult(SalaryPayrollOperateLogDTO salaryPayrollOperateLogDTO);
     void  saveSalaryPayrollOperateLogResult(SalaryPayrollOperateLog salaryPayrollOperateLog,String actionNum);
+    <T> T queryDynamicTableInfo(String id, Class<T> dataClazz);
 }
