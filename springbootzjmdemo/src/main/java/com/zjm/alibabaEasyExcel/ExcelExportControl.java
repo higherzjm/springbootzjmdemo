@@ -13,6 +13,9 @@ import com.alibaba.excel.write.metadata.style.WriteFont;
 import com.alibaba.excel.write.style.HorizontalCellStyleStrategy;
 import com.alibaba.excel.write.style.column.SimpleColumnWidthStyleStrategy;
 import com.alibaba.excel.write.style.row.SimpleRowHeightStyleStrategy;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.ss.usermodel.FillPatternType;
@@ -24,19 +27,24 @@ import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.Font;
  
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
  
 import javax.servlet.http.HttpServletResponse;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
- 
- 
+
+
+@RequestMapping("/springTransaction")
 @RestController
+@Slf4j
+@Api(tags = "EasyExcel文件导出")
 public class ExcelExportControl {
  
     //导出
     @GetMapping("/excelExport")
+    @ApiOperation(value = "文件导出", notes = "文件导出")
     public void excelExport(HttpServletResponse response) {
         try {
             List<List<String>> headerList = new ArrayList<>();
