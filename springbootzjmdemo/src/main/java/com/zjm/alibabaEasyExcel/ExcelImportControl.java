@@ -21,7 +21,7 @@ import java.util.List;
 @Api(tags = "EasyExcel文件上传")
 public class ExcelImportControl {
 
-    //导出
+    //文件上传
     @PostMapping("/excelImport/{actionNum}")
     @ApiOperation(value = "文件上传", notes = "文件上传")
     public String excelExport(@ApiParam(name = "actionNum", value = "操作编号") @PathVariable("actionNum") String actionNum,
