@@ -26,7 +26,7 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.Font;
  
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
  
@@ -36,47 +36,56 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@RequestMapping("/springTransaction")
+@RequestMapping("/aliBaBaEasyExcel")
 @RestController
 @Slf4j
 @Api(tags = "EasyExcel文件导出")
 public class ExcelExportControl {
  
     //导出
-    @GetMapping("/excelExport")
+    @PostMapping("/excelExport")
     @ApiOperation(value = "文件导出", notes = "文件导出")
     public void excelExport(HttpServletResponse response) {
         try {
             List<List<String>> headerList = new ArrayList<>();
             List<String> header = new ArrayList<>();
+            header.add("厦门学区");
             header.add("姓名");
             headerList.add(header);
             header = new ArrayList<>();
+            header.add("厦门学区");
             header.add("年龄");
             headerList.add(header);
             header = new ArrayList<>();
+            header.add("厦门学区");
             header.add("户籍");
             header.add("省");
             headerList.add(header);
             header = new ArrayList<>();
+            header.add("厦门学区");
             header.add("户籍");
             header.add("市");
             headerList.add(header);
+
             header = new ArrayList<>();
-            header.add("毕业学校");//最上级单表头名称
-            header.add("大学");//次级表头名称
-            header.add("学校名称");//末级表头名称
+            header.add("厦门学区");//最上级单表头名称
+            header.add("毕业学校");//次级表头名称
+            header.add("大学");//末级表头名称
+            header.add("学校名称");//最末级表头名称
             headerList.add(header);
             header = new ArrayList<>();
+            header.add("厦门学区");
             header.add("毕业学校");
             header.add("大学");
             header.add("级别");
             headerList.add(header);
             header = new ArrayList<>();
+            header.add("厦门学区");
             header.add("毕业学校");
             header.add("中学");
             headerList.add(header);
             header = new ArrayList<>();
+            header.add("厦门学区");
             header.add("毕业学校");
             header.add("小学");
             headerList.add(header);
