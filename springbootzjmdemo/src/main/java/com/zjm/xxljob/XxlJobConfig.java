@@ -1,4 +1,4 @@
-package com.zjm.base.config;
+package com.zjm.xxljob;
 
 import com.xxl.job.core.executor.impl.XxlJobSpringExecutor;
 import org.slf4j.Logger;
