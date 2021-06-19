@@ -6,9 +6,11 @@ import com.alibaba.fastjson.JSONObject;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.*;
@@ -17,14 +19,20 @@ import java.util.stream.Collectors;
 
 import static java.util.Map.Entry.comparingByValue;
 import static java.util.stream.Collectors.toMap;
-
+@Slf4j
 public class Test1 {
     public static void main(String[] args) throws Exception {
 
         Test1 test1 = new Test1();
-        test1.test28();
+        BigDecimal bigDecimal=BigDecimal.ZERO;
+        test1.test29(bigDecimal);
+        log.info("b:"+bigDecimal);
 
 
+    }
+
+    public void test29(BigDecimal bigDecimal){
+        bigDecimal=new BigDecimal("200");
     }
 
     public void test28() {
