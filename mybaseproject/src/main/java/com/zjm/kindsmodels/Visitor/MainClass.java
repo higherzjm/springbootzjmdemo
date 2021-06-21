@@ -1,14 +1,14 @@
 package com.zjm.kindsmodels.Visitor;
 
 /*
- *  Visitoræ¨¡å¼ä¹Ÿå«è®¿é—®è€…æ¨¡å¼ï¼Œæ˜¯è¡Œä¸ºæ¨¡å¼ä¹‹ä¸€
- ï¼Œå®ƒåˆ†ç¦»å¯¹è±¡çš„æ•°æ®å’Œè¡Œä¸ºï¼Œä½¿ç”¨Visitoræ¨¡å¼ï¼Œ
- å¯ä»¥ä¸ä¿®æ”¹å·²æœ‰ç±»çš„æƒ…å†µä¸‹ï¼Œå¢åŠ æ–°çš„æ“ä½œã€‚
+ *  VisitorÄ£Ê½Ò²½Ğ·ÃÎÊÕßÄ£Ê½£¬ÊÇĞĞÎªÄ£Ê½Ö®Ò»
+ £¬Ëü·ÖÀë¶ÔÏóµÄÊı¾İºÍĞĞÎª£¬Ê¹ÓÃVisitorÄ£Ê½£¬
+ ¿ÉÒÔ²»ĞŞ¸ÄÒÑÓĞÀàµÄÇé¿öÏÂ£¬Ôö¼ÓĞÂµÄ²Ù×÷¡£
  */
 public class MainClass {
 	public static void main(String[] args) {
 		Park park = new Park();
-		park.setName("è¶Šç§€å…¬å›­");
+		park.setName("Ô½Ğã¹«Ô°");
 		VisitorA visitorA = new VisitorA();
 		park.accept(visitorA);
 

@@ -1,13 +1,13 @@
 package com.zjm.kindsmodels.Cor;
 
 /*
- * concreteHandlerå…·ä½“çš„å¤„ç†ç±»ã€‚
+ * concreteHandler¾ßÌåµÄ´¦ÀíÀà¡£
  */
 public class DaBian extends Graduate {
 
 	@Override
 	public void Do() {
-		System.out.println("ç­”è¾©");
+		System.out.println("´ğ±ç");
 		if (this.getGraduate()!=null) {
 			this.getGraduate().Do();
 		}

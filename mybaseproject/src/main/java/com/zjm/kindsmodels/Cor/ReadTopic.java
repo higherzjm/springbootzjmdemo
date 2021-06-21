@@ -1,13 +1,13 @@
 package com.zjm.kindsmodels.Cor;
 /*
- * concreteHandlerå…·ä½“çš„å¤„ç†ç±»ã€‚
+ * concreteHandler¾ßÌåµÄ´¦ÀíÀà¡£
  */
 public class ReadTopic extends Graduate {
 
 
 	@Override
 	public void Do() {
-		System.out.println("é˜…è¯»è®ºæ–‡");
+		System.out.println("ÔÄ¶ÁÂÛÎÄ");
 		if (this.getGraduate()!=null) {
 			this.graduate.Do();
 		}

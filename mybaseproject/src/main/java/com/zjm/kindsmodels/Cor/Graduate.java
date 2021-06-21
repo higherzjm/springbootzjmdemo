@@ -2,12 +2,12 @@ package com.zjm.kindsmodels.Cor;
 
 
 /*
- * Handler å¤„ç†ç±»çš„æŠ½è±¡çˆ¶ç±»ã€‚
+ * Handler ´¦ÀíÀàµÄ³éÏó¸¸Àà¡£
  */
 public abstract class Graduate {
 	public abstract void Do();
 
-	protected Graduate graduate;//å­ç±»å¯ä»¥è®¿é—® ï¼Œç”¨privateä¿®é¥°ç¬¦å­ç±»ä¸èƒ½è®¿é—®
+	protected Graduate graduate;//×ÓÀà¿ÉÒÔ·ÃÎÊ £¬ÓÃprivateĞŞÊÎ·û×ÓÀà²»ÄÜ·ÃÎÊ
 
 	public Graduate getGraduate() {
 		return graduate;
