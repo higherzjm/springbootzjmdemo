@@ -4,6 +4,7 @@ package com.zjm.jdk8lambda;
 import com.zjm.VO.Student;
 import lombok.extern.slf4j.Slf4j;
 
+import java.time.Instant;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -35,6 +36,8 @@ public class BaseJdk8lambdaExpression {
         jdk8New.test11(studentList);//集合转换
         jdk8New.test12(studentList);//分组
         jdk8New.test13(studentList);//转换成map，并按key进行排序
+        jdk8New.test14(studentList);
+
 
     }
 
@@ -158,6 +161,17 @@ public class BaseJdk8lambdaExpression {
                 .sorted(Collections.reverseOrder(comparingByKey()))
                 .collect(toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) ->e1));
         System.out.println("倒序排序后:" + studentMap);
+    }
+    //对象转换成属性map
+    public void test14(List<Student> studentList){
+        studentList=Arrays.asList(new Student(1, "张三", 10), new Student(11, "张三2", 10),
+                new Student(2, "李四", 20), new Student(3, "李四2", 20), new Student(4, "王五", 30),
+                new Student(5, "朱八", 30));
+        Map<String, Integer> nameAgeMap = studentList.stream().collect(Collectors.toMap(
+                Student::getName,
+                Student::getAge
+        ));
+        System.out.println("nameAgeMap:" + nameAgeMap);
     }
 }
 
