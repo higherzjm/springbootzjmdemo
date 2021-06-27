@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.util.StopWatch;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
@@ -25,12 +26,41 @@ public class Test1 {
 
         Test1 test1 = new Test1();
         BigDecimal bigDecimal=BigDecimal.ZERO;
-        test1.test29(bigDecimal);
+        test1.test30();
         log.info("b:"+bigDecimal);
 
 
     }
 
+    public void test30(){
+        StopWatch stopWatch = new StopWatch("test30");
+        stopWatch.start("stopWatch ÈÎÎñ1");
+        for (int i=0;i<5;i++){
+            log.info("ÈÎÎñ1:"+i);
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        stopWatch.stop();
+        stopWatch.start("stopWatch ÈÎÎñ2");
+        for (int i=0;i<10;i++){
+            log.info("ÈÎÎñ2:"+i);
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        stopWatch.stop();
+
+        //StringBuilder sb = new StringBuilder(stopWatch.prettyPrint());
+        for (StopWatch.TaskInfo taskInfo : stopWatch.getTaskInfo()) {
+            log.info(taskInfo.getTaskName()+":"+taskInfo.getTimeMillis());
+        }
+        log.info("×ÜÊ±¼ä:"+stopWatch.getTotalTimeMillis());
+    }
     public void test29(BigDecimal bigDecimal){
         bigDecimal=new BigDecimal("200");
     }
@@ -190,21 +220,21 @@ public class Test1 {
         budget.put("rent", "akpi-f334cd2965d411eb946b7a681268f754");
         budget.put("miscellneous", "aoffer-f3426c5265d411eb946b7a681268f754");
 
-        System.out.println("æ’åºå‰: " + budget);
+        System.out.println("ÅÅĞòÇ°: " + budget);
 
         Map<String, String> sorted = budget.entrySet()
                 .stream()
                 .sorted(comparingByValue())
                 .collect(toMap(e -> e.getKey(), e -> e.getValue(), (e1, e2) -> e2, LinkedHashMap::new));
 
-        System.out.println("æ­£åº: " + sorted);
+        System.out.println("ÕıĞò: " + sorted);
 
 
         sorted = budget.entrySet()
                 .stream()
                 .sorted(Collections.reverseOrder(comparingByValue()))
                 .collect(toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e2, LinkedHashMap::new));
-        System.out.println("å€’åº: " + sorted);
+        System.out.println("µ¹Ğò: " + sorted);
     }
 
     public void test20() {
@@ -214,12 +244,12 @@ public class Test1 {
         map.put("b", 4);
         map.put("a", 3);
         List<Map.Entry<String, Integer>> infoIds = new ArrayList<>(map.entrySet());
-        System.out.println("æ’åºå‰");
+        System.out.println("ÅÅĞòÇ°");
         for (int i = 0; i < infoIds.size(); i++) {
             String id = infoIds.get(i).toString();
             System.out.println(id);
         }
-        System.out.println("æ ¹æ®valueæ’åº");
+        System.out.println("¸ù¾İvalueÅÅĞò");
         Collections.sort(infoIds, (o1, o2) -> (o2.getValue() - o1.getValue()));
         for (int i = 0; i < infoIds.size(); i++) {
             String id = infoIds.get(i).toString();
@@ -281,7 +311,7 @@ public class Test1 {
         return department;
     }
 
-    //å‰ä¸€ä¸ªèŠ‚ç‚¹
+    //Ç°Ò»¸ö½Úµã
     public void test17(String str) {
         String strs = "1,2,4,5,7,8,6";
         System.out.println(strs.substring(strs.indexOf(",") + 1).substring(0, strs.indexOf(",")));
@@ -319,7 +349,7 @@ public class Test1 {
         Integer month = 1;
 
 
-        //æ ¹æ®æŒ‡å®šå¹´æœˆè·å–ä¸Šä¸€å¹´æœˆ
+        //¸ù¾İÖ¸¶¨ÄêÔÂ»ñÈ¡ÉÏÒ»ÄêÔÂ
         Calendar calendar = Calendar.getInstance();
         calendar.set(year, month - 1, 1);
         calendar.add(Calendar.MONTH, -1);
@@ -334,19 +364,19 @@ public class Test1 {
     public void test13() {
         List<Class1> list = new ArrayList<Class1>();
 
-        list.add(new Class1(12, "å¼ ä¸‰12"));
-        list.add(new Class1(8, "å¼ ä¸‰8"));
-        list.add(new Class1(88, "å¼ ä¸‰88"));
-        list.add(new Class1(10, "å¼ ä¸‰10"));
-        Collections.sort(list, Comparator.comparing(Class1::getB3));//å‡åºæ’åº
+        list.add(new Class1(12, "ÕÅÈı12"));
+        list.add(new Class1(8, "ÕÅÈı8"));
+        list.add(new Class1(88, "ÕÅÈı88"));
+        list.add(new Class1(10, "ÕÅÈı10"));
+        Collections.sort(list, Comparator.comparing(Class1::getB3));//ÉıĞòÅÅĞò
         System.out.println(list);
-        Collections.sort(list, Comparator.comparing(Class1::getB3).reversed());//é™åºæ’åº
+        Collections.sort(list, Comparator.comparing(Class1::getB3).reversed());//½µĞòÅÅĞò
         System.out.println(list);
-        list.add(new Class1(15, "å¼ ä¸‰15"));
-        list.sort((ord1, ord2) -> ord2.getB3().compareTo(ord1.getB3()));//é™åºæ’åº
+        list.add(new Class1(15, "ÕÅÈı15"));
+        list.sort((ord1, ord2) -> ord2.getB3().compareTo(ord1.getB3()));//½µĞòÅÅĞò
         System.out.println(list);
-        list.add(new Class1(100, "å¼ ä¸‰100"));
-        list.sort((ord1, ord2) -> ord1.getB3().compareTo(ord2.getB3()));//å‡åºæ’åº
+        list.add(new Class1(100, "ÕÅÈı100"));
+        list.sort((ord1, ord2) -> ord1.getB3().compareTo(ord2.getB3()));//ÉıĞòÅÅĞò
         System.out.println(list);
         list = new ArrayList<Class1>();
         list.add(new Class1(3, "11", LocalDate.of(2020, 12, 1)));
@@ -359,7 +389,7 @@ public class Test1 {
         list.add(new Class1(3, "11", LocalDate.of(2020, 10, 1)));
         list.add(new Class1(3, "11", LocalDate.of(2020, 9, 1)));
         list.add(new Class1(3, "11", LocalDate.of(2020, 8, 1)));
-        Collections.sort(list, Comparator.comparing(Class1::getLocalDate));//å‡åºæ’åº
+        Collections.sort(list, Comparator.comparing(Class1::getLocalDate));//ÉıĞòÅÅĞò
         System.out.println(list);
 
 
@@ -373,7 +403,7 @@ public class Test1 {
         System.out.println((a1 == a2) + ":" + a1.equals(a2));
         System.out.println(b1 == b2);
 
-        Class1 class1 = new Class1(100, "å¼ ä¸‰");
+        Class1 class1 = new Class1(100, "ÕÅÈı");
         System.out.println(b1 == class1.getB3());
         System.out.println(class1.getB3() == enum1.MY_ENUM.getB4());
     }
@@ -544,11 +574,11 @@ class VO {
         List<MyVO> myVOList = new ArrayList<>();
         MyVO myVO = new MyVO();
         myVO.setAge(30.999);
-        myVO.setName("å¼ ä¸‰");
+        myVO.setName("ÕÅÈı");
         myVOList.add(myVO);
         myVO = new MyVO();
         myVO.setAge(899.111);
-        myVO.setName("æå››");
+        myVO.setName("ÀîËÄ");
         myVOList.add(myVO);
         System.out.println(myVOList);
         myVOList.stream().map(myVO2 -> {
@@ -585,7 +615,7 @@ class MyVO {
 
     public void test6() {
         StringJoiner stringJoiner = new StringJoiner(",");
-        stringJoiner.add("å¼ ä¸‰(123)").add("æå››(456)");
+        stringJoiner.add("ÕÅÈı(123)").add("ÀîËÄ(456)");
         System.out.println(stringJoiner.toString());
     }
 
@@ -601,14 +631,14 @@ class MyVO {
         System.out.println(lastYear);
     }
 
-    //å­—ç¬¦ä¸²æ ¼å¼åŒ–
+    //×Ö·û´®¸ñÊ½»¯
     public void test4() {
-        String resultCode = "éƒ¨åˆ†å‘˜å·¥è–ªèµ„æœªç”³è¯·å‘æ”¾ï¼Œä¸èƒ½%sï¼";
-        String.format(resultCode, "æ“ä½œ");
-        System.out.println(String.format(resultCode, "æ“ä½œ"));
+        String resultCode = "²¿·ÖÔ±¹¤Ğ½×ÊÎ´ÉêÇë·¢·Å£¬²»ÄÜ%s£¡";
+        String.format(resultCode, "²Ù×÷");
+        System.out.println(String.format(resultCode, "²Ù×÷"));
     }
 
-    //ä¿ç•™ä¸¤ä½å°æ•°
+    //±£ÁôÁ½Î»Ğ¡Êı
     public void test3() {
         double test1 = 10.2234;
         double test2 = 10.3356;
@@ -617,7 +647,7 @@ class MyVO {
         System.out.println(dtest1);
     }
 
-    //è·å–ä¸Šä¸ªæœˆ
+    //»ñÈ¡ÉÏ¸öÔÂ
     public void test2() throws Exception {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
         String thisMonthS = "2020-2";
@@ -636,7 +666,7 @@ class MyVO {
         names.add("a");
         names.add("b");
         names.add("c");
-        //æ’é™¤ä¸ä¸ºaçš„å€¼
+        //ÅÅ³ı²»ÎªaµÄÖµ
         List<String> names2 = names.stream().filter(name -> !name.equals("a")).collect(Collectors.toList());
         System.out.println(names2);
 
@@ -648,7 +678,7 @@ class MyVO {
         names4.add("aa");
         names4.add("b");
         names4.add("cc");
-        //ä¸¤ä¸ªé›†åˆï¼Œå€¼ç›¸ç­‰çš„æ’é™¤ä¸ç›¸ç­‰çš„ç•™ä¸‹
+        //Á½¸ö¼¯ºÏ£¬ÖµÏàµÈµÄÅÅ³ı²»ÏàµÈµÄÁôÏÂ
         List<String> names5 = names3.stream().filter(name3 -> {
             for (String name4 : names4) {
                 if (name4.equals(name3)) {
