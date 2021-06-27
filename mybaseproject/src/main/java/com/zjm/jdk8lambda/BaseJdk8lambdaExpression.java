@@ -1,7 +1,12 @@
 package com.zjm.jdk8lambda;
 
 
+import cn.hutool.core.bean.BeanUtil;
 import com.zjm.VO.Student;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.time.Instant;
@@ -36,7 +41,8 @@ public class BaseJdk8lambdaExpression {
         jdk8New.test11(studentList);//集合转换
         jdk8New.test12(studentList);//分组
         jdk8New.test13(studentList);//转换成map，并按key进行排序
-        jdk8New.test14(studentList);
+        jdk8New.test14();//对象转换成属性map
+        jdk8New.test15();//过滤新数据，对象拷贝，并按年龄分组
 
 
     }
@@ -159,20 +165,47 @@ public class BaseJdk8lambdaExpression {
         studentMap = studentMap.entrySet()
                 .stream()
                 .sorted(Collections.reverseOrder(comparingByKey()))
-                .collect(toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) ->e1));
+                .collect(toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1));
         System.out.println("倒序排序后:" + studentMap);
     }
+
     //对象转换成属性map
-    public void test14(List<Student> studentList){
-        studentList=Arrays.asList(new Student(1, "张三", 10), new Student(11, "张三2", 10),
+    public void test14() {
+        List<Student> studentList = Arrays.asList(new Student(1, "张三", 10), new Student(11, "张三2", 10),
                 new Student(2, "李四", 20), new Student(3, "李四2", 20), new Student(4, "王五", 30),
                 new Student(5, "朱八", 30));
         Map<String, Integer> nameAgeMap = studentList.stream().collect(Collectors.toMap(
                 Student::getName,
                 Student::getAge
         ));
-        System.out.println("nameAgeMap:" + nameAgeMap);
+        System.out.println("对象转换成属性map:" + nameAgeMap);
     }
-}
 
+    //过滤新数据，对象拷贝，并按年龄分组
+    public void test15() {
+        List<Student> studentList = Arrays.asList(new Student(1, "张三", 10), new Student(2, "张三2", 10),
+                new Student(3, "李四", 15), new Student(4, "李四2", 15), new Student(5, "王五", 29),
+                new Student(6, "朱八", 30));
+        Map<Integer, List<Student2>> nameAgeMap = studentList.stream().filter(s -> s.getAge() < 30).
+                map(s -> BeanUtil.copyProperties(s, Student2.class)).collect(Collectors.groupingBy(Student2::getAge));
+        System.out.println("过滤新数据，对象拷贝，并按年龄分组:" + nameAgeMap);
+    }
+
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    class Student2 {
+        private String name;
+        private int age;
+
+        @Override
+        public String toString() {
+            return "Student2{" +
+                    "name='" + name + '\'' +
+                    ", age=" + age +
+                    '}';
+        }
+    }
+
+}
 
