@@ -24,9 +24,28 @@ public class MyConsumer {
         System.out.println("---" + studentList);
     }
 
-    public void myConsumer1(List<Student> studentsList, Consumer<List<Student>> consumer) {
+    private void myConsumer1(List<Student> studentsList, Consumer<List<Student>> consumer) {
         //员工姓名前缀加月份
         studentsList.forEach(s -> s.setName("11 " + s.getName()));
         consumer.accept(studentsList);//回调到调用该方法的地方
+
     }
+
+    @Test
+    public void test2() {
+        List<Student> studentList = Arrays.asList(new Student(0, "张三", 20), new Student(1, "李四", 0));
+        myConsumer2(studentList, this::print,s->s.forEach(a->{
+            a.setName(a.getName()+"--修改数据");
+        }));
+    }
+    private void myConsumer2(List<Student> studentsList, Consumer<Student> consumer, Consumer<List<Student>> consumer2) {
+        //员工姓名前缀加月份
+        consumer2.accept(studentsList);
+        studentsList.forEach(consumer);
+    }
+    private void print(Student student){
+        log.info("递归打印student:"+student);
+    }
+
+
 }

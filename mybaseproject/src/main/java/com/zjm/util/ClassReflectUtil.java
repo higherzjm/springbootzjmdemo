@@ -23,5 +23,13 @@ public class ClassReflectUtil {
 
         ReflectUtil.setFieldValue(student,ReflectUtil.getField(Student.class,"name"),"王五");
         System.out.println("s3："+student);
+
+    }
+
+    @Test
+    public void test2(){
+        Student student=Student.builder().name("张三").age(20).build();
+        System.out.println("s1："+ReflectUtil.getFieldValue(student,"name"));
+
     }
 }

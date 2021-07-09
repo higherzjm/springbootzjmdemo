@@ -1,1 +1,2 @@
 org.springframework.boot.SpringApplicationRunListener=com.zjm.base.runListener.MyApplicationRunListener
+org.springframework.context.ApplicationContextInitializer=com.zjm.base.Initializer.MyApplicationContextInitializer
