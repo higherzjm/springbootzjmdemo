@@ -1,4 +1,4 @@
-package com.zjm.kindsmodels.Adapter;
+package com.zjm.kindsmodels.Adapter.example1;
 /*
  * .ͨ通过继承实现Adapter
  */
