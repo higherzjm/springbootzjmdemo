@@ -1,4 +1,4 @@
-package com.zjm.sportslottery.vo;
+package com.zjm.base.sportslottery.vo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

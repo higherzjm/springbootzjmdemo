@@ -1,4 +1,4 @@
-package com.zjm.sportslottery.util;
+package com.zjm.base.sportslottery.util;
 
 import java.util.Comparator;
 

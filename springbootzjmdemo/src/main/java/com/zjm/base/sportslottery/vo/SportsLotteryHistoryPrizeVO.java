@@ -1,4 +1,4 @@
-package com.zjm.sportslottery.vo;
+package com.zjm.base.sportslottery.vo;
 
 import javax.validation.constraints.NotNull;
 import io.swagger.annotations.ApiModel;

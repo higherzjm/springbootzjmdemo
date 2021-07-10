@@ -1,10 +1,10 @@
-package com.zjm.sportslottery.control;
+package com.zjm.base.sportslottery.control;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.zjm.sportslottery.util.ComparatorList;
-import com.zjm.sportslottery.vo.SportsLotteryHistoryPrizeVO;
-import com.zjm.sportslottery.vo.SportsLotteryRandomGenerationRuleVO;
+import com.zjm.base.sportslottery.util.ComparatorList;
+import com.zjm.base.sportslottery.vo.SportsLotteryHistoryPrizeVO;
+import com.zjm.base.sportslottery.vo.SportsLotteryRandomGenerationRuleVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
