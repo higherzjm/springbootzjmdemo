@@ -11,14 +11,17 @@ public class SimpleContext {
  
     @Autowired
     private final Map<String, Strategy> strategyMap = new ConcurrentHashMap<>();
- 
+
+    /**
+     * 构造函数按类型注入
+     */
     public SimpleContext(Map<String, Strategy> strategyMap) {
         this.strategyMap.clear();
-        strategyMap.forEach((k, v)-> this.strategyMap.put(k, v));
+        strategyMap.forEach(this.strategyMap::put);
     }
  
     public String getResource(String poolId){
-        return strategyMap.get(poolId).getVpcList(poolId);
+        return strategyMap.get(poolId)==null?"未找到策略,已有策略："+strategyMap:strategyMap.get(poolId).getVpcList(poolId);
     }
  
 }

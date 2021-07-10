@@ -2,13 +2,13 @@ package com.zjm.kindsmodels.Strategy.example;
 
 import org.springframework.stereotype.Component;
 
-@Component("B")
+@Component("strategyB")
 public class ResourceB implements Strategy {
  
     @Override
     public String getVpcList(String id) {
         System.out.println("B strategy"+"====="+id);
-        return id;
+        return "²ßÂÔ:"+id;
     }
  
 }
