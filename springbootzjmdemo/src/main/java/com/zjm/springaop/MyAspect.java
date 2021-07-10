@@ -16,7 +16,7 @@ import java.util.UUID;
 @Slf4j
 public class MyAspect {
     public MyAspect() {
-        log.info("åˆå§‹åŒ–åˆ‡é¢");
+        log.info("³õÊ¼»¯ÇĞÃæ");
     }
 
     @Pointcut("this(com.baomidou.mybatisplus.core.mapper.BaseMapper)")
@@ -26,7 +26,7 @@ public class MyAspect {
     @Before("aspectMapperPointCut() && execution(public * *.insert(..)) && args(baseModel)")
     public void beforeInsert(BaseEntity baseModel)
     {
-        log.info("åˆ‡é¢1");
+        log.info("ÇĞÃæ1");
     }
 
     @Pointcut("this(com.zjm.springtransaction.service.ISpringTransactionService)")
@@ -36,17 +36,17 @@ public class MyAspect {
     @Before("aspectMapperPointCut2() && execution(public * *.save*(..)) && args(loginfo,actionNum)")
     public void beforeInsert2(LogInfo loginfo,String actionNum)
     {
-        log.info("ISpringTransactionServiceåˆ‡é¢");
+        log.info("ISpringTransactionServiceÇĞÃæ");
         loginfo.setId(UUID.randomUUID().toString().replace("-",""));
         loginfo.setCreateTime(LocalDateTime.now());
         loginfo.setUpdateTime(LocalDateTime.now());
-        loginfo.setEmployeeName("åˆ‡é¢æ’å…¥çš„éšæœºå‘˜å·¥");
+        loginfo.setEmployeeName("ÇĞÃæ²åÈëµÄËæ»úÔ±¹¤");
         if ("1".equals(actionNum)) {
-            loginfo.setCreateUser("actionNum-1åˆ›å»ºäºº");
-            loginfo.setUpdateUser("actionNum-1æ›´æ–°äºº");
+            loginfo.setCreateUser("actionNum-1´´½¨ÈË");
+            loginfo.setUpdateUser("actionNum-1¸üĞÂÈË");
         }else {
-            loginfo.setCreateUser("æœªçŸ¥åˆ›å»ºäºº");
-            loginfo.setUpdateUser("æœªçŸ¥æ›´æ–°äºº");
+            loginfo.setCreateUser("Î´Öª´´½¨ÈË");
+            loginfo.setUpdateUser("Î´Öª¸üĞÂÈË");
         }
     }
 

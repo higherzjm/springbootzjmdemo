@@ -18,15 +18,15 @@ import java.util.stream.Collectors;
 @Slf4j
 @Service
 public class MergeRequestServiceImpl implements IMergeRequestService {
-    //ç§¯æ”’è¯·æ±‚çš„é˜»å¡é˜Ÿåˆ—
+    //»ıÔÜÇëÇóµÄ×èÈû¶ÓÁĞ
     public static LinkedBlockingDeque deviceCreateQueue = new LinkedBlockingDeque<>();
 
     @Override
     public Long mergeRequest() {
-        log.info("ç§¯æ”’è¯·æ±‚-----------------------");
+        log.info("»ıÔÜÇëÇó-----------------------");
         String productKey = String.valueOf(System.currentTimeMillis());
         String deviceName = String.valueOf(System.currentTimeMillis());
-        // ç¼“å­˜è¯·æ±‚ ====== start
+        // »º´æÇëÇó ====== start
         CompletableFuture<Long> completedFuture = new CompletableFuture();
         DeviceCreateRequest deviceCreateRequest = new DeviceCreateRequest();
         deviceCreateRequest.setProductKey(productKey);
@@ -34,7 +34,7 @@ public class MergeRequestServiceImpl implements IMergeRequestService {
         deviceCreateRequest.setRequestSource(UUID.randomUUID().toString());
         deviceCreateRequest.setCompletedFuture(completedFuture);
         deviceCreateQueue.add(deviceCreateRequest);
-        // ç¼“å­˜è¯·æ±‚ ====== end
+        // »º´æÇëÇó ====== end
         Long deviceId = null;
         try {
             deviceId = completedFuture.get();
@@ -44,15 +44,15 @@ public class MergeRequestServiceImpl implements IMergeRequestService {
         return deviceId;
     }
 
-    //æ‰¹é‡è¯·æ±‚
-    @PostConstruct //è¢«@PostConstructæ³¨è§£çš„æ–¹æ³•å°†åœ¨è¯¥è¢«åˆ›å»ºä¸”è¯¥ç±»ä¸­æ‰€æœ‰æ³¨å…¥æ“ä½œå®Œæˆä¹‹åæ‰§è¡Œ
+    //ÅúÁ¿ÇëÇó
+    @PostConstruct //±»@PostConstruct×¢½âµÄ·½·¨½«ÔÚ¸Ã±»´´½¨ÇÒ¸ÃÀàÖĞËùÓĞ×¢Èë²Ù×÷Íê³ÉÖ®ºóÖ´ĞĞ
     public void salaryRecheckBatchRequest() {
-        log.info("æ‰¹é‡è¯·æ±‚-----------------------");
+        log.info("ÅúÁ¿ÇëÇó-----------------------");
         ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(100);
         scheduledExecutorService.scheduleAtFixedRate(() -> {
-            // æŠŠå‡ºqueueçš„è¯·æ±‚å­˜å‚¨ä¸€æ¬¡
+            // °Ñ³öqueueµÄÇëÇó´æ´¢Ò»´Î
             List<DeviceCreateRequest> questBak = new ArrayList<>();
-            // æ‰¹é‡åˆ›å»ºè®¾å¤‡çš„å…¥å‚
+            // ÅúÁ¿´´½¨Éè±¸µÄÈë²Î
             List<DeviceCreateQuery> deviceCreateQueryList = new ArrayList<>();
 
             int size = deviceCreateQueue.size();
@@ -71,12 +71,12 @@ public class MergeRequestServiceImpl implements IMergeRequestService {
                             DeviceCreateResp::getRequestSource, DeviceCreateResp::getDeviceId
                     ));
                     int i=1/0;
-                    // é€šçŸ¥è¯·æ±‚çš„çº¿ç¨‹
+                    // Í¨ÖªÇëÇóµÄÏß³Ì
                     for (DeviceCreateRequest deviceCreateRequest : questBak) {
                         deviceCreateRequest.getCompletedFuture().complete(collect.get(deviceCreateRequest.getRequestSource()));
                     }
                 } catch (Throwable throwable) {
-                    // é€šçŸ¥è¯·æ±‚çš„çº¿ç¨‹-å¼‚å¸¸
+                    // Í¨ÖªÇëÇóµÄÏß³Ì-Òì³£
                     questBak.forEach(deviceCreateRequest -> deviceCreateRequest.getCompletedFuture().obtrudeException(throwable));
 
                 }
@@ -87,7 +87,7 @@ public class MergeRequestServiceImpl implements IMergeRequestService {
     }
 
     public List<DeviceCreateResp> batchCreateDevice(List<DeviceCreateQuery> deviceCreateQueryList) {
-        log.info("æ‰¹é‡åˆ›å»ºè®¾å¤‡-----------------------");
+        log.info("ÅúÁ¿´´½¨Éè±¸-----------------------");
         List<DeviceCreateResp> deviceCreateRespList = new ArrayList<>();
         for (DeviceCreateQuery deviceCreateQuery : deviceCreateQueryList) {
             deviceCreateRespList.add(DeviceCreateResp.builder().requestSource(deviceCreateQuery.getRequestSource()).deviceId(System.currentTimeMillis()).build());
@@ -96,53 +96,53 @@ public class MergeRequestServiceImpl implements IMergeRequestService {
     }
 
     public DeviceCreateQuery buildDeviceCreateQuery(DeviceCreateRequest deviceCreateRequest) {
-        log.info("æŸ¥è¯¢è®¾å¤‡å‚æ•°-----------------------");
+        log.info("²éÑ¯Éè±¸²ÎÊı-----------------------");
         return DeviceCreateQuery.builder().name(deviceCreateRequest.getDeviceName())
                 .productKey(deviceCreateRequest.getProductKey()).requestSource(deviceCreateRequest.getRequestSource()).build();
 
     }
 }
 
-//è¯·æ±‚å‚æ•°
+//ÇëÇó²ÎÊı
 @Data
 @Builder
 class DeviceCreateQuery implements Serializable {
 
-    //äº§å“æ ‡è¯†
+    //²úÆ·±êÊ¶
     private String productKey;
 
-    //è®¾å¤‡åç§°
+    //Éè±¸Ãû³Æ
     private String name;
 
-    //è¯·æ±‚æºï¼Œä¸€æ¬¡æ‰¹é‡è¯·æ±‚ä¿è¯å”¯ä¸€
+    //ÇëÇóÔ´£¬Ò»´ÎÅúÁ¿ÇëÇó±£Ö¤Î¨Ò»
     private String requestSource;
 
 }
 
-//è¿”å›å€¼
+//·µ»ØÖµ
 @Data
 @Builder
 class DeviceCreateResp implements Serializable {
-    //è®¾å¤‡ID
+    //Éè±¸ID
     private Long deviceId;
-    // è¯·æ±‚æºï¼Œä¸€æ¬¡æ‰¹é‡è¯·æ±‚ä¿è¯å”¯ä¸€
+    // ÇëÇóÔ´£¬Ò»´ÎÅúÁ¿ÇëÇó±£Ö¤Î¨Ò»
     private String requestSource;
 }
 
-//ç§¯æ”’è¯·æ±‚çš„è‡ªå®šä¹‰ç»“æ„
+//»ıÔÜÇëÇóµÄ×Ô¶¨Òå½á¹¹
 @Data
 class DeviceCreateRequest {
 
-    //äº§å“key
+    //²úÆ·key
     private String productKey;
 
-    //è®¾å¤‡å
+    //Éè±¸Ãû
     private String deviceName;
 
-    //è¯·æ±‚æºï¼Œéœ€ä¿è¯å”¯ä¸€
+    //ÇëÇóÔ´£¬Ğè±£Ö¤Î¨Ò»
     private String requestSource;
 
-    //CompletableFutureæ¥å£
+    //CompletableFuture½Ó¿Ú
     private CompletableFuture completedFuture;
 
 }
