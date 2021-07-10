@@ -23,7 +23,7 @@ import java.util.List;
  */
 @RequestMapping("/rabbitMpMsgProducerController")
 @RestController
-@Api(tags = "rabbitmqæ¶ˆæ¯ä¸­é—´ä»¶ä½¿ç”¨")
+@Api(tags = "rabbitmqÏûÏ¢ÖĞ¼ä¼şÊ¹ÓÃ")
 @Slf4j
 public class RabbitMqLeaderControllerStudent {
     //@Autowired
@@ -33,43 +33,43 @@ public class RabbitMqLeaderControllerStudent {
 
 
     /**
-     * å‘æŒ‡å®šäº¤æ¢æœºå’Œè·¯ç”±ä¸‹å‘é€æ¶ˆæ¯(æ•™åŠ¡å¤„é€šçŸ¥ç­ä¸»ä»»æ–°æ³¨å†Œçš„å­¦ç”Ÿ)
+     * ÏòÖ¸¶¨½»»»»úºÍÂ·ÓÉÏÂ·¢ËÍÏûÏ¢(½ÌÎñ´¦Í¨Öª°àÖ÷ÈÎĞÂ×¢²áµÄÑ§Éú)
      */
     @PostMapping("/addNewStudents")
-    @ApiOperation(value = "æ·»åŠ çš„æ–°å¹´å­¦ç”Ÿåˆ—è¡¨", notes = "æ·»åŠ çš„æ–°å¹´å­¦ç”Ÿåˆ—è¡¨")
+    @ApiOperation(value = "Ìí¼ÓµÄĞÂÄêÑ§ÉúÁĞ±í", notes = "Ìí¼ÓµÄĞÂÄêÑ§ÉúÁĞ±í")
     public void addNewStudents(@RequestBody @Validated List<StudentInfo> studentInfoList) {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("newStudents", studentInfoList);
 
-        log.info("æ·»åŠ åˆ—è¡¨çš„æ–°å­¦ç”Ÿ : " + jsonObject.toJSONString());
+        log.info("Ìí¼ÓÁĞ±íµÄĞÂÑ§Éú : " + jsonObject.toJSONString());
         rabbitTemplate.convertAndSend("newStudentsRegister", "newStudentLists", jsonObject.toJSONString());
-        log.info("å‘é€å›è°ƒçš„æ¶ˆæ¯:" + RabbitMqConfirmSendListener.sendConfirmRetMsg);
+        log.info("·¢ËÍ»Øµ÷µÄÏûÏ¢:" + RabbitMqConfirmSendListener.sendConfirmRetMsg);
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        log.info("å‘é€å›è°ƒçš„æ¶ˆæ¯:" + RabbitMqConfirmSendListener.sendConfirmRetMsg);
+        log.info("·¢ËÍ»Øµ÷µÄÏûÏ¢:" + RabbitMqConfirmSendListener.sendConfirmRetMsg);
     }
 
     @GetMapping("/sendNotice")
-    @ApiOperation(value = "å‘æ•™åŠ¡å¤„å‘å‡ºæ·»åŠ æ–°å­¦ç”Ÿçš„é€šçŸ¥", notes = "å‘æ•™åŠ¡å¤„å‘å‡ºæ·»åŠ æ–°å­¦ç”Ÿçš„é€šçŸ¥")
+    @ApiOperation(value = "Ïò½ÌÎñ´¦·¢³öÌí¼ÓĞÂÑ§ÉúµÄÍ¨Öª", notes = "Ïò½ÌÎñ´¦·¢³öÌí¼ÓĞÂÑ§ÉúµÄÍ¨Öª")
     public void sendMessage2() {
-        String message = "é¢†å¯¼æ‚¨å¥½,æœ¬æ¬¡æ·»åŠ 2åæ–°å­¦ç”Ÿ!";
+        String message = "Áìµ¼ÄúºÃ,±¾´ÎÌí¼Ó2ÃûĞÂÑ§Éú!";
         rabbitTemplate.convertAndSend("newStudentsRegister", "addNewStudentNotice", message);
         try {
             Thread.sleep(100);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        log.info("å‘é€å›è°ƒçš„æ¶ˆæ¯:" + RabbitMqConfirmSendListener.sendConfirmRetMsg);
+        log.info("·¢ËÍ»Øµ÷µÄÏûÏ¢:" + RabbitMqConfirmSendListener.sendConfirmRetMsg);
     }
 
-    @ApiOperation(value = "æ¶ˆè´¹å‘é€å¹¶å›è°ƒç¡®è®¤", notes = "æ¶ˆè´¹å‘é€å¹¶å›è°ƒç¡®è®¤")
+    @ApiOperation(value = "Ïû·Ñ·¢ËÍ²¢»Øµ÷È·ÈÏ", notes = "Ïû·Ñ·¢ËÍ²¢»Øµ÷È·ÈÏ")
     @GetMapping(value = "/baseQueueMsgSend/{msg}")
-    public Object baseQueueMsgSend(@ApiParam(name = "msg", value = "å‘é€çš„æ¶ˆæ¯", required = true)
+    public Object baseQueueMsgSend(@ApiParam(name = "msg", value = "·¢ËÍµÄÏûÏ¢", required = true)
                                    @PathVariable("msg") String msg) throws AmqpException, UnsupportedEncodingException {
-        //è®¾ç½®éƒ¨åˆ†è¯·æ±‚å‚æ•°
+        //ÉèÖÃ²¿·ÖÇëÇó²ÎÊı
         MessageProperties messageProperties = new MessageProperties();
         messageProperties.setContentType(MessageProperties.CONTENT_TYPE_TEXT_PLAIN);
         rabbitTemplate.send("baseQueue", new Message(msg.getBytes("UTF-8"), messageProperties));
@@ -78,7 +78,7 @@ public class RabbitMqLeaderControllerStudent {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        log.info("å‘é€å›è°ƒçš„æ¶ˆæ¯:" + RabbitMqConfirmSendListener.sendConfirmRetMsg);
-        return "å‘é€çš„æ¶ˆæ¯: " + msg;
+        log.info("·¢ËÍ»Øµ÷µÄÏûÏ¢:" + RabbitMqConfirmSendListener.sendConfirmRetMsg);
+        return "·¢ËÍµÄÏûÏ¢: " + msg;
     }
 }

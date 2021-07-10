@@ -10,19 +10,19 @@ import org.springframework.web.bind.annotation.*;
 
 /**
  * @author zhujianming
- * åˆå¹¶è¯·æ±‚ï¼Œè¯·æ±‚æ”¶é›†
+ * ºÏ²¢ÇëÇó£¬ÇëÇóÊÕ¼¯
  */
 @RequestMapping("/base/mergeRequest")
 @RestController
 @Slf4j
-@Api(tags = "åˆå¹¶è¯·æ±‚ï¼Œè¯·æ±‚æ”¶é›†")
+@Api(tags = "ºÏ²¢ÇëÇó£¬ÇëÇóÊÕ¼¯")
 public class MergeRequestController {
     @Autowired
     private IMergeRequestService mergeRequestService;
 
-    //ç§¯æ”’è¯·æ±‚
+    //»ıÔÜÇëÇó
     @GetMapping("/mergeRequest")
-    @ApiOperation(value = "ç§¯æ”’è¯·æ±‚", notes = "ç§¯æ”’è¯·æ±‚")
+    @ApiOperation(value = "»ıÔÜÇëÇó", notes = "»ıÔÜÇëÇó")
     public Long mergeRequest() {
         return mergeRequestService.mergeRequest();
     }

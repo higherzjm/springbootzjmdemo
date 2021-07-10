@@ -18,7 +18,7 @@ import java.util.List;
  */
 @RequestMapping("/base/treeOperation")
 @RestController
-@Api(tags = "ç»“æ„æ ‘åº”ç”¨")
+@Api(tags = "½á¹¹Ê÷Ó¦ÓÃ")
 public class TreeSortStatisticsController {
     @Autowired
     private ITreeSortStatisticsService treeSortStatisticsService;
@@ -60,27 +60,27 @@ public class TreeSortStatisticsController {
         System.out.println(v0);
     }
     @GetMapping("/initTreeInfo")
-    @ApiOperation(value = "æ ‘ç»“æ„åˆå§‹åŒ–æ•°æ®", notes = "æ ‘ç»“æ„åˆå§‹åŒ–æ•°æ®")
+    @ApiOperation(value = "Ê÷½á¹¹³õÊ¼»¯Êı¾İ", notes = "Ê÷½á¹¹³õÊ¼»¯Êı¾İ")
     public SchoolVO initTreeInfo() {
         this.initOrResetTreeInfo();
         return v0;
     }
     @GetMapping("/treeStatisticsBySign")
-    @ApiOperation(value = "æ ‘ç»“æ„å•ä¸€å­—æ®µé€çº§ç»Ÿè®¡", notes = "æ ‘ç»“æ„å•ä¸€å­—æ®µé€çº§ç»Ÿè®¡")
+    @ApiOperation(value = "Ê÷½á¹¹µ¥Ò»×Ö¶ÎÖğ¼¶Í³¼Æ", notes = "Ê÷½á¹¹µ¥Ò»×Ö¶ÎÖğ¼¶Í³¼Æ")
     public SchoolVO treeStatisticsBySign() {
         this.initOrResetTreeInfo();
 
-        //å•ä¸€å­—æ®µé€çº§ç»Ÿè®¡
+        //µ¥Ò»×Ö¶ÎÖğ¼¶Í³¼Æ
         SchoolVO schoolVO = treeSortStatisticsService.treeStatisticsBySign(v0);
         return schoolVO;
     }
 
     @GetMapping("/tressStatisticsByOverall")
-    @ApiOperation(value = "æ ‘ç»“æ„å¤šå­—æ®µåŒæ—¶é€çº§ç»Ÿè®¡", notes = "æ ‘ç»“æ„å¤šå­—æ®µåŒæ—¶é€çº§ç»Ÿè®¡")
+    @ApiOperation(value = "Ê÷½á¹¹¶à×Ö¶ÎÍ¬Ê±Öğ¼¶Í³¼Æ", notes = "Ê÷½á¹¹¶à×Ö¶ÎÍ¬Ê±Öğ¼¶Í³¼Æ")
     public SchoolVO tressStatisticsByOverall() {
         this.initOrResetTreeInfo();
 
-        //å¤šå­—æ®µåŒæ—¶é€çº§ç»Ÿè®¡
+        //¶à×Ö¶ÎÍ¬Ê±Öğ¼¶Í³¼Æ
         SchoolVO schoolVO = treeSortStatisticsService.tressStatisticsByOverall(v0);
         return schoolVO;
     }

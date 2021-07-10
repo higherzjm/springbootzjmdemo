@@ -26,12 +26,12 @@ import java.util.StringJoiner;
 @RequestMapping("/myAnnotationControl")
 @RestController
 @Slf4j
-@Api(tags = "è‡ªå®šä¹‰æ³¨è§£")
+@Api(tags = "×Ô¶¨Òå×¢½â")
 public class MyAnnotationControl {
     private static Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 
     @PostMapping("/test")
-    @ApiOperation(value = "æµ‹è¯•1")
+    @ApiOperation(value = "²âÊÔ1")
     public String saveSportsLotteryHistoryPrize(@RequestBody MyAnnotationVO myAnnotationVO) throws NoSuchFieldException {
         StringJoiner result = new StringJoiner(";\r\n");
         Set<ConstraintViolation<MyAnnotationVO>> set = validator.validate(myAnnotationVO, Default.class);
@@ -39,7 +39,7 @@ public class MyAnnotationControl {
             for (ConstraintViolation<MyAnnotationVO> cv : set) {
                 Field declaredField = myAnnotationVO.getClass().getDeclaredField(cv.getPropertyPath().toString());
                 ApiModelProperty annotation = declaredField.getAnnotation(ApiModelProperty.class);
-                //æ‹¼æ¥é”™è¯¯ä¿¡æ¯ï¼ŒåŒ…å«å½“å‰å‡ºé”™æ•°æ®çš„æ ‡é¢˜åå­—+é”™è¯¯ä¿¡æ¯
+                //Æ´½Ó´íÎóĞÅÏ¢£¬°üº¬µ±Ç°³ö´íÊı¾İµÄ±êÌâÃû×Ö+´íÎóĞÅÏ¢
                 result.add(annotation.value() + cv.getMessage());
             }
         }

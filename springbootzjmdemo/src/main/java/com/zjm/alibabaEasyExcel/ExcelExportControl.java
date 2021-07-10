@@ -39,83 +39,83 @@ import java.util.List;
 @RequestMapping("/aliBaBaEasyExcel")
 @RestController
 @Slf4j
-@Api(tags = "EasyExcelæ–‡ä»¶å¯¼å‡º")
+@Api(tags = "EasyExcelÎÄ¼şµ¼³ö")
 public class ExcelExportControl {
  
-    //å¯¼å‡º
+    //µ¼³ö
     @PostMapping("/excelExport")
-    @ApiOperation(value = "æ–‡ä»¶å¯¼å‡º", notes = "æ–‡ä»¶å¯¼å‡º")
+    @ApiOperation(value = "ÎÄ¼şµ¼³ö", notes = "ÎÄ¼şµ¼³ö")
     public void excelExport(HttpServletResponse response) {
         try {
             List<List<String>> headerList = new ArrayList<>();
             List<String> header = new ArrayList<>();
-            header.add("å¦é—¨å­¦åŒº");
-            header.add("å§“å");
+            header.add("ÏÃÃÅÑ§Çø");
+            header.add("ĞÕÃû");
             headerList.add(header);
             header = new ArrayList<>();
-            header.add("å¦é—¨å­¦åŒº");
-            header.add("å¹´é¾„");
+            header.add("ÏÃÃÅÑ§Çø");
+            header.add("ÄêÁä");
             headerList.add(header);
             header = new ArrayList<>();
-            header.add("å¦é—¨å­¦åŒº");
-            header.add("æˆ·ç±");
-            header.add("çœ");
+            header.add("ÏÃÃÅÑ§Çø");
+            header.add("»§¼®");
+            header.add("Ê¡");
             headerList.add(header);
             header = new ArrayList<>();
-            header.add("å¦é—¨å­¦åŒº");
-            header.add("æˆ·ç±");
-            header.add("å¸‚");
+            header.add("ÏÃÃÅÑ§Çø");
+            header.add("»§¼®");
+            header.add("ÊĞ");
             headerList.add(header);
 
             header = new ArrayList<>();
-            header.add("å¦é—¨å­¦åŒº");//æœ€ä¸Šçº§å•è¡¨å¤´åç§°
-            header.add("æ¯•ä¸šå­¦æ ¡");//æ¬¡çº§è¡¨å¤´åç§°
-            header.add("å¤§å­¦");//æœ«çº§è¡¨å¤´åç§°
-            header.add("å­¦æ ¡åç§°");//æœ€æœ«çº§è¡¨å¤´åç§°
+            header.add("ÏÃÃÅÑ§Çø");//×îÉÏ¼¶µ¥±íÍ·Ãû³Æ
+            header.add("±ÏÒµÑ§Ğ£");//´Î¼¶±íÍ·Ãû³Æ
+            header.add("´óÑ§");//Ä©¼¶±íÍ·Ãû³Æ
+            header.add("Ñ§Ğ£Ãû³Æ");//×îÄ©¼¶±íÍ·Ãû³Æ
             headerList.add(header);
             header = new ArrayList<>();
-            header.add("å¦é—¨å­¦åŒº");
-            header.add("æ¯•ä¸šå­¦æ ¡");
-            header.add("å¤§å­¦");
-            header.add("çº§åˆ«");
+            header.add("ÏÃÃÅÑ§Çø");
+            header.add("±ÏÒµÑ§Ğ£");
+            header.add("´óÑ§");
+            header.add("¼¶±ğ");
             headerList.add(header);
             header = new ArrayList<>();
-            header.add("å¦é—¨å­¦åŒº");
-            header.add("æ¯•ä¸šå­¦æ ¡");
-            header.add("ä¸­å­¦");
+            header.add("ÏÃÃÅÑ§Çø");
+            header.add("±ÏÒµÑ§Ğ£");
+            header.add("ÖĞÑ§");
             headerList.add(header);
             header = new ArrayList<>();
-            header.add("å¦é—¨å­¦åŒº");
-            header.add("æ¯•ä¸šå­¦æ ¡");
-            header.add("å°å­¦");
+            header.add("ÏÃÃÅÑ§Çø");
+            header.add("±ÏÒµÑ§Ğ£");
+            header.add("Ğ¡Ñ§");
             headerList.add(header);
  
-            System.out.println("æ‰“å°å‡ºè¡¨å¤´è¡Œæ•°:" + headerList.stream().map(List::size).reduce(0, Integer::max));
+            System.out.println("´òÓ¡³ö±íÍ·ĞĞÊı:" + headerList.stream().map(List::size).reduce(0, Integer::max));
  
             List<List<String>> dataList = new ArrayList<>();
             List<String> data = new ArrayList<>();
-            data.add("å¼ ä¸‰");
+            data.add("ÕÅÈı");
             data.add("11");
-            data.add("ç¦å»º");
-            data.add("å¦é—¨");
-            data.add("å¦é—¨å¤§å­¦");
-            data.add("æœ¬ç§‘");
-            data.add("åŒåä¸­å­¦");
-            data.add("è”¡å¡˜å°å­¦");
+            data.add("¸£½¨");
+            data.add("ÏÃÃÅ");
+            data.add("ÏÃÃÅ´óÑ§");
+            data.add("±¾¿Æ");
+            data.add("Ë«Ê®ÖĞÑ§");
+            data.add("²ÌÌÁĞ¡Ñ§");
             dataList.add(data);
             data = new ArrayList<>();
-            data.add("æå››");
+            data.add("ÀîËÄ");
             data.add("33");
-            data.add("å¹¿ä¸œ");
-            data.add("å¹¿å·");
-            data.add("é›†ç¾å¤§å­¦");
-            data.add("ä¸“ç§‘");
-            data.add("å¦é—¨ä¸€ä¸­");
-            data.add("ä½•åå°å­¦");
+            data.add("¹ã¶«");
+            data.add("¹ãÖİ");
+            data.add("¼¯ÃÀ´óÑ§");
+            data.add("×¨¿Æ");
+            data.add("ÏÃÃÅÒ»ÖĞ");
+            data.add("ºÎØÈĞ¡Ñ§");
             dataList.add(data);
-            //è¡¨æ ¼ç±»å‹
+            //±í¸ñÀàĞÍ
             ExcelTypeEnum excelType = ExcelTypeEnum.XLSX;
-            String fileName = "æ–‡ä»¶åç§°";
+            String fileName = "ÎÄ¼şÃû³Æ";
             response.reset();
             response.setContentType("application/octet-stream; charset=utf-8");
             response.setHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode(fileName + excelType.getValue(), "UTF-8"));
@@ -123,10 +123,10 @@ public class ExcelExportControl {
             EasyExcel.write(response.getOutputStream())
                     .head(headerList)
                     .excelType(excelType)
-                    .registerWriteHandler(new SimpleRowHeightStyleStrategy((short) 20, (short) 15))//è¡Œé«˜åº¦ç­–ç•¥:è¡¨å¤´é«˜åº¦,å†…å®¹é«˜åº¦
-                    .registerWriteHandler(new SimpleColumnWidthStyleStrategy(14))//åˆ—å®½åº¦ç­–ç•¥
-                    .registerWriteHandler(this.getExcelStyle())//è®¾ç½®é»˜è®¤æ ·å¼
-                    .registerWriteHandler(new MyCellStyleStrategy(dataList))//ç»†åŒ–å•å…ƒæ ¼ç­–ç•¥
+                    .registerWriteHandler(new SimpleRowHeightStyleStrategy((short) 20, (short) 15))//ĞĞ¸ß¶È²ßÂÔ:±íÍ·¸ß¶È,ÄÚÈİ¸ß¶È
+                    .registerWriteHandler(new SimpleColumnWidthStyleStrategy(14))//ÁĞ¿í¶È²ßÂÔ
+                    .registerWriteHandler(this.getExcelStyle())//ÉèÖÃÄ¬ÈÏÑùÊ½
+                    .registerWriteHandler(new MyCellStyleStrategy(dataList))//Ï¸»¯µ¥Ôª¸ñ²ßÂÔ
                     .sheet("Sheet1")
                     .doWrite(dataList);
         } catch (Exception e) {
@@ -135,43 +135,43 @@ public class ExcelExportControl {
     }
  
     /**
-     * è®¾ç½®excelæ ·å¼
+     * ÉèÖÃexcelÑùÊ½
      *
      * @return
      */
     public HorizontalCellStyleStrategy getExcelStyle() {
-        //è¿™ä¸ªç­–ç•¥æ˜¯ å¤´æ˜¯å¤´çš„æ ·å¼ å†…å®¹æ˜¯å†…å®¹çš„æ ·å¼ å…¶ä»–çš„ç­–ç•¥å¯ä»¥è‡ªå·±å®ç°
+        //Õâ¸ö²ßÂÔÊÇ Í·ÊÇÍ·µÄÑùÊ½ ÄÚÈİÊÇÄÚÈİµÄÑùÊ½ ÆäËûµÄ²ßÂÔ¿ÉÒÔ×Ô¼ºÊµÏÖ
         HorizontalCellStyleStrategy horizontalCellStyleStrategy = new HorizontalCellStyleStrategy(buildWriteCellStyle(true), buildWriteCellStyle(false));
         return horizontalCellStyleStrategy;
     }
  
     /**
-     * ç”Ÿæˆå•å…ƒæ ¼æ ·å¼
+     * Éú³Éµ¥Ôª¸ñÑùÊ½
      *
      * @param isHead
      * @return
      */
     public static WriteCellStyle buildWriteCellStyle(boolean isHead) {
-        //ç­–ç•¥
+        //²ßÂÔ
         WriteCellStyle writeCellStyle = new WriteCellStyle();
         writeCellStyle.setFillPatternType(FillPatternType.SOLID_FOREGROUND);
       
-        writeCellStyle.setFillForegroundColor(IndexedColors.WHITE1.getIndex());// èƒŒæ™¯ç™½è‰²
+        writeCellStyle.setFillForegroundColor(IndexedColors.WHITE1.getIndex());// ±³¾°°×É«
         WriteFont headWriteFont = new WriteFont();
-        headWriteFont.setFontName("å®‹ä½“");
+        headWriteFont.setFontName("ËÎÌå");
         headWriteFont.setFontHeightInPoints((short) 11);
         headWriteFont.setBold(isHead);
         headWriteFont.setColor(IndexedColors.BLACK1.index);
         writeCellStyle.setWriteFont(headWriteFont);
-        writeCellStyle.setDataFormat((short) 48);//æ–‡æœ¬æ ¼å¼
-        writeCellStyle.setVerticalAlignment(VerticalAlignment.CENTER);//å‚ç›´å±…ä¸­
-        writeCellStyle.setHorizontalAlignment(HorizontalAlignment.CENTER);//æ°´å¹³å±…ä¸­
+        writeCellStyle.setDataFormat((short) 48);//ÎÄ±¾¸ñÊ½
+        writeCellStyle.setVerticalAlignment(VerticalAlignment.CENTER);//´¹Ö±¾ÓÖĞ
+        writeCellStyle.setHorizontalAlignment(HorizontalAlignment.CENTER);//Ë®Æ½¾ÓÖĞ
         writeCellStyle.setBorderLeft(BorderStyle.THIN);
         writeCellStyle.setBorderTop(BorderStyle.THIN);
         writeCellStyle.setBorderRight(BorderStyle.THIN);
         writeCellStyle.setBorderBottom(BorderStyle.THIN);
         writeCellStyle.setWrapped(false);
-        //ä¸ä¸ºè¡¨å¤´æ˜¾ç¤ºçº¢è‰²
+        //²»Îª±íÍ·ÏÔÊ¾ºìÉ«
         if (!isHead) {
             writeCellStyle.getWriteFont().setColor(IndexedColors.RED.index);
         }
@@ -181,7 +181,7 @@ public class ExcelExportControl {
 }
  
 /**
- * @Description: æŒ‡å®šå•å…ƒæ ¼æ ·å¼å¤„ç†
+ * @Description: Ö¸¶¨µ¥Ôª¸ñÑùÊ½´¦Àí
  * @date 2021/1/17 13:07
  * @return
  */
@@ -200,21 +200,21 @@ class MyCellStyleStrategy extends AbstractCellWriteHandler {
         this.dataList = dataList;
     }
  
-    //æ¯å†™å…¥ä¸€å•å…ƒæ ¼æ•°æ®ä¼šè°ƒç”¨ä¸€æ¬¡ï¼Œå¯ä»¥ä¾æ¬¡è®¾ç½®ä¸åŒçš„æ ·å¼
+    //Ã¿Ğ´ÈëÒ»µ¥Ôª¸ñÊı¾İ»áµ÷ÓÃÒ»´Î£¬¿ÉÒÔÒÀ´ÎÉèÖÃ²»Í¬µÄÑùÊ½
     public void afterCellDispose(WriteSheetHolder writeSheetHolder, WriteTableHolder writeTableHolder, List<CellData> cellDataList, Cell cell, Head head, Integer relativeRowIndex, Boolean isHead) {
         Workbook workbook = writeSheetHolder.getParentWriteWorkbookHolder().getWorkbook();
         WriteCellStyle writeCellStyle = ExcelExportControl.buildWriteCellStyle(false);
-        if (cell.getStringCellValue().contains("å¤§å­¦") && !isHead) {
+        if (cell.getStringCellValue().contains("´óÑ§") && !isHead) {
             writeCellStyle.getWriteFont().setColor(IndexedColors.BLUE.index);
             cell.setCellStyle(this.getWriteCellStyle(workbook, writeCellStyle));
         }
-        if (cell.getStringCellValue().contains("å°å­¦") && !isHead) {
+        if (cell.getStringCellValue().contains("Ğ¡Ñ§") && !isHead) {
             writeCellStyle.getWriteFont().setColor(IndexedColors.DARK_BLUE.index);
             cell.setCellStyle(this.getWriteCellStyle(workbook, writeCellStyle));
         }
     }
  
-    //ä»é»˜è®¤æ ·å¼ä¸­æŠ½å–å•å…ƒæ ¼å­—ä½“æ ·å¼
+    //´ÓÄ¬ÈÏÑùÊ½ÖĞ³éÈ¡µ¥Ôª¸ñ×ÖÌåÑùÊ½
     public CellStyle getWriteCellStyle(Workbook workbook, WriteCellStyle writeCellStyle) {
         CellStyle cellStyle = workbook.createCellStyle();
         Font font = workbook.createFont();

@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit;
  */
 @RequestMapping("/redis")
 @RestController
-@Api(tags = "Redisåº”ç”¨")
+@Api(tags = "RedisÓ¦ÓÃ")
 public class MyRedisController {
     @Autowired
     private RedisMessageListenerContainer messageListenerContainer;
@@ -31,7 +31,7 @@ public class MyRedisController {
     //http://localhost:8081/redis/getValue
     @GetMapping("/getValue")
     public String getValue() {
-        String key = "ä»Šæ—¥æ–°é—»";
+        String key = "½ñÈÕĞÂÎÅ";
         String value = redisTemplate.opsForValue().get(key);
         return value;
     }
@@ -39,60 +39,60 @@ public class MyRedisController {
 
 //--------------------------------------------------------------------------------
 
-    //http://localhost:8081/redis/topicListener  ä¸»é¢˜ç›‘å¬
+    //http://localhost:8081/redis/topicListener  Ö÷Ìâ¼àÌı
     @GetMapping("/topicListener")
     public String topicListener() {
-        String topicName = "ä»Šæ—¥æ–°é—»";
+        String topicName = "½ñÈÕĞÂÎÅ";
         messageListenerContainer.addMessageListener(redisMessageListener, new ChannelTopic(topicName));
-        return "ä»Šæ—¥æ–°é—»--ç›‘å¬";
+        return "½ñÈÕĞÂÎÅ--¼àÌı";
     }
 
-    //http://localhost:8081/redis/topicPublish  ä¸»é¢˜å‘å¸ƒ
+    //http://localhost:8081/redis/topicPublish  Ö÷Ìâ·¢²¼
     @GetMapping("/topicPublish")
     public String topicPublish() {
-        String topicName = "ä»Šæ—¥æ–°é—»";
-        String topicValue = "ä»Šæ—¥æ–°é—»--æ—¥æœ¬å‘ç”Ÿå¤§åœ°éœ‡";
+        String topicName = "½ñÈÕĞÂÎÅ";
+        String topicValue = "½ñÈÕĞÂÎÅ--ÈÕ±¾·¢Éú´óµØÕğ";
         redisTemplate.getConnectionFactory().getConnection().publish(topicName.getBytes(CharsetUtil.UTF_8), topicValue.getBytes(CharsetUtil.UTF_8));
-        return "ä»Šæ—¥æ–°é—»---ä¸»é¢˜å‘å¸ƒ";
+        return "½ñÈÕĞÂÎÅ---Ö÷Ìâ·¢²¼";
     }
     //http://localhost:8081/redis/setValue2
     @GetMapping("/setValue2")
     public String setValue2() {
-        String key = "ä»Šæ—¥æ–°é—»";
-        String value = "æ—¥æœ¬å‘ç”Ÿå¤§åœ°éœ‡";
+        String key = "½ñÈÕĞÂÎÅ";
+        String value = "ÈÕ±¾·¢Éú´óµØÕğ";
         redisTemplate.opsForValue().set(key, value);
         return key;
     }
 //----------------------------------------------------------------------------------------
 
-    //http://localhost:8080/redis/topicExpireListener ä¸»é¢˜è¿‡æœŸç›‘å¬
+    //http://localhost:8080/redis/topicExpireListener Ö÷Ìâ¹ıÆÚ¼àÌı
     @GetMapping("/topicExpireListener")
     public String topicExpireListener() {
-        String topicName = "æœ‰æ•ˆæœŸä»Šæ—¥æ–°é—»";
+        String topicName = "ÓĞĞ§ÆÚ½ñÈÕĞÂÎÅ";
         messageListenerContainer.addMessageListener(redisExpireMsgListener, new ChannelTopic(topicName));
-        return "æœ‰æ•ˆæœŸä»Šæ—¥æ–°é—»---ç›‘å¬";
+        return "ÓĞĞ§ÆÚ½ñÈÕĞÂÎÅ---¼àÌı";
     }
-    //http://localhost:8080/redis/topicExpirePublish  æœ‰æ•ˆæœŸä¸»é¢˜å‘å¸ƒ
+    //http://localhost:8080/redis/topicExpirePublish  ÓĞĞ§ÆÚÖ÷Ìâ·¢²¼
     @GetMapping("/topicExpirePublish")
     public String topicExpirePublish() {
-        String topicName = "æœ‰æ•ˆæœŸä»Šæ—¥æ–°é—»";
-        String topicValue = "æœ‰æ•ˆæœŸä»Šæ—¥æ–°é—»---æ—¥æœ¬å‘ç”Ÿå¤§åœ°éœ‡";
+        String topicName = "ÓĞĞ§ÆÚ½ñÈÕĞÂÎÅ";
+        String topicValue = "ÓĞĞ§ÆÚ½ñÈÕĞÂÎÅ---ÈÕ±¾·¢Éú´óµØÕğ";
         redisTemplate.expire(topicName, 10, TimeUnit.SECONDS);
         redisTemplate.getConnectionFactory().getConnection().publish(topicName.getBytes(CharsetUtil.UTF_8), topicValue.getBytes(CharsetUtil.UTF_8));
-        return "æœ‰æ•ˆæœŸä»Šæ—¥æ–°é—»---å‘å¸ƒ";
+        return "ÓĞĞ§ÆÚ½ñÈÕĞÂÎÅ---·¢²¼";
     }
-    //http://localhost:8080/redis/setValue  ä¸»é¢˜è¿‡æœŸç›‘å¬
+    //http://localhost:8080/redis/setValue  Ö÷Ìâ¹ıÆÚ¼àÌı
     @GetMapping("/setValue")
     public String setValue() {
-        String key = "æœ‰æ•ˆæœŸä»Šæ—¥æ–°é—»";
-        String value = "æ—¥æœ¬å‘ç”Ÿå¤§åœ°éœ‡";
+        String key = "ÓĞĞ§ÆÚ½ñÈÕĞÂÎÅ";
+        String value = "ÈÕ±¾·¢Éú´óµØÕğ";
         redisTemplate.opsForValue().set(key, value, 5, TimeUnit.SECONDS);
-        return "æœ‰æ•ˆæœŸä»Šæ—¥æ–°é—»---å‘å¸ƒ";
+        return "ÓĞĞ§ÆÚ½ñÈÕĞÂÎÅ---·¢²¼";
     }
 //-----------------------------------------------
     @GetMapping("/topicConsumer")
     public String topicConsume() {
-        String topicName = "æœ‰æ•ˆæœŸä»Šæ—¥æ–°é—»";
+        String topicName = "ÓĞĞ§ÆÚ½ñÈÕĞÂÎÅ";
         redisTemplate.getConnectionFactory().getConnection().subscribe(redisMessageListener, topicName.getBytes());
         return "test";
     }
