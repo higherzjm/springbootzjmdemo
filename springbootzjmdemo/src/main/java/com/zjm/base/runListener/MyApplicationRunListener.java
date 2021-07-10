@@ -6,7 +6,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.env.ConfigurableEnvironment;
 
 /**
- * springè¿è¡Œç›‘å¬å™¨
+ * springÔËĞĞ¼àÌıÆ÷
  */
 public class MyApplicationRunListener implements SpringApplicationRunListener{
     private final SpringApplication application;
@@ -18,37 +18,37 @@ public class MyApplicationRunListener implements SpringApplicationRunListener{
     }
     @Override
     public void starting() {
-        System.out.println("-------------1----------------è¿è¡Œå¼€å§‹");
+        System.out.println("-------------1----------------ÔËĞĞ¿ªÊ¼");
     }
 
     @Override
     public void environmentPrepared(ConfigurableEnvironment environment) {
-        System.out.println("-------------2----------------ç¯å¢ƒå‡†å¤‡ç»“æŸ");
+        System.out.println("-------------2----------------»·¾³×¼±¸½áÊø");
     }
 
     @Override
     public void contextPrepared(ConfigurableApplicationContext context) {
-        System.out.println("-------------------3----------------ä¸Šä¸‹æ–‡å‡†å¤‡å®Œæˆ");
+        System.out.println("-------------------3----------------ÉÏÏÂÎÄ×¼±¸Íê³É");
     }
 
     @Override
     public void contextLoaded(ConfigurableApplicationContext context) {
-        System.out.println("-------------------4-------------ä¸Šä¸‹æ–‡åŠ è½½ç»“æŸ");
+        System.out.println("-------------------4-------------ÉÏÏÂÎÄ¼ÓÔØ½áÊø");
     }
 
     @Override
     public void started(ConfigurableApplicationContext context) {
-        System.out.println("------------------5---------------è¿è¡Œå‡†å¤‡å·¥ä½œç»“æŸ");
+        System.out.println("------------------5---------------ÔËĞĞ×¼±¸¹¤×÷½áÊø");
     }
 
     @Override
     public void running(ConfigurableApplicationContext context) {
-        System.out.println("-------------------------6---------------------ç³»ç»Ÿæ­£åœ¨è¿è¡Œ");
+        System.out.println("-------------------------6---------------------ÏµÍ³ÕıÔÚÔËĞĞ");
     }
 
     @Override
     public void failed(ConfigurableApplicationContext context, Throwable exception) {
-        System.out.println("è¿è¡Œå¼€å§‹");
+        System.out.println("ÔËĞĞ¿ªÊ¼");
     }
 
 }
