@@ -1,10 +1,9 @@
+package com.zjm;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.web.servlet.ServletComponentScan;
-import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-
-@ServletComponentScan
+@SpringBootApplication
 public class MyBaseSpringBootApplication {
 
     /**
@@ -12,7 +11,7 @@ public class MyBaseSpringBootApplication {
      * swagger： http://localhost:8081/swagger-ui.html
      **/
     public static void main(String[] args) {
-        ConfigurableApplicationContext applicationContext= SpringApplication.run(MyBaseSpringBootApplication.class, args);
+        SpringApplication.run(MyBaseSpringBootApplication.class, args);
     }
 
 }
