@@ -3,6 +3,9 @@ package com.zjm.kindsmodels.Adapter.example2;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 适配器模式
+ */
 public class DispatchServletMain {
 
     public static List<HandlerAdapter> handlerAdapters = new ArrayList<HandlerAdapter>();

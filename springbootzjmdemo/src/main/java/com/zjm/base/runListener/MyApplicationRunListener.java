@@ -1,5 +1,6 @@
 package com.zjm.base.runListener;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.SpringApplicationRunListener;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -8,6 +9,7 @@ import org.springframework.core.env.ConfigurableEnvironment;
 /**
  * spring运行监听器
  */
+@Slf4j
 public class MyApplicationRunListener implements SpringApplicationRunListener{
     private final SpringApplication application;
     private final String[] args;
@@ -15,6 +17,7 @@ public class MyApplicationRunListener implements SpringApplicationRunListener{
     public MyApplicationRunListener(SpringApplication sa, String[] args) {
         this.application = sa;
         this.args = args;
+        log.info("我的应用启动监听器被实例化");
     }
     @Override
     public void starting() {

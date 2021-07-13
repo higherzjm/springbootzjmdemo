@@ -14,4 +14,9 @@ public class MyApplicationContextInitializer
     public void initialize(ConfigurableApplicationContext configurableApplicationContext) {
         log.info("=------------------------我的应用上下文初始化");
     }
+
+    public MyApplicationContextInitializer() {
+        log.info("我的应用上下午初始化器被实例化");
+    }
+
 }

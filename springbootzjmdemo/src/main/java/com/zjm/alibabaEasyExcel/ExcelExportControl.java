@@ -234,4 +234,8 @@ class MyCellStyleStrategy extends AbstractCellWriteHandler {
         }
         return cellStyle;
     }
+
+    public MyCellStyleStrategy() {
+        System.out.println("≥ı ºªØExcelExportControl");
+    }
 }

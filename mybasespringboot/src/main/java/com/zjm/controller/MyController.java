@@ -11,4 +11,8 @@ public class MyController {
     public String myMethod() {
         return "test";
     }
+
+    public MyController() {
+        System.out.println("myController 初始化");
+    }
 }
