@@ -7,7 +7,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.env.ConfigurableEnvironment;
 
 /**
- * springÔËĞĞ¼àÌıÆ÷
+ * è¿è¡Œæ—¶ç›‘å¬å™¨
  */
 @Slf4j
 public class MyApplicationRunListener implements SpringApplicationRunListener{
@@ -17,41 +17,42 @@ public class MyApplicationRunListener implements SpringApplicationRunListener{
     public MyApplicationRunListener(SpringApplication sa, String[] args) {
         this.application = sa;
         this.args = args;
-        log.info("ÎÒµÄÓ¦ÓÃÆô¶¯¼àÌıÆ÷±»ÊµÀı»¯");
+        log.info("è¿è¡Œæ—¶ç›‘å¬å™¨åˆå§‹åŒ–");
     }
     @Override
     public void starting() {
-        System.out.println("-------------1----------------ÔËĞĞ¿ªÊ¼");
+        System.out.println("-------------1----------------starting");
     }
 
     @Override
     public void environmentPrepared(ConfigurableEnvironment environment) {
-        System.out.println("-------------2----------------»·¾³×¼±¸½áÊø");
+        System.out.println("-------------2----------------environmentPrepared");
     }
 
     @Override
     public void contextPrepared(ConfigurableApplicationContext context) {
-        System.out.println("-------------------3----------------ÉÏÏÂÎÄ×¼±¸Íê³É");
+        System.out.println("-------------------3----------------contextPrepared");
     }
 
     @Override
     public void contextLoaded(ConfigurableApplicationContext context) {
-        System.out.println("-------------------4-------------ÉÏÏÂÎÄ¼ÓÔØ½áÊø");
+        System.out.println("-------------------4-------------contextLoaded");
     }
 
     @Override
     public void started(ConfigurableApplicationContext context) {
-        System.out.println("------------------5---------------ÔËĞĞ×¼±¸¹¤×÷½áÊø");
+        System.out.println("------------------5---------------started");
     }
 
     @Override
     public void running(ConfigurableApplicationContext context) {
-        System.out.println("-------------------------6---------------------ÏµÍ³ÕıÔÚÔËĞĞ");
+        System.out.println("-------------------------6---------------------running");
     }
 
     @Override
     public void failed(ConfigurableApplicationContext context, Throwable exception) {
-        System.out.println("ÔËĞĞ¿ªÊ¼");
+        System.out.println("è¿è¡Œæ—¶ç›‘å¬å™¨å¯åŠ¨å¤±è´¥");
+        System.out.println("è¿è¡Œæ—¶ç›‘å¬å™¨å¯åŠ¨å¤±è´¥");
     }
 
 }

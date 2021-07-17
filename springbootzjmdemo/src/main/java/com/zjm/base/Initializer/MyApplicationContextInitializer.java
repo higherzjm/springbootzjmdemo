@@ -5,18 +5,18 @@ import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
 
 /**
- * с╕сциообндЁУй╪
+ * Е╨■Г■╗Д╦┼Д╦▀Ф√┤Е┬²Е╖▀
  */
 @Slf4j
 public class MyApplicationContextInitializer
         implements ApplicationContextInitializer<ConfigurableApplicationContext> {
     @Override
     public void initialize(ConfigurableApplicationContext configurableApplicationContext) {
-        log.info("=------------------------нр╣дс╕сциообндЁУй╪╩╞");
+        log.info("=------------------------Ф┬▒Г └Е╨■Г■╗Д╦┼Д╦▀Ф√┤Е┬²Е╖▀Е▄√");
     }
 
     public MyApplicationContextInitializer() {
-        log.info("нр╣дс╕сциообнГЁУй╪╩╞фВ╠╩й╣юЩ╩╞");
+        log.info("Ф┬▒Г └Е╨■Г■╗Д╦┼Д╦▀Е█┬Е┬²Е╖▀Е▄√Е≥╗Х╒╚Е╝·Д╬▀Е▄√");
     }
 
 }

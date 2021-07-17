@@ -16,12 +16,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/base/customExceptionHandlerController")
 @RestController
 @Slf4j
-@Api(tags = "×Ô¶¨ÒåÒì³£´¦ÀíÆ÷")
+@Api(tags = "è‡ªå®šä¹‰å¼‚å¸¸å¤„ç†å™¨")
 public class customExceptionHandlerController {
     @GetMapping("/customExceptionHandlerTest1/{dividendNum}/{divisorNum}")
-    @ApiOperation(value = "×Ô¶¨ÒåÒì³£´¦ÀíÆ÷²âÊÔ1", notes = "×Ô¶¨ÒåÒì³£´¦ÀíÆ÷²âÊÔ1")
-    public float customExceptionHandlerTest1(@ApiParam(name = "dividendNum", value = "±»³ıÊı") @PathVariable("dividendNum") int dividendNum,
-                                              @ApiParam(name = "divisorNum", value = "³ıÊı") @PathVariable("divisorNum") int divisorNum) {
+    @ApiOperation(value = "è‡ªå®šä¹‰å¼‚å¸¸å¤„ç†å™¨æµ‹è¯•1", notes = "è‡ªå®šä¹‰å¼‚å¸¸å¤„ç†å™¨æµ‹è¯•1")
+    public float customExceptionHandlerTest1(@ApiParam(name = "dividendNum", value = "è¢«é™¤æ•°") @PathVariable("dividendNum") int dividendNum,
+                                              @ApiParam(name = "divisorNum", value = "é™¤æ•°") @PathVariable("divisorNum") int divisorNum) {
         float ret=dividendNum/divisorNum;
         return  ret;
     }

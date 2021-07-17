@@ -23,21 +23,21 @@ import java.util.UUID;
 @RequestMapping("/distributedLock")
 @RestController
 @Slf4j
-@Api(tags = "·Ö²¼Ê½Ëø")
+@Api(tags = "åˆ†å¸ƒå¼é”")
 public class DistributedLockController {
 
     @GetMapping("/test1")
-    @ApiOperation(value = "·Ö²¼Ê½ËøÉèÖÃ²âÊÔ1--°´¹ıÆÚÊ±¼ä×Ô¶¯Ê§Ğ§")
+    @ApiOperation(value = "åˆ†å¸ƒå¼é”è®¾ç½®æµ‹è¯•1--æŒ‰è¿‡æœŸæ—¶é—´è‡ªåŠ¨å¤±æ•ˆ")
     public String test1() {
         Jedis jedis = new Jedis("localhost", 6379);
         jedis.auth("123456");
-        String lockKey = "test1LockKey";//ÉèÖÃËø±êÖ¾Î»
-        String lockValue = UUID.randomUUID().toString();//ÉèÖÃ¿Í»§¶ËÎ¨Ò»±êÊ¶
+        String lockKey = "test1LockKey";//è®¾ç½®é”æ ‡å¿—ä½
+        String lockValue = UUID.randomUUID().toString();//è®¾ç½®å®¢æˆ·ç«¯å”¯ä¸€æ ‡è¯†
         /**
-         *private static final String XX = "xx";  ±íÊ¾key´æÔÚÊ±²ÅsetÖµ
-         * private static final String NX = "nx";  ±íÊ¾key²»´æÔÚÊ±²ÅsetÖµ
-         * private static final String PX = "px";  ±íÊ¾±íÊ¾¹ıÆÚÊ±¼äµ¥Î»ÊÇÎ¢Ãë
-         * private static final String EX = "ex"; ±íÊ¾±íÊ¾¹ıÆÚÊ±¼äµ¥Î»ÊÇÃë
+         *private static final String XX = "xx";  è¡¨ç¤ºkeyå­˜åœ¨æ—¶æ‰setå€¼
+         * private static final String NX = "nx";  è¡¨ç¤ºkeyä¸å­˜åœ¨æ—¶æ‰setå€¼
+         * private static final String PX = "px";  è¡¨ç¤ºè¡¨ç¤ºè¿‡æœŸæ—¶é—´å•ä½æ˜¯å¾®ç§’
+         * private static final String EX = "ex"; è¡¨ç¤ºè¡¨ç¤ºè¿‡æœŸæ—¶é—´å•ä½æ˜¯ç§’
          *
          * NX|XX, NX -- Only set the key if it does not already exist. XX -- Only set the
          * key if it already exist. EX|PX, expire time units: EX = seconds; PX = milliseconds
@@ -45,19 +45,19 @@ public class DistributedLockController {
         log.info("lockValue:" + jedis.get(lockKey));
         SetParams setParams = new SetParams();
         setParams.nx();
-        setParams.ex(15);//15ÃëºóÉ¾³ı
+        setParams.ex(15);//15ç§’ååˆ é™¤
         String result = jedis.set(lockKey, lockValue, setParams);
         return getResponseResult(result);
 
     }
 
     @GetMapping("/test2")
-    @ApiOperation(value = "·Ö²¼Ê½ËøÉèÖÃ²âÊÔ2--´¦ÀíÍêÈÎÎñlua½Å±¾ÊÖ¶¯ÊÍ·Å")
+    @ApiOperation(value = "åˆ†å¸ƒå¼é”è®¾ç½®æµ‹è¯•2--å¤„ç†å®Œä»»åŠ¡luaè„šæœ¬æ‰‹åŠ¨é‡Šæ”¾")
     public String test2() {
         Jedis jedis = new Jedis("localhost", 6379);
         jedis.auth("123456");
-        String lockKey = "test2LockKey";//ÉèÖÃËø±êÖ¾Î»
-        String lockValue = UUID.randomUUID().toString();//ÉèÖÃ¿Í»§¶ËÎ¨Ò»±êÊ¶
+        String lockKey = "test2LockKey";//è®¾ç½®é”æ ‡å¿—ä½
+        String lockValue = UUID.randomUUID().toString();//è®¾ç½®å®¢æˆ·ç«¯å”¯ä¸€æ ‡è¯†
         String responseResult;
         try {
             log.info("lockValue:" + jedis.get(lockKey));
@@ -68,18 +68,18 @@ public class DistributedLockController {
 
         } finally {
             /**
-             *# »ñÈ¡ KEYS[1] ¶ÔÓ¦µÄ Val
+             *# è·å– KEYS[1] å¯¹åº”çš„ Val
              * local cliVal = redis.call('get', KEYS[1])
-             * # ÅĞ¶Ï KEYS[1] Óë ARGV[1] ÊÇ·ñ±£³ÖÒ»ÖÂ
+             * # åˆ¤æ–­ KEYS[1] ä¸ ARGV[1] æ˜¯å¦ä¿æŒä¸€è‡´
              * if(cliVal == ARGV[1]) then
-             *   # É¾³ı KEYS[1]
+             *   # åˆ é™¤ KEYS[1]
              *   redis.call('del', KEYS[1])
              *   return 'OK'
              * else
              *   return nil
              * end
              **/
-            //Ö´ĞĞÍêÊÍ·ÅËø  Lua ½Å±¾
+            //æ‰§è¡Œå®Œé‡Šæ”¾é”  Lua è„šæœ¬
             String script = "local cliVal = redis.call('get', KEYS[1]) " +
                     "if(cliVal == ARGV[1]) then " +
                     "  redis.call('del', KEYS[1])" +
@@ -95,11 +95,11 @@ public class DistributedLockController {
     public String getResponseResult(String result) {
         String responseResult;
         if ("OK".equals(result)) {
-            log.info("»ñÈ¡µ½Ëø³É¹¦");
-            responseResult = "»ñÈ¡µ½Ëø³É¹¦ result:" + result;
+            log.info("è·å–åˆ°é”æˆåŠŸ");
+            responseResult = "è·å–åˆ°é”æˆåŠŸ result:" + result;
         } else {
-            log.info("»ñÈ¡µ½ËøÊ§°Ü result:" + result);
-            responseResult = "»ñÈ¡µ½ËøÊ§°Ü result:" + result;
+            log.info("è·å–åˆ°é”å¤±è´¥ result:" + result);
+            responseResult = "è·å–åˆ°é”å¤±è´¥ result:" + result;
         }
         return responseResult;
     }

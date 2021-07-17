@@ -22,18 +22,18 @@ import java.util.concurrent.ExecutionException;
  */
 @RequestMapping("/base/springBootBase")
 @RestController
-@Api(tags = "springBoot »ù´¡Ó¦ÓÃ")
+@Api(tags = "springBoot åŸºç¡€åº”ç”¨")
 public class SpringBootBaseController {
     @Autowired
     private MyService myService;
 
-    //postÇëÇó£¬ÊµÌåÇëÇó²ÎÊı
+    //postè¯·æ±‚ï¼Œå®ä½“è¯·æ±‚å‚æ•°
     @PostMapping("/test1")
-    @ApiOperation(value = "postÇëÇó£¬ÊµÌåÇëÇó²ÎÊı", notes = "postÇëÇó£¬ÊµÌåÇëÇó²ÎÊı")
+    @ApiOperation(value = "postè¯·æ±‚ï¼Œå®ä½“è¯·æ±‚å‚æ•°", notes = "postè¯·æ±‚ï¼Œå®ä½“è¯·æ±‚å‚æ•°")
     public StudentInfo test1(@RequestBody @Validated RequestVO requestVO) {
         CompletableFuture<String> completedFuture = new CompletableFuture();
         SalaryRecheckMergeRequestUtil.salaryRecheckRequestQueue.add(SalaryRecheckMergeRequestVO.builder().requestPath("springBootBase/test1").
-                requestName("postÇëÇó£¬ÊµÌåÇëÇó²ÎÊı").paramJsonStr(JsonUtil.convertBeanToJson(requestVO)).completedFuture(completedFuture).build());
+                requestName("postè¯·æ±‚ï¼Œå®ä½“è¯·æ±‚å‚æ•°").paramJsonStr(JsonUtil.convertBeanToJson(requestVO)).completedFuture(completedFuture).build());
         try {
             String mergeRequestMsg = completedFuture.get();
             requestVO.setName(mergeRequestMsg);
@@ -46,13 +46,13 @@ public class SpringBootBaseController {
     }
 
     @GetMapping("/test2/{name}/{age}")
-    @ApiOperation(value = "PathVariable²ÎÊıÇëÇó", notes = "PathVariable²ÎÊıÇëÇó")
+    @ApiOperation(value = "PathVariableå‚æ•°è¯·æ±‚", notes = "PathVariableå‚æ•°è¯·æ±‚")
     public StudentInfo test2(
-            @ApiParam(name = "name", value = "ĞÕÃû", required = true) @PathVariable("name") String name,
-            @ApiParam(name = "age", value = "ÄêÁä", required = true) @PathVariable("age") Integer age) {
+            @ApiParam(name = "name", value = "å§“å", required = true) @PathVariable("name") String name,
+            @ApiParam(name = "age", value = "å¹´é¾„", required = true) @PathVariable("age") Integer age) {
         CompletableFuture<String> completedFuture = new CompletableFuture();
         SalaryRecheckMergeRequestUtil.salaryRecheckRequestQueue.add(SalaryRecheckMergeRequestVO.builder().requestPath("springBootBase/test2").
-                requestName("requestÇëÇó£¬¼òµ¥Ò»¸ö»ò¶à²ÎÊı").completedFuture(completedFuture).build());
+                requestName("requestè¯·æ±‚ï¼Œç®€å•ä¸€ä¸ªæˆ–å¤šå‚æ•°").completedFuture(completedFuture).build());
         try {
             String mergeRequestMsg = completedFuture.get();
             name = mergeRequestMsg;
@@ -65,22 +65,22 @@ public class SpringBootBaseController {
     }
 
     @GetMapping("/test3")
-    @ApiOperation(value = "RequestParam²ÎÊıÇëÇó", notes = "RequestParam²ÎÊıÇëÇó")
+    @ApiOperation(value = "RequestParamå‚æ•°è¯·æ±‚", notes = "RequestParamå‚æ•°è¯·æ±‚")
     public String test3(@RequestParam("name") String name) {
         return "test3:" + name;
     }
 
     @GetMapping("/test4/{name}")
-    @ApiOperation(value = "ÇëÇó×ª·¢", notes = "ÇëÇó×ª·¢")
+    @ApiOperation(value = "è¯·æ±‚è½¬å‘", notes = "è¯·æ±‚è½¬å‘")
     public String test4(@PathVariable("name") String name) {
         return name;
     }
 
     @GetMapping("/requestForward")
-    @ApiOperation(value = "½ÓÊÜÇëÇó×ª·¢(µã»÷ÎŞĞ§)", notes = "½ÓÊÜÇëÇó×ª·¢(µã»÷ÎŞĞ§)")
+    @ApiOperation(value = "æ¥å—è¯·æ±‚è½¬å‘(ç‚¹å‡»æ— æ•ˆ)", notes = "æ¥å—è¯·æ±‚è½¬å‘(ç‚¹å‡»æ— æ•ˆ)")
     public String test5(HttpServletRequest request) {
         String msg = (String) request.getAttribute("msg");
-        return "ÇëÇó×ª·¢:"+msg;
+        return "è¯·æ±‚è½¬å‘:"+msg;
     }
 
 }

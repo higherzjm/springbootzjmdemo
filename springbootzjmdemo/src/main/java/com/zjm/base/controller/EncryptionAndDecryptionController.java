@@ -24,20 +24,20 @@ import java.security.NoSuchAlgorithmException;
 @RequestMapping("/base/encryptionAndDecryption")
 @RestController
 @Slf4j
-@Api(tags = "¼Ó½âÃÜ")
+@Api(tags = "åŠ è§£å¯†")
 public class EncryptionAndDecryptionController {
     @GetMapping("/testEncryption/{plainValue}/{securityKey}")
-    @ApiOperation(value = "²âÊÔ¼ÓÃÜ", notes = "²âÊÔ¼ÓÃÜ")
-    public String StringtestEncryption(@ApiParam(name = "plainValue", value = "Ã÷ÎÄ") @PathVariable("plainValue") String plainValue,
-                                    @ApiParam(name = "securityKey", value = "ÃØÔ¿") @PathVariable("securityKey") String securityKey) {
+    @ApiOperation(value = "æµ‹è¯•åŠ å¯†", notes = "æµ‹è¯•åŠ å¯†")
+    public String StringtestEncryption(@ApiParam(name = "plainValue", value = "æ˜æ–‡") @PathVariable("plainValue") String plainValue,
+                                    @ApiParam(name = "securityKey", value = "ç§˜é’¥") @PathVariable("securityKey") String securityKey) {
         byte[] result = null;
-        DESKeySpec desKeySpec = null; //ÊµÀı»¯DESÃÜÔ¿¹æÔò
+        DESKeySpec desKeySpec = null; //å®ä¾‹åŒ–DESå¯†é’¥è§„åˆ™
         try {
             desKeySpec = new DESKeySpec(Hex.decodeHex(securityKey));
-            SecretKeyFactory factory = SecretKeyFactory.getInstance("DES"); //ÊµÀı»¯ÃÜÔ¿¹¤³§
-            Key convertSecretKey = factory.generateSecret(desKeySpec); //Éú³ÉÃÜÔ¿
+            SecretKeyFactory factory = SecretKeyFactory.getInstance("DES"); //å®ä¾‹åŒ–å¯†é’¥å·¥å‚
+            Key convertSecretKey = factory.generateSecret(desKeySpec); //ç”Ÿæˆå¯†é’¥
             Cipher cipher = Cipher.getInstance("DES/ECB/PKCS5Padding");
-            // ¼ÓÃÜ
+            // åŠ å¯†
             cipher.init(Cipher.ENCRYPT_MODE, convertSecretKey);
             result = cipher.doFinal(plainValue.getBytes());
         } catch (Exception e) {
@@ -47,17 +47,17 @@ public class EncryptionAndDecryptionController {
     }
 
     @GetMapping("/testDecryption/{securityValue}/{securityKey}")
-    @ApiOperation(value = "²âÊÔ½âÃÜ", notes = "²âÊÔ½âÃÜ")
-    public String StringtestDecryption(@ApiParam(name = "securityValue", value = "ÃÜÎÄ") @PathVariable("securityValue") String securityValue,
-                                    @ApiParam(name = "securityKey", value = "ÃØÔ¿") @PathVariable("securityKey") String securityKey) {
+    @ApiOperation(value = "æµ‹è¯•è§£å¯†", notes = "æµ‹è¯•è§£å¯†")
+    public String StringtestDecryption(@ApiParam(name = "securityValue", value = "å¯†æ–‡") @PathVariable("securityValue") String securityValue,
+                                    @ApiParam(name = "securityKey", value = "ç§˜é’¥") @PathVariable("securityKey") String securityKey) {
         String desStr = "";
         try {
-            DESKeySpec desKeySpec = new DESKeySpec(Hex.decodeHex(securityKey)); //ÊµÀı»¯DESÃÜÔ¿¹æÔò
-            SecretKeyFactory factory = SecretKeyFactory.getInstance("DES"); //ÊµÀı»¯ÃÜÔ¿¹¤³§
-            Key convertSecretKey = factory.generateSecret(desKeySpec); //Éú³ÉÃÜÔ¿
+            DESKeySpec desKeySpec = new DESKeySpec(Hex.decodeHex(securityKey)); //å®ä¾‹åŒ–DESå¯†é’¥è§„åˆ™
+            SecretKeyFactory factory = SecretKeyFactory.getInstance("DES"); //å®ä¾‹åŒ–å¯†é’¥å·¥å‚
+            Key convertSecretKey = factory.generateSecret(desKeySpec); //ç”Ÿæˆå¯†é’¥
             Cipher cipher = Cipher.getInstance("DES/ECB/PKCS5Padding");
 
-            // ½âÃÜ
+            // è§£å¯†
             cipher.init(Cipher.DECRYPT_MODE, convertSecretKey);
             byte[] desResult = cipher.doFinal(Hex.decodeHex(securityValue));
             desStr = new String(desResult);
@@ -68,20 +68,20 @@ public class EncryptionAndDecryptionController {
     }
 
     @GetMapping("/generateSecurtykey")
-    @ApiOperation(value = "²âÊÔÉú³ÉÃØÔ¿", notes = "²âÊÔÉú³ÉÃØÔ¿")
+    @ApiOperation(value = "æµ‹è¯•ç”Ÿæˆç§˜é’¥", notes = "æµ‹è¯•ç”Ÿæˆç§˜é’¥")
     public String generateSecurtykey() {
-        // Éú³Ékey//·µ»ØÉú³ÉÖ¸¶¨Ëã·¨ÃÜÔ¿µÄKeyGenerator¶ÔÏó
+        // ç”Ÿæˆkey//è¿”å›ç”ŸæˆæŒ‡å®šç®—æ³•å¯†é’¥çš„KeyGeneratorå¯¹è±¡
         KeyGenerator keyGenerator = null;
         try {
             keyGenerator = KeyGenerator.getInstance("DES");
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
-        keyGenerator.init(56);//³õÊ¼»¯´ËÃÜÔ¿Éú³ÉÆ÷,Ê¹Æä¾ßÓĞÈ·¶¨µÄÃÜÔ¿´óĞ¡
-        SecretKey secretKey = keyGenerator.generateKey();//Éú³ÉÒ»¸öÃÜÔ¿
+        keyGenerator.init(56);//åˆå§‹åŒ–æ­¤å¯†é’¥ç”Ÿæˆå™¨,ä½¿å…¶å…·æœ‰ç¡®å®šçš„å¯†é’¥å¤§å°
+        SecretKey secretKey = keyGenerator.generateKey();//ç”Ÿæˆä¸€ä¸ªå¯†é’¥
         byte[] bs = secretKey.getEncoded();
         String encodeHexString = Hex.encodeHexString(bs);
-        log.info("ÃØÔ¿Îª:"+encodeHexString);
+        log.info("ç§˜é’¥ä¸º:"+encodeHexString);
         return encodeHexString;
     }
 

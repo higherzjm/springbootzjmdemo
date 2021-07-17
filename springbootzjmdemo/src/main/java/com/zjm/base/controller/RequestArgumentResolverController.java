@@ -13,17 +13,17 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
 @Controller
-@Api(tags = "springBootÇëÇó²ÎÊı½âÎö")
+@Api(tags = "springBootè¯·æ±‚å‚æ•°è§£æ")
 public class RequestArgumentResolverController {
     /**
-     * model¡¢Map ÇëÇó²ÎÊıÀàĞÍ¶¼»á½øÈëÇëÇóÓòÀïÃæ
+     * modelã€Map è¯·æ±‚å‚æ•°ç±»å‹éƒ½ä¼šè¿›å…¥è¯·æ±‚åŸŸé‡Œé¢
      */
     @GetMapping("/modelAndMapRequestArgumentResolver")
-    @ApiOperation(value = "model¡¢MapÇëÇó²ÎÊı½âÎö", notes = "model¡¢MapÇëÇó²ÎÊı½âÎö")
+    @ApiOperation(value = "modelã€Mapè¯·æ±‚å‚æ•°è§£æ", notes = "modelã€Mapè¯·æ±‚å‚æ•°è§£æ")
     public String modelAndMapRequestArgumentResolver(Map<String, Object> map, Model model, HttpServletRequest request, HttpServletResponse response) {
-        map.put("name", "ÕÅÈı");
+        map.put("name", "å¼ ä¸‰");
         model.addAttribute("age", 10);
-        request.setAttribute("school", "¸£½¨Ê¦·¶´óÑ§");
+        request.setAttribute("school", "ç¦å»ºå¸ˆèŒƒå¤§å­¦");
         Cookie cookie = new Cookie("password", "123456");
         cookie.setComment("localhost");
         response.addCookie(cookie);
@@ -36,7 +36,7 @@ public class RequestArgumentResolverController {
     public Map forwardRequest(HttpServletRequest request) {
         Map map = new HashMap();
         /**
-         * model¡¢Map ÇëÇó²ÎÊıÀàĞÍ¶¼»á½øÈëÇëÇóÓòÀïÃæ£¬¿ÉÒÔÖ±½ÓÓÃrequest»ñÈ¡²ÎÊı½á¹û
+         * modelã€Map è¯·æ±‚å‚æ•°ç±»å‹éƒ½ä¼šè¿›å…¥è¯·æ±‚åŸŸé‡Œé¢ï¼Œå¯ä»¥ç›´æ¥ç”¨requestè·å–å‚æ•°ç»“æœ
          */
         map.put("name", request.getAttribute("name"));
         map.put("age", request.getAttribute("age"));

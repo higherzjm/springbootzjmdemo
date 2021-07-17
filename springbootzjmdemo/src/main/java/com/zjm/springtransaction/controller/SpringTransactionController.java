@@ -21,29 +21,29 @@ import java.util.List;
 @RequestMapping("/springTransaction")
 @RestController
 @Slf4j
-@Api(tags = "springÊÂÎñ")
+@Api(tags = "springäº‹åŠ¡")
 public class SpringTransactionController {
     @Autowired
     private ISpringTransactionService springTransactionService;
 
     @PostMapping("/findSalaryPayrollOperateLogResult")
-    @ApiOperation(value = "²éÑ¯ÈÕÖ¾", notes = "²éÑ¯ÈÕÖ¾")
+    @ApiOperation(value = "æŸ¥è¯¢æ—¥å¿—", notes = "æŸ¥è¯¢æ—¥å¿—")
     public List<LogInfoResultVO> findSalaryPayrollOperateLogResult(@RequestBody @Validated LogInfoDTO logInfoDTO) {
         return springTransactionService.findSalaryPayrollOperateLogResult(logInfoDTO);
     }
 
     @PostMapping("/saveSalaryPayrollOperateLogResult")
-    @ApiOperation(value = "±£´æÈÕÖ¾", notes = "±£´æÈÕÖ¾")
+    @ApiOperation(value = "ä¿å­˜æ—¥å¿—", notes = "ä¿å­˜æ—¥å¿—")
     public String saveSalaryPayrollOperateLogResult(@RequestBody @Validated LogInfoDTO logInfoDTO) {
         LogInfo logInfo = new LogInfo();
         BeanUtil.copyProperties(logInfoDTO, logInfo);
         springTransactionService.saveSalaryPayrollOperateLogResult(logInfo, logInfoDTO.getActionNum());
-        return "±£´æ³É¹¦";
+        return "ä¿å­˜æˆåŠŸ";
     }
 
     @GetMapping("/queryDynamicTableInfo/{id}")
-    @ApiOperation(value = "mybatis¶¯Ì¬²éÑ¯", notes = "mybatis¶¯Ì¬²éÑ¯")
-    public LogInfo queryDynamicTableInfo(@ApiParam(name = "id", value = "Ö÷¼üid") @PathVariable("id") String id) {
+    @ApiOperation(value = "mybatisåŠ¨æ€æŸ¥è¯¢", notes = "mybatisåŠ¨æ€æŸ¥è¯¢")
+    public LogInfo queryDynamicTableInfo(@ApiParam(name = "id", value = "ä¸»é”®id") @PathVariable("id") String id) {
         return springTransactionService.queryDynamicTableInfo(id, LogInfo.class);
     }
 }

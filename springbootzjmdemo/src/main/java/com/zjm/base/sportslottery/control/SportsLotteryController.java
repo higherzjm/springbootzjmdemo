@@ -25,12 +25,12 @@ import static java.util.stream.Collectors.toMap;
 
 /**
  * @author zhujianming
- * ÌåÓı²ÊÆ±×¨Ìâ
+ * ä½“è‚²å½©ç¥¨ä¸“é¢˜
  */
 @RequestMapping("/sportsLottery")
 @RestController
 @Slf4j
-@Api(tags = "Ìå²Ê")
+@Api(tags = "ä½“å½©")
 public class SportsLotteryController {
     @Autowired
     public StringRedisTemplate redisTemplate;
@@ -41,20 +41,20 @@ public class SportsLotteryController {
      * 31  http://chart.fjtc.com.cn/fjchart_js/chart_tcfj/chart.shtml?LotID=3107&ChartID=0&_StatType=1&MinIssue=&MaxIssue=&IssueTop=100&ChartType=0&param=0&tab=0
      */
     @PostMapping("/saveSportsLotteryHistoryPrize")
-    @ApiOperation(value = "±£´æÀúÊ·¿ª½±ºÅÂë", notes = "±£´æÀúÊ·¿ª½±ºÅÂë")
+    @ApiOperation(value = "ä¿å­˜å†å²å¼€å¥–å·ç ", notes = "ä¿å­˜å†å²å¼€å¥–å·ç ")
     public JSONObject saveSportsLotteryHistoryPrize(@RequestBody @Validated List<SportsLotteryHistoryPrizeVO> sportsLotteryHistoryPrizeVOList) throws Exception {
         String sportsLotteryType = "";
         List<SportsLotteryHistoryPrizeVO> sportsLotteryHistoryPrizeStoreDataVOList = null;
         if (sportsLotteryHistoryPrizeVOList == null || sportsLotteryHistoryPrizeVOList.size() == 0) {
-            throw new Exception("Êı¾İ²»ÄÜÎª¿Õ!");
+            throw new Exception("æ•°æ®ä¸èƒ½ä¸ºç©º!");
         }
         SportsLotteryHistoryPrizeVO sportsLotteryHistoryPrizeVO = sportsLotteryHistoryPrizeVOList.get(0);
         if (StringUtils.isEmpty(sportsLotteryHistoryPrizeVO.getPrizeDate()) || !sportsLotteryHistoryPrizeVO.getPrizeDate().contains("-")) {
-            throw new Exception("ÈÕÆÚ²»ÄÜÎª¿Õ£¬ÇÒÄêÔÂÈÕÒÔ'-'¸ô¿ª£¬Èç 2020-01-01 »ò 2020-1-1 !");
+            throw new Exception("æ—¥æœŸä¸èƒ½ä¸ºç©ºï¼Œä¸”å¹´æœˆæ—¥ä»¥'-'éš”å¼€ï¼Œå¦‚ 2020-01-01 æˆ– 2020-1-1 !");
         }
         if ("1".equals(sportsLotteryHistoryPrizeVO.getSportsLotteryType())) {
             if (StringUtils.isEmpty(sportsLotteryHistoryPrizeVO.getPrizeNum()) || !sportsLotteryHistoryPrizeVO.getPrizeNum().contains(" ")) {
-                throw new Exception("ºÅÂë²»ÄÜÎª¿Õ£¬ºÅÂëÓëºÅÂëÖ®¼äÓÃ¿Õ¸ñ¸ô¿ª£¬Ç°ºó²»Áô¿Õ¸ñ Èç 05 06 17 18 21 24 30 07  »ò 5 6 17 18 21 24 30 7 ");
+                throw new Exception("å·ç ä¸èƒ½ä¸ºç©ºï¼Œå·ç ä¸å·ç ä¹‹é—´ç”¨ç©ºæ ¼éš”å¼€ï¼Œå‰åä¸ç•™ç©ºæ ¼ å¦‚ 05 06 17 18 21 24 30 07  æˆ– 5 6 17 18 21 24 30 7 ");
             }
             sportsLotteryType = "lotteryOf31Choose7List";
             String redisValue = redisTemplate.opsForValue().get(sportsLotteryType);
@@ -63,7 +63,7 @@ public class SportsLotteryController {
             }
         } else if ("2".equals(sportsLotteryHistoryPrizeVO.getSportsLotteryType())) {
             if (StringUtils.isEmpty(sportsLotteryHistoryPrizeVO.getPrizeNum()) || !sportsLotteryHistoryPrizeVO.getPrizeNum().contains("#") || !sportsLotteryHistoryPrizeVO.getPrizeNum().contains(" ")) {
-                throw new Exception("ºÅÂë²»ÄÜÎª¿Õ£¬Ç°ÇøÓëºóÇøºÅÂëÓÃ' # '¸ô¿ª£¬ºÅÂëÓëºÅÂëÖ®¼äÓÃ¿Õ¸ñ¸ô¿ª£¬Ç°ºó²»Áô¿Õ¸ñ Èç 04 12 14 21 35 # 02 11 »ò 4 12 14 21 35 # 2 11 ");
+                throw new Exception("å·ç ä¸èƒ½ä¸ºç©ºï¼Œå‰åŒºä¸ååŒºå·ç ç”¨' # 'éš”å¼€ï¼Œå·ç ä¸å·ç ä¹‹é—´ç”¨ç©ºæ ¼éš”å¼€ï¼Œå‰åä¸ç•™ç©ºæ ¼ å¦‚ 04 12 14 21 35 # 02 11 æˆ– 4 12 14 21 35 # 2 11 ");
             }
             sportsLotteryType = "lotteryOf35Choose7List";
             String redisValue = redisTemplate.opsForValue().get(sportsLotteryType);
@@ -83,10 +83,10 @@ public class SportsLotteryController {
     }
 
     @GetMapping("/querySportsLotteryHistoryPrize/{sportsLotteryType}/{lastIssues}")
-    @ApiOperation(value = "²éÑ¯ÀúÊ·¿ª½±ºÅÂë", notes = "²éÑ¯ÀúÊ·¿ª½±ºÅÂë")
+    @ApiOperation(value = "æŸ¥è¯¢å†å²å¼€å¥–å·ç ", notes = "æŸ¥è¯¢å†å²å¼€å¥–å·ç ")
     public Map<String, String> querySportsLotteryHistoryPrize(
-            @ApiParam(name = "sportsLotteryType", value = "ÀàĞÍ 1£ºË«É«Çò31Ñ¡7, 2:´óÀÖÍ¸31Ñ¡5+12Ñ¡2", required = true) @PathVariable("sportsLotteryType") String sportsLotteryType,
-            @ApiParam(name = "lastIssues", value = "·ÖÎö×î½üÆÚÊı", required = true) @PathVariable("lastIssues") Integer lastIssues) {
+            @ApiParam(name = "sportsLotteryType", value = "ç±»å‹ 1ï¼šåŒè‰²çƒ31é€‰7, 2:å¤§ä¹é€31é€‰5+12é€‰2", required = true) @PathVariable("sportsLotteryType") String sportsLotteryType,
+            @ApiParam(name = "lastIssues", value = "åˆ†ææœ€è¿‘æœŸæ•°", required = true) @PathVariable("lastIssues") Integer lastIssues) {
         List<SportsLotteryHistoryPrizeVO> sportsLotteryHistoryPrizeVOList = new ArrayList<>();
         if ("1".equals(sportsLotteryType)) {
             String redisValue = redisTemplate.opsForValue().get("lotteryOf31Choose7List");
@@ -109,24 +109,24 @@ public class SportsLotteryController {
         String analysisPrizeRet = "";
 
         if ("1".equals(sportsLotteryType)) {
-            sportsLotteryHistoryPrizeMapVO.put("2050²ÊÆ±¹æÔò", "¸£½¨Ìå²Ê31Ñ¡7 Ã¿ÖÜÒ»¡¢Èı¡¢Áù,Ã¿ÈÕ¿ª½±");
-            sportsLotteryHistoryPrizeMapVO.put("2040ÖĞ½±¹æÔò", "ÌØµÈ½±£ºµ¥×¢Í¶×¢ºÅÂëÓëÖĞ½±ºÅÂëÖĞ7¸ö»ù±¾ºÅÂëÈ«²¿Ïà·û ×Ü½±½ğµÄ60%+¼Ó½±³Ø×Ê½ğ£»\n" +
-                    "Ò»µÈ½±£ºµ¥×¢Í¶×¢ºÅÂëÓëÖĞ½±ºÅÂëÖĞÈÎ6¸ö»ù±¾ºÅÂëºÍÌØ±ğºÅÂëÏà·û ×Ü½±½ğµÄ15%£»\n" +
-                    "¶şµÈ½±£ºµ¥×¢Í¶×¢ºÅÂëÓëÖĞ½±ºÅÂëÖĞÈÎ6¸ö»ù±¾ºÅÂëÏà·û ×Ü½±½ğµÄ25%£»\n" +
-                    "ÈıµÈ½±£ºµ¥×¢Í¶×¢ºÅÂëÓëÖĞ½±ºÅÂëÖĞÈÎ5¸ö»ù±¾ºÅÂëºÍÌØ±ğºÅÂëÏà·û ¹Ì¶¨Îª500Ôª£»\n" +
-                    "ËÄµÈ½±£ºµ¥×¢Í¶×¢ºÅÂëÓëÖĞ½±ºÅÂëÖĞÈÎ5¸ö»ù±¾ºÅÂëÏà·û ¹Ì¶¨Îª50Ôª£»\n" +
-                    "ÎåµÈ½±£ºµ¥×¢Í¶×¢ºÅÂëÓëÖĞ½±ºÅÂëÖĞÈÎ4¸ö»ù±¾ºÅÂëºÍÌØ±ğºÅÂëÏà·û ¹Ì¶¨Îª20Ôª£»\n" +
-                    "ÁùµÈ½±£ºµ¥×¢Í¶×¢ºÅÂëÓëÖĞ½±ºÅÂëÖĞÈÎ4¸ö»ù±¾ºÅÂëÏà·û ¹Ì¶¨Îª10Ôª");
-            sportsLotteryHistoryPrizeMapVO.put("2030¸ÅÂÊ·ÖÎö", analysisPrizeRet);
+            sportsLotteryHistoryPrizeMapVO.put("2050å½©ç¥¨è§„åˆ™", "ç¦å»ºä½“å½©31é€‰7 æ¯å‘¨ä¸€ã€ä¸‰ã€å…­,æ¯æ—¥å¼€å¥–");
+            sportsLotteryHistoryPrizeMapVO.put("2040ä¸­å¥–è§„åˆ™", "ç‰¹ç­‰å¥–ï¼šå•æ³¨æŠ•æ³¨å·ç ä¸ä¸­å¥–å·ç ä¸­7ä¸ªåŸºæœ¬å·ç å…¨éƒ¨ç›¸ç¬¦ æ€»å¥–é‡‘çš„60%+åŠ å¥–æ± èµ„é‡‘ï¼›\n" +
+                    "ä¸€ç­‰å¥–ï¼šå•æ³¨æŠ•æ³¨å·ç ä¸ä¸­å¥–å·ç ä¸­ä»»6ä¸ªåŸºæœ¬å·ç å’Œç‰¹åˆ«å·ç ç›¸ç¬¦ æ€»å¥–é‡‘çš„15%ï¼›\n" +
+                    "äºŒç­‰å¥–ï¼šå•æ³¨æŠ•æ³¨å·ç ä¸ä¸­å¥–å·ç ä¸­ä»»6ä¸ªåŸºæœ¬å·ç ç›¸ç¬¦ æ€»å¥–é‡‘çš„25%ï¼›\n" +
+                    "ä¸‰ç­‰å¥–ï¼šå•æ³¨æŠ•æ³¨å·ç ä¸ä¸­å¥–å·ç ä¸­ä»»5ä¸ªåŸºæœ¬å·ç å’Œç‰¹åˆ«å·ç ç›¸ç¬¦ å›ºå®šä¸º500å…ƒï¼›\n" +
+                    "å››ç­‰å¥–ï¼šå•æ³¨æŠ•æ³¨å·ç ä¸ä¸­å¥–å·ç ä¸­ä»»5ä¸ªåŸºæœ¬å·ç ç›¸ç¬¦ å›ºå®šä¸º50å…ƒï¼›\n" +
+                    "äº”ç­‰å¥–ï¼šå•æ³¨æŠ•æ³¨å·ç ä¸ä¸­å¥–å·ç ä¸­ä»»4ä¸ªåŸºæœ¬å·ç å’Œç‰¹åˆ«å·ç ç›¸ç¬¦ å›ºå®šä¸º20å…ƒï¼›\n" +
+                    "å…­ç­‰å¥–ï¼šå•æ³¨æŠ•æ³¨å·ç ä¸ä¸­å¥–å·ç ä¸­ä»»4ä¸ªåŸºæœ¬å·ç ç›¸ç¬¦ å›ºå®šä¸º10å…ƒ");
+            sportsLotteryHistoryPrizeMapVO.put("2030æ¦‚ç‡åˆ†æ", analysisPrizeRet);
         } else if ("2".equals(sportsLotteryType)) {
-            sportsLotteryHistoryPrizeMapVO.put("2050²ÊÆ±¹æÔò", "´óÀÖÍ¸£¨Ç°Çø¡°35Ñ¡5¡±£«ºóÇø¡°12Ñ¡2¡±£© Ã¿ÖÜÒ»¡¢Èı¡¢Áù21:10¿ª½± ");
-            sportsLotteryHistoryPrizeMapVO.put("2040ÖĞ½±¹æÔò", "Ò»µÈ½±:5ºìÇò+2À¶Çò ¸¡¶¯;\n" +
-                    "¶şµÈ½±:5ºìÇò+1À¶Çò ¸¡¶¯;\n" +
-                    "ÈıµÈ½±:5ºìÇò »ò 4ºìÇò+2À¶Çò ¸¡¶¯£»\n" +
-                    "ËÄµÈ½±:4ºìÇò+1À¶Çò »ò 3ºìÇò+2À¶Çò 200Ôª;\n" +
-                    "ÎåµÈ½±:4ºìÇò »ò 3 ºìÇò+1À¶Çò »ò 2ºìÇò+2À¶Çò10Ôª;\n" +
-                    "ÁùµÈ½±:3ºìÇò »ò 2ºìÇò+1À¶Çò »ò 1ºìÇò+2À¶Çò »ò 2À¶Çò 5Ôª");
-            sportsLotteryHistoryPrizeMapVO.put("2030¸ÅÂÊ·ÖÎö", analysisPrizeRet);
+            sportsLotteryHistoryPrizeMapVO.put("2050å½©ç¥¨è§„åˆ™", "å¤§ä¹é€ï¼ˆå‰åŒºâ€œ35é€‰5â€ï¼‹ååŒºâ€œ12é€‰2â€ï¼‰ æ¯å‘¨ä¸€ã€ä¸‰ã€å…­21:10å¼€å¥– ");
+            sportsLotteryHistoryPrizeMapVO.put("2040ä¸­å¥–è§„åˆ™", "ä¸€ç­‰å¥–:5çº¢çƒ+2è“çƒ æµ®åŠ¨;\n" +
+                    "äºŒç­‰å¥–:5çº¢çƒ+1è“çƒ æµ®åŠ¨;\n" +
+                    "ä¸‰ç­‰å¥–:5çº¢çƒ æˆ– 4çº¢çƒ+2è“çƒ æµ®åŠ¨ï¼›\n" +
+                    "å››ç­‰å¥–:4çº¢çƒ+1è“çƒ æˆ– 3çº¢çƒ+2è“çƒ 200å…ƒ;\n" +
+                    "äº”ç­‰å¥–:4çº¢çƒ æˆ– 3 çº¢çƒ+1è“çƒ æˆ– 2çº¢çƒ+2è“çƒ10å…ƒ;\n" +
+                    "å…­ç­‰å¥–:3çº¢çƒ æˆ– 2çº¢çƒ+1è“çƒ æˆ– 1çº¢çƒ+2è“çƒ æˆ– 2è“çƒ 5å…ƒ");
+            sportsLotteryHistoryPrizeMapVO.put("2030æ¦‚ç‡åˆ†æ", analysisPrizeRet);
         }
 
         Map<String, String> sportsLotteryHistoryPrizeMapSortVO = sportsLotteryHistoryPrizeMapVO.entrySet()
@@ -141,7 +141,7 @@ public class SportsLotteryController {
             }
         });
         analysisPrizeRet = analysisPrizeNumData(allPrizeNum, sportsLotteryType);
-        sportsLotteryHistoryPrizeMapSortVO.replace("2030¸ÅÂÊ·ÖÎö", analysisPrizeRet);
+        sportsLotteryHistoryPrizeMapSortVO.replace("2030æ¦‚ç‡åˆ†æ", analysisPrizeRet);
 
         return sportsLotteryHistoryPrizeMapSortVO;
     }
@@ -149,7 +149,7 @@ public class SportsLotteryController {
     private String analysisPrizeNumData(List<String> allPrizeNum, String sportsLotteryType) {
         int allPrizeNumSize = allPrizeNum.size();
         if (allPrizeNumSize == 0) {
-            return "ÎŞÊı¾İ";
+            return "æ— æ•°æ®";
         }
         int beforePrizeNumTotalSize = allPrizeNumSize * 5;
         if (sportsLotteryType.equals("1")) {
@@ -218,14 +218,14 @@ public class SportsLotteryController {
         });
         String sportsLotteryAnalysisResult = "";
         if (sportsLotteryType.equals("2")) {
-            String beforeNumAnalyRet = "Ç°Çø·ÖÎö£º 1-10:(" + analysisProportionAndAverage(between_1_10_size.get(), beforePrizeNumTotalSize, allPrizeNumSize) + ");" +
+            String beforeNumAnalyRet = "å‰åŒºåˆ†æï¼š 1-10:(" + analysisProportionAndAverage(between_1_10_size.get(), beforePrizeNumTotalSize, allPrizeNumSize) + ");" +
                     "11-20:(" + analysisProportionAndAverage(between_11_20_size.get(), beforePrizeNumTotalSize, allPrizeNumSize) + ")" +
                     ";21-30:(" + analysisProportionAndAverage(between_21_30_size.get(), beforePrizeNumTotalSize, allPrizeNumSize) + ");" +
                     "31-35:(" + analysisProportionAndAverage(between_31_35_size.get(), beforePrizeNumTotalSize, allPrizeNumSize) + ")";
-            String afterNumAnalyRet = "ºóÇø·ÖÎö£º 1-3:(" + analysisProportionAndAverage(after_1_3_size.get(), afterPrizeNumTotalSize, allPrizeNumSize) + ");" +
+            String afterNumAnalyRet = "ååŒºåˆ†æï¼š 1-3:(" + analysisProportionAndAverage(after_1_3_size.get(), afterPrizeNumTotalSize, allPrizeNumSize) + ");" +
                     "4-6:(" + analysisProportionAndAverage(after_4_6_size.get(), afterPrizeNumTotalSize, allPrizeNumSize) + ")" +
                     ";7_9:(" + analysisProportionAndAverage(after_7_9_size.get(), afterPrizeNumTotalSize, allPrizeNumSize) + ")" +
-                    ";10-12£º(" + analysisProportionAndAverage(after_10_12_size.get(), afterPrizeNumTotalSize, allPrizeNumSize) + ")";
+                    ";10-12ï¼š(" + analysisProportionAndAverage(after_10_12_size.get(), afterPrizeNumTotalSize, allPrizeNumSize) + ")";
             sportsLotteryAnalysisResult = beforeNumAnalyRet + afterNumAnalyRet;
         } else if (sportsLotteryType.equals("1")) {
             sportsLotteryAnalysisResult = "1-10:(" + analysisProportionAndAverage(between_1_10_size.get(), beforePrizeNumTotalSize, allPrizeNumSize) + ");" +
@@ -235,18 +235,18 @@ public class SportsLotteryController {
         }
 
 
-        return "×î½ü" + allPrizeNum.size() + "ÆÚ; " + sportsLotteryAnalysisResult;
+        return "æœ€è¿‘" + allPrizeNum.size() + "æœŸ; " + sportsLotteryAnalysisResult;
     }
 
-    //±ÈÀıºÍÆ½¾ùÖµ¼ÆËã
+    //æ¯”ä¾‹å’Œå¹³å‡å€¼è®¡ç®—
     private String analysisProportionAndAverage(int periodDataSize, int datasTotalSize, int prizeNumSize) {
         int scale = 5;
         int roundingMode = BigDecimal.ROUND_UP;
-        //ÆÚ¼äÕ¼°Ù·Ö±È
+        //æœŸé—´å ç™¾åˆ†æ¯”
         BigDecimal periodProportion = new BigDecimal(periodDataSize).divide(new BigDecimal(datasTotalSize), scale, roundingMode).multiply(new BigDecimal(100));
-        //ÆÚ¼äÆ½¾ùÊıÁ¿
+        //æœŸé—´å¹³å‡æ•°é‡
         BigDecimal period0Average = new BigDecimal(periodDataSize).divide(new BigDecimal(prizeNumSize), scale, roundingMode);
-        return periodProportion.toString() + "¡ë" + "," + period0Average.toString();
+        return periodProportion.toString() + "â€°" + "," + period0Average.toString();
     }
 
     private String formatDatas(String prizeNum, String regex) {
@@ -265,8 +265,8 @@ public class SportsLotteryController {
 
 
     @GetMapping("/deleteLotteryOf31Choose7Cache/{sportsLotteryType}")
-    @ApiOperation(value = "Ìå²Ê--É¾³ı»º´æ", notes = "notes:Ìå²Ê--É¾³ı»º´æ")
-    public boolean deleteLotteryOf31Choose7Cache(@ApiParam(name = "sportsLotteryType", value = "ÀàĞÍ 1£ºË«É«Çò31Ñ¡7, 2:´óÀÖÍ¸31Ñ¡5+12Ñ¡2", required = true) @PathVariable("sportsLotteryType") String sportsLotteryType) {
+    @ApiOperation(value = "ä½“å½©--åˆ é™¤ç¼“å­˜", notes = "notes:ä½“å½©--åˆ é™¤ç¼“å­˜")
+    public boolean deleteLotteryOf31Choose7Cache(@ApiParam(name = "sportsLotteryType", value = "ç±»å‹ 1ï¼šåŒè‰²çƒ31é€‰7, 2:å¤§ä¹é€31é€‰5+12é€‰2", required = true) @PathVariable("sportsLotteryType") String sportsLotteryType) {
         if ("1".equals(sportsLotteryType)) {
             return redisTemplate.delete("lotteryOf31Choose7List");
         } else if ("2".equals(sportsLotteryType)) {
@@ -288,7 +288,7 @@ public class SportsLotteryController {
     }
 
     @PostMapping("/sportsLotteryRandomGeneration")
-    @ApiOperation(value = "Ìå²ÊËæ»úÉú³É", notes = "Ìå²ÊËæ»úÉú³É")
+    @ApiOperation(value = "ä½“å½©éšæœºç”Ÿæˆ", notes = "ä½“å½©éšæœºç”Ÿæˆ")
     public String sportsLotteryRandomGeneration(@RequestBody @Validated SportsLotteryRandomGenerationRuleVO sportsLotteryRandomGenerationRuleVO) {
         List<String> executeResultList = new ArrayList<>();
         executeRandomGenerationRule(sportsLotteryRandomGenerationRuleVO, executeResultList);
@@ -296,7 +296,7 @@ public class SportsLotteryController {
     }
 
     /**
-     * Ëæ»úÉú³É´¦Àí³ÌĞò
+     * éšæœºç”Ÿæˆå¤„ç†ç¨‹åº
      */
     private void executeRandomGenerationRule(SportsLotteryRandomGenerationRuleVO sportsLotteryRandomGenerationRuleVO, List<String> executeResultList) {
 
@@ -305,7 +305,7 @@ public class SportsLotteryController {
         List<Integer> dataListBefore = new ArrayList<>();
         if (sportsLotteryRandomGenerationRuleVO.getSportsLotteryType().equals("2")) {
             /**
-             * ¸£½¨Ìå²Ê31Ñ¡7 Ã¿ÖÜÒ»¡¢Èı¡¢Áù,Ã¿ÈÕ¿ª½±
+             * ç¦å»ºä½“å½©31é€‰7 æ¯å‘¨ä¸€ã€ä¸‰ã€å…­,æ¯æ—¥å¼€å¥–
              * http://localhost:8081/sportsLottery/lotteryOf31Choose7
              */
             for (int i = 0; i < 5; i++) {
@@ -314,7 +314,7 @@ public class SportsLotteryController {
             }
         } else if (sportsLotteryRandomGenerationRuleVO.getSportsLotteryType().equals("1")) {
             /**
-             * ´óÀÖÍ¸£¨Ç°Çø¡°35Ñ¡5¡±£«ºóÇø¡°12Ñ¡2¡±£© Ã¿ÖÜÒ»¡¢Èı¡¢Áù
+             * å¤§ä¹é€ï¼ˆå‰åŒºâ€œ35é€‰5â€ï¼‹ååŒºâ€œ12é€‰2â€ï¼‰ æ¯å‘¨ä¸€ã€ä¸‰ã€å…­
              * http://localhost:8081/sportsLottery/lotteryOf35Choose7
              */
             for (int i = 0; i < 7; i++) {

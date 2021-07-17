@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/java23kindModels")
-@Api(tags = "java23ÖÖÉè¼ÆÄ£Ê½")
+@Api(tags = "java23ç§è®¾è®¡æ¨¡å¼")
 public class TestController {
  
     @Autowired
     private SimpleContext simpleContext;
  
     @GetMapping("/strategyModel")
-    @ApiOperation(value = "²ßÂÔÉè¼ÆÄ£Ê½", notes = "²ßÂÔÉè¼ÆÄ£Ê½-¶àÖÖ²ßÂÔÑ¡ÔñÆäÒ»")
+    @ApiOperation(value = "ç­–ç•¥è®¾è®¡æ¨¡å¼", notes = "ç­–ç•¥è®¾è®¡æ¨¡å¼-å¤šç§ç­–ç•¥é€‰æ‹©å…¶ä¸€")
     public String choose(@RequestParam String poolId){
         return simpleContext.getResource(poolId);
     }
