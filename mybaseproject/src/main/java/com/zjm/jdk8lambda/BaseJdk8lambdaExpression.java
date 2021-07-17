@@ -43,7 +43,8 @@ public class BaseJdk8lambdaExpression {
         jdk8New.test13(studentList);//转换成map，并按key进行排序
         jdk8New.test14();//对象转换成属性map
         jdk8New.test15();//过滤新数据，对象拷贝，并按年龄分组
-        jdk8New.test16(studentList);
+        jdk8New.test16(studentList);//foreach修改
+        jdk8New.test17(studentList);//allMatch、noneMatch
 
 
     }
@@ -191,9 +192,20 @@ public class BaseJdk8lambdaExpression {
                 map(s -> BeanUtil.copyProperties(s, Student2.class)).collect(Collectors.groupingBy(Student2::getAge));
         System.out.println("过滤新数据，对象拷贝，并按年龄分组:" + nameAgeMap);
     }
+
+    //foreach修改
     public void test16(List<Student> studentList) {
-        studentList.forEach(s->{s.setName("修改");});
-        log.info("修改后的集合:"+studentList);
+        studentList.forEach(s -> s.setName("修改"));
+        log.info("修改后的集合:" + studentList);
+    }
+
+    //allMatch、noneMatch
+    public void test17(List<Student> studentList) {
+        log.info("studentList:"+studentList);
+        boolean allMatch = studentList.stream().allMatch(s -> s.getAge() >= 10);
+        log.info("allMatch:" + allMatch);
+        boolean noneMatch = studentList.stream().noneMatch(s -> s.getAge() >= 30);
+        log.info("noneMatch:" + noneMatch);
     }
 
     @Data
