@@ -158,8 +158,23 @@
             <artifactId>easyexcel</artifactId>
             <version>2.2.6</version>
         </dependency>
+        <dependency>
+            <groupId>com.zjm</groupId>
+            <artifactId>mybasespringboot</artifactId>
+            <version>1.0.0-RELEASE</version>
+        </dependency>
     </dependencies>
-
+    <repositories>
+        <!--配置优先使用私服仓库加载依赖，如果私服仓库没有对应的依赖会去外网拉-->
+        <repository>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <id>public</id>
+            <name>maven-public</name>
+            <url>http://127.0.0.1:8081/repository/zjmrepository/</url>
+        </repository>
+    </repositories>
     <profiles>
         <!--测试环境 -->
         <profile>
