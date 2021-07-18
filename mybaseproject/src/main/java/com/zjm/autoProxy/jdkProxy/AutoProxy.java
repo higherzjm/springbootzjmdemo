@@ -16,7 +16,7 @@ public class AutoProxy implements InvocationHandler {
 			throws Throwable {
 		Object result = null;
 
-		System.out.println("ÊÛÇ°´¦Àí");
+		System.out.println("å”®å‰å¤„ç†");
 
 		try {
 			result = method.invoke(realSetBooks, args);
@@ -28,8 +28,8 @@ public class AutoProxy implements InvocationHandler {
 			e.printStackTrace();
 		}
 
-		System.out.println("´ò°ËÕÛ");
-		System.out.println("×Ô¶¯´úÀí"+(Double) result * 0.8+"Ôª");
+		System.out.println("æ‰“å…«æŠ˜");
+		System.out.println("è‡ªåŠ¨ä»£ç†"+(Double) result * 0.8+"å…ƒ");
 		return result;
 	}
 

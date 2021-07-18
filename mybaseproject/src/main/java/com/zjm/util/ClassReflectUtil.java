@@ -16,20 +16,20 @@ public class ClassReflectUtil {
 
     @Test
     public void test1(){
-        Student student=Student.builder().name("ÕÅÈı").age(20).build();
-        System.out.println("s1£º"+student);
-        ReflectUtil.setFieldValue(student,"name","ÀîËÄ");
-        System.out.println("s2£º"+student);
+        Student student=Student.builder().name("å¼ ä¸‰").age(20).build();
+        System.out.println("s1ï¼š"+student);
+        ReflectUtil.setFieldValue(student,"name","æå››");
+        System.out.println("s2ï¼š"+student);
 
-        ReflectUtil.setFieldValue(student,ReflectUtil.getField(Student.class,"name"),"ÍõÎå");
-        System.out.println("s3£º"+student);
+        ReflectUtil.setFieldValue(student,ReflectUtil.getField(Student.class,"name"),"ç‹äº”");
+        System.out.println("s3ï¼š"+student);
 
     }
 
     @Test
     public void test2(){
-        Student student=Student.builder().name("ÕÅÈı").age(20).build();
-        System.out.println("s1£º"+ReflectUtil.getFieldValue(student,"name"));
+        Student student=Student.builder().name("å¼ ä¸‰").age(20).build();
+        System.out.println("s1ï¼š"+ReflectUtil.getFieldValue(student,"name"));
 
     }
 }

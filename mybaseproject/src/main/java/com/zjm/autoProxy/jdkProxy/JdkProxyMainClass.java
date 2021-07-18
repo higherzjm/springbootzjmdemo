@@ -2,24 +2,24 @@ package com.zjm.autoProxy.jdkProxy;
 
 import java.lang.reflect.Proxy;
 /**
- * @Description:  jdk ¶¯Ì¬´úÀí
+ * @Description:  jdk åŠ¨æ€ä»£ç†
  * @Author: zhujianming
  * @Date: 2021/5/25
- *  JDK¶¯Ì¬´úÀíÊÇÀûÓÃ·´Éä»úÖÆÉú³ÉÒ»¸öÊµÏÖ´úÀí½Ó¿ÚµÄÄäÃûÀà£¬ÔÚµ÷ÓÃ¾ßÌå·½·¨Ç°µ÷ÓÃInvokeHandlerÀ´´¦Àí¡£
- * ¶øcglib¶¯Ì¬´úÀíÊÇÀûÓÃasm¿ªÔ´°ü£¬¶Ô´úÀí¶ÔÏóÀàµÄclassÎÄ¼ş¼ÓÔØ½øÀ´£¬Í¨¹ıĞŞ¸ÄÆä×Ö½ÚÂëÉú³É×ÓÀàÀ´´¦Àí¡£
+ *  JDKåŠ¨æ€ä»£ç†æ˜¯åˆ©ç”¨åå°„æœºåˆ¶ç”Ÿæˆä¸€ä¸ªå®ç°ä»£ç†æ¥å£çš„åŒ¿åç±»ï¼Œåœ¨è°ƒç”¨å…·ä½“æ–¹æ³•å‰è°ƒç”¨InvokeHandleræ¥å¤„ç†ã€‚
+ * è€ŒcglibåŠ¨æ€ä»£ç†æ˜¯åˆ©ç”¨asmå¼€æºåŒ…ï¼Œå¯¹ä»£ç†å¯¹è±¡ç±»çš„classæ–‡ä»¶åŠ è½½è¿›æ¥ï¼Œé€šè¿‡ä¿®æ”¹å…¶å­—èŠ‚ç ç”Ÿæˆå­ç±»æ¥å¤„ç†ã€‚
  *
  **/
 public class JdkProxyMainClass {
 
 
     public static void main(String[] args) {
-        autoProxy();//¶¯Ì¬´úÀí
+        autoProxy();//åŠ¨æ€ä»£ç†
     }
 
 
     public static void autoProxy() {
         /*
-         * ¶¯Ì¬´úÀí
+         * åŠ¨æ€ä»£ç†
          */
         RealSetBooks realSetBooks = new RealSetBooks();
         AutoProxy autoProxy = new AutoProxy();
