@@ -29,6 +29,7 @@
         </dependency>
     </dependencies>
 
+    <!--仓库管理，要向仓库中分布新东西在这里配置-->
     <distributionManagement>
         <repository>
             <id>zjmrepository</id><!--仓库id,必须要跟私服上建的仓库id一致-->
