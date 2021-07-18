@@ -33,7 +33,7 @@
     <distributionManagement>
         <repository>
             <id>zjmrepository</id><!--仓库id,必须要跟私服上建的仓库id一致-->
-            <name>zjmrepository Repository</name>
+            <name>zjmrepository Repository2</name> <!--可随便写-->
             <url>http://127.0.0.1:8081/repository/zjmrepository/</url> <!--url后面是仓库id，要匹配-->
         </repository>
        <!-- <repository>
