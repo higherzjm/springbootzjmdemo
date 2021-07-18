@@ -185,8 +185,8 @@
             <properties>
                 <!--<profileActive>test</profileActive>-->
                 <application.name>springbootzjmdemo</application.name>
-                <nacos.config.address>127.0.0.1:9002</nacos.config.address>
-                <nacos.discovery.address>127.0.0.1:9002</nacos.discovery.address>
+                <nacos.config.address>127.0.0.1:8090</nacos.config.address>
+                <nacos.discovery.address>127.0.0.1:8090</nacos.discovery.address>
                 <!--<db.address>11</db.address>
                 <db.username>11</db.username>
                 <db.password>11</db.password>-->
@@ -201,8 +201,8 @@
             <properties>
                 <!--<profileActive>dev</profileActive>-->
                 <application.name>springbootzjmdemo</application.name>
-                <nacos.config.address>127.0.0.1:9002</nacos.config.address>
-                <nacos.discovery.address>127.0.0.1:9002</nacos.discovery.address>
+                <nacos.config.address>127.0.0.1:8090</nacos.config.address>
+                <nacos.discovery.address>127.0.0.1:8090</nacos.discovery.address>
                 <!-- <db.address>11</db.address>
                  <db.username>11</db.username>
                  <db.password>11</db.password>-->
