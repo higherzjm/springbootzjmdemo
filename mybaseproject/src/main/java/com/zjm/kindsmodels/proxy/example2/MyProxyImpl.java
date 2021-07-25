@@ -4,11 +4,11 @@ import com.zjm.VO.Student;
 
 public class MyProxyImpl implements IMyProxy {
     public void print(int num) {
-        System.out.println("打印" + num + "张！");
+        System.out.println("鎵撳嵃" + num + "寮狅紒");
     }
 
     @Override
     public void register(Student student) {
-        System.out.println("注册的学生信息是:" + student);
+        System.out.println("娉ㄥ唽鐨勫鐢熶俊鎭槸:" + student);
     }
 }

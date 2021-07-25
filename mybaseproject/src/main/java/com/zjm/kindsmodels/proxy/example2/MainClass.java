@@ -8,7 +8,7 @@ public class MainClass {
         ProxyHandler proxyHandler = new ProxyHandler();
         IMyProxy myProxy = (IMyProxy) proxyHandler.newProxyInstance(new MyProxyImpl());
         myProxy.print(10);
-        Student student = Student.builder().name("ÕÅÈý").age(20).id(100).build();
+        Student student = Student.builder().name("å¼ ä¸‰").age(20).id(100).build();
         myProxy.register(student);
     }
 }

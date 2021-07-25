@@ -5,20 +5,20 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
 public class ProxyHandler implements InvocationHandler {
-    private Object targetObject;//±»´úÀíµÄ¶ÔÏó
-    //½«±»´úÀíµÄ¶ÔÏó´«Èë»ñµÃËüµÄÀà¼ÓÔØÆ÷ºÍÊµÏÖ½Ó¿Ú×÷ÎªProxy.newProxyInstance·½·¨µÄ²ÎÊı¡£
+    private Object targetObject;//è¢«ä»£ç†çš„å¯¹è±¡
+    //å°†è¢«ä»£ç†çš„å¯¹è±¡ä¼ å…¥è·å¾—å®ƒçš„ç±»åŠ è½½å™¨å’Œå®ç°æ¥å£ä½œä¸ºProxy.newProxyInstanceæ–¹æ³•çš„å‚æ•°ã€‚
     public  Object newProxyInstance(Object targetObject){
         this.targetObject = targetObject;
-        //targetObject.getClass().getClassLoader()£º±»´úÀí¶ÔÏóµÄÀà¼ÓÔØÆ÷
-        //targetObject.getClass().getInterfaces()£º±»´úÀí¶ÔÏóµÄÊµÏÖ½Ó¿Ú
-        //this µ±Ç°¶ÔÏó£¬¸Ã¶ÔÏóÊµÏÖÁËInvocationHandler½Ó¿ÚËùÒÔÓĞinvoke·½·¨£¬Í¨¹ıinvoke·½·¨¿ÉÒÔµ÷ÓÃ±»´úÀí¶ÔÏóµÄ·½·¨
-        //´úÀí»º´æ±»´úÀíµÄ½Ó¿ÚĞÅÏ¢£¬Í¬Ò»¸ö½Ó¿Úµ÷ÓÃ²»Í¬µÄ·½·¨²»»áÖØ¸´Ö´ĞĞ´Ë·½·¨£¬Ö»»áÖ´ĞĞÒ»´Î
+        //targetObject.getClass().getClassLoader()ï¼šè¢«ä»£ç†å¯¹è±¡çš„ç±»åŠ è½½å™¨
+        //targetObject.getClass().getInterfaces()ï¼šè¢«ä»£ç†å¯¹è±¡çš„å®ç°æ¥å£
+        //this å½“å‰å¯¹è±¡ï¼Œè¯¥å¯¹è±¡å®ç°äº†InvocationHandleræ¥å£æ‰€ä»¥æœ‰invokeæ–¹æ³•ï¼Œé€šè¿‡invokeæ–¹æ³•å¯ä»¥è°ƒç”¨è¢«ä»£ç†å¯¹è±¡çš„æ–¹æ³•
+        //ä»£ç†ç¼“å­˜è¢«ä»£ç†çš„æ¥å£ä¿¡æ¯ï¼ŒåŒä¸€ä¸ªæ¥å£è°ƒç”¨ä¸åŒçš„æ–¹æ³•ä¸ä¼šé‡å¤æ‰§è¡Œæ­¤æ–¹æ³•ï¼Œåªä¼šæ‰§è¡Œä¸€æ¬¡
         return Proxy.newProxyInstance(targetObject.getClass().getClassLoader(),targetObject.getClass().getInterfaces(),this);
     }
-    //¸Ã·½·¨ÔÚ´úÀí¶ÔÏóµ÷ÓÃ·½·¨Ê±µ÷ÓÃ
+    //è¯¥æ–¹æ³•åœ¨ä»£ç†å¯¹è±¡è°ƒç”¨æ–¹æ³•æ—¶è°ƒç”¨
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-        System.out.println("¼ÇÂ¼ÈÕÖ¾");
+        System.out.println("è®°å½•æ—¥å¿—");
         return method.invoke(targetObject,args);
     }
 
