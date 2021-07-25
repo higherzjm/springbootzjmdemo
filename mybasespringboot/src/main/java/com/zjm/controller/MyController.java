@@ -11,7 +11,10 @@ public class MyController {
     public String myMethod() {
         return "test";
     }
-
+    @GetMapping("/myMethod2")
+    public void myMethod2() {
+        System.out.println("myMethod2");
+    }
     public MyController() {
         System.out.println("myController 初始化");
     }
