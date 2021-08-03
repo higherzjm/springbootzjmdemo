@@ -12,7 +12,7 @@ import java.util.Optional;
 @Slf4j
 public class MyOptional {
     @Test
-    public void test1() {
+    public void test1() throws Throwable {
         //简单字符串的判空
         String name = "张三";
         name = Optional.ofNullable(name).orElse("未设置值");
@@ -45,7 +45,13 @@ public class MyOptional {
             return student3;
         }).getName();
         log.info("第三个学生的名字:" + name3);
+
+
+        Student student = Optional.ofNullable(student2).orElseThrow(() -> new Throwable("为空直接抛异常"));
+        log.info("student:"+student);
     }
+
+
 
 
 }

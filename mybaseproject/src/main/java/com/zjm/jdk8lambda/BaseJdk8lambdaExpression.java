@@ -204,7 +204,7 @@ public class BaseJdk8lambdaExpression {
         log.info("studentList:"+studentList);
         boolean allMatch = studentList.stream().allMatch(s -> s.getAge() >= 10);
         log.info("allMatch:" + allMatch);
-        boolean noneMatch = studentList.stream().noneMatch(s -> s.getAge() >= 30);
+        boolean noneMatch = studentList.stream().noneMatch(s -> s.getAge() >=   30);
         log.info("noneMatch:" + noneMatch);
     }
 
