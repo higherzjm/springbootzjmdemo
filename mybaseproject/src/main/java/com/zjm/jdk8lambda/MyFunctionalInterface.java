@@ -7,7 +7,7 @@ import org.springframework.lang.Nullable;
 
 /**
  * @author zhujianming
- * FunctionalInterface  º¯ÊıÊ½½Ó¿Ú
+ * FunctionalInterface  å‡½æ•°å¼æ¥å£
  */
 @Slf4j
 public class MyFunctionalInterface {
@@ -15,21 +15,21 @@ public class MyFunctionalInterface {
     @Test
     public void test1() {
         Students students = new Students();
-        String ret = replacePlaceholders("ÕÅÈı", 20, students::getName);//¶¨ÒåĞèÒª´«µÄ²ÎÊıÖµºÍº¯ÊıÃû³Æ
-        log.info("º¯ÊıÊ½±à³Ì·µ»ØÖµ£º{}",ret);
+        String ret = replacePlaceholders("å¼ ä¸‰", 20, students::getName);//å®šä¹‰éœ€è¦ä¼ çš„å‚æ•°å€¼å’Œå‡½æ•°åç§°
+        log.info("å‡½æ•°å¼ç¼–ç¨‹è¿”å›å€¼ï¼š{}",ret);
     }
 
     public String replacePlaceholders(String name, Integer age, MyFunctionalInterface.PlaceholderResolver placeholderResolver) {
-        name=name+"8080¡¾µ÷ÓÃº¯ÊıÀïÃæĞŞ¸Ä¡¿";
+        name=name+"8080ã€è°ƒç”¨å‡½æ•°é‡Œé¢ä¿®æ”¹ã€‘";
         return placeholderResolver.resolvePlaceholder(name, age);
     }
-    //±»µ÷ÓÃµÄÀàºÍ·½·¨
+    //è¢«è°ƒç”¨çš„ç±»å’Œæ–¹æ³•
     class Students {
         public String getName(String name, Integer age) {
-            return "ĞÕÃû:" + name + ",ÄêÁä:" + age ;
+            return "å§“å:" + name + ",å¹´é¾„:" + age ;
         }
     }
-    //¶¨ÒåÓë±»µ÷ÓÃÀà°ó¶¨½Ó¿ÚºÍ½Ó¿Úº¯Êı
+    //å®šä¹‰ä¸è¢«è°ƒç”¨ç±»ç»‘å®šæ¥å£å’Œæ¥å£å‡½æ•°
     @FunctionalInterface
     public interface PlaceholderResolver {
         @Nullable

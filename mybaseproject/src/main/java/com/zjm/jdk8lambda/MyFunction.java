@@ -9,27 +9,27 @@ import java.util.function.Function;
 public class MyFunction {
     @Test
     public void test1(){
-        // ÏÈÉùÃ÷·½·¨
+        // å…ˆå£°æ˜æ–¹æ³•
         Function<Integer, Integer> funcDouble = (n) -> n * 2;
         Function<Integer, Integer> funcPlus2 = (n) -> n + 2;
 
-        log.info("3*2:"+funcDouble.apply(3));//Ö´ĞĞº¯Êı->3*2
-        log.info("3+2:"+funcPlus2.apply(3));//Ö´ĞĞº¯Êı->3+2
+        log.info("3*2:"+funcDouble.apply(3));//æ‰§è¡Œå‡½æ•°->3*2
+        log.info("3+2:"+funcPlus2.apply(3));//æ‰§è¡Œå‡½æ•°->3+2
 
-        log.info("(3*2)+2:"+funcDouble.andThen(funcPlus2).apply(3));// ÏÈÖ´ĞĞÇ°ÃæµÄº¯ÊıÔÙÖ´ĞĞºóÃæµÄº¯Êı->(3*2)+2
-        log.info("(3+2)*5:"+funcDouble.compose(funcPlus2).apply(3));// ÏÈÖ´ĞĞºóÃæµÄº¯ÊıÔÙÖ´ĞĞÇ°ÃæµÄº¯Êı->(3+2)*5
-        log.info("3*2:"+Function.identity().compose(funcDouble).apply(3));//»ñÈ¡º¯Êı¶¨ÒåÖ´ĞĞ¶ÔÓ¦µÄº¯Êı->3*2
-        log.info("3+2:"+Function.identity().compose(funcPlus2).apply(3));//»ñÈ¡º¯Êı¶¨ÒåÖ´ĞĞ¶ÔÓ¦µÄº¯Êı->3+2
+        log.info("(3*2)+2:"+funcDouble.andThen(funcPlus2).apply(3));// å…ˆæ‰§è¡Œå‰é¢çš„å‡½æ•°å†æ‰§è¡Œåé¢çš„å‡½æ•°->(3*2)+2
+        log.info("(3+2)*5:"+funcDouble.compose(funcPlus2).apply(3));// å…ˆæ‰§è¡Œåé¢çš„å‡½æ•°å†æ‰§è¡Œå‰é¢çš„å‡½æ•°->(3+2)*5
+        log.info("3*2:"+Function.identity().compose(funcDouble).apply(3));//è·å–å‡½æ•°å®šä¹‰æ‰§è¡Œå¯¹åº”çš„å‡½æ•°->3*2
+        log.info("3+2:"+Function.identity().compose(funcPlus2).apply(3));//è·å–å‡½æ•°å®šä¹‰æ‰§è¡Œå¯¹åº”çš„å‡½æ•°->3+2
 
-        //------¶¨Òåº¯Êı²¢´«µİº¯Êı
+        //------å®šä¹‰å‡½æ•°å¹¶ä¼ é€’å‡½æ•°
         Function<Integer, Student> initStudentFunction=(n)->Student.builder().id(n).build();
-        Function<String,String>  addStudentName=(s)->"Ñ§ÉúĞÕÃû:"+s;
+        Function<String,String>  addStudentName=(s)->"å­¦ç”Ÿå§“å:"+s;
         initStudentInfo(initStudentFunction,addStudentName);
     }
 
     public void initStudentInfo(Function<Integer, Student> initStudentFunction, Function<String,String>  addStudentName){
         Student student=initStudentFunction.apply(110);
-        String name=addStudentName.apply("ÕÅÈı");
+        String name=addStudentName.apply("å¼ ä¸‰");
         student.setName(name);
         log.info("student:"+student);
     }

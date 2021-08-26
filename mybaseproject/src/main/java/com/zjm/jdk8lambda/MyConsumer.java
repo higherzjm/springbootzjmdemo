@@ -10,41 +10,41 @@ import java.util.function.Consumer;
 
 /**
  * @author zhujianming
- * Consumer  º¯ÊıÊ½½Ó¿ÚÓ¦ÓÃ
+ * Consumer  å‡½æ•°å¼æ¥å£åº”ç”¨
  */
 @Slf4j
 public class MyConsumer {
 
     @Test
     public void test1() {
-        List<Student> studentList = Arrays.asList(new Student(0, "ÕÅÈı", 20), new Student(1, "ÀîËÄ", 0));
+        List<Student> studentList = Arrays.asList(new Student(0, "å¼ ä¸‰", 20), new Student(1, "æå››", 0));
         myConsumer1(studentList, s -> s.forEach(a ->
-                //Ô±¹¤ĞÕÃûÇ°×º¼ÓÄê·İ
+                //å‘˜å·¥å§“åå‰ç¼€åŠ å¹´ä»½
                 a.setName("2021-" + a.getName())));
         System.out.println("---" + studentList);
     }
 
     private void myConsumer1(List<Student> studentsList, Consumer<List<Student>> consumer) {
-        //Ô±¹¤ĞÕÃûÇ°×º¼ÓÔÂ·İ
+        //å‘˜å·¥å§“åå‰ç¼€åŠ æœˆä»½
         studentsList.forEach(s -> s.setName("11 " + s.getName()));
-        consumer.accept(studentsList);//»Øµ÷µ½µ÷ÓÃ¸Ã·½·¨µÄµØ·½
+        consumer.accept(studentsList);//å›è°ƒåˆ°è°ƒç”¨è¯¥æ–¹æ³•çš„åœ°æ–¹
 
     }
 
     @Test
     public void test2() {
-        List<Student> studentList = Arrays.asList(new Student(0, "ÕÅÈı", 20), new Student(1, "ÀîËÄ", 0));
+        List<Student> studentList = Arrays.asList(new Student(0, "å¼ ä¸‰", 20), new Student(1, "æå››", 0));
         myConsumer2(studentList, this::print,s->s.forEach(a->{
-            a.setName(a.getName()+"--ĞŞ¸ÄÊı¾İ");
+            a.setName(a.getName()+"--ä¿®æ”¹æ•°æ®");
         }));
     }
     private void myConsumer2(List<Student> studentsList, Consumer<Student> consumer, Consumer<List<Student>> consumer2) {
-        //Ô±¹¤ĞÕÃûÇ°×º¼ÓÔÂ·İ
+        //å‘˜å·¥å§“åå‰ç¼€åŠ æœˆä»½
         consumer2.accept(studentsList);
         studentsList.forEach(consumer);
     }
     private void print(Student student){
-        log.info("µİ¹é´òÓ¡student:"+student);
+        log.info("é€’å½’æ‰“å°student:"+student);
     }
 
 

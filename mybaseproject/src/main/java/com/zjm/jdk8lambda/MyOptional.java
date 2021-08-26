@@ -13,41 +13,41 @@ import java.util.Optional;
 public class MyOptional {
     @Test
     public void test1() throws Throwable {
-        //¼òµ¥×Ö·û´®µÄÅĞ¿Õ
-        String name = "ÕÅÈı";
-        name = Optional.ofNullable(name).orElse("Î´ÉèÖÃÖµ");
+        //ç®€å•å­—ç¬¦ä¸²çš„åˆ¤ç©º
+        String name = "å¼ ä¸‰";
+        name = Optional.ofNullable(name).orElse("æœªè®¾ç½®å€¼");
         log.info("nam:{}", name);
         name = null;
-        name = Optional.ofNullable(name).orElse("orElse->Î´ÉèÖÃÖµ");
+        name = Optional.ofNullable(name).orElse("orElse->æœªè®¾ç½®å€¼");
         log.info("nam:{}", name);
         name = null;
-        name = Optional.ofNullable(name).orElseGet(()-> "orElseGet->Î´ÉèÖÃÖµ");
+        name = Optional.ofNullable(name).orElseGet(()-> "orElseGet->æœªè®¾ç½®å€¼");
         log.info("nam:{}", name);
 
-         //¶ÔÏóÅĞ¶Ï
-        Student student1 = new Student(123, "ÕÅÈı", 30);
+         //å¯¹è±¡åˆ¤æ–­
+        Student student1 = new Student(123, "å¼ ä¸‰", 30);
         Optional<Integer> optional = Optional.ofNullable(student1).flatMap((e) -> Optional.of(e.getAge()));
-        log.info("µÚÒ»¸öÑ§ÉúµÄÄêÁä:" + optional.get());
+        log.info("ç¬¬ä¸€ä¸ªå­¦ç”Ÿçš„å¹´é¾„:" + optional.get());
 
          name = Optional.ofNullable(student1).map((v) -> v.getName()).get();
-        log.info("µÚÒ»¸öÑ§ÉúµÄĞÕÃû:" + name);
+        log.info("ç¬¬ä¸€ä¸ªå­¦ç”Ÿçš„å§“å:" + name);
 
         Student student2 = new Student(111, null, 30);
-        //¶ÔÏóµÄÖ¸¶¨ÊôĞÔÎª¿Õ·µ»Ø¹Ì¶¨Öµ
-        String name2 = Optional.ofNullable(student2).map(Student::getName).orElse("Ô±¹¤Î´×¢²áĞÕÃû");
-        log.info("µÚ¶ş¸öÑ§ÉúµÄÃû×Ö:" + name2);
+        //å¯¹è±¡çš„æŒ‡å®šå±æ€§ä¸ºç©ºè¿”å›å›ºå®šå€¼
+        String name2 = Optional.ofNullable(student2).map(Student::getName).orElse("å‘˜å·¥æœªæ³¨å†Œå§“å");
+        log.info("ç¬¬äºŒä¸ªå­¦ç”Ÿçš„åå­—:" + name2);
 
 
         student2 = null;
-        Student student3 = new Student(111, "ÀîËÄ", 30);
-         //µ±¶ÔÏóÎª¿ÕÖ±½Ó·µ»ØĞÂµÄ¶ÔÏó
+        Student student3 = new Student(111, "æå››", 30);
+         //å½“å¯¹è±¡ä¸ºç©ºç›´æ¥è¿”å›æ–°çš„å¯¹è±¡
         String name3 = Optional.ofNullable(student2).orElseGet(() -> {
             return student3;
         }).getName();
-        log.info("µÚÈı¸öÑ§ÉúµÄÃû×Ö:" + name3);
+        log.info("ç¬¬ä¸‰ä¸ªå­¦ç”Ÿçš„åå­—:" + name3);
 
 
-        Student student = Optional.ofNullable(student2).orElseThrow(() -> new Throwable("Îª¿ÕÖ±½ÓÅ×Òì³£"));
+        Student student = Optional.ofNullable(student2).orElseThrow(() -> new Throwable("ä¸ºç©ºç›´æ¥æŠ›å¼‚å¸¸"));
         log.info("student:"+student);
     }
 
