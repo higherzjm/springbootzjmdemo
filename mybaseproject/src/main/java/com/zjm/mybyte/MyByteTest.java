@@ -26,7 +26,7 @@ import org.junit.Test;
 public class MyByteTest {
     @Test
     public void test1(){
-        byte a = (byte)0x80;
+        byte a = (byte)0x80;//0x前缀表示16进制
         byte a1 = 0x10;
         byte a1_1 =(byte) 10;
         byte a1_2 =(byte) 0x10;
