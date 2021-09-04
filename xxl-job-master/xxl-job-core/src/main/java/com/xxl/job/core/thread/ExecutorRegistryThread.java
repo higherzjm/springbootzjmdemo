@@ -71,7 +71,7 @@ public class ExecutorRegistryThread {
                         }
                     } catch (InterruptedException e) {
                         if (!toStop) {
-                            logger.warn(">>>>>>>>>>> xxl-job, executor registry thread interrupted, error msg:{}", e.getMessage());
+                            logger.warn(">>>>>>>>>>> xxl-job, executor registry my_thread interrupted, error msg:{}", e.getMessage());
                         }
                     }
                 }
@@ -102,7 +102,7 @@ public class ExecutorRegistryThread {
                         logger.error(e.getMessage(), e);
                     }
                 }
-                logger.info(">>>>>>>>>>> xxl-job, executor registry thread destory.");
+                logger.info(">>>>>>>>>>> xxl-job, executor registry my_thread destory.");
 
             }
         });

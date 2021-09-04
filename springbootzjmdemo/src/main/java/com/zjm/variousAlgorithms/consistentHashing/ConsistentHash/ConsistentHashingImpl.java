@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 import java.util.*;
 
 /**
- * consistent hash achieve
+ * consistent my_hash achieve
  * @author cartoon
  * @since  2021/01/17
  */
@@ -26,7 +26,7 @@ public class ConsistentHashingImpl implements ConsistentHashing {
     private SortedMap<String, List<String>> realNodeToVirtualNode;
 
     /**
-     * hash and its node mapping
+     * my_hash and its node mapping
      */
     private SortedMap<Integer, String> hashToNodes;
 
@@ -41,7 +41,7 @@ public class ConsistentHashingImpl implements ConsistentHashing {
     private int virtualNodeNum;
 
     /**
-     * inject hash method, if null, use loop default hash method
+     * inject my_hash method, if null, use loop default my_hash method
      */
     private HashService hashService;
 
@@ -98,22 +98,22 @@ public class ConsistentHashingImpl implements ConsistentHashing {
             log.error("put data, usable server is empty");
             return false;
         }
-        //1. calculate data's hash value
+        //1. calculate data's my_hash value
         int currentHash = getHash(data);
-        //2. get usual node(node's hash value is bigger than data's hash value), if usual node list is empty, get first node in loop
+        //2. get usual node(node's my_hash value is bigger than data's my_hash value), if usual node list is empty, get first node in loop
         //获取普通节点（节点的哈希值大于数据的哈希值），如果普通节点列表为空，则获取循环中的第一个节点
         SortedMap<Integer, String> usableNodes = hashToNodes.tailMap(currentHash);//根据数据hash获取大于等于此hash的节点
         String node = usableNodes.isEmpty() ? hashToNodes.get(hashToNodes.firstKey()) : usableNodes.get(usableNodes.firstKey());//获取第一个几点
         //3. add data to node
         List<String> dataList = nodeToData.get(node);//获取节点已存数据
         dataList.add(data);//节点中添加数据
-        log.info("put data, data {} is placed to server {}, hash: {}", data, node, currentHash);
+        log.info("put data, data {} is placed to server {}, my_hash: {}", data, node, currentHash);
         return true;
     }
 
     @Override
     public boolean removeNode(String node) {
-        //1. calculate hash value of removing node
+        //1. calculate my_hash value of removing node
         int removeServerHash = getHash(node);
         if(!hashToNodes.containsKey(removeServerHash)){
             log.error("remove server, current server is not in server list, please check server ip");
@@ -129,7 +129,7 @@ public class ConsistentHashingImpl implements ConsistentHashing {
                 nodeToData.remove(virtualNode);
             }
         }
-        //4. remove node from hash loop
+        //4. remove node from my_hash loop
         hashToNodes.remove(removeServerHash);
         nodeToData.remove(node);
         if(hashToNodes.size() == 0){
@@ -144,7 +144,7 @@ public class ConsistentHashingImpl implements ConsistentHashing {
 
     @Override
     public boolean addNode(String node) {
-        //1, calculate adding node's hash value
+        //1, calculate adding node's my_hash value
         int addServerHash = getHash(node);
         //2. add node and migrate data
         if(hashToNodes.isEmpty()){
@@ -192,7 +192,7 @@ public class ConsistentHashingImpl implements ConsistentHashing {
             for(int cnt = 0; cnt < this.virtualNodeNum; cnt++){
                 //1. generate virtual node name by default format
                 String virtualNodeName = String.format(virtualNodeFormat, realNode, cnt);
-                //2. calculate each virtual node's hash value
+                //2. calculate each virtual node's my_hash value
                 int virtualNodeHash = getHash(virtualNodeName);
                 //3. current node already exist in loop, continue
                 if(hashToNodes.containsKey(virtualNodeHash)){

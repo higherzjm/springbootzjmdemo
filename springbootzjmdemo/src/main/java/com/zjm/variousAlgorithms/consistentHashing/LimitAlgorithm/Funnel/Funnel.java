@@ -28,7 +28,7 @@ public class Funnel {
                 try {
                     Thread.sleep(1000 / consumeRate);
                 } catch (InterruptedException e) {
-                    System.out.println("thread sleep error, reason: " + e.getMessage());
+                    System.out.println("my_thread sleep error, reason: " + e.getMessage());
                 }
                 if(!taskList.isEmpty()){
                     taskList.get(0).handle();

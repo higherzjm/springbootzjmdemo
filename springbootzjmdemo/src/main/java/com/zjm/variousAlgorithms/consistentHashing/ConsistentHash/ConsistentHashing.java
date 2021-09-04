@@ -13,42 +13,42 @@ import java.util.List;
 public interface ConsistentHashing {
 
     /**
-     * put data to hash loop
+     * put data to my_hash loop
      * @param data data list
      * @return put result
      */
     boolean putData(List<String> data);
 
     /**
-     * put data to hash loop
+     * put data to my_hash loop
      * @param data data
      * @return put result
      */
     boolean putData(String data);
 
     /**
-     * remove node from hash loop
+     * remove node from my_hash loop
      * @param node removing node
      * @return remove result
      */
     boolean removeNode(String node);
 
     /**
-     * add node to hash loop
+     * add node to my_hash loop
      * @param node adding node
      * @return add result
      */
     boolean addNode(String node);
 
     /**
-     * inject hash method to hash loop
-     * @param hashService hash method
+     * inject my_hash method to my_hash loop
+     * @param hashService my_hash method
      * @throws UnsupportedOperationException if loop already has node
      */
     void setHashMethod(HashService hashService) throws UnsupportedOperationException;
 
     /**
-     * print all data in loop according ascending hash value with nodes
+     * print all data in loop according ascending my_hash value with nodes
      */
     void printAllData();
 

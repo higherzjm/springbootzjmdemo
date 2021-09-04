@@ -122,7 +122,7 @@ public class CustomerBloomFilters {
     }
 
     /**
-     * hash 算法1
+     * my_hash 算法1
      *
      * @param key
      * @return
@@ -137,7 +137,7 @@ public class CustomerBloomFilters {
     }
 
     /**
-     * hash 算法2
+     * my_hash 算法2
      *
      * @param data
      * @return
@@ -157,7 +157,7 @@ public class CustomerBloomFilters {
     }
 
     /**
-     * hash 算法3
+     * my_hash 算法3
      *
      * @param key
      * @return

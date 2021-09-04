@@ -4,7 +4,7 @@
 //import org.quartz.spi.ThreadPool;
 //
 ///**
-// * single thread pool, for async trigger
+// * single my_thread pool, for async trigger
 // *
 // * @author xuxueli 2019-03-06
 // */

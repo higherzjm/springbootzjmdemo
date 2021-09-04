@@ -20,7 +20,7 @@ public class TokenBucket {
                 try {
                     Thread.sleep(1000 / producerRate);
                 } catch (InterruptedException e) {
-                    System.out.println("thread sleep error, reason: " + e.getMessage());
+                    System.out.println("my_thread sleep error, reason: " + e.getMessage());
                 }
                 if(currentCapacity.get() < bucketCapacity){
                     int produceTokenNum = currentCapacity.incrementAndGet();

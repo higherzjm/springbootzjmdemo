@@ -75,7 +75,7 @@ public class ScriptUtil {
             // process-exec
             final Process process = Runtime.getRuntime().exec(cmdarrayFinal);
 
-            // log-thread
+            // log-my_thread
             final FileOutputStream finalFileOutputStream = fileOutputStream;
             inputThread = new Thread(new Runnable() {
                 @Override
@@ -103,7 +103,7 @@ public class ScriptUtil {
             // process-wait
             int exitValue = process.waitFor();      // exit code: 0=success, 1=error
 
-            // log-thread join
+            // log-my_thread join
             inputThread.join();
             errThread.join();
 

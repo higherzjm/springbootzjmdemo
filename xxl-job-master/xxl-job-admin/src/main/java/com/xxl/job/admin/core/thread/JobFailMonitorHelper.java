@@ -73,7 +73,7 @@ public class JobFailMonitorHelper {
 
 					} catch (Exception e) {
 						if (!toStop) {
-							logger.error(">>>>>>>>>>> xxl-job, job fail monitor thread error:{}", e);
+							logger.error(">>>>>>>>>>> xxl-job, job fail monitor my_thread error:{}", e);
 						}
 					}
 
@@ -87,7 +87,7 @@ public class JobFailMonitorHelper {
 
                 }
 
-				logger.info(">>>>>>>>>>> xxl-job, job fail monitor thread stop");
+				logger.info(">>>>>>>>>>> xxl-job, job fail monitor my_thread stop");
 
 			}
 		});
