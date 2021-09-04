@@ -20,23 +20,39 @@ import java.util.stream.Collectors;
 
 import static java.util.Map.Entry.comparingByValue;
 import static java.util.stream.Collectors.toMap;
+
 @Slf4j
 public class Test1 {
     public static void main(String[] args) throws Exception {
 
         Test1 test1 = new Test1();
-        BigDecimal bigDecimal=BigDecimal.ZERO;
-        test1.test30();
-        log.info("b:"+bigDecimal);
+        BigDecimal bigDecimal = BigDecimal.ZERO;
+        test1.test32();
+        log.info("b:" + bigDecimal);
 
 
     }
 
-    public void test30(){
+    public void test32() {
+        String name = "";
+        Student student = new Student();
+        test31(name,student);
+        log.info("name:" + name+","+student.getName());
+
+    }
+
+    public void test31(String name,Student student) {
+        name = "张三李四";
+        student.setName(name);
+
+    }
+
+    public void test30() {
+
         StopWatch stopWatch = new StopWatch("test30");
         stopWatch.start("stopWatch 任务1");
-        for (int i=0;i<5;i++){
-            log.info("任务1:"+i);
+        for (int i = 0; i < 5; i++) {
+            log.info("任务1:" + i);
             try {
                 Thread.sleep(500);
             } catch (InterruptedException e) {
@@ -45,8 +61,8 @@ public class Test1 {
         }
         stopWatch.stop();
         stopWatch.start("stopWatch 任务2");
-        for (int i=0;i<10;i++){
-            log.info("任务2:"+i);
+        for (int i = 0; i < 10; i++) {
+            log.info("任务2:" + i);
             try {
                 Thread.sleep(500);
             } catch (InterruptedException e) {
@@ -57,12 +73,13 @@ public class Test1 {
 
         //StringBuilder sb = new StringBuilder(stopWatch.prettyPrint());
         for (StopWatch.TaskInfo taskInfo : stopWatch.getTaskInfo()) {
-            log.info(taskInfo.getTaskName()+":"+taskInfo.getTimeMillis());
+            log.info(taskInfo.getTaskName() + ":" + taskInfo.getTimeMillis());
         }
-        log.info("总时间:"+stopWatch.getTotalTimeMillis());
+        log.info("总时间:" + stopWatch.getTotalTimeMillis());
     }
-    public void test29(BigDecimal bigDecimal){
-        bigDecimal=new BigDecimal("200");
+
+    public void test29(BigDecimal bigDecimal) {
+        bigDecimal = new BigDecimal("200");
     }
 
     public void test28() {
@@ -115,7 +132,7 @@ public class Test1 {
     }
 
     public void levelStatistics2(Department parentDepartment, Integer totalNum, Integer myNum) {
-        int totalNum2=totalNum;
+        int totalNum2 = totalNum;
         if (!parentDepartment.isHasLevel()) {
             totalNum2 = totalNum2 + parentDepartment.getNum();
             parentDepartment.setHasLevel(true);
@@ -157,7 +174,6 @@ public class Test1 {
     }
 
 
-
     public void test26() {
         Map<String, Object> map = new HashMap<>();
         map.put("a", 1);
@@ -175,7 +191,6 @@ public class Test1 {
             System.out.println("11111111111111");
         }
     }
-
 
 
     public void test23() {
@@ -408,57 +423,57 @@ public class Test1 {
         System.out.println(class1.getB3() == enum1.MY_ENUM.getB4());
     }
 
-enum enum1 {
-    MY_ENUM(100);
+    enum enum1 {
+        MY_ENUM(100);
 
-    enum1(Integer b4) {
-        this.b4 = b4;
+        enum1(Integer b4) {
+            this.b4 = b4;
+        }
+
+        private Integer b4;
+
+        public Integer getB4() {
+            return b4;
+        }
     }
 
-    private Integer b4;
+    class Class1 {
+        private Integer b3;
+        private String name;
+        private LocalDate localDate;
 
-    public Integer getB4() {
-        return b4;
+        public Class1(Integer b3, String name) {
+            this.b3 = b3;
+            this.name = name;
+        }
+
+        public Class1(Integer b3, String name, LocalDate localDate) {
+            this.b3 = b3;
+            this.name = name;
+            this.localDate = localDate;
+        }
+
+        @Override
+        public String toString() {
+            return "Class1{" +
+                    "b3=" + b3 +
+                    ", name='" + name + '\'' +
+                    ", localDate=" + localDate +
+                    '}';
+        }
+
+        public Integer getB3() {
+            return b3;
+        }
+
+        public LocalDate getLocalDate() {
+            return localDate;
+        }
+
+        public String getName() {
+            return name;
+        }
     }
-}
-
-class Class1 {
-    private Integer b3;
-    private String name;
-    private LocalDate localDate;
-
-    public Class1(Integer b3, String name) {
-        this.b3 = b3;
-        this.name = name;
-    }
-
-    public Class1(Integer b3, String name, LocalDate localDate) {
-        this.b3 = b3;
-        this.name = name;
-        this.localDate = localDate;
-    }
-
-    @Override
-    public String toString() {
-        return "Class1{" +
-                "b3=" + b3 +
-                ", name='" + name + '\'' +
-                ", localDate=" + localDate +
-                '}';
-    }
-
-    public Integer getB3() {
-        return b3;
-    }
-
-    public LocalDate getLocalDate() {
-        return localDate;
-    }
-
-    public String getName() {
-        return name;
-    }
-}
 
     public void test11() {
         String a = "name";
@@ -485,35 +500,35 @@ class Class1 {
         System.out.println(field.getName());
     }
 
-class VO {
-    private String nameAgeStudent;
-    private String nameAge;
-    private String name;
+    class VO {
+        private String nameAgeStudent;
+        private String nameAge;
+        private String name;
 
-    public String getNameAgeStudent() {
-        return nameAgeStudent;
-    }
+        public String getNameAgeStudent() {
+            return nameAgeStudent;
+        }
 
-    public void setNameAgeStudent(String nameAgeStudent) {
-        this.nameAgeStudent = nameAgeStudent;
-    }
+        public void setNameAgeStudent(String nameAgeStudent) {
+            this.nameAgeStudent = nameAgeStudent;
+        }
 
-    public String getNameAge() {
-        return nameAge;
-    }
+        public String getNameAge() {
+            return nameAge;
+        }
 
-    public void setNameAge(String nameAge) {
-        this.nameAge = nameAge;
-    }
+        public void setNameAge(String nameAge) {
+            this.nameAge = nameAge;
+        }
 
-    public String getName() {
-        return name;
-    }
+        public String getName() {
+            return name;
+        }
 
-    public void setName(String name) {
-        this.name = name;
+        public void setName(String name) {
+            this.name = name;
+        }
     }
-}
 
     public void test10() {
         ConcurrentHashMap<String, Object> subDataDetailMap = new ConcurrentHashMap<>();
@@ -591,27 +606,27 @@ class VO {
         System.out.println(sum);
     }
 
-class MyVO {
-    String name;
-    Double age;
+    class MyVO {
+        String name;
+        Double age;
 
-    public String getName() {
-        return name;
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public Double getAge() {
+            return age;
+        }
+
+        public void setAge(Double age) {
+            this.age = age;
+        }
+
     }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Double getAge() {
-        return age;
-    }
-
-    public void setAge(Double age) {
-        this.age = age;
-    }
-
-}
 
     public void test6() {
         StringJoiner stringJoiner = new StringJoiner(",");

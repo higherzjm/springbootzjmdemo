@@ -1,4 +1,4 @@
-package com.zjm.thread.lock;
+package com.zjm.my_thread.lock;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
