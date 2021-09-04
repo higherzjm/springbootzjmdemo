@@ -1,6 +1,7 @@
 package com.zjm.my_classloader;
 
 import lombok.extern.slf4j.Slf4j;
+import org.junit.Test;
 
 /**
  * sun的类加载器都一样，不管实例都一样
@@ -17,6 +18,7 @@ public class Test1 {
     /**
      * 同一实例类加载器都一样
      */
+    @Test
     public void test1(){
         ClassLoader classLoader=Thread.currentThread().getContextClassLoader();
         log.info("classLoader test1:"+classLoader);
@@ -26,6 +28,7 @@ public class Test1 {
     /**
      * 同一实例类加载器都一样
      */
+    @Test
     public void test2(){
         ClassLoader classLoader=Thread.currentThread().getContextClassLoader();
         log.info("classLoader test2:"+classLoader);
