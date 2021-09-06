@@ -18,7 +18,7 @@ public class MyController {
     @Autowired
     private MyService_Bean myService_bean;
     @Autowired
-    private MyService_Import myCustomerService;
+    private MyService_Import myService_import;
     @GetMapping("/myMethod")
     public String myMethod() {
         return "test";
@@ -31,7 +31,7 @@ public class MyController {
         System.out.println("myController 初始化");
     }
     @Bean
-    public MyService_Bean initMyCustomObject(){
+    public MyService_Bean myService_Bean(){
         return new MyService_Bean();
     }
 
