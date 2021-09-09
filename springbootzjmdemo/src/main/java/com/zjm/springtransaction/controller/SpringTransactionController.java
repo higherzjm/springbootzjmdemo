@@ -5,6 +5,7 @@ import com.zjm.springtransaction.DTO.LogInfoDTO;
 import com.zjm.springtransaction.VO.LogInfoResultVO;
 import com.zjm.springtransaction.entity.LogInfo;
 import com.zjm.springtransaction.service.ISpringTransactionService;
+import com.zjm.springtransaction.service.IStudentService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -25,6 +26,9 @@ import java.util.List;
 public class SpringTransactionController {
     @Autowired
     private ISpringTransactionService springTransactionService;
+    @Autowired
+    private IStudentService studentService;
+
 
     @PostMapping("/findSalaryPayrollOperateLogResult")
     @ApiOperation(value = "查询日志", notes = "查询日志")
