@@ -1,4 +1,4 @@
-package com.zjm.hash;
+package com.zjm.my_hash;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;

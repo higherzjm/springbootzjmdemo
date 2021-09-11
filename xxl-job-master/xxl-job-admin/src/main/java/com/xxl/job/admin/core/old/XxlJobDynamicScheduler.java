@@ -3,9 +3,9 @@
 //import com.xxl.job.admin.core.conf.XxlJobAdminConfig;
 //import com.xxl.job.admin.core.jobbean.RemoteHttpJobBean;
 //import com.xxl.job.admin.core.model.XxlJobInfo;
-//import com.xxl.job.admin.core.thread.JobFailMonitorHelper;
-//import com.xxl.job.admin.core.thread.JobRegistryMonitorHelper;
-//import com.xxl.job.admin.core.thread.JobTriggerPoolHelper;
+//import com.xxl.job.admin.core.my_thread.JobFailMonitorHelper;
+//import com.xxl.job.admin.core.my_thread.JobRegistryMonitorHelper;
+//import com.xxl.job.admin.core.my_thread.JobTriggerPoolHelper;
 //import com.xxl.job.admin.core.util.I18nUtil;
 //import com.xxl.job.core.biz.AdminBiz;
 //import com.xxl.job.core.biz.ExecutorBiz;

@@ -88,7 +88,7 @@ public class XxlJobExecutor  {
         if (jobThreadRepository.size() > 0) {
             for (Map.Entry<Integer, JobThread> item: jobThreadRepository.entrySet()) {
                 JobThread oldJobThread = removeJobThread(item.getKey(), "web container destroy and kill the job.");
-                // wait for job thread push result to callback queue
+                // wait for job my_thread push result to callback queue
                 if (oldJobThread != null) {
                     try {
                         oldJobThread.join();
@@ -180,7 +180,7 @@ public class XxlJobExecutor  {
     }
 
 
-    // ---------------------- job thread repository ----------------------
+    // ---------------------- job my_thread repository ----------------------
     private static ConcurrentMap<Integer, JobThread> jobThreadRepository = new ConcurrentHashMap<Integer, JobThread>();
     public static JobThread registJobThread(int jobId, IJobHandler handler, String removeOldReason){
         JobThread newJobThread = new JobThread(jobId, handler);

@@ -38,7 +38,7 @@ public class ExecutorBizImpl implements ExecutorBiz {
         }
 
         if (isRunningOrHasQueue) {
-            return new ReturnT<String>(ReturnT.FAIL_CODE, "job thread is running or has trigger queue.");
+            return new ReturnT<String>(ReturnT.FAIL_CODE, "job my_thread is running or has trigger queue.");
         }
         return ReturnT.SUCCESS;
     }
@@ -59,8 +59,8 @@ public class ExecutorBizImpl implements ExecutorBiz {
 
             // valid old jobThread
             if (jobThread!=null && jobHandler != newJobHandler) {
-                // change handler, need kill old thread
-                removeOldReason = "change jobhandler or glue type, and terminate the old job thread.";
+                // change handler, need kill old my_thread
+                removeOldReason = "change jobhandler or glue type, and terminate the old job my_thread.";
 
                 jobThread = null;
                 jobHandler = null;
@@ -80,8 +80,8 @@ public class ExecutorBizImpl implements ExecutorBiz {
             if (jobThread != null &&
                     !(jobThread.getHandler() instanceof GlueJobHandler
                         && ((GlueJobHandler) jobThread.getHandler()).getGlueUpdatetime()==triggerParam.getGlueUpdatetime() )) {
-                // change handler or gluesource updated, need kill old thread
-                removeOldReason = "change job source or glue type, and terminate the old job thread.";
+                // change handler or gluesource updated, need kill old my_thread
+                removeOldReason = "change job source or glue type, and terminate the old job my_thread.";
 
                 jobThread = null;
                 jobHandler = null;
@@ -103,8 +103,8 @@ public class ExecutorBizImpl implements ExecutorBiz {
             if (jobThread != null &&
                     !(jobThread.getHandler() instanceof ScriptJobHandler
                             && ((ScriptJobHandler) jobThread.getHandler()).getGlueUpdatetime()==triggerParam.getGlueUpdatetime() )) {
-                // change script or gluesource updated, need kill old thread
-                removeOldReason = "change job source or glue type, and terminate the old job thread.";
+                // change script or gluesource updated, need kill old my_thread
+                removeOldReason = "change job source or glue type, and terminate the old job my_thread.";
 
                 jobThread = null;
                 jobHandler = null;
@@ -138,7 +138,7 @@ public class ExecutorBizImpl implements ExecutorBiz {
             }
         }
 
-        // replace thread (new or exists invalid)
+        // replace my_thread (new or exists invalid)
         if (jobThread == null) {
             jobThread = XxlJobExecutor.registJobThread(triggerParam.getJobId(), jobHandler, removeOldReason);
         }
@@ -157,7 +157,7 @@ public class ExecutorBizImpl implements ExecutorBiz {
             return ReturnT.SUCCESS;
         }
 
-        return new ReturnT<String>(ReturnT.SUCCESS_CODE, "job thread already killed.");
+        return new ReturnT<String>(ReturnT.SUCCESS_CODE, "job my_thread already killed.");
     }
 
     @Override

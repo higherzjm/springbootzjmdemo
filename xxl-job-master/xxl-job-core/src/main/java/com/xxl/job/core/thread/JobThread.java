@@ -21,7 +21,7 @@ import java.util.concurrent.*;
 
 
 /**
- * handler thread
+ * handler my_thread
  * @author xuxueli 2016-1-16 19:52:47
  */
 public class JobThread extends Thread{
@@ -68,7 +68,7 @@ public class JobThread extends Thread{
 	}
 
     /**
-     * kill job thread
+     * kill job my_thread
      *
      * @param stopReason
      */

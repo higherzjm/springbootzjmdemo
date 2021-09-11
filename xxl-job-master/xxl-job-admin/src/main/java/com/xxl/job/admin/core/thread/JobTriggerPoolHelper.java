@@ -10,7 +10,7 @@ import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * job trigger thread pool helper
+ * job trigger my_thread pool helper
  *
  * @author xuxueli 2018-07-03 21:08:07
  */
@@ -20,7 +20,7 @@ public class JobTriggerPoolHelper {
 
     // ---------------------- trigger pool ----------------------
 
-    // fast/slow thread pool
+    // fast/slow my_thread pool
     private ThreadPoolExecutor fastTriggerPool = null;
     private ThreadPoolExecutor slowTriggerPool = null;
 
@@ -57,7 +57,7 @@ public class JobTriggerPoolHelper {
         //triggerPool.shutdown();
         fastTriggerPool.shutdownNow();
         slowTriggerPool.shutdownNow();
-        logger.info(">>>>>>>>> xxl-job trigger thread pool shutdown success.");
+        logger.info(">>>>>>>>> xxl-job trigger my_thread pool shutdown success.");
     }
 
 
@@ -76,7 +76,7 @@ public class JobTriggerPoolHelper {
                            final String executorParam,
                            final String addressList) {
 
-        // choose thread pool
+        // choose my_thread pool
         ThreadPoolExecutor triggerPool_ = fastTriggerPool;
         AtomicInteger jobTimeoutCount = jobTimeoutCountMap.get(jobId);
         if (jobTimeoutCount!=null && jobTimeoutCount.get() > 10) {      // job-timeout 10 times in 1 min

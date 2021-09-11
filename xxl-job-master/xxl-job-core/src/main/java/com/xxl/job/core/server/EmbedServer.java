@@ -110,12 +110,12 @@ public class EmbedServer {
             }
 
         });
-        thread.setDaemon(true);	// daemon, service jvm, user thread leave >>> daemon leave >>> jvm leave
+        thread.setDaemon(true);	// daemon, service jvm, user my_thread leave >>> daemon leave >>> jvm leave
         thread.start();
     }
 
     public void stop() throws Exception {
-        // destroy server thread
+        // destroy server my_thread
         if (thread!=null && thread.isAlive()) {
             thread.interrupt();
         }

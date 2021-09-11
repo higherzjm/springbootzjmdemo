@@ -1,6 +1,6 @@
 //package com.xxl.job.admin.core.jobbean;
 //
-//import com.xxl.job.admin.core.thread.JobTriggerPoolHelper;
+//import com.xxl.job.admin.core.my_thread.JobTriggerPoolHelper;
 //import com.xxl.job.admin.core.trigger.TriggerTypeEnum;
 //import org.quartz.JobExecutionContext;
 //import org.quartz.JobExecutionException;
@@ -11,7 +11,7 @@
 //
 ///**
 // * http job bean
-// * “@DisallowConcurrentExecution” disable concurrent, thread size can not be only one, better given more
+// * “@DisallowConcurrentExecution” disable concurrent, my_thread size can not be only one, better given more
 // * @author xuxueli 2015-12-17 18:20:34
 // */
 ////@DisallowConcurrentExecution

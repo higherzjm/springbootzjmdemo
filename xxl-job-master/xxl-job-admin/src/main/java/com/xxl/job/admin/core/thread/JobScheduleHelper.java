@@ -37,7 +37,7 @@ public class JobScheduleHelper {
 
     public void start(){
 
-        // schedule thread
+        // schedule my_thread
         scheduleThread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -217,7 +217,7 @@ public class JobScheduleHelper {
         scheduleThread.start();
 
 
-        // ring thread
+        // ring my_thread
         ringThread = new Thread(new Runnable() {
             @Override
             public void run() {

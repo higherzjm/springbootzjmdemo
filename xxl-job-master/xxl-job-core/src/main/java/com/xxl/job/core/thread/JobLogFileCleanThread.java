@@ -13,7 +13,7 @@ import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 /**
- * job file clean thread
+ * job file clean my_thread
  *
  * @author xuxueli 2017-12-29 16:23:43
  */
@@ -96,7 +96,7 @@ public class JobLogFileCleanThread {
                         }
                     }
                 }
-                logger.info(">>>>>>>>>>> xxl-job, executor JobLogFileCleanThread thread destory.");
+                logger.info(">>>>>>>>>>> xxl-job, executor JobLogFileCleanThread my_thread destory.");
 
             }
         });

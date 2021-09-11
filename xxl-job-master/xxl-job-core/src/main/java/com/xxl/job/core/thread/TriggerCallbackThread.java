@@ -41,7 +41,7 @@ public class TriggerCallbackThread {
     }
 
     /**
-     * callback thread
+     * callback my_thread
      */
     private Thread triggerCallbackThread;
     private Thread triggerRetryCallbackThread;
@@ -95,7 +95,7 @@ public class TriggerCallbackThread {
                         logger.error(e.getMessage(), e);
                     }
                 }
-                logger.info(">>>>>>>>>>> xxl-job, executor callback thread destory.");
+                logger.info(">>>>>>>>>>> xxl-job, executor callback my_thread destory.");
 
             }
         });
@@ -125,7 +125,7 @@ public class TriggerCallbackThread {
                         }
                     }
                 }
-                logger.info(">>>>>>>>>>> xxl-job, executor retry callback thread destory.");
+                logger.info(">>>>>>>>>>> xxl-job, executor retry callback my_thread destory.");
             }
         });
         triggerRetryCallbackThread.setDaemon(true);
