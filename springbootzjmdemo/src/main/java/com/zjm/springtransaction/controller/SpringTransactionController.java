@@ -4,6 +4,7 @@ import cn.hutool.core.bean.BeanUtil;
 import com.zjm.springtransaction.DTO.LogInfoDTO;
 import com.zjm.springtransaction.VO.LogInfoResultVO;
 import com.zjm.springtransaction.entity.LogInfo;
+import com.zjm.springtransaction.entity.StudentsInfo;
 import com.zjm.springtransaction.service.ISpringTransactionService;
 import com.zjm.springtransaction.service.IStudentService;
 import io.swagger.annotations.Api;
@@ -28,8 +29,11 @@ public class SpringTransactionController {
     private ISpringTransactionService springTransactionService;
     @Autowired
     private IStudentService studentService;
-
-
+    @PostMapping("/queryStudents/{name}")
+    @ApiOperation(value = "查询学生列表", notes = "查询学生列表")
+    public List<StudentsInfo> queryStudentList(@ApiParam(name = "name", value = "姓名") @PathVariable("name") String name) {
+        return studentService.queryStudentList(name);
+    }
     @PostMapping("/findSalaryPayrollOperateLogResult")
     @ApiOperation(value = "查询日志", notes = "查询日志")
     public List<LogInfoResultVO> findSalaryPayrollOperateLogResult(@RequestBody @Validated LogInfoDTO logInfoDTO) {
