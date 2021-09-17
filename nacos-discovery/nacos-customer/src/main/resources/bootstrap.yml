@@ -9,6 +9,7 @@ spring:
       discovery:
         server-addr: 192.168.0.4:9002
         namespace: a6476a6f-12a7-46c9-aa35-4437ab7c7c1c
+        register-enabled: true #服务消费者配置服务自动注册
   redis:
      host: 127.0.0.1
      port: 6379
