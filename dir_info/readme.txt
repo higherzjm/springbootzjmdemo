@@ -13,6 +13,8 @@ http://localhost:8081/swagger-ui.html
 druid:
 http://localhost:8081/druid/login.html  admin/123456
 
+xxljob:http://localhost:8331/xxl-job-admin/toLogin  admin/123456
+
 maven plugins
 
    <build>

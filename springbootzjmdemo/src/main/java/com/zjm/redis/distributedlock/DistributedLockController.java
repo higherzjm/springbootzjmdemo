@@ -114,16 +114,20 @@ public class DistributedLockController {
     public String redissonLock() {
         Config config = new Config();
         SingleServerConfig singleServerConfig = config.useSingleServer();
-        singleServerConfig.setAddress("redis://127.0.0.1:6379");
+        singleServerConfig.setAddress("redis://127.0.0.1:6379");//redis ip端口不能错
         RedissonClient redissonClient= Redisson.create(config);
-        RLock rLock = redissonClient.getLock("myLock");
+        log.info("锁id:"+Thread.currentThread().getId());
+        RLock rLock = redissonClient.getLock("myLock"+Thread.currentThread().getId());
+        String  ret;
         try {
             rLock.lock(180L, TimeUnit.SECONDS);
-            return "redisson分布式锁:上锁成功";
+            ret= "redisson分布式锁:上锁成功";
         }catch (Exception e){
-            return "redisson分布式锁:上锁失败:"+e.getMessage();
+            ret= "redisson分布式锁:上锁失败:"+e.getMessage();
         }finally {
+            log.info("任务执行完毕，锁释放");
             rLock.unlock();
         }
+        return ret;
     }
 }

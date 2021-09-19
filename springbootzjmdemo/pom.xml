@@ -157,11 +157,11 @@
             <version>8.0.17</version>
         </dependency>
         <!--从私服引用定时任务-->
-        <dependency>
+        <!--<dependency> root可以不加入依赖，分别添加两个module就好
             <groupId>com.xuxueli</groupId>
             <artifactId>xxl-job</artifactId>
             <version>1.0.1-RELEASE</version>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>com.xuxueli</groupId>
             <artifactId>xxl-job-admin</artifactId>
