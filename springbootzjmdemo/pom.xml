@@ -156,6 +156,7 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.17</version>
         </dependency>
+        <!--maven 私服仓库资源-->
         <dependency>
             <groupId>com.xuxueli</groupId>
             <artifactId>xxl-job-admin</artifactId>
@@ -166,7 +167,12 @@
             <artifactId>xxl-job-core</artifactId>
             <version>1.0.1-RELEASE</version>
         </dependency>
-        <!--从私服引用定时任务-->
+        <dependency>
+            <groupId>com.zjm</groupId>
+            <artifactId>commonutil</artifactId>
+            <version>1.0.1-RELEASE</version>
+        </dependency>
+        <!--maven 私服仓库资源-->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>easyexcel</artifactId>

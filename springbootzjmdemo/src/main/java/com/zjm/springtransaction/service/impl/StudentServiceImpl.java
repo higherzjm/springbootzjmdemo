@@ -12,6 +12,13 @@ import java.util.List;
 
 @Service
 public class StudentServiceImpl implements IStudentService {
+    @Override
+    public String toString() {
+        return "StudentServiceImpl{" +
+                "baseMapper=" + baseMapper +
+                '}';
+    }
+
     @Autowired
     private BaseMapper<StudentsInfo> baseMapper;
     @Override
