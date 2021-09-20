@@ -156,12 +156,6 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.17</version>
         </dependency>
-        <!--从私服引用定时任务-->
-        <!--<dependency> root可以不加入依赖，分别添加两个module就好
-            <groupId>com.xuxueli</groupId>
-            <artifactId>xxl-job</artifactId>
-            <version>1.0.1-RELEASE</version>
-        </dependency>-->
         <dependency>
             <groupId>com.xuxueli</groupId>
             <artifactId>xxl-job-admin</artifactId>
@@ -177,11 +171,6 @@
             <groupId>com.alibaba</groupId>
             <artifactId>easyexcel</artifactId>
             <version>2.2.6</version>
-        </dependency>
-        <dependency>
-            <groupId>com.zjm</groupId>
-            <artifactId>mybasespringboot</artifactId>
-            <version>1.0.1-RELEASE</version>
         </dependency>
     </dependencies>
     <repositories>
