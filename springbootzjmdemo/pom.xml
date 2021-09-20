@@ -169,8 +169,8 @@
         </dependency>
         <dependency>
             <groupId>com.zjm</groupId>
-            <artifactId>commonutil</artifactId>
-            <version>1.0.1-RELEASE</version>
+            <artifactId>zjmcommonutil</artifactId>
+            <version>1.0.0-RELEASE</version>
         </dependency>
         <!--maven 私服仓库资源-->
         <dependency>

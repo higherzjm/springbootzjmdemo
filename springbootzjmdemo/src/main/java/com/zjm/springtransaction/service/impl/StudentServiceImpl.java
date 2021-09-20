@@ -14,7 +14,7 @@ import java.util.List;
 public class StudentServiceImpl implements IStudentService {
     @Override
     public String toString() {
-        return "StudentServiceImpl{" +
+        return "学生服务类StudentServiceImpl{" +
                 "baseMapper=" + baseMapper +
                 '}';
     }
