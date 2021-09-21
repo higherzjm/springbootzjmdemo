@@ -30,8 +30,8 @@ public class SpringTransactionController {
     @Autowired
     private IStudentService studentService;
     @PostMapping("/queryStudents/{name}")
-    @ApiOperation(value = "查询学生列表", notes = "查询学生列表")
-    public List<StudentsInfo> queryStudentList(@ApiParam(name = "name", value = "姓名") @PathVariable("name") String name) {
+    @ApiOperation(value = "查询学生列表", notes = "query student list")
+    public List<StudentsInfo> queryStudentList(@ApiParam(name = "name", value = "姓名",defaultValue = "张") @PathVariable("name") String name) {
         return studentService.queryStudentList(name);
     }
     @PostMapping("/findSalaryPayrollOperateLogResult")
