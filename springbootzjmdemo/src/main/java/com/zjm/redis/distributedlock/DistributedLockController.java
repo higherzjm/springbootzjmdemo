@@ -5,6 +5,11 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
+import org.redisson.Redisson;
+import org.redisson.api.RLock;
+import org.redisson.api.RedissonClient;
+import org.redisson.config.Config;
+import org.redisson.config.SingleServerConfig;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,6 +20,7 @@ import redis.clients.jedis.ShardedJedisPool;
 import redis.clients.jedis.params.SetParams;
 
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -23,11 +29,11 @@ import java.util.UUID;
 @RequestMapping("/distributedLock")
 @RestController
 @Slf4j
-@Api(tags = "分布式锁")
+@Api(tags = "Redis应用")
 public class DistributedLockController {
 
     @GetMapping("/test1")
-    @ApiOperation(value = "分布式锁设置测试1--按过期时间自动失效")
+    @ApiOperation(value = "分布式锁--按过期时间自动失效")
     public String test1() {
         Jedis jedis = new Jedis("localhost", 6379);
         jedis.auth("123456");
@@ -52,7 +58,7 @@ public class DistributedLockController {
     }
 
     @GetMapping("/test2")
-    @ApiOperation(value = "分布式锁设置测试2--处理完任务lua脚本手动释放")
+    @ApiOperation(value = "分布式锁--处理完任务lua脚本手动释放")
     public String test2() {
         Jedis jedis = new Jedis("localhost", 6379);
         jedis.auth("123456");
@@ -92,7 +98,7 @@ public class DistributedLockController {
         return responseResult;
     }
 
-    public String getResponseResult(String result) {
+    private String getResponseResult(String result) {
         String responseResult;
         if ("OK".equals(result)) {
             log.info("获取到锁成功");
@@ -102,5 +108,27 @@ public class DistributedLockController {
             responseResult = "获取到锁失败 result:" + result;
         }
         return responseResult;
+    }
+    @GetMapping("/redissonLock")
+    @ApiOperation(value = "分布式锁-redisson分布式锁")
+    public String redissonLock() {
+        Config config = new Config();
+        SingleServerConfig singleServerConfig = config.useSingleServer();
+        singleServerConfig.setAddress("redis://127.0.0.1:6379");//redis ip端口不能错
+        RedissonClient redissonClient= Redisson.create(config);
+        String lockName="myLock"+Thread.currentThread().getId()+UUID.randomUUID();
+        log.info("锁id:"+lockName);
+        RLock rLock = redissonClient.getLock(lockName);
+        String  ret;
+        try {
+            rLock.lock(180L, TimeUnit.SECONDS);
+            ret= "redisson分布式锁:上锁成功";
+        }catch (Exception e){
+            ret= "redisson分布式锁:上锁失败:"+e.getMessage();
+        }finally {
+            log.info("任务执行完毕，锁释放");
+            rLock.unlock();
+        }
+        return ret;
     }
 }

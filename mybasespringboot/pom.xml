@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.zjm</groupId>
     <artifactId>mybasespringboot</artifactId>
-    <version>1.0.0-RELEASE</version><!--版本类型必须与建仓库时选择的版本类型一致  1.0.0-SNAPSHOT,1.0.1-RELEASE-->
+    <version>1.0.1-RELEASE</version><!--版本类型必须与建仓库时选择的版本类型一致  1.0.0-SNAPSHOT,1.0.1-RELEASE-->
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
@@ -36,11 +36,6 @@
             <name>zjmrepository Repository2</name> <!--可随便写-->
             <url>http://127.0.0.1:8081/repository/zjmrepository/</url> <!--url后面是仓库id，要匹配-->
         </repository>
-       <!-- <repository>
-            <id>zjmrepository2</id>&lt;!&ndash;快照版本&ndash;&gt;
-            <name>zjmrepository Repository2</name>
-            <url>http://127.0.0.1:8081/repository/zjmrepository2/</url>
-        </repository>-->
     </distributionManagement>
 
 </project>

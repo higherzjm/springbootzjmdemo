@@ -16,7 +16,7 @@ public class SpringBootHandler{
 
     @XxlJob("xxlJobSpringBootHandler")
     public void springBootHandler() throws Exception {
-        System.out.println("springBootHandler:"+ LocalDateTime.now());
+        System.out.println("xxlJob任务执行->springBootHandler:"+ LocalDateTime.now());
 
     }
 }

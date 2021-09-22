@@ -146,53 +146,78 @@
             <artifactId>spring-cloud-context</artifactId>
             <version>2.2.8.RELEASE</version>
         </dependency>
-        <!--xxl-job 定时任务-->
-      <!--  <dependency>
-            <groupId>com.xuxueli</groupId>
-            <artifactId>xxl-job-core</artifactId>
-            <version>1.0.0-RELEASE</version>
-            <scope>compile</scope>
-        </dependency>-->
-        <!--xxl-job 定时任务-->
-        <!--从私服引用定时任务-->
         <dependency>
-            <groupId>com.xuxueli</groupId>
-            <artifactId>xxl-job-core</artifactId>
-            <version>1.0.0-RELEASE</version>
+            <groupId>org.redisson</groupId>
+            <artifactId>redisson</artifactId>
+            <version>3.8.2</version>
         </dependency>
         <dependency>
-            <groupId>com.xuxueli</groupId>
-            <artifactId>xxl-job</artifactId>
-            <version>1.0.0-RELEASE</version>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.17</version>
         </dependency>
+        <!--maven 私服仓库资源-->
         <dependency>
             <groupId>com.xuxueli</groupId>
             <artifactId>xxl-job-admin</artifactId>
+            <version>1.0.1-RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>com.xuxueli</groupId>
+            <artifactId>xxl-job-core</artifactId>
+            <version>1.0.1-RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>com.zjm</groupId>
+            <artifactId>zjmcommonutil</artifactId>
             <version>1.0.0-RELEASE</version>
         </dependency>
-        <!--从私服引用定时任务-->
+        <!--maven 私服仓库资源-->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>easyexcel</artifactId>
             <version>2.2.6</version>
-        </dependency>
-        <dependency>
-            <groupId>com.zjm</groupId>
-            <artifactId>mybasespringboot</artifactId>
-            <version>1.0.0-RELEASE</version>
         </dependency>
     </dependencies>
     <repositories>
         <!--配置优先使用私服仓库加载依赖，如果私服仓库没有对应的依赖会去外网拉-->
         <repository>
             <snapshots>
-                <enabled>true</enabled>
+                <enabled>true</enabled><!--快照版是否支持更新 -->
             </snapshots>
+            <releases>
+                <enabled>false</enabled><!--快照版是否支持更新 -->
+            </releases>
             <id>zjmrepository</id>
             <name>zjmrepository maven</name>
             <url>http://127.0.0.1:8081/repository/zjmrepository/</url>
         </repository>
+
+        <!--<repository>
+            <id>public</id>
+            <name>aliyun nexus</name>
+            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>-->
     </repositories>
+    <!--<pluginRepositories>
+        <pluginRepository>
+            <id>public</id>
+            <name>aliyun nexus</name>
+            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>-->
     <profiles>
         <!--测试环境 -->
         <profile>

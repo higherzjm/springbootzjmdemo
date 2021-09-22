@@ -7,9 +7,9 @@ import org.springframework.context.annotation.Configuration;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
-@EnableSwagger2  //¿ªÆôSwagger  ·µ»ØµØÖ· http://localhost:8081/swagger-ui.html
+@EnableSwagger2  //å¼€å¯Swagger  è¿”å›åœ°å€ http://localhost:8090/swagger-ui.html
 public class SwaggerConfig {
-    //ÊµÀı»¯×Ô¶¨Òå¹ıÂËÆ÷
+    //å®ä¾‹åŒ–è‡ªå®šä¹‰è¿‡æ»¤å™¨
     @Bean
     public FilterRegistrationBean Filters() {
 

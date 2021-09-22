@@ -2,6 +2,7 @@ package com.zjm.redis.base;
 
 import io.netty.util.CharsetUtil;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.listener.ChannelTopic;
@@ -30,6 +31,7 @@ public class MyRedisController {
 
     //http://localhost:8081/redis/getValue
     @GetMapping("/getValue")
+    @ApiOperation(value = "简单应用--读取值")
     public String getValue() {
         String key = "今日新闻";
         String value = redisTemplate.opsForValue().get(key);
@@ -41,6 +43,7 @@ public class MyRedisController {
 
     //http://localhost:8081/redis/topicListener  主题监听
     @GetMapping("/topicListener")
+    @ApiOperation(value = "简单应用--读取值")
     public String topicListener() {
         String topicName = "今日新闻";
         messageListenerContainer.addMessageListener(redisMessageListener, new ChannelTopic(topicName));
@@ -49,6 +52,7 @@ public class MyRedisController {
 
     //http://localhost:8081/redis/topicPublish  主题发布
     @GetMapping("/topicPublish")
+    @ApiOperation(value = "简单应用--读取值")
     public String topicPublish() {
         String topicName = "今日新闻";
         String topicValue = "今日新闻--日本发生大地震";
@@ -57,6 +61,7 @@ public class MyRedisController {
     }
     //http://localhost:8081/redis/setValue2
     @GetMapping("/setValue2")
+    @ApiOperation(value = "简单应用--设置无有效期值")
     public String setValue2() {
         String key = "今日新闻";
         String value = "日本发生大地震";
@@ -66,6 +71,7 @@ public class MyRedisController {
 //----------------------------------------------------------------------------------------
 
     //http://localhost:8080/redis/topicExpireListener 主题过期监听
+    @ApiOperation(value = "简单应用--主题过期监听")
     @GetMapping("/topicExpireListener")
     public String topicExpireListener() {
         String topicName = "有效期今日新闻";
@@ -74,6 +80,7 @@ public class MyRedisController {
     }
     //http://localhost:8080/redis/topicExpirePublish  有效期主题发布
     @GetMapping("/topicExpirePublish")
+    @ApiOperation(value = "简单应用--有效期主题发布")
     public String topicExpirePublish() {
         String topicName = "有效期今日新闻";
         String topicValue = "有效期今日新闻---日本发生大地震";
@@ -83,6 +90,7 @@ public class MyRedisController {
     }
     //http://localhost:8080/redis/setValue  主题过期监听
     @GetMapping("/setValue")
+    @ApiOperation(value = "简单应用--设置有效期值")
     public String setValue() {
         String key = "有效期今日新闻";
         String value = "日本发生大地震";
@@ -91,6 +99,7 @@ public class MyRedisController {
     }
 //-----------------------------------------------
     @GetMapping("/topicConsumer")
+    @ApiOperation(value = "简单应用--主题消费")
     public String topicConsume() {
         String topicName = "有效期今日新闻";
         redisTemplate.getConnectionFactory().getConnection().subscribe(redisMessageListener, topicName.getBytes());

@@ -13,12 +13,12 @@ public class CustomHttpRequestFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig){
-        System.out.println("¹ıÂËÆ÷2¿ªÊ¼³õÊ¼»¯");
+        System.out.println("è¿‡æ»¤å™¨2å¼€å§‹åˆå§‹åŒ–");
     }
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        System.out.println("¹ıÂËÆ÷2¿ªÊ¼¹¤×÷");
+        System.out.println("è¿‡æ»¤å™¨2å¼€å§‹å·¥ä½œ");
         ServletRequest requestWrapper=null;
         if(request instanceof HttpServletRequest) {
             requestWrapper=new CustomHttpRequestWrapper((HttpServletRequest)request);
@@ -33,6 +33,6 @@ public class CustomHttpRequestFilter implements Filter {
 
     @Override
     public void destroy() {
-        System.out.println("¹ıÂËÆ÷2Ïú»Ù");
+        System.out.println("è¿‡æ»¤å™¨2é”€æ¯");
     }
 }
