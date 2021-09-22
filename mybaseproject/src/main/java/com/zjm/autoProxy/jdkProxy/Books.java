@@ -6,5 +6,6 @@ package com.zjm.autoProxy.jdkProxy;
  */
 public interface Books {
 	public double price(Double money);
+	public void price2();
 
 }

@@ -28,6 +28,7 @@ public class JdkProxyMainClass {
                 RealSetBooks.class.getClassLoader(), realSetBooks.getClass()
                         .getInterfaces(), autoProxy);
         proxySubject.price(100.0);
+        proxySubject.price2();
     }
 
 }

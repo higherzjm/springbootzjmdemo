@@ -7,8 +7,10 @@ package com.zjm.autoProxy.jdkProxy;
 public class RealSetBooks implements Books {
 
 	public double price(Double money) {
-		System.out.println("出厂价格是:" + money);
+		System.out.println("price:" + money);
 		return money;
 	}
-
+	public void price2() {
+		System.out.println("methood2");
+	}
 }
