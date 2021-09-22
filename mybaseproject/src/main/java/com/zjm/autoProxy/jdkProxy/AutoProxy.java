@@ -29,7 +29,7 @@ public class AutoProxy implements InvocationHandler {
 		}
 
 		System.out.println("打八折");
-		System.out.println("自动代理"+(Double) result * 0.8+"元");
+		System.out.println("自动代理\"+(Double) result * 0.8+\"元");
 		return result;
 	}
 
