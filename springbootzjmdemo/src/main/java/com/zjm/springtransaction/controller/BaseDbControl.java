@@ -23,7 +23,7 @@ public class BaseDbControl {
     @PostMapping("/queryStudents/{name}")
     @ApiOperation(value = "查询学生列表", notes = "query student list")
     public Map<String, Object> executeQuery(@ApiParam(name = "name", value = "姓名",defaultValue = "张") @PathVariable("name") String name) {
-        String sql=null;
+        String sql=null;//eg  update stu set name=? where number=?
         Map<String, Object> mapMetaData = new HashMap<>();
         try {
             Connection  conn = BaseDbControl.getConnection();
