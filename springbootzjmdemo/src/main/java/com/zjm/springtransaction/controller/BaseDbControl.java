@@ -24,21 +24,16 @@ public class BaseDbControl {
     @ApiOperation(value = "查询学生列表", notes = "query student list")
     public Map<String, Object> executeQuery(@ApiParam(name = "name", value = "姓名",defaultValue = "张") @PathVariable("name") String name) {
         String sql=null;
-        Connection conn = null;
-        PreparedStatement preparedstatement = null;
-        ResultSet rs = null;
         Map<String, Object> mapMetaData = new HashMap<>();
         try {
-            conn = BaseDbControl.getConnection();
-            preparedstatement = conn.prepareStatement(sql);
+            Connection  conn = BaseDbControl.getConnection();
+            PreparedStatement  preparedstatement = conn.prepareStatement(sql);
 
             preparedstatement.setObject(0,name);
 
-            rs = preparedstatement.executeQuery();
+            ResultSet  rs = preparedstatement.executeQuery();
             // 获取元数据
             ResultSetMetaData rsmd = rs.getMetaData();
-
-            // 打印一列的列名
 
             while (rs.next()) {
                 //获取数据表中满足要求的一行数据，并放入Map中
