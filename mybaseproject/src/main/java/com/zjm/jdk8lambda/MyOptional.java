@@ -11,47 +11,74 @@ import java.util.Optional;
  */
 @Slf4j
 public class MyOptional {
+    /**
+     * 但属性判断
+     */
     @Test
-    public void test1() throws Throwable {
+    public void test1_base() {
         //简单字符串的判空
-        String name = "张三";
-        name = Optional.ofNullable(name).orElse("未设置值");
+        String name = "zhangsan";
+        name = Optional.ofNullable(name).orElse("unKnow");
         log.info("nam:{}", name);
         name = null;
-        name = Optional.ofNullable(name).orElse("orElse->未设置值");
+        name = Optional.ofNullable(name).orElse("orElse->unKnow");
         log.info("nam:{}", name);
         name = null;
-        name = Optional.ofNullable(name).orElseGet(()-> "orElseGet->未设置值");
+        name = Optional.ofNullable(name).orElseGet(()-> "orElseGet->unKnow");
         log.info("nam:{}", name);
+    }
 
-         //对象判断
-        Student student1 = new Student(123, "张三", 30);
+    /**
+     * 对象查询固定属性值
+     */
+    @Test
+    public void test2_object_map(){
+        String name;
+        //对象判断
+        Student student1 = new Student(123, "zhangsan", 30);
         Optional<Integer> optional = Optional.ofNullable(student1).flatMap((e) -> Optional.of(e.getAge()));
-        log.info("第一个学生的年龄:" + optional.get());
+        log.info("name:" + optional.get());
 
-         name = Optional.ofNullable(student1).map((v) -> v.getName()).get();
-        log.info("第一个学生的姓名:" + name);
+        name = Optional.ofNullable(student1).map((v) -> v.getName()).get();
+        log.info("name:" + name);
 
         Student student2 = new Student(111, null, 30);
         //对象的指定属性为空返回固定值
-        String name2 = Optional.ofNullable(student2).map(Student::getName).orElse("员工未注册姓名");
-        log.info("第二个学生的名字:" + name2);
+        String name2 = Optional.ofNullable(student2).map(Student::getName).orElse("unKnow");
+        log.info("name2:" + name2);
 
 
-        student2 = null;
-        Student student3 = new Student(111, "李四", 30);
-         //当对象为空直接返回新的对象
-        String name3 = Optional.ofNullable(student2).orElseGet(() -> {
+    }
+    /**
+     * 空对象判断
+     */
+    @Test
+    public void test3_object_null() throws Throwable{
+
+        Student student =null;
+        //当对象为空直接返回新的对象
+        Student student2 = Optional.ofNullable(student).orElseGet(() -> {
+            Student student3 = new Student(111, "lisi", 30);
             return student3;
-        }).getName();
-        log.info("第三个学生的名字:" + name3);
+        });
+        log.info("student2:" + student2);
 
-
-        Student student = Optional.ofNullable(student2).orElseThrow(() -> new Throwable("为空直接抛异常"));
+        //当对象为空直接抛异常,不为空直接返回对象
+        Student student4 = Optional.ofNullable(student2).orElseThrow(() -> new Throwable("null"));
+        log.info("student4:"+student4);
+    }
+    /**
+     * 非空对象查询
+     */
+    @Test
+    public void test4_object_null(){
+        Student student1 = new Student(123, "wangwu", 30);
+        //对象非空直接处理业务
+        Optional.ofNullable(student1).ifPresent(u->doSomthing(student1));
+    }
+    private void doSomthing(Student student){
         log.info("student:"+student);
     }
-
-
 
 
 }
