@@ -15,23 +15,24 @@ import java.util.Map;
 @RequestMapping("/baseDbConnect")
 @RestController
 @Slf4j
-@Api(tags = "基础数据库连接")
+@Api(tags = "spring事务")
 public class BaseDbControl {
     /*
      * 执行sql查询语句
      */
     @PostMapping("/queryStudents/{name}")
-    @ApiOperation(value = "查询学生列表", notes = "query student list")
-    public Map<String, Object> executeQuery(@ApiParam(name = "name", value = "姓名",defaultValue = "张") @PathVariable("name") String name) {
-        String sql=null;//eg  update stu set name=? where number=?
+    @ApiOperation(value = "基础数据库连接->查询学生列表", notes = "query student list")
+    public Map<String, Object> executeQuery(@ApiParam(name = "name", value = "姓名",defaultValue = "张三") @PathVariable("name") String name) {
+        String sql="select name,age from students_info where name=?";
         Map<String, Object> mapMetaData = new HashMap<>();
         try {
+
             Connection  conn = BaseDbControl.getConnection();
-            PreparedStatement  preparedstatement = conn.prepareStatement(sql);
+            PreparedStatement  pstmt = conn.prepareStatement(sql);
 
-            preparedstatement.setObject(0,name);
+            pstmt.setString(1,name);
 
-            ResultSet  rs = preparedstatement.executeQuery();
+            ResultSet  rs = pstmt.executeQuery();
             // 获取元数据
             ResultSetMetaData rsmd = rs.getMetaData();
 
@@ -56,13 +57,12 @@ public class BaseDbControl {
      */
     public static Connection getConnection() throws Exception {
         String driver ="com.mysql.cj.jdbc.Driver";
-        String jdbcUrl = "jdbc:mysql://localhost:3306/test_demo?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
+        String jdbcUrl = "jdbc:mysql://localhost:3306/myproject2021?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
         String username ="root";
         String password ="zjmcat";
 
         Class.forName(driver);
-        Connection  conn = DriverManager.getConnection(jdbcUrl, username, password);
 
-        return conn;
+        return  DriverManager.getConnection(jdbcUrl, username, password);
     }
 }
