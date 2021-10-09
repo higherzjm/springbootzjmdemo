@@ -6,14 +6,14 @@ import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.LinkedBlockingDeque;
 
 /**
- * 队列
+ * 阻塞队列，例子以发邮件为例，队列中有邮件就发邮件，没有就不要发
  */
 @Slf4j
-public class MyQueue {
+public class BlockQueue {
   //阻塞队列
   private BlockingDeque<String> blockingDeque = new LinkedBlockingDeque<>();
   public static void main(String[] args){
-      MyQueue myQueue=new MyQueue();
+      BlockQueue myQueue=new BlockQueue();
       myQueue.start();
       myQueue.quequeTake();
 
