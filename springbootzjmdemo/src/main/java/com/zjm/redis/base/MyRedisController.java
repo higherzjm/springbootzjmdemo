@@ -29,7 +29,6 @@ public class MyRedisController {
     @Autowired
     private RedisExpireMsgListener redisExpireMsgListener;
 
-    //http://localhost:8081/redis/getValue
     @GetMapping("/getValue")
     @ApiOperation(value = "简单应用--读取值")
     public String getValue() {
@@ -41,7 +40,6 @@ public class MyRedisController {
 
 //--------------------------------------------------------------------------------
 
-    //http://localhost:8081/redis/topicListener  主题监听
     @GetMapping("/topicListener")
     @ApiOperation(value = "简单应用--读取值")
     public String topicListener() {
@@ -50,7 +48,6 @@ public class MyRedisController {
         return "今日新闻--监听";
     }
 
-    //http://localhost:8081/redis/topicPublish  主题发布
     @GetMapping("/topicPublish")
     @ApiOperation(value = "简单应用--读取值")
     public String topicPublish() {
@@ -59,7 +56,6 @@ public class MyRedisController {
         redisTemplate.getConnectionFactory().getConnection().publish(topicName.getBytes(CharsetUtil.UTF_8), topicValue.getBytes(CharsetUtil.UTF_8));
         return "今日新闻---主题发布";
     }
-    //http://localhost:8081/redis/setValue2
     @GetMapping("/setValue2")
     @ApiOperation(value = "简单应用--设置无有效期值")
     public String setValue2() {
@@ -70,7 +66,6 @@ public class MyRedisController {
     }
 //----------------------------------------------------------------------------------------
 
-    //http://localhost:8080/redis/topicExpireListener 主题过期监听
     @ApiOperation(value = "简单应用--主题过期监听")
     @GetMapping("/topicExpireListener")
     public String topicExpireListener() {
@@ -78,7 +73,6 @@ public class MyRedisController {
         messageListenerContainer.addMessageListener(redisExpireMsgListener, new ChannelTopic(topicName));
         return "有效期今日新闻---监听";
     }
-    //http://localhost:8080/redis/topicExpirePublish  有效期主题发布
     @GetMapping("/topicExpirePublish")
     @ApiOperation(value = "简单应用--有效期主题发布")
     public String topicExpirePublish() {
@@ -88,7 +82,6 @@ public class MyRedisController {
         redisTemplate.getConnectionFactory().getConnection().publish(topicName.getBytes(CharsetUtil.UTF_8), topicValue.getBytes(CharsetUtil.UTF_8));
         return "有效期今日新闻---发布";
     }
-    //http://localhost:8080/redis/setValue  主题过期监听
     @GetMapping("/setValue")
     @ApiOperation(value = "简单应用--设置有效期值")
     public String setValue() {
