@@ -52,6 +52,34 @@ public class BaseDbControl {
 
         return mapMetaData;
     }
+
+    /*
+     * 执行sql查询语句
+     */
+    @PostMapping("/updateIdentity/{id}")
+    @ApiOperation(value = "基础数据库连接->事务更新操作")
+    public String updateIdentity(@ApiParam(name = "id", value = "主键",defaultValue = "1") @PathVariable("id") String id) {
+        String sql="update students_info s set s.identity='共青团' where s.id="+id;
+        Connection  conn=null;
+        try {
+            conn = BaseDbControl.getConnection();
+            conn.setAutoCommit(false);
+            PreparedStatement  pstmt = conn.prepareStatement(sql);
+            pstmt.execute();
+            conn.commit();
+
+        } catch (Exception e) {
+            try {
+                conn.rollback();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+            e.printStackTrace();
+            return "更新失败";
+        }
+
+        return "更新成功";
+    }
     /*
      * 获取数据库的连接
      */

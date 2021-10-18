@@ -9,4 +9,6 @@ public interface IStudentService {
     void save(Student student);
 
     List<StudentsInfo> queryStudentList(String name);
+
+    void updateIdentity(String id);
 }

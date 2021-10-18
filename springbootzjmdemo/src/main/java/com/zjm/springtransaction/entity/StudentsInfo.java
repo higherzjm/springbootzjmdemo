@@ -38,6 +38,11 @@ public class StudentsInfo extends Model<StudentsInfo> {
 	 */
 	@TableField("age")
 	private Integer age;
+	/**
+	 * 身份:
+	 */
+	@TableField("identity")
+	private String identity ;
 
 	/**
 	 * 最后一次更新时间
