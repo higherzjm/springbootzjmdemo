@@ -8,6 +8,7 @@ import com.zjm.springtransaction.entity.StudentsInfo;
 import com.zjm.springtransaction.service.IStudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
@@ -39,7 +40,7 @@ public class StudentServiceImpl implements IStudentService {
         }
         return baseMapper.selectList(queryWrapper);
     }
-
+    @Transactional
     @Override
     public void updateIdentity(String id) {
         LambdaUpdateWrapper<StudentsInfo> wrapper=new LambdaUpdateWrapper<StudentsInfo>().eq(StudentsInfo::getId,id);
