@@ -43,7 +43,7 @@ public class StudentServiceImpl implements IStudentService {
     @Transactional
     @Override
     public void updateIdentity(String id) {
-        LambdaUpdateWrapper<StudentsInfo> wrapper=new LambdaUpdateWrapper<StudentsInfo>().eq(StudentsInfo::getId,id);
+        LambdaUpdateWrapper<StudentsInfo> wrapper=new LambdaUpdateWrapper<StudentsInfo>().set(StudentsInfo::getIdentity,"无党派人士").eq(StudentsInfo::getId,id);
         baseMapper.update(null,wrapper);
     }
 }
