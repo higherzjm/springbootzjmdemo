@@ -36,7 +36,7 @@ public class SpringTransactionController {
     }
     @PostMapping("/update/{id}/{value}")
     @ApiOperation(value = "更新学生身份")
-    public String updateIdentity(@ApiParam(name = "id", value = "主键",defaultValue = "1") @PathVariable("id") String id, @PathVariable("value") String value) {
+    public String updateIdentity(@ApiParam(name = "id", value = "主键",defaultValue = "1") @PathVariable("id") String id, @ApiParam(name = "value", value = "更新值")@PathVariable("value") String value) {
         return studentService.updateIdentity(id,value);
     }
     @PostMapping("/findSalaryPayrollOperateLogResult")
