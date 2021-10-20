@@ -10,5 +10,5 @@ public interface IStudentService {
 
     List<StudentsInfo> queryStudentList(String name);
 
-    void updateIdentity(String id);
+    String updateIdentity(String id,String value);
 }

@@ -42,8 +42,9 @@ public class StudentServiceImpl implements IStudentService {
     }
     @Transactional
     @Override
-    public void updateIdentity(String id) {
-        LambdaUpdateWrapper<StudentsInfo> wrapper=new LambdaUpdateWrapper<StudentsInfo>().eq(StudentsInfo::getId,id);
+    public String updateIdentity(String id,String value) {
+        LambdaUpdateWrapper<StudentsInfo> wrapper=new LambdaUpdateWrapper<StudentsInfo>().set(StudentsInfo::getIdentity,value).eq(StudentsInfo::getId,id);
         baseMapper.update(null,wrapper);
+        return "更新成功";
     }
 }
