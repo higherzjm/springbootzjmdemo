@@ -42,7 +42,13 @@ public class StudentServiceImpl implements IStudentService {
     }
     @Transactional
     @Override
-    public String updateIdentity(String id,String value) {
+    public String updateIdentityTransaction(String id,String value) {
+        LambdaUpdateWrapper<StudentsInfo> wrapper=new LambdaUpdateWrapper<StudentsInfo>().set(StudentsInfo::getIdentity,value).eq(StudentsInfo::getId,id);
+        baseMapper.update(null,wrapper);
+        return "更新成功";
+    }
+    @Override
+    public String updateIdentityUnTransaction(String id,String value) {
         LambdaUpdateWrapper<StudentsInfo> wrapper=new LambdaUpdateWrapper<StudentsInfo>().set(StudentsInfo::getIdentity,value).eq(StudentsInfo::getId,id);
         baseMapper.update(null,wrapper);
         return "更新成功";

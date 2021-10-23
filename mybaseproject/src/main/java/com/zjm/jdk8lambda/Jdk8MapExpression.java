@@ -23,7 +23,7 @@ public class Jdk8MapExpression {
         list.add("李四");
         map.putIfAbsent("list",list);
         list = map.computeIfAbsent("list", (value) -> new ArrayList<String>());
-        log.info("computeIfAbsent list:"+list);
+        log.info("computeIfAbsent list:"+list);//-->{ computeIfAbsent list:[张三, 李四] }
 
         list = map.computeIfAbsent("list2", (value) -> new ArrayList<String>());
         log.info("computeIfAbsent list2:"+list);
@@ -38,7 +38,7 @@ public class Jdk8MapExpression {
         log.info("name:"+name);
         myMap.putIfAbsent("name","张三");
          name=myMap.computeIfPresent("name", (key,value) ->key+"="+value+";");
-        log.info("name:"+name);
+        log.info("name:"+name);//-->{name:name=张三;}
     }
     /**
      * putIfAbsent 不存在指定的key值才会put，避免了多余if判断
