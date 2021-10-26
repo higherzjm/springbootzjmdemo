@@ -1,22 +1,24 @@
 package com.zjm.base.aop_methodInterceptor.interceptor2;
 
+import lombok.extern.slf4j.Slf4j;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 
 import java.lang.reflect.Method;
-
+@Slf4j
 public class TracingInterceptor implements MethodInterceptor {
     @Override
     public Object invoke(MethodInvocation invocation) throws Throwable {
+        log.info("根据指定路径和自定义注解拦截");
         Method method = invocation.getMethod();
         HfiTrace annotation = getAnnotation(method);
         if (annotation == null) {
             return null;
         }
-        System.out.println("method " + invocation.getMethod() + " is called on " + invocation.getThis() + " with args" +
+        log.info("method " + invocation.getMethod() + " is called on " + invocation.getThis() + " with args" +
                 " " + invocation.getArguments());
         Object proceed = invocation.proceed();
-        System.out.println("method " + invocation.getMethod() + " returns " + proceed);
+        log.info("method " + invocation.getMethod() + " returns " + proceed);
         return proceed;
     }
  

@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.zjm.base.VO.Student;
+import com.zjm.base.aop_methodInterceptor.interceptor2.HfiTrace;
 import com.zjm.springtransaction.entity.StudentsInfo;
 import com.zjm.springtransaction.service.IStudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,7 @@ public class StudentServiceImpl implements IStudentService {
     }
 
     @Override
+    @HfiTrace
     public List<StudentsInfo> queryStudentList(String name) {
         LambdaQueryWrapper<StudentsInfo> queryWrapper=new LambdaQueryWrapper<>();
         //todo update_time 查出来因为版本问题会报错
@@ -41,6 +43,7 @@ public class StudentServiceImpl implements IStudentService {
         return baseMapper.selectList(queryWrapper);
     }
     @Transactional
+    @HfiTrace  //自定义注解拦截
     @Override
     public String updateIdentityTransaction(String id,String value) {
         LambdaUpdateWrapper<StudentsInfo> wrapper=new LambdaUpdateWrapper<StudentsInfo>().set(StudentsInfo::getIdentity,value).eq(StudentsInfo::getId,id);
@@ -48,6 +51,7 @@ public class StudentServiceImpl implements IStudentService {
         return "更新成功";
     }
     @Override
+    @HfiTrace
     public String updateIdentityUnTransaction(String id,String value) {
         LambdaUpdateWrapper<StudentsInfo> wrapper=new LambdaUpdateWrapper<StudentsInfo>().set(StudentsInfo::getIdentity,value).eq(StudentsInfo::getId,id);
         baseMapper.update(null,wrapper);

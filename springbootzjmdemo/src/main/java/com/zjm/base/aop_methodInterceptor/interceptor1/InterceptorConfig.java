@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 //@Configuration
 public class InterceptorConfig {
  
-    public static final String traceExecution = "execution(* com.zjm.springtransaction.service.impl..*.*(..))";
+    public static final String traceExecution = "execution(* com.zjm.springtransaction.service.impl..*.updateIdentityUnTransaction(..))";
  
  
     @Bean
