@@ -34,10 +34,15 @@ public class SpringTransactionController {
     public List<StudentsInfo> queryStudentList(@ApiParam(name = "name", value = "姓名",defaultValue = "张") @PathVariable("name") String name) {
         return studentService.queryStudentList(name);
     }
-    @PostMapping("/update/{id}")
-    @ApiOperation(value = "更新学生身份")
-    public void updateIdentity(@ApiParam(name = "id", value = "主键",defaultValue = "1") @PathVariable("id") String id) {
-         studentService.updateIdentity(id);
+    @PostMapping("/updateIdentityUnTransaction/{id}/{value}")
+    @ApiOperation(value = "更新学生身份_不带事务")
+    public String updateIdentityUnTransaction(@ApiParam(name = "id", value = "主键",defaultValue = "1") @PathVariable("id") String id, @ApiParam(name = "value", value = "更新值")@PathVariable("value") String value) {
+        return studentService.updateIdentityUnTransaction(id,value);
+    }
+    @PostMapping("/updateIdentityTransaction/{id}/{value}")
+    @ApiOperation(value = "更新学生身份_带事务")
+    public String updateIdentityTransaction(@ApiParam(name = "id", value = "主键",defaultValue = "1") @PathVariable("id") String id, @ApiParam(name = "value", value = "更新值")@PathVariable("value") String value) {
+        return studentService.updateIdentityTransaction(id,value);
     }
     @PostMapping("/findSalaryPayrollOperateLogResult")
     @ApiOperation(value = "查询日志", notes = "查询日志")
