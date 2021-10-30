@@ -16,7 +16,7 @@ public class AutoProxy implements InvocationHandler {
 			throws Throwable {
 		Object result = null;
 
-		System.out.println("invoke before");
+		System.out.println("被代理前输出");
 
 		try {
 			result = method.invoke(realSetBooks, args);
@@ -28,8 +28,8 @@ public class AutoProxy implements InvocationHandler {
 			e.printStackTrace();
 		}
 
-		System.out.println("invoke after");
-		System.out.println("invoke value\"+(Double) result * 0.8+\"yuan");
+		System.out.println("被代理后输出");
+		System.out.println("");
 		return result;
 	}
 

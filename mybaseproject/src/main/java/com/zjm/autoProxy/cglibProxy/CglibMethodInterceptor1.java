@@ -32,6 +32,7 @@ public class CglibMethodInterceptor1 implements MethodInterceptor {
         // CGLIB反射调用真实对象方法
         Object result = methodProxy.invokeSuper(proxy, args);
         System.out.println("调用真实对象后");
+        System.out.println("");
         return result;
     }
 }

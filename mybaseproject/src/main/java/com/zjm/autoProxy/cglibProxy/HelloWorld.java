@@ -4,7 +4,7 @@ import com.zjm.VO.Student;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * 鐪熷疄瀵硅薄
+ * 真实对象
  * @author <u>sunlh</u>
  *
  */
@@ -15,7 +15,7 @@ public class HelloWorld {
      }
 
      public Student saveStudentInfo(Student student){
-         log.info("娣诲姞鐨勫鐢熶俊鎭负:"+student);
+         System.out.println("添加的学生信息为:"+student);
          return student;
      }
 }
