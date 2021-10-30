@@ -5,8 +5,12 @@ import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 
 import java.lang.reflect.Method;
+
+/**
+ * 拦截器类
+ */
 @Slf4j
-public class TracingInterceptor implements MethodInterceptor {
+public class MyTracingInterceptor implements MethodInterceptor {
     @Override
     public Object invoke(MethodInvocation invocation) throws Throwable {
         log.info("根据指定路径和自定义注解拦截");
