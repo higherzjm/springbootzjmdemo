@@ -19,9 +19,11 @@ public class FutureTask_a {
                 return "开水";
             }
         });
-        //1线程池提交
-        executor.submit(futureTask);
-        //2线程启动
+        //启动线程方式1
+        //executor.submit(futureTask);
+        //启动线程方式2
+        futureTask.run();
+        //启动线程方式3
         //Thread thread = new Thread(futureTask);
         //thread.start();
 
