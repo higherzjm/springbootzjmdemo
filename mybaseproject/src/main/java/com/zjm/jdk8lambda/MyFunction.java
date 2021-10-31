@@ -1,6 +1,8 @@
 package com.zjm.jdk8lambda;
 
 import com.zjm.VO.Student;
+import lombok.Builder;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import java.util.function.Function;
@@ -34,6 +36,29 @@ public class MyFunction {
         log.info("student:"+student);
     }
 
+    @Test
+    public void test2(){
+        Function<FutureTaskStudents,String> function=new Function<FutureTaskStudents,String>() {
+            @Override
+            public String apply(FutureTaskStudents o) {
+                return o.getNameAge();
+            }
+        };
+        String ret=getFunctionValue(function,FutureTaskStudents.builder().name("张三").age(100).build());
+        System.out.println("ret:"+ret);
+    }
+    private String getFunctionValue(Function<FutureTaskStudents, String> function, FutureTaskStudents students){
+        return function.apply(students);
+    }
+    @Data
+    @Builder
+    static class FutureTaskStudents {
+        private String name;
+        private Integer age;
+        public String getNameAge(){
+            return this.name+":"+age;
+        }
+    }
 
 }
 
