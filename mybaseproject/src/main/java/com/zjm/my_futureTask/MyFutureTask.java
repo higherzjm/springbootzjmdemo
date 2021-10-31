@@ -5,7 +5,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.FutureTask;
 
-public class FutureTask_a {
+public class MyFutureTask {
     public static void main(String[] args) throws Exception {
         //创建线程池
         ExecutorService executor = Executors.newCachedThreadPool();
