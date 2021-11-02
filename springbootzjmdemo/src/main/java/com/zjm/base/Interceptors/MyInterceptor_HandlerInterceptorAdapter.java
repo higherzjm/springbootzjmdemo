@@ -4,7 +4,7 @@ import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.zjm.base.RequestVO;
 import com.zjm.base.service.MyService;
 import com.zjm.base.StudentInfo;
-import com.zjm.base.util.JsonUtil;
+import com.zjm.util.JsonUtil;
 import com.zjm.base.wrapper.CustomHttpRequestWrapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +13,6 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.concurrent.*;
 
 /**

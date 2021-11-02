@@ -1,4 +1,4 @@
-package com.zjm.base.util;
+package com.zjm.util;
 
 import com.alibaba.fastjson.JSONObject;
 import com.zjm.base.StudentInfo;
@@ -13,7 +13,6 @@ import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESKeySpec;
 import java.security.Key;
 import java.util.Arrays;
-import java.util.List;
 
 /**
  * @author zhujianming

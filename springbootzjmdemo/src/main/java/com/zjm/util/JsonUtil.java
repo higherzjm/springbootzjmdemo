@@ -1,4 +1,4 @@
-package com.zjm.base.util;
+package com.zjm.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 

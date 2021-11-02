@@ -2,6 +2,7 @@ package com.zjm.rabbitmq;
 
 import com.alibaba.fastjson.JSONObject;
 import com.zjm.base.StudentInfo;
+import com.zjm.util.ConstantUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -25,13 +26,18 @@ import java.util.List;
 @RestController
 @Api(tags = "rabbitmq消息中间件使用")
 @Slf4j
-public class RabbitMqLeaderControllerStudent {
-    //@Autowired
+public class MqController {
+    @Autowired
     private RabbitTemplate rabbitTemplate;
     //@Autowired
     private AmqpTemplate amqpTemplate;
 
-
+    @GetMapping("/easyTest20211102")
+    @ApiOperation(value = "简单测试")
+    public void easyTest(){
+        System.out.println("向消息中间件发送消息");
+        rabbitTemplate.convertAndSend(ConstantUtil.rabbitMqQueueName, "向消息中间件发送消息");
+    }
     /**
      * 向指定交换机和路由下发送消息(教务处通知班主任新注册的学生)
      */
@@ -81,4 +87,5 @@ public class RabbitMqLeaderControllerStudent {
         log.info("发送回调的消息:" + RabbitMqConfirmSendListener.sendConfirmRetMsg);
         return "发送的消息: " + msg;
     }
+
 }

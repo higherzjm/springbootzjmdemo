@@ -1,4 +1,4 @@
-package com.zjm.base.util;
+package com.zjm.util;
 
 import com.alibaba.fastjson.JSONObject;
 import com.zjm.redis.base.Students;

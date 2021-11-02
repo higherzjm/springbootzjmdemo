@@ -1,6 +1,7 @@
 package com.zjm.rabbitmq;
 
 import com.alibaba.fastjson.JSONObject;
+import com.zjm.util.ConstantUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.connection.CorrelationData;
@@ -11,9 +12,12 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @Slf4j
-public class RabbitConfig {
+public class MqConfig {
 
-
+    @Bean
+    public Queue mqQueue_20211102() {
+        return new Queue(ConstantUtil.rabbitMqQueueName);
+    }
     /**
      *  创建队列
      **/
@@ -52,7 +56,7 @@ public class RabbitConfig {
         return BindingBuilder.bind(addNewStudentNoticeQueue).to(directExchange).with("addNewStudentNotice");
     }
 
-    public RabbitConfig() {
+    public MqConfig() {
 
     }
 }

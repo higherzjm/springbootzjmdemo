@@ -1,8 +1,7 @@
-package com.zjm.base.util;
+package com.zjm.util;
 
 import com.alibaba.fastjson.JSONObject;
 import com.zjm.base.VO.SalaryRecheckMergeRequestVO;
-import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.util.StringUtils;
