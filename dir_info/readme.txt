@@ -17,6 +17,7 @@ http://localhost:8081/druid/login.html  admin/123456
 #nacos:
 http://127.0.0.1:9002/nacos  nacos/nacos
 xxljob:http://localhost:8331/xxl-job-admin/toLogin  admin/123456
+rabbitmq:  http://127.0.0.1:15672/   guest/guest
 
 maven plugins
 
