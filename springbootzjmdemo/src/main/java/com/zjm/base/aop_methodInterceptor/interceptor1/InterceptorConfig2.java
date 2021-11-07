@@ -8,14 +8,14 @@ import org.springframework.context.annotation.Configuration;
  * spring aop 方法拦截器，根据指定路径全部拦截
  */
 @Configuration
-public class InterceptorConfig1 {
+public class InterceptorConfig2 {
  
     public static final String traceExecution = "execution(* com.zjm.springtransaction.service.impl..*.updateIdentityUnTransaction(..))";
  
  
     @Bean
-    public DefaultPointcutAdvisor defaultPointcutAdvisor1() {
-        MyTracingInterceptor1 interceptor = new MyTracingInterceptor1();
+    public DefaultPointcutAdvisor defaultPointcutAdvisor2() {
+        MyTracingInterceptor2 interceptor = new MyTracingInterceptor2();
         AspectJExpressionPointcut pointcut = new AspectJExpressionPointcut();
         pointcut.setExpression(traceExecution);
  
