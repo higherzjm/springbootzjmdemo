@@ -13,7 +13,7 @@ public class InterceptorConfig2 {
  
     @Bean
     public DefaultPointcutAdvisor defaultPointcutAdvisor2() {
-        MyTracingInterceptor interceptor = new MyTracingInterceptor();
+        MyTracingInterceptor2 interceptor = new MyTracingInterceptor2();
  
         JdkRegexpMethodPointcut pointcut = new JdkRegexpMethodPointcut();
         pointcut.setPatterns("com.zjm.springtransaction.service.impl.*");
