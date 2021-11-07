@@ -5,7 +5,7 @@ import org.springframework.aop.support.DefaultPointcutAdvisor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-@Configuration
+//@Configuration
 public class InterceptorConfig {
  
     public static final String traceExecution = "execution(* com.hfi.aop..*.*(..))";
