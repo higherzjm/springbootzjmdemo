@@ -10,7 +10,7 @@ import org.springframework.data.redis.listener.RedisMessageListenerContainer;
  * @author zhujianming
  */
 
-@Configuration
+//@Configuration
 public class RedisConfig {
     @Autowired
     RedisConnectionFactory redisConnectionFactory;

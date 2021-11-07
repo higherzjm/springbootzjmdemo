@@ -27,16 +27,17 @@ import java.util.List;
 @Api(tags = "rabbitmq消息中间件使用")
 @Slf4j
 public class MqController {
-    @Autowired
+    //@Autowired
     private RabbitTemplate rabbitTemplate;
     //@Autowired
     private AmqpTemplate amqpTemplate;
 
     @GetMapping("/easyTest20211102")
     @ApiOperation(value = "简单测试")
-    public void easyTest(){
+    public String  easyTest(){
         System.out.println("向消息中间件发送消息");
         rabbitTemplate.convertAndSend(ConstantUtil.rabbitMqQueueName, "向消息中间件发送消息");
+        return "发送成功";
     }
     /**
      * 向指定交换机和路由下发送消息(教务处通知班主任新注册的学生)

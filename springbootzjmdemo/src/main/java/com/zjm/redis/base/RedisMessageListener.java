@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 //消息监听器
 @Component
 public class RedisMessageListener implements MessageListener {
-	@Autowired
+	//@Autowired
 	public StringRedisTemplate redisTemplate;
 
 	@Override

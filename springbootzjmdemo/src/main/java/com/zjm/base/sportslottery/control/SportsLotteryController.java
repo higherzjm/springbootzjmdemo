@@ -32,7 +32,7 @@ import static java.util.stream.Collectors.toMap;
 @Slf4j
 @Api(tags = "体彩")
 public class SportsLotteryController {
-    @Autowired
+    //@Autowired
     public StringRedisTemplate redisTemplate;
 
 

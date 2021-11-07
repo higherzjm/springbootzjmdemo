@@ -1,6 +1,6 @@
 package com.zjm.xxljob;
 
-import com.xxl.job.core.handler.annotation.XxlJob;
+//import com.xxl.job.core.handler.annotation.XxlJob;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @Component
 public class SpringBootHandler{
 
-    @XxlJob("xxlJobSpringBootHandler")
+   // @XxlJob("xxlJobSpringBootHandler")
     public void springBootHandler() throws Exception {
         System.out.println("xxlJob任务执行->springBootHandler:"+ LocalDateTime.now());
 

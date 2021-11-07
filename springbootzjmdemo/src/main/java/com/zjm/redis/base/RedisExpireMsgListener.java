@@ -13,7 +13,7 @@ import java.nio.charset.StandardCharsets;
  * @date 2021/3/7 14:53
  * @return
  */
-@Component
+//@Component
 public class RedisExpireMsgListener extends KeyspaceEventMessageListener {
 
     /**

@@ -9,10 +9,10 @@ import org.springframework.context.annotation.Configuration;
  * spring aop 方法拦截器，根据自定义注解拦截
  */
 @Configuration
-public class InterceptorAnnotationConfig {
+public class InterceptorConfig2 {
  
     @Bean
-    public DefaultPointcutAdvisor defaultPointcutAdvisor3() {
+    public DefaultPointcutAdvisor defaultPointcutAdvisor2() {
         MyTracingInterceptor interceptor = new MyTracingInterceptor();
  
         JdkRegexpMethodPointcut pointcut = new JdkRegexpMethodPointcut();
