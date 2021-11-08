@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class InterceptorConfig3 {
  
-    @Bean
+   @Bean
     public DefaultPointcutAdvisor defaultPointcutAdvisor3() {
         MyTracingInterceptor3 interceptor = new MyTracingInterceptor3();
  

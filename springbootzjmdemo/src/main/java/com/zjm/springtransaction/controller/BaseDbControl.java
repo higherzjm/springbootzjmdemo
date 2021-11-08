@@ -15,14 +15,14 @@ import java.util.Map;
 @RequestMapping("/baseDbConnect")
 @RestController
 @Slf4j
-@Api(tags = "springäº‹åŠ¡")
+@Api(tags = "springÊÂÎñ-jdbcÊı¾İ¿âÁ¬½Ó")
 public class BaseDbControl {
     /*
-     * æ‰§è¡ŒsqlæŸ¥è¯¢è¯­å¥
+     * Ö´ĞĞsql²éÑ¯Óï¾ä
      */
     @PostMapping("/queryStudents/{name}")
-    @ApiOperation(value = "åŸºç¡€æ•°æ®åº“è¿æ¥->æŸ¥è¯¢å­¦ç”Ÿåˆ—è¡¨", notes = "query student list")
-    public Map<String, Object> executeQuery(@ApiParam(name = "name", value = "å§“å",defaultValue = "å¼ ä¸‰") @PathVariable("name") String name) {
+    @ApiOperation(value = "»ù´¡Êı¾İ¿âÁ¬½Ó->²éÑ¯Ñ§ÉúÁĞ±í", notes = "query student list")
+    public Map<String, Object> executeQuery(@ApiParam(name = "name", value = "ĞÕÃû",defaultValue = "ÕÅÈı") @PathVariable("name") String name) {
         String sql="select name,age from students_info where name=?";
         Map<String, Object> mapMetaData = new HashMap<>();
         try {
@@ -33,11 +33,11 @@ public class BaseDbControl {
             pstmt.setString(1,name);
 
             ResultSet  rs = pstmt.executeQuery();
-            // è·å–å…ƒæ•°æ®
+            // »ñÈ¡ÔªÊı¾İ
             ResultSetMetaData rsmd = rs.getMetaData();
 
             while (rs.next()) {
-                //è·å–æ•°æ®è¡¨ä¸­æ»¡è¶³è¦æ±‚çš„ä¸€è¡Œæ•°æ®ï¼Œå¹¶æ”¾å…¥Mapä¸­
+                //»ñÈ¡Êı¾İ±íÖĞÂú×ãÒªÇóµÄÒ»ĞĞÊı¾İ£¬²¢·ÅÈëMapÖĞ
                 for (int i = 0; i < rsmd.getColumnCount(); i++) {
                     String columnLabel = rsmd.getColumnLabel(i + 1);
                     Object columnValue = rs.getObject(columnLabel);
@@ -54,12 +54,12 @@ public class BaseDbControl {
     }
 
     /*
-     * æ‰§è¡ŒsqlæŸ¥è¯¢è¯­å¥
+     * Ö´ĞĞsql²éÑ¯Óï¾ä
      */
     @PostMapping("/updateIdentity/{id}")
-    @ApiOperation(value = "åŸºç¡€æ•°æ®åº“è¿æ¥->äº‹åŠ¡æ›´æ–°æ“ä½œ")
-    public String updateIdentity(@ApiParam(name = "id", value = "ä¸»é”®",defaultValue = "1") @PathVariable("id") String id) {
-        String sql="update students_info s set s.identity='å…±é’å›¢' where s.id="+id;
+    @ApiOperation(value = "»ù´¡Êı¾İ¿âÁ¬½Ó->ÊÂÎñ¸üĞÂ²Ù×÷")
+    public String updateIdentity(@ApiParam(name = "id", value = "Ö÷¼ü",defaultValue = "1") @PathVariable("id") String id) {
+        String sql="update students_info s set s.identity='¹²ÇàÍÅ' where s.id="+id;
         Connection  conn=null;
         try {
             conn = BaseDbControl.getConnection();
@@ -75,13 +75,13 @@ public class BaseDbControl {
                 e1.printStackTrace();
             }
             e.printStackTrace();
-            return "æ›´æ–°å¤±è´¥";
+            return "¸üĞÂÊ§°Ü";
         }
 
-        return "æ›´æ–°æˆåŠŸ";
+        return "¸üĞÂ³É¹¦";
     }
     /*
-     * è·å–æ•°æ®åº“çš„è¿æ¥
+     * »ñÈ¡Êı¾İ¿âµÄÁ¬½Ó
      */
     public static Connection getConnection() throws Exception {
         String driver ="com.mysql.cj.jdbc.Driver";

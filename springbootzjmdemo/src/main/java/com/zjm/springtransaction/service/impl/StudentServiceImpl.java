@@ -52,17 +52,17 @@ public class StudentServiceImpl implements IStudentService {
     }
 
     @Transactional(propagation=Propagation.REQUIRES_NEW,isolation= Isolation.READ_UNCOMMITTED)
-    @HfiTrace  //自定义注解拦截
+    @HfiTrace  //自定义注解拦�?
     @Override
     public String updateIdentityTransaction(String id, String value) {
         LambdaUpdateWrapper<StudentsInfo> wrapper = new LambdaUpdateWrapper<StudentsInfo>().set(StudentsInfo::getIdentity, value).eq(StudentsInfo::getId, id);
         baseMapper.update(null, wrapper);
-        //update2(wrapper,value);//update2 事务不生效，因为事务拦截器使用代理类进行调用，且与方法和类名称同时匹配
-        //((IStudentService) AopContext.currentProxy()).update2(wrapper,value);//使用注入自己或手动产生代理类事务会生效
+        //update2(wrapper,value);//update2 事务不生效，因为事务拦截器使用代理类进行调用，且与方法和类名称同时匹�?
+        //((IStudentService) AopContext.currentProxy()).update2(wrapper,value);//使用注入自己或手动产生代理类事务会生�?
 
-        //new Thread(()-> update2(wrapper,value)).start();//开启新事物
+        //new Thread(()-> update2(wrapper,value)).start();//�?启新事物
         MyThread myThread=new MyThread(wrapper,value);
-        new Thread(myThread).start();//开启新事物
+        new Thread(myThread).start();//�?启新事物
         return "更新成功";
     }
 
@@ -70,7 +70,7 @@ public class StudentServiceImpl implements IStudentService {
     @Transactional
     public void update2( LambdaUpdateWrapper<StudentsInfo> wrapper,String value) {
        log.info("do  anything");
-        wrapper.set(StudentsInfo::getIdentity, value+"->再更新2");
+        wrapper.set(StudentsInfo::getIdentity, value+"->再更�?2");
         baseMapper.update(null, wrapper);
     }
 
