@@ -8,17 +8,35 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.config.AuthSchemes;
+import org.apache.http.client.config.CookieSpecs;
+import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.config.Registry;
+import org.apache.http.config.RegistryBuilder;
+import org.apache.http.conn.socket.ConnectionSocketFactory;
+import org.apache.http.conn.socket.PlainConnectionSocketFactory;
+import org.apache.http.conn.ssl.NoopHostnameVerifier;
+import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.util.EntityUtils;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
+import java.security.cert.X509Certificate;
 import java.util.*;
 
 @Component
@@ -35,7 +53,7 @@ public class DingTalkExceptionWarnImpl implements ExceptionWarn {
             String stringToSign = timestamp + "\n" +secret;
             Mac mac = Mac.getInstance("HmacSHA256");
             mac.init(new SecretKeySpec(secret.getBytes("UTF-8"), "HmacSHA256"));
-            byte[] signData = mac.doFinal(secret.getBytes("UTF-8"));
+            byte[] signData = mac.doFinal(stringToSign.getBytes("UTF-8"));
             String signature = new String(Base64.encodeBase64(signData));
 
             Map<String, String> headers = Maps.newHashMap();
@@ -46,7 +64,7 @@ public class DingTalkExceptionWarnImpl implements ExceptionWarn {
             querys.put("timestamp", timestamp + "");
             querys.put("sign", signature);
             HttpResponse response = doPost(
-                    "https://oapi.dingtalk.com", "/robot/send", headers, querys, dingtalkFormat(content));
+                    "https://oapi.dingtalk.com", "/robot/send", headers, querys, dingTalkFormat(content));
 
             WarnResult res = getResult(response, WarnResult.class);
 
@@ -64,7 +82,7 @@ public class DingTalkExceptionWarnImpl implements ExceptionWarn {
      * @param content
      * @return
      */
-    public String dingtalkFormat(WarnContent content) {
+    public String dingTalkFormat(WarnContent content) {
         String title = content.getTitle();
         String profile = "dev"+ ":" + "1.0";
         content.setTitle("[" + profile + "][zjmProject]" + title);
@@ -129,11 +147,11 @@ public class DingTalkExceptionWarnImpl implements ExceptionWarn {
      */
     private static HttpClient wrapClient(String host,String path) {
         HttpClient httpClient = HttpClientBuilder.create().build();
-       /* if (host != null && host.startsWith("https://")) {
+        if (host != null && host.startsWith("https://")) {
             return sslClient();
         }else if (StringUtils.isBlank(host) && path != null && path.startsWith("https://")) {
             return sslClient();
-        }*/
+        }
         return httpClient;
     }
     private static String buildUrl(String host, String path, Map<String, String> querys) throws UnsupportedEncodingException {
@@ -167,5 +185,35 @@ public class DingTalkExceptionWarnImpl implements ExceptionWarn {
         }
         return sbUrl.toString();
     }
-
+    private static HttpClient sslClient() {
+        try {
+            // 在调用SSL之前需要重写验证方法，取消检测SSL
+            X509TrustManager trustManager = new X509TrustManager() {
+                @Override public X509Certificate[] getAcceptedIssuers() {
+                    return null;
+                }
+                @Override public void checkClientTrusted(X509Certificate[] xcs, String str) {}
+                @Override public void checkServerTrusted(X509Certificate[] xcs, String str) {}
+            };
+            SSLContext ctx = SSLContext.getInstance(SSLConnectionSocketFactory.TLS);
+            ctx.init(null, new TrustManager[] { trustManager }, null);
+            SSLConnectionSocketFactory socketFactory = new SSLConnectionSocketFactory(ctx, NoopHostnameVerifier.INSTANCE);
+            // 创建Registry
+            RequestConfig requestConfig = RequestConfig.custom().setCookieSpec(CookieSpecs.STANDARD_STRICT)
+                    .setExpectContinueEnabled(Boolean.TRUE).setTargetPreferredAuthSchemes(Arrays.asList(AuthSchemes.NTLM,AuthSchemes.DIGEST))
+                    .setProxyPreferredAuthSchemes(Arrays.asList(AuthSchemes.BASIC)).build();
+            Registry<ConnectionSocketFactory> socketFactoryRegistry = RegistryBuilder.<ConnectionSocketFactory>create()
+                    .register("http", PlainConnectionSocketFactory.INSTANCE)
+                    .register("https",socketFactory).build();
+            // 创建ConnectionManager，添加Connection配置信息
+            PoolingHttpClientConnectionManager connectionManager = new PoolingHttpClientConnectionManager(socketFactoryRegistry);
+            CloseableHttpClient closeableHttpClient = HttpClients.custom().setConnectionManager(connectionManager)
+                    .setDefaultRequestConfig(requestConfig).build();
+            return closeableHttpClient;
+        } catch (KeyManagementException ex) {
+            throw new RuntimeException(ex);
+        } catch (NoSuchAlgorithmException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
 }
