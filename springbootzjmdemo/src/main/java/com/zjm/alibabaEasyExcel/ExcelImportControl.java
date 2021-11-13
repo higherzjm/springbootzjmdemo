@@ -10,22 +10,20 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.List;
 
 
 @RequestMapping("/aliBaBaEasyExcel")
 @RestController
 @Slf4j
-@Api(tags = "EasyExcel文件上传")
+@Api(tags = "EasyExcel鏂囦欢涓婁紶")
 public class ExcelImportControl {
 
-    //文件上传
+    //鏂囦欢涓婁紶
     @PostMapping("/excelImport/{actionNum}")
-    @ApiOperation(value = "文件上传", notes = "文件上传")
-    public String excelExport(@ApiParam(name = "actionNum", value = "操作编号") @PathVariable("actionNum") String actionNum,
-                            @ApiParam(name = "file", value = "导入excel文件", required = true) @RequestParam(value = "file") MultipartFile file) {
+    @ApiOperation(value = "鏂囦欢涓婁紶", notes = "鏂囦欢涓婁紶")
+    public String excelExport(@ApiParam(name = "actionNum", value = "鎿嶄綔缂栧彿") @PathVariable("actionNum") String actionNum,
+                              @ApiParam(name = "file", value = "瀵煎叆excel鏂囦欢", required = true) @RequestParam(value = "file") MultipartFile file) {
         List<ExcelImportDTO> excelImportDTOList=getExcelData(file);
         log.info("actionNum:"+actionNum+";excelImportDTOList:"+ excelImportDTOList);
         return actionNum+":"+excelImportDTOList.toString();

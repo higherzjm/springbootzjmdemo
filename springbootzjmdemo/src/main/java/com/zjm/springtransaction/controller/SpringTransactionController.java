@@ -23,45 +23,45 @@ import java.util.List;
 @RequestMapping("/springTransaction")
 @RestController
 @Slf4j
-@Api(tags = "springÊÂÎñ")
+@Api(tags = "springäº‹åŠ¡")
 public class SpringTransactionController {
     @Autowired
     private ISpringTransactionService springTransactionService;
     @Autowired
     private IStudentService studentService;
     @PostMapping("/queryStudents/{name}")
-    @ApiOperation(value = "²éÑ¯Ñ§ÉúÁĞ±í", notes = "query student list")
-    public List<StudentsInfo> queryStudentList(@ApiParam(name = "name", value = "ĞÕÃû",defaultValue = "ÕÅ") @PathVariable("name") String name) {
+    @ApiOperation(value = "æŸ¥è¯¢å­¦ç”Ÿåˆ—è¡¨", notes = "query student list")
+    public List<StudentsInfo> queryStudentList(@ApiParam(name = "name", value = "å§“å",defaultValue = "å¼ ") @PathVariable("name") String name) {
         return studentService.queryStudentList(name);
     }
     @PostMapping("/updateIdentityUnTransaction/{id}/{value}")
-    @ApiOperation(value = "¸üĞÂÑ§ÉúÉí·İ_²»´øÊÂÎñ")
-    public String updateIdentityUnTransaction(@ApiParam(name = "id", value = "Ö÷¼ü",defaultValue = "1") @PathVariable("id") String id, @ApiParam(name = "value", value = "¸üĞÂÖµ")@PathVariable("value") String value) {
+    @ApiOperation(value = "æ›´æ–°å­¦ç”Ÿèº«ä»½_ä¸å¸¦äº‹åŠ¡")
+    public String updateIdentityUnTransaction(@ApiParam(name = "id", value = "ä¸»é”®",defaultValue = "1") @PathVariable("id") String id, @ApiParam(name = "value", value = "æ›´æ–°å€¼")@PathVariable("value") String value) {
         return studentService.updateIdentityUnTransaction(id,value);
     }
     @PostMapping("/updateIdentityTransaction/{id}/{value}")
-    @ApiOperation(value = "¸üĞÂÑ§ÉúÉí·İ_´øÊÂÎñ")
-    public String updateIdentityTransaction(@ApiParam(name = "id", value = "Ö÷¼ü",defaultValue = "1") @PathVariable("id") String id, @ApiParam(name = "value", value = "¸üĞÂÖµ")@PathVariable("value") String value) {
+    @ApiOperation(value = "æ›´æ–°å­¦ç”Ÿèº«ä»½_å¸¦äº‹åŠ¡")
+    public String updateIdentityTransaction(@ApiParam(name = "id", value = "ä¸»é”®",defaultValue = "1") @PathVariable("id") String id, @ApiParam(name = "value", value = "æ›´æ–°å€¼")@PathVariable("value") String value) {
         return studentService.updateIdentityTransaction(id,value);
     }
     @PostMapping("/findSalaryPayrollOperateLogResult")
-    @ApiOperation(value = "²éÑ¯ÈÕÖ¾", notes = "²éÑ¯ÈÕÖ¾")
+    @ApiOperation(value = "æŸ¥è¯¢æ—¥å¿—", notes = "æŸ¥è¯¢æ—¥å¿—")
     public List<LogInfoResultVO> findSalaryPayrollOperateLogResult(@RequestBody @Validated LogInfoDTO logInfoDTO) {
         return springTransactionService.findSalaryPayrollOperateLogResult(logInfoDTO);
     }
 
     @PostMapping("/saveSalaryPayrollOperateLogResult")
-    @ApiOperation(value = "±£´æÈÕÖ¾", notes = "±£´æÈÕÖ¾")
+    @ApiOperation(value = "ä¿å­˜æ—¥å¿—", notes = "ä¿å­˜æ—¥å¿—")
     public String saveSalaryPayrollOperateLogResult(@RequestBody @Validated LogInfoDTO logInfoDTO) {
         LogInfo logInfo = new LogInfo();
         BeanUtil.copyProperties(logInfoDTO, logInfo);
         springTransactionService.saveSalaryPayrollOperateLogResult(logInfo, logInfoDTO.getActionNum());
-        return "±£´æ³É¹¦";
+        return "ä¿å­˜æˆåŠŸ";
     }
 
     @GetMapping("/queryDynamicTableInfo/{id}")
-    @ApiOperation(value = "mybatis¶¯Ì¬²éÑ¯", notes = "mybatis¶¯Ì¬²éÑ¯")
-    public LogInfo queryDynamicTableInfo(@ApiParam(name = "id", value = "Ö÷¼üid") @PathVariable("id") String id) {
+    @ApiOperation(value = "mybatisåŠ¨æ€æŸ¥è¯¢", notes = "mybatisåŠ¨æ€æŸ¥è¯¢")
+    public LogInfo queryDynamicTableInfo(@ApiParam(name = "id", value = "ä¸»é”®id") @PathVariable("id") String id) {
         return springTransactionService.queryDynamicTableInfo(id, LogInfo.class);
     }
 }

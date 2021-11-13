@@ -16,12 +16,8 @@ public class GlobalException {
     @Autowired
     private ExceptionWarn exceptionWarn;
 
-
     /**
      * 运行时异常全局捕获
-     *
-     * @param e 抛出的异常
-     * @return 封装结果类
      */
     @ExceptionHandler(RuntimeException.class)
     @ResponseBody
@@ -31,18 +27,20 @@ public class GlobalException {
     }
 
     /**
-     * 告警
-     *
-     * @param e
+     * 钉钉机器人同步
      */
     private void doWarn(Exception e) {
         try {
+            //调用钉钉机器人传递异常信息
             exceptionWarn.execute(WarnContent.builder().title(e.getMessage()).text(getStackTraceAsString(e)).build());
         } catch (Exception ex) {
             log.error(ex.getMessage(), ex);
         }
     }
-    public static String getStackTraceAsString(Throwable ex) {
+    /**
+     * 转换栈追踪信息
+     */
+    private static String getStackTraceAsString(Throwable ex) {
         StringWriter stringWriter = new StringWriter();
         ex.printStackTrace(new PrintWriter(stringWriter));
         return stringWriter.toString();

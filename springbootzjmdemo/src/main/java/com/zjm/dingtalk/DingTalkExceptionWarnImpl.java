@@ -34,26 +34,30 @@ import javax.net.ssl.X509TrustManager;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.security.KeyManagementException;
-import java.security.NoSuchAlgorithmException;
 import java.security.cert.X509Certificate;
 import java.util.*;
 
 @Component
 @Slf4j
 public class DingTalkExceptionWarnImpl implements ExceptionWarn {
-
-
+    /**
+     * 执行同步钉钉任务
+     * @param content
+     */
     @Override
     public void execute(WarnContent content) {
+        //数据安全加密秘钥
         String secret="SECad6f95819fcfd1620cb267d9850d0336b9e8e046234f5c3e7ef48c4b4dae7543";
+        //请求通行认证
         String accessToken="8a9fcc774fe636f73c486c0d400b96a74d546d3d32f0f62abfef666b43609ec2";
         try {
-            Long timestamp = System.currentTimeMillis();
+            long timestamp = System.currentTimeMillis();
             String stringToSign = timestamp + "\n" +secret;
             Mac mac = Mac.getInstance("HmacSHA256");
-            mac.init(new SecretKeySpec(secret.getBytes("UTF-8"), "HmacSHA256"));
-            byte[] signData = mac.doFinal(stringToSign.getBytes("UTF-8"));
+            String charsetName = "UTF-8";
+            mac.init(new SecretKeySpec(secret.getBytes(charsetName), "HmacSHA256"));
+            byte[] signData = mac.doFinal(stringToSign.getBytes(charsetName));
+            //签名
             String signature = new String(Base64.encodeBase64(signData));
 
             Map<String, String> headers = Maps.newHashMap();
@@ -78,14 +82,10 @@ public class DingTalkExceptionWarnImpl implements ExceptionWarn {
 
     /**
      * 转换钉钉格式
-     *
-     * @param content
-     * @return
      */
-    public String dingTalkFormat(WarnContent content) {
+    private String dingTalkFormat(WarnContent content) {
         String title = content.getTitle();
-        String profile = "dev"+ ":" + "1.0";
-        content.setTitle("[" + profile + "][zjmProject]" + title);
+        content.setTitle("[dev 1.0][zjmProject]" + title);
 
         Map<String, String> text = Maps.newHashMap();
         text.put("content", content.getTitle() + "\n" + content.getText());
@@ -98,7 +98,11 @@ public class DingTalkExceptionWarnImpl implements ExceptionWarn {
         data.put("at", at);
         return JSON.toJSONString(data);
     }
-    public static HttpResponse doPost(String host, String path,
+
+    /**
+     * 发送post请求
+     */
+    private static HttpResponse doPost(String host, String path,
                                       Map<String, String> headers,
                                       Map<String, String> querys,
                                       String body)
@@ -117,23 +121,15 @@ public class DingTalkExceptionWarnImpl implements ExceptionWarn {
     }
     /**
      * 获取结果
-     * @param httpResponse
-     * @param cls
-     * @param <T>
-     * @return
-     * @throws IOException
      */
-    public static <T> T getResult(HttpResponse httpResponse, Class<T> cls) throws IOException {
+    private static <T> T getResult(HttpResponse httpResponse, Class<T> cls) throws IOException {
         return JSON.parseObject(getString(httpResponse), cls);
     }
 
     /**
      * 将结果转换成string
-     * @param httpResponse
-     * @return
-     * @throws IOException
      */
-    public static String getString(HttpResponse httpResponse) throws IOException {
+    private static String getString(HttpResponse httpResponse) throws IOException {
         HttpEntity entity = httpResponse.getEntity();
         String resp = EntityUtils.toString(entity, "UTF-8");
         EntityUtils.consume(entity);
@@ -141,9 +137,6 @@ public class DingTalkExceptionWarnImpl implements ExceptionWarn {
     }
     /**
      * 获取 HttpClient
-     * @param host
-     * @param path
-     * @return
      */
     private static HttpClient wrapClient(String host,String path) {
         HttpClient httpClient = HttpClientBuilder.create().build();
@@ -154,6 +147,9 @@ public class DingTalkExceptionWarnImpl implements ExceptionWarn {
         }
         return httpClient;
     }
+    /**
+     * 创建URL
+     */
     private static String buildUrl(String host, String path, Map<String, String> querys) throws UnsupportedEncodingException {
         StringBuilder sbUrl = new StringBuilder();
         if (!StringUtils.isBlank(host)) {
@@ -185,6 +181,11 @@ public class DingTalkExceptionWarnImpl implements ExceptionWarn {
         }
         return sbUrl.toString();
     }
+    /**
+     * 在调用SSL之前需要重写验证方法，取消检测SSL
+     * 创建ConnectionManager，添加Connection配置信息
+     * @return HttpClient 支持https
+     */
     private static HttpClient sslClient() {
         try {
             // 在调用SSL之前需要重写验证方法，取消检测SSL
@@ -201,7 +202,7 @@ public class DingTalkExceptionWarnImpl implements ExceptionWarn {
             // 创建Registry
             RequestConfig requestConfig = RequestConfig.custom().setCookieSpec(CookieSpecs.STANDARD_STRICT)
                     .setExpectContinueEnabled(Boolean.TRUE).setTargetPreferredAuthSchemes(Arrays.asList(AuthSchemes.NTLM,AuthSchemes.DIGEST))
-                    .setProxyPreferredAuthSchemes(Arrays.asList(AuthSchemes.BASIC)).build();
+                    .setProxyPreferredAuthSchemes(Collections.singletonList(AuthSchemes.BASIC)).build();
             Registry<ConnectionSocketFactory> socketFactoryRegistry = RegistryBuilder.<ConnectionSocketFactory>create()
                     .register("http", PlainConnectionSocketFactory.INSTANCE)
                     .register("https",socketFactory).build();
@@ -210,9 +211,7 @@ public class DingTalkExceptionWarnImpl implements ExceptionWarn {
             CloseableHttpClient closeableHttpClient = HttpClients.custom().setConnectionManager(connectionManager)
                     .setDefaultRequestConfig(requestConfig).build();
             return closeableHttpClient;
-        } catch (KeyManagementException ex) {
-            throw new RuntimeException(ex);
-        } catch (NoSuchAlgorithmException ex) {
+        } catch (Exception ex) {
             throw new RuntimeException(ex);
         }
     }

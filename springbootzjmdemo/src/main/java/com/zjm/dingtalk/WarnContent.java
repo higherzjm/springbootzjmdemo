@@ -7,8 +7,10 @@ import java.io.Serializable;
 
 @Data
 @Builder
+/**
+ * 异常内容
+ */
 public class WarnContent implements Serializable {
-
     /**
      * 标题
      */
@@ -18,6 +20,5 @@ public class WarnContent implements Serializable {
      * 内容
      */
     private String text;
-
 
 }

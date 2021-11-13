@@ -3,9 +3,7 @@ package com.zjm.dingtalk;
 import java.io.Serializable;
 
 /**
- * @Author: linxiongwei
- * @Date: 2021-03-29
- * @Description:
+ * 提醒结果
  */
 public class WarnResult implements Serializable {
 
