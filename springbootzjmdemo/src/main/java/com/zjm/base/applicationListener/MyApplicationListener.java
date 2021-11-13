@@ -7,10 +7,10 @@ import org.springframework.context.ApplicationListener;
 public class MyApplicationListener implements ApplicationListener {
     @Override
     public void onApplicationEvent(ApplicationEvent applicationEvent) {
-        log.info("ÎÒµÄÓ¦ÓÃ¼àÌıÆ÷±»µ÷ÓÃ");
+        log.info("æˆ‘çš„åº”ç”¨ç›‘å¬å™¨è¢«è°ƒç”¨");
     }
 
     public MyApplicationListener() {
-        log.info("ÎÒµÄÓ¦ÓÃ¼àÌıÆ÷±»ÊµÀı»¯");
+        log.info("æˆ‘çš„åº”ç”¨ç›‘å¬å™¨è¢«å®ä¾‹åŒ–");
     }
 }
