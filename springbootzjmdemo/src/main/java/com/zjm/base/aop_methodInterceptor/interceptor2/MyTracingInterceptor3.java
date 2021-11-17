@@ -17,7 +17,7 @@ public class MyTracingInterceptor3 implements MethodInterceptor {
         Method method = invocation.getMethod();
         HfiTrace annotation = getAnnotation(method);
         if (annotation == null) {
-            return null;
+            return invocation.proceed();
         }
         log.info("method " + invocation.getMethod() + " is called on " + invocation.getThis() + " with args" +
                 " " + invocation.getArguments());

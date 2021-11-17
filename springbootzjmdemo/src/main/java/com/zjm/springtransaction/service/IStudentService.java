@@ -2,6 +2,7 @@ package com.zjm.springtransaction.service;
 
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.zjm.base.VO.Student;
+import com.zjm.springtransaction.VO.StudentsInfoVO;
 import com.zjm.springtransaction.entity.StudentsInfo;
 
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.List;
 public interface IStudentService {
     void save(Student student);
 
-    List<StudentsInfo> queryStudentList(String name);
+    List<StudentsInfoVO> queryStudentList(String name);
 
     String updateIdentityTransaction(String id,String value);
 

@@ -3,6 +3,7 @@ package com.zjm.springtransaction.controller;
 import cn.hutool.core.bean.BeanUtil;
 import com.zjm.springtransaction.DTO.LogInfoDTO;
 import com.zjm.springtransaction.VO.LogInfoResultVO;
+import com.zjm.springtransaction.VO.StudentsInfoVO;
 import com.zjm.springtransaction.entity.LogInfo;
 import com.zjm.springtransaction.entity.StudentsInfo;
 import com.zjm.springtransaction.service.ISpringTransactionService;
@@ -31,7 +32,7 @@ public class SpringTransactionController {
     private IStudentService studentService;
     @PostMapping("/queryStudents/{name}")
     @ApiOperation(value = "查询学生列表", notes = "query student list")
-    public List<StudentsInfo> queryStudentList(@ApiParam(name = "name", value = "姓名",defaultValue = "张") @PathVariable("name") String name) {
+    public List<StudentsInfoVO> queryStudentList(@ApiParam(name = "name", value = "姓名",defaultValue = "张") @PathVariable("name") String name) {
         return studentService.queryStudentList(name);
     }
     @PostMapping("/updateIdentityUnTransaction/{id}/{value}")

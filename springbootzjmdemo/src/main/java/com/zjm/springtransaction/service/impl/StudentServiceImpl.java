@@ -1,10 +1,12 @@
 package com.zjm.springtransaction.service.impl;
 
+import cn.hutool.extra.spring.SpringUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.zjm.base.VO.Student;
 import com.zjm.base.aop_methodInterceptor.interceptor2.HfiTrace;
+import com.zjm.springtransaction.VO.StudentsInfoVO;
 import com.zjm.springtransaction.entity.StudentsInfo;
 import com.zjm.springtransaction.service.IStudentService;
 import lombok.AllArgsConstructor;
@@ -13,6 +15,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.aop.framework.AopContext;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.TransactionManager;
@@ -24,6 +27,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.config.TransactionManagementConfigUtils;
 import org.springframework.util.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -39,16 +43,22 @@ public class StudentServiceImpl implements IStudentService {
     }
 
     @Override
-    @HfiTrace
-    public List<StudentsInfo> queryStudentList(String name) {
+    public List<StudentsInfoVO> queryStudentList(String name) {
         LambdaQueryWrapper<StudentsInfo> queryWrapper = new LambdaQueryWrapper<>();
-        //todo update_time 查出来因为版本问题会报错
         queryWrapper.select(StudentsInfo::getId, StudentsInfo::getName,
-                StudentsInfo::getAge, StudentsInfo::getIdentity, StudentsInfo::getUpdateUser).orderByDesc(StudentsInfo::getAge);
+                StudentsInfo::getAge, StudentsInfo::getIdentity,StudentsInfo::getCreateUser,StudentsInfo::getIdentity,
+                StudentsInfo::getUpdateUser, StudentsInfo::getUpdateTime).orderByDesc(StudentsInfo::getAge);
         if (!StringUtils.isEmpty(name)) {
             queryWrapper.like(StudentsInfo::getName, name);
         }
-        return baseMapper.selectList(queryWrapper);
+        List<StudentsInfo> infoList=baseMapper.selectList(queryWrapper);
+        List<StudentsInfoVO> infoVOList=new ArrayList<>();
+        for (StudentsInfo studentsInfo:infoList){
+            StudentsInfoVO infoVO=new StudentsInfoVO();
+            BeanUtils.copyProperties(studentsInfo,infoVO);
+            infoVOList.add(infoVO);
+        }
+        return infoVOList;
     }
 
     @Transactional(propagation=Propagation.REQUIRES_NEW,isolation= Isolation.READ_UNCOMMITTED)
