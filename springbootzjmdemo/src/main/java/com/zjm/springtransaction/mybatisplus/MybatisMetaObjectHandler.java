@@ -10,8 +10,6 @@ import java.util.Date;
 
 /**
  *  公共字段自动填充
- * @author yaohui.wang
- * @since 2020/08/21 14:53
  */
 @Primary
 @Component
