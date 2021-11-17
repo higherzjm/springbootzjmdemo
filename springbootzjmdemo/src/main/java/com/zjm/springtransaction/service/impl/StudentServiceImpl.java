@@ -60,6 +60,11 @@ public class StudentServiceImpl implements IStudentService {
         //update2(wrapper,value);//复用本次事务代理，新方法不管事务怎么设置，都复用本方法的事务隔离级别和传播机制
         //((IStudentService) AopContext.currentProxy()).update2(wrapper,value);//启用新的事务代理，新方法如未设置新事务就沿用本方法的事务隔离级别和传播机制，新事务就启用新的隔离级别
         MyThread myThread=new MyThread(wrapper,value);
+        StudentsInfo studentsInfo=baseMapper.selectById(id);
+        if (studentsInfo!=null){
+            studentsInfo.setIdentity(value);
+            baseMapper.updateById(studentsInfo);
+        }
         new Thread(myThread).start();//启用新的事务代理
         return "更新成功";
     }

@@ -6,11 +6,14 @@
         <id column="id" property="id" />
         <result column="name" property="name" />
         <result column="age" property="age" />
-        <result column="update_time" property="updateTime" />
-        <result column="update_user" property="updateUser" />
+        <result column="create_time" property="createTime"/>
+        <result column="create_user" property="createUser"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="update_user" property="updateUser"/>
+
     </resultMap>
     <!-- 通用查询结果列 -->
-    <sql id="Base_Column_List">  <!-- todo: update_time 查出来因为版本问题会报错 -->
-   id,name,age,update_time,update_user
+    <sql id="Base_Column_List">
+   id,name,age,create_time,create_user,update_time,update_user
     </sql>
 </mapper>
