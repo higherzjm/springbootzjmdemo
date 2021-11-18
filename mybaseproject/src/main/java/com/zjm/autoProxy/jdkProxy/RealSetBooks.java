@@ -1,16 +1,16 @@
 package com.zjm.autoProxy.jdkProxy;
 
 /*
- * RealSubject£¨ÕæÊµÖ÷Ìâ½ÇÉ«£©£º
- ????   ¶¨ÒåÁË´úÀí½ÇÉ«Ëù´ú±íµÄÕæÊµ¶ÔÏó
+ * RealSubjectï¼ˆçœŸå®ä¸»é¢˜è§’è‰²ï¼‰ï¼š
+ ????   å®šä¹‰äº†ä»£ç†è§’è‰²æ‰€ä»£è¡¨çš„çœŸå®å¯¹è±¡
  */
 public class RealSetBooks implements Books {
 
 	public double price(Double money) {
-		System.out.println("price()±»´úÀí·½·¨µ÷ÓÃ");
+		System.out.println("price()è¢«ä»£ç†æ–¹æ³•è°ƒç”¨");
 		return money;
 	}
 	public void price2() {
-		System.out.println("price2()±»´úÀí·½·¨µ÷ÓÃ");
+		System.out.println("price2()è¢«ä»£ç†æ–¹æ³•è°ƒç”¨");
 	}
 }
