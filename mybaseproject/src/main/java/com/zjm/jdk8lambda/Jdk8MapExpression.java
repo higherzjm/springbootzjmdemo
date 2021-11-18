@@ -12,23 +12,23 @@ import java.util.Map;
 @Slf4j
 public class Jdk8MapExpression {
     /**
-     * computeIfAbsent »ñÈ¡Ö¸¶¨keyµÄÖµ£¬Èç¹ûÃ»ÓĞÕâ¸ö¿ÉÒÔ»á×Ô¶¯Ìí¼Ó´Ëkey£¬list¼¯ºÏÖ±½Ó¿ÉÒÔ¸³Öµ
-     * ¶ÔÖ¸¶¨µÄ¿ÉÒÔ½øĞĞº¯ÊıÊ½µÄĞŞ¸Ä
+     * computeIfAbsent è·å–æŒ‡å®škeyçš„å€¼ï¼Œå¦‚æœæ²¡æœ‰è¿™ä¸ªå¯ä»¥ä¼šè‡ªåŠ¨æ·»åŠ æ­¤keyï¼Œlisté›†åˆç›´æ¥å¯ä»¥èµ‹å€¼
+     * å¯¹æŒ‡å®šçš„å¯ä»¥è¿›è¡Œå‡½æ•°å¼çš„ä¿®æ”¹
      */
     @Test
     public void test1(){
         List<String> list=new ArrayList<>();
         Map<String, List> map = Maps.newHashMap();
-        list.add("ÕÅÈı");
-        list.add("ÀîËÄ");
+        list.add("å¼ ä¸‰");
+        list.add("æå››");
         map.putIfAbsent("list",list);
         list = map.computeIfAbsent("list", (value) -> new ArrayList<String>());
-        log.info("computeIfAbsent list:"+list);//-->{ computeIfAbsent list:[ÕÅÈı, ÀîËÄ] }
+        log.info("computeIfAbsent list:"+list);//-->{ computeIfAbsent list:[å¼ ä¸‰, æå››] }
 
         list = map.computeIfAbsent("list2", (value) -> new ArrayList<String>());
         log.info("computeIfAbsent list2:"+list);
         list.add("World");
-        list.add("ÄãºÃ");
+        list.add("ä½ å¥½");
         log.info("computeIfAbsent list2:"+list);
         log.info("computeIfAbsent map.:"+map);
         log.info("computeIfAbsent map.values:"+map.values());
@@ -36,20 +36,20 @@ public class Jdk8MapExpression {
         Map<String,String> myMap=new HashMap<>();
         String name=myMap.computeIfPresent("name", (key,value) ->value+"="+value+";");
         log.info("name:"+name);
-        myMap.putIfAbsent("name","ÕÅÈı");
+        myMap.putIfAbsent("name","å¼ ä¸‰");
          name=myMap.computeIfPresent("name", (key,value) ->key+"="+value+";");
-        log.info("name:"+name);//-->{name:name=ÕÅÈı;}
+        log.info("name:"+name);//-->{name:name=å¼ ä¸‰;}
     }
     /**
-     * putIfAbsent ²»´æÔÚÖ¸¶¨µÄkeyÖµ²Å»áput£¬±ÜÃâÁË¶àÓàifÅĞ¶Ï
+     * putIfAbsent ä¸å­˜åœ¨æŒ‡å®šçš„keyå€¼æ‰ä¼šputï¼Œé¿å…äº†å¤šä½™ifåˆ¤æ–­
      */
     @Test
     public void test2(){
        Map<String,String> map=new HashMap<>();
-       map.put("name","ÕÅÈı");
-       map.put("name","ÀîËÄ"); //»á¸²¸ÇÇ°ÃæÏàÍ¬keyÎªnameµÄÖµ
+       map.put("name","å¼ ä¸‰");
+       map.put("name","æå››"); //ä¼šè¦†ç›–å‰é¢ç›¸åŒkeyä¸ºnameçš„å€¼
        log.info("map:"+map);
-       map.putIfAbsent("name","ÍõÎå");//¼ÙÈç²»´æÔÚkeyÎªnameµÄ¼üÖµ²Å»áput½øÈ¥£¬²»È»²»»á
+       map.putIfAbsent("name","ç‹äº”");//å‡å¦‚ä¸å­˜åœ¨keyä¸ºnameçš„é”®å€¼æ‰ä¼šputè¿›å»ï¼Œä¸ç„¶ä¸ä¼š
         map.putIfAbsent("age","35");
        log.info("map:"+map);
     }
