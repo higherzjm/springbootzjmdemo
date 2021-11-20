@@ -19,7 +19,7 @@ import java.util.concurrent.*;
 
 @Configuration
 @Slf4j
-public class SalaryRecheckMergeRequestUtil {
+public class MergeRequestUtil {
     //积攒请求的阻塞队列，如果向一个已经满了的队列中添加元素或者从空队列中移除元素，都将会导致线程阻塞，
     // 线程一直等待到有旧元素被移除或新元素被添加的时候，才能继续执行。符合这种情况的队列，称为阻塞队列。
     public static LinkedBlockingDeque<SalaryRecheckMergeRequestVO> salaryRecheckRequestQueue = new LinkedBlockingDeque<>();

@@ -4,11 +4,14 @@ import com.zjm.base.VO.SalaryRecheckMergeRequestVO;
 import com.zjm.base.service.MyService;
 import com.zjm.base.RequestVO;
 import com.zjm.base.StudentInfo;
+import com.zjm.base.service.impl.MyServiceImpl;
 import com.zjm.util.JsonUtil;
-import com.zjm.util.SalaryRecheckMergeRequestUtil;
+import com.zjm.util.MergeRequestUtil;
+import com.zjm.util.SpringBeanUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +26,7 @@ import java.util.concurrent.ExecutionException;
 @RequestMapping("/base/springBootBase")
 @RestController
 @Api(tags = "springBoot 基础应用")
+@Slf4j
 public class SpringBootBaseController {
     @Autowired
     private MyService myService;
@@ -32,7 +36,7 @@ public class SpringBootBaseController {
     @ApiOperation(value = "post请求，实体请求参数", notes = "post请求，实体请求参数")
     public StudentInfo test1(@RequestBody @Validated RequestVO requestVO) {
         CompletableFuture<String> completedFuture = new CompletableFuture();
-        SalaryRecheckMergeRequestUtil.salaryRecheckRequestQueue.add(SalaryRecheckMergeRequestVO.builder().requestPath("springBootBase/test1").
+        MergeRequestUtil.salaryRecheckRequestQueue.add(SalaryRecheckMergeRequestVO.builder().requestPath("springBootBase/test1").
                 requestName("post请求，实体请求参数").paramJsonStr(JsonUtil.convertBeanToJson(requestVO)).completedFuture(completedFuture).build());
         try {
             String mergeRequestMsg = completedFuture.get();
@@ -51,7 +55,7 @@ public class SpringBootBaseController {
             @ApiParam(name = "name", value = "姓名", required = true) @PathVariable("name") String name,
             @ApiParam(name = "age", value = "年龄", required = true) @PathVariable("age") Integer age) {
         CompletableFuture<String> completedFuture = new CompletableFuture();
-        SalaryRecheckMergeRequestUtil.salaryRecheckRequestQueue.add(SalaryRecheckMergeRequestVO.builder().requestPath("springBootBase/test2").
+        MergeRequestUtil.salaryRecheckRequestQueue.add(SalaryRecheckMergeRequestVO.builder().requestPath("springBootBase/test2").
                 requestName("request请求，简单一个或多参数").completedFuture(completedFuture).build());
         try {
             String mergeRequestMsg = completedFuture.get();
@@ -82,6 +86,13 @@ public class SpringBootBaseController {
         String msg = (String) request.getAttribute("msg");
         return "请求转发:"+msg;
     }
+    @GetMapping("/test")
+    @ApiOperation(value = "临时测试", notes = "临时测试")
+    public void test() {
 
+        MyService myService= SpringBeanUtils.getBean(MyServiceImpl.class);
+        StudentInfo studentInfo=myService.getStudentInfo2("张三",2022);
+        log.info("studentInfo:"+ studentInfo);
+    }
 }
 
