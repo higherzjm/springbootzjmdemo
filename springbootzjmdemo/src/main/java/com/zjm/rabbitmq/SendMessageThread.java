@@ -1,6 +1,6 @@
 package com.zjm.rabbitmq;
 
-import com.zjm.base.StudentInfo;
+import com.zjm.baseapplication.VO.StudentInfo;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;

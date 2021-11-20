@@ -3,7 +3,7 @@ package com.zjm.springframework.springtransaction.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.zjm.base.VO.Student;
+import com.zjm.baseapplication.VO.Student;
 import com.zjm.springframework.methodInterceptor.interceptor3.HfiTrace;
 import com.zjm.springframework.springtransaction.VO.StudentsInfoVO;
 import com.zjm.springframework.springtransaction.entity.StudentsInfo;

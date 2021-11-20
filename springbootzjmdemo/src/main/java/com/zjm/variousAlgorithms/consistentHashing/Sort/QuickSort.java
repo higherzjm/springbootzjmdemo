@@ -14,7 +14,7 @@ public class QuickSort {
      * 2. Stability
      *     2.1 unstable
      * 3. how it run
-     *     3.1 this solution is base on recursive partition
+     *     3.1 this solution is baseapplication on recursive partition
      *     3.2 define two integer with start index and end index
      *     3.3 swap element of two pointer when data[i]>data[j]
      *     3.4 with 3.3,on the partition left side element are smaller than data[partition],on the partition right side element are bigger than data[partition]

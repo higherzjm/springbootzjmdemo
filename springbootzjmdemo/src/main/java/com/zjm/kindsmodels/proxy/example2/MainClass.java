@@ -1,7 +1,7 @@
 package com.zjm.kindsmodels.proxy.example2;
 
 
-import com.zjm.base.VO.Student;
+import com.zjm.baseapplication.VO.Student;
 
 public class MainClass {
     public static void main(String[] args) {

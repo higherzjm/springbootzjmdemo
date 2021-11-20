@@ -1,7 +1,7 @@
 package com.zjm.util;
 
 import com.alibaba.fastjson.JSONObject;
-import com.zjm.base.StudentInfo;
+import com.zjm.baseapplication.VO.StudentInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Hex;
 import org.junit.Test;

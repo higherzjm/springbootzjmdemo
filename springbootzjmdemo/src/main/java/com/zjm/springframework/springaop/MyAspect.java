@@ -15,7 +15,7 @@ import java.util.UUID;
 @Slf4j
 public class MyAspect {
     public MyAspect() {
-        log.info("初始化切面");
+        //log.info("初始化切面");
     }
 
     @Pointcut("this(com.baomidou.mybatisplus.core.mapper.BaseMapper)")

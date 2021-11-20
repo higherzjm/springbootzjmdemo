@@ -1,14 +1,14 @@
 package com.zjm.kindsmodels.proxy.example2;
 
-import com.zjm.base.VO.Student;
+import com.zjm.baseapplication.VO.Student;
 
 public class MyProxyImpl implements IMyProxy {
     public void print(int num) {
-        System.out.println("´òÓ¡" + num + "ÕÅ£¡");
+        System.out.println("ï¿½ï¿½Ó¡" + num + "ï¿½Å£ï¿½");
     }
 
     @Override
     public void register(Student student) {
-        System.out.println("×¢²áµÄÑ§ÉúÐÅÏ¢ÊÇ:" + student);
+        System.out.println("×¢ï¿½ï¿½ï¿½Ñ§ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½:" + student);
     }
 }

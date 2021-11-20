@@ -1,7 +1,7 @@
 package com.zjm.springframework.springtransaction.service;
 
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
-import com.zjm.base.VO.Student;
+import com.zjm.baseapplication.VO.Student;
 import com.zjm.springframework.springtransaction.VO.StudentsInfoVO;
 import com.zjm.springframework.springtransaction.entity.StudentsInfo;
 

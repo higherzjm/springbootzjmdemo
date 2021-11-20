@@ -11,7 +11,7 @@ public class MergeSort {
      * 2. Stability
      *     2.1 stable
      * 3. how it run
-     *     3.1 this algorithm is base on recursive partition
+     *     3.1 this algorithm is baseapplication on recursive partition
      *     3.2 recurse to divide to be sorted array to one element and n array
      *     3.3 set every element between start and end to temp array
      *     3.4 circulate current start to end,compare left element to right element in temp array and set element according to condition

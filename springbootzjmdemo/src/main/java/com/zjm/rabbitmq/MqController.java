@@ -1,7 +1,7 @@
 package com.zjm.rabbitmq;
 
 import com.alibaba.fastjson.JSONObject;
-import com.zjm.base.StudentInfo;
+import com.zjm.baseapplication.VO.StudentInfo;
 import com.zjm.util.ConstantUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -12,7 +12,6 @@ import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageProperties;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
