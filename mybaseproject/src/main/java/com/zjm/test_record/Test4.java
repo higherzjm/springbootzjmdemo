@@ -60,63 +60,32 @@ public class Test4 {
         treemap.put(3, "three");
         treemap.put(6, "six");
         treemap.put(5, "five");
-        log.info("»ñÈ¡´óÓÚµÈÓÚÖ¸¶¨keyµÄ×Ómap:" + treemap.tailMap(3));
+        log.info("è·å–å¤§äºç­‰äºæŒ‡å®škeyçš„å­map:" + treemap.tailMap(3));
     }
 
     @Test
     public void test5() {
         try {
-            String str = "ÎÒÊÇÖĞ¹úÈË£¬ÎÒµÄ¹¤×÷88888.88";
+            String str = "æˆ‘æ˜¯ä¸­å›½äººï¼Œæˆ‘çš„å·¥ä½œ88888.88";
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("info", str);
 
 
-            // Éú³Ékey//·µ»ØÉú³ÉÖ¸¶¨Ëã·¨ÃÜÔ¿µÄKeyGenerator¶ÔÏó
+            // ç”Ÿæˆkey//è¿”å›ç”ŸæˆæŒ‡å®šç®—æ³•å¯†é’¥çš„KeyGeneratorå¯¹è±¡
             KeyGenerator keyGenerator = KeyGenerator.getInstance("DES");
-            keyGenerator.init(56);//³õÊ¼»¯´ËÃÜÔ¿Éú³ÉÆ÷,Ê¹Æä¾ßÓĞÈ·¶¨µÄÃÜÔ¿´óĞ¡
-            SecretKey secretKey = keyGenerator.generateKey();//Éú³ÉÒ»¸öÃÜÔ¿
+            keyGenerator.init(56);//åˆå§‹åŒ–æ­¤å¯†é’¥ç”Ÿæˆå™¨,ä½¿å…¶å…·æœ‰ç¡®å®šçš„å¯†é’¥å¤§å°
+            SecretKey secretKey = keyGenerator.generateKey();//ç”Ÿæˆä¸€ä¸ªå¯†é’¥
             byte[] bs = secretKey.getEncoded();
             String encodeHexString = Hex.encodeHexString(bs);
-            log.info("ÃØÔ¿:" + encodeHexString);
+            log.info("ç§˜é’¥:" + encodeHexString);
             String jsonStr = jsonObject.toJSONString();
             encodeHexString = "5da7f76410efef58";
-            String encryptionStr = encryptionStr(jsonStr, encodeHexString);
-            log.info("¼ÓÃÜ½á¹û:" + encryptionStr);
-
-            String decrypStr = decrypStr(encryptionStr, encodeHexString);
-            log.info("½âÃÜ½á¹û:" + decrypStr);
         } catch (Exception e) {
             // TODO: handle exception
             e.printStackTrace();
         }
     }
 
-    //¼ÓÃÜ
-    public String encryptionStr(String jsonStr, String encodeHexString) throws Exception {
-        DESKeySpec desKeySpec = new DESKeySpec(Hex.decodeHex(encodeHexString)); //ÊµÀı»¯DESÃÜÔ¿¹æÔò
-        SecretKeyFactory factory = SecretKeyFactory.getInstance("DES"); //ÊµÀı»¯ÃÜÔ¿¹¤³§
-        Key convertSecretKey = factory.generateSecret(desKeySpec); //Éú³ÉÃÜÔ¿
-        Cipher cipher = Cipher.getInstance("DES/ECB/PKCS5Padding");
-
-        // ¼ÓÃÜ
-        cipher.init(Cipher.ENCRYPT_MODE, convertSecretKey);
-        byte[] result = cipher.doFinal(jsonStr.getBytes());
-        return Hex.encodeHexString(result);
-    }
-
-    //½âÃÜ
-    public String decrypStr(String encryptionStr, String encodeHexString) throws Exception {
-        DESKeySpec desKeySpec = new DESKeySpec(Hex.decodeHex(encodeHexString)); //ÊµÀı»¯DESÃÜÔ¿¹æÔò
-        SecretKeyFactory factory = SecretKeyFactory.getInstance("DES"); //ÊµÀı»¯ÃÜÔ¿¹¤³§
-        Key convertSecretKey = factory.generateSecret(desKeySpec); //Éú³ÉÃÜÔ¿
-        Cipher cipher = Cipher.getInstance("DES/ECB/PKCS5Padding");
-
-        // ½âÃÜ
-        cipher.init(Cipher.DECRYPT_MODE, convertSecretKey);
-        byte[] desResult = cipher.doFinal(Hex.decodeHex(encryptionStr));
-        String desStr = new String(desResult);
-        return desStr;
-    }
 
 
     @Test
@@ -188,14 +157,14 @@ public class Test4 {
         SchoolVOList = Arrays.asList(v13, v14);
         v11.setSubSchoolVOList(SchoolVOList);
 
-        //statisticslBySign(v0);//µ¥Ò»×Ö¶ÎÖğ¼¶ÀÛ¼Æ
-        statisticslByOverall(v0);//¶à×Ö¶ÎÍ¬Ê±Öğ¼¶ÀÛ¼Ó
+        //statisticslBySign(v0);//å•ä¸€å­—æ®µé€çº§ç´¯è®¡
+        statisticslByOverall(v0);//å¤šå­—æ®µåŒæ—¶é€çº§ç´¯åŠ 
         System.out.println(v0);
 
 
     }
 
-    //µ¥¸ö×Ö¶ÎÖğ¼¶ÀÛ¼Ó
+    //å•ä¸ªå­—æ®µé€çº§ç´¯åŠ 
     int statisticslBySign(SchoolVO SchoolVO) {
         List<SchoolVO> SchoolVOList = SchoolVO.getSubSchoolVOList();
         if (SchoolVOList == null) {
@@ -209,7 +178,7 @@ public class Test4 {
         return sum;
     }
 
-    //¶à×Ö¶ÎÍ¬Ê±Öğ¼¶ÀÛ¼Ó
+    //å¤šå­—æ®µåŒæ—¶é€çº§ç´¯åŠ 
     StatisticsVO statisticslByOverall(SchoolVO schoolVO) {
         List<SchoolVO> SchoolVOList = schoolVO.getSubSchoolVOList();
         if (SchoolVOList == null) {
@@ -233,7 +202,7 @@ public class Test4 {
         return statisticsVO;
     }
 
-    //ĞèÒªÀÛ¼ÓµÄÊôĞÔ
+    //éœ€è¦ç´¯åŠ çš„å±æ€§
     @Data
     class StatisticsVO {
         private Integer teacherNum;
@@ -243,11 +212,11 @@ public class Test4 {
 }
 
 class SchoolVO {
-    //½ÌÊ¦ÈËÊı
+    //æ•™å¸ˆäººæ•°
     private Integer teacherNum;
-    //Ñ§ÉúÈËÊı
+    //å­¦ç”Ÿäººæ•°
     private Integer studentNum;
-    //Ñ§Ğ£Ãû³Æ
+    //å­¦æ ¡åç§°
     private String name;
     private List<SchoolVO> subSchoolVOList;
 
