@@ -156,6 +156,16 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.17</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpcore</artifactId>
+            <version>4.4.11</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.7</version>
+        </dependency>
         <!--maven 私服仓库资源-->
         <dependency>
             <groupId>com.xuxueli</groupId>
@@ -181,19 +191,19 @@
     </dependencies>
     <repositories>
         <!--配置优先使用私服仓库加载依赖，如果私服仓库没有对应的依赖会去外网拉-->
-        <repository>
+     <!--   <repository>
             <snapshots>
-                <enabled>true</enabled><!--快照版是否支持更新 -->
+                <enabled>true</enabled>&lt;!&ndash;快照版是否支持更新 &ndash;&gt;
             </snapshots>
             <releases>
-                <enabled>false</enabled><!--快照版是否支持更新 -->
+                <enabled>false</enabled>&lt;!&ndash;快照版是否支持更新 &ndash;&gt;
             </releases>
             <id>zjmrepository</id>
             <name>zjmrepository maven</name>
             <url>http://127.0.0.1:8081/repository/zjmrepository/</url>
-        </repository>
+        </repository>-->
 
-        <!--<repository>
+       <repository>
             <id>public</id>
             <name>aliyun nexus</name>
             <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
@@ -203,7 +213,7 @@
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
-        </repository>-->
+        </repository>
     </repositories>
     <!--<pluginRepositories>
         <pluginRepository>

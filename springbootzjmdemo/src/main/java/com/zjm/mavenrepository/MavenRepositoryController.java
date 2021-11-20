@@ -1,10 +1,7 @@
 package com.zjm.mavenrepository;
 
 //import com.zjm.commonutil.SpringBeanUtils;
-import com.zjm.springtransaction.service.ISpringTransactionService;
-import com.zjm.springtransaction.service.IStudentService;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
