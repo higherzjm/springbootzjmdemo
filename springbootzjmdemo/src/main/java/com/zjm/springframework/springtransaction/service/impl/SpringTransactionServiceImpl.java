@@ -35,12 +35,11 @@ public class SpringTransactionServiceImpl implements ISpringTransactionService {
     protected SqlSession sqlSession;
 
     @Override
-    public List<LogInfoResultVO> findSalaryPayrollOperateLogResult(LogInfoDTO logInfoDTO) {
-        List<LogInfoResultVO> logInfoResultVOList = logInfoMapper.querySalaryPayrollOperateLog(logInfoDTO);
-        return logInfoResultVOList;
+    public List<LogInfoResultVO> findLog(LogInfoDTO logInfoDTO) {
+        return logInfoMapper.querySalaryPayrollOperateLog(logInfoDTO);
     }
 
-    public boolean checkExistSalaryPayrollOperateLogInMonth(String employeeCode, Integer month) {
+    private boolean checkLog(String employeeCode, Integer month) {
         LambdaQueryWrapper<LogInfo> lambdaQueryWrapper = new LambdaQueryWrapper<LogInfo>().eq(LogInfo::getMonth, month)
                 .eq(LogInfo::getEmployeeCode, employeeCode).select(LogInfo::getId,LogInfo::getYear);
         LogInfo loginfo = logInfoMapper.selectOne(lambdaQueryWrapper);
@@ -54,21 +53,21 @@ public class SpringTransactionServiceImpl implements ISpringTransactionService {
      **/
     //@Transactional(propagation=Propagation.NOT_SUPPORTED,isolation= Isolation.READ_UNCOMMITTED)
     @Override
-    public void saveSalaryPayrollOperateLogResult(LogInfo logInfo, String actionNum) {
+    public void saveLog(LogInfo logInfo, String actionNum){
         log.info("logInfo:" + logInfo);
         logInfo.setId(UUID.randomUUID().toString());
          //判断是否存在
-        if (!checkExistSalaryPayrollOperateLogInMonth(logInfo.getEmployeeCode(), logInfo.getMonth())) {
+        if (!checkLog(logInfo.getEmployeeCode(), logInfo.getMonth())) {
             log.info("可插入");
-            logInfoMapper.insert(logInfo);
         }else {
-            log.info("已存在");
+           logInfoMapper.delete(new LambdaQueryWrapper<LogInfo>().eq(LogInfo::getEmployeeCode,logInfo.getEmployeeCode()).eq(LogInfo::getMonth,logInfo.getMonth()));
         }
+        logInfoMapper.insert(logInfo);
         //测试高并发的时候使用
         if ("1".equals(actionNum)) {
             try {
                 Thread.sleep(10000);
-            } catch (InterruptedException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
@@ -77,17 +76,14 @@ public class SpringTransactionServiceImpl implements ISpringTransactionService {
     @Override
     public <T> T queryDynamicTableInfo(String id, Class<T> dataClazz) {
         String tableName = dataClazz.getAnnotation(TableName.class).value();
-        String tableColumns = getLogTableFields(dataClazz).stream().collect(Collectors.joining(","));
+        String tableColumns = String.join(",", getLogTableFields(dataClazz));
         String sql = buildSelectSql(tableName, tableColumns, id);
         return selectOne(sql, dataClazz);
     }
     /**
      * 数据查询
-     *
-     * @param sql
-     * @return
      */
-    protected <T> T selectOne(String sql, Class<T> resultClass) {
+    private <T> T selectOne(String sql, Class<T> resultClass) {
         Map<String, Object> result = selectOne(sql);
         if (result != null) {
             Map<String, Object> tempMap = new HashMap<>();
@@ -108,16 +104,13 @@ public class SpringTransactionServiceImpl implements ISpringTransactionService {
      * @param sql
      * @return
      */
-    protected Map<String, Object> selectOne(String sql) {
+    private Map<String, Object> selectOne(String sql) {
         return sqlSession.selectOne(NAMESPACE_SELECT, ImmutableMap.of("sql", sql));
     }
     /**
      * 获取实体需要记录的字段对应的库表字段
-     *
-     * @param dataClazz
-     * @return
      */
-    protected List<String> getLogTableFields(Class dataClazz) {
+    private List<String> getLogTableFields(Class dataClazz) {
         List<Field> fieldList = getLogEntityFields(dataClazz);
         return fieldList.stream().filter(field -> !StringUtils.isEmpty(field.getAnnotation(TableField.class).value()))
                 .map(field -> field.getAnnotation(TableField.class).value()).collect(Collectors.toList());
@@ -125,11 +118,8 @@ public class SpringTransactionServiceImpl implements ISpringTransactionService {
 
     /**
      * 获取实体需要记录的字段
-     *
-     * @param dataClazz
-     * @return
      */
-    protected List<Field> getLogEntityFields(Class dataClazz) {
+    private List<Field> getLogEntityFields(Class dataClazz) {
         return Arrays.stream(dataClazz.getDeclaredFields()).filter(field -> field.getAnnotation(DynamicQueryColumFlag.class) != null)
                 .sorted((o1, o2) -> {
                     int order1 = o1.getAnnotation(DynamicQueryColumFlag.class).order();
@@ -141,11 +131,6 @@ public class SpringTransactionServiceImpl implements ISpringTransactionService {
 
     /**
      * 构建查询语句
-     *
-     * @param tableName
-     * @param fields
-     * @param id
-     * @return
      */
     private String buildSelectSql(String tableName, String fields, String id) {
         return String.format("select id, %s from %s where id = '%s'", fields, tableName, id);

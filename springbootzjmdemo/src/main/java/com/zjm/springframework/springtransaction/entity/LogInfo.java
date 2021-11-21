@@ -8,7 +8,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.util.Date;
+
 
 /**
  日志信息
@@ -54,7 +55,7 @@ public class LogInfo extends Model<LogInfo> {
 	 * 创建时间
 	 */
 	@TableField(value = "create_time",fill = FieldFill.INSERT)
-	private LocalDateTime createTime;
+	private Date createTime;
 	/**
 	 * 创建人
 	 */
@@ -64,7 +65,7 @@ public class LogInfo extends Model<LogInfo> {
 	 * 最后一次更新时间
 	 */
 	@TableField(value = "update_time",fill = FieldFill.INSERT_UPDATE)
-	private LocalDateTime updateTime;
+	private Date updateTime;
 	/**
 	 * 最后一次更新人
 	 */

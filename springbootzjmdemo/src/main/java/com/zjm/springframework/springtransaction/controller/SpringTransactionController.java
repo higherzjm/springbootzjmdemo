@@ -44,18 +44,18 @@ public class SpringTransactionController {
     public String updateIdentityTransaction(@ApiParam(name = "id", value = "主键",defaultValue = "1") @PathVariable("id") String id, @ApiParam(name = "value", value = "更新值")@PathVariable("value") String value) {
         return studentService.updateIdentityTransaction(id,value);
     }
-    @PostMapping("/findSalaryPayrollOperateLogResult")
+    @PostMapping("/findLog")
     @ApiOperation(value = "查询日志", notes = "查询日志")
-    public List<LogInfoResultVO> findSalaryPayrollOperateLogResult(@RequestBody @Validated LogInfoDTO logInfoDTO) {
-        return springTransactionService.findSalaryPayrollOperateLogResult(logInfoDTO);
+    public List<LogInfoResultVO> findLog(@RequestBody @Validated LogInfoDTO logInfoDTO) {
+        return springTransactionService.findLog(logInfoDTO);
     }
 
-    @PostMapping("/saveSalaryPayrollOperateLogResult")
+    @PostMapping("/saveLog")
     @ApiOperation(value = "保存日志", notes = "保存日志")
-    public String saveSalaryPayrollOperateLogResult(@RequestBody @Validated LogInfoDTO logInfoDTO) {
+    public String saveLog(@RequestBody @Validated LogInfoDTO logInfoDTO) throws Exception {
         LogInfo logInfo = new LogInfo();
         BeanUtil.copyProperties(logInfoDTO, logInfo);
-        springTransactionService.saveSalaryPayrollOperateLogResult(logInfo, logInfoDTO.getActionNum());
+        springTransactionService.saveLog(logInfo, logInfoDTO.getActionNum());
         return "保存成功";
     }
 

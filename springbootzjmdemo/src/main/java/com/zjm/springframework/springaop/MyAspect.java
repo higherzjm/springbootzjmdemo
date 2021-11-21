@@ -8,6 +8,7 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.UUID;
 
 @Aspect
@@ -37,8 +38,8 @@ public class MyAspect {
     {
         log.info("ISpringTransactionService切面");
         loginfo.setId(UUID.randomUUID().toString().replace("-",""));
-        loginfo.setCreateTime(LocalDateTime.now());
-        loginfo.setUpdateTime(LocalDateTime.now());
+        loginfo.setCreateTime(new Date());
+        loginfo.setUpdateTime(new Date());
         loginfo.setEmployeeName("切面插入的随机员工");
         if ("1".equals(actionNum)) {
             loginfo.setCreateUser("actionNum-1创建人");

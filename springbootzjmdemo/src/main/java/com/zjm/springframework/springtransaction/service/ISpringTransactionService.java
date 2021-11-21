@@ -10,7 +10,7 @@ import java.util.List;
  * @author zhujianming
  */
 public interface ISpringTransactionService {
-    List<LogInfoResultVO> findSalaryPayrollOperateLogResult(LogInfoDTO logInfoDTO);
-    void  saveSalaryPayrollOperateLogResult(LogInfo loginfo, String actionNum);
+    List<LogInfoResultVO> findLog(LogInfoDTO logInfoDTO);
+    void  saveLog(LogInfo loginfo, String actionNum) ;
     <T> T queryDynamicTableInfo(String id, Class<T> dataClazz);
 }
