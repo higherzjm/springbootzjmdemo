@@ -1,23 +1,22 @@
 package com.zjm.springframework.methodInterceptor.interceptor2;
 
-import org.springframework.aop.aspectj.AspectJExpressionPointcut;
 import org.springframework.aop.support.DefaultPointcutAdvisor;
+import org.springframework.aop.support.JdkRegexpMethodPointcut;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
 /**
- * spring aop 方法拦截器，根据指定路径全部拦截
+ * spring aop 方法拦截器，根据自定义注解拦截
  */
 @Configuration
 public class InterceptorConfig2 {
  
-    public static final String traceExecution = "execution(* com.zjm.springframework.springtransaction.service.impl..*.updateIdentityUnTransaction(..))";
- 
- 
-    @Bean
-    public DefaultPointcutAdvisor defaultPointcutAdvisor2() {
+   @Bean
+    public DefaultPointcutAdvisor defaultPointcutAdvisor3() {
         MyTracingInterceptor2 interceptor = new MyTracingInterceptor2();
-        AspectJExpressionPointcut pointcut = new AspectJExpressionPointcut();
-        pointcut.setExpression(traceExecution);
+ 
+        JdkRegexpMethodPointcut pointcut = new JdkRegexpMethodPointcut();
+        pointcut.setPatterns("com.zjm.springframework.springtransaction.service.impl.StudentServiceImpl.*");
  
         // 配置增强类advisor
         DefaultPointcutAdvisor advisor = new DefaultPointcutAdvisor();

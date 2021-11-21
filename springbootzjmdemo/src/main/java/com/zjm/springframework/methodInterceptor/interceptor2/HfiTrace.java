@@ -1,4 +1,4 @@
-package com.zjm.springframework.methodInterceptor.interceptor3;
+package com.zjm.springframework.methodInterceptor.interceptor2;
 
 import java.lang.annotation.*;
 
