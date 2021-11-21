@@ -3,21 +3,21 @@ package com.zjm.autoProxy.cglibProxy;
 import com.zjm.VO.Student;
 
 /**
- * ²âÊÔ
+ * æµ‹è¯•
  * @author sunlh
  *
  */
 public class MainClass {
 	public static void main(String[] args) {
-		//µ±Ç°¶ÔÏóÎª´úÀí¶ÔÏó
+		//å½“å‰å¯¹è±¡ä¸ºä»£ç†å¯¹è±¡
 		CglibMethodInterceptor1 cglibMethodInterceptor1 = new CglibMethodInterceptor1();
 		HelloWorld proxy = (HelloWorld) cglibMethodInterceptor1.getProxy(HelloWorld.class);
-		proxy.sayHelloWorld("ÕÅÈı");
+		proxy.sayHelloWorld("å¼ ä¸‰");
 
-		//ÆäËû¶ÔÏóÎª´úÀí¶ÔÏó
+		//å…¶ä»–å¯¹è±¡ä¸ºä»£ç†å¯¹è±¡
 		CglibMethodInterceptor2 cglibMethodInterceptor2=new CglibMethodInterceptor2(cglibMethodInterceptor1);
 		HelloWorld proxy2 = (HelloWorld) cglibMethodInterceptor2.getProxy2(HelloWorld.class);
-		proxy2.saveStudentInfo(Student.builder().name("ÀîËÄ").age(20).build());
+		proxy2.saveStudentInfo(Student.builder().name("æå››").age(20).build());
 
 	}
 }

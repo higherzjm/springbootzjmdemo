@@ -9,29 +9,29 @@ import net.sf.cglib.proxy.MethodProxy;
 public class CglibMethodInterceptor1 implements MethodInterceptor {
 
     /**
-     * Éú³ÉCGLIB´úÀí¶ÔÏó
+     * ç”ŸæˆCGLIBä»£ç†å¯¹è±¡
      *
-     * @param cls ClassÀà
-     * @return ClassÀàµÄCGLIB´úÀí¶ÔÏó
+     * @param cls Classç±»
+     * @return Classç±»çš„CGLIBä»£ç†å¯¹è±¡
      */
     Object getProxy(Class cls) {
-        // CGLIB <u>enhancer</u>ÔöÇ¿Àà¶ÔÏó
+        // CGLIB <u>enhancer</u>å¢å¼ºç±»å¯¹è±¡
         Enhancer enhancer = new Enhancer();
-        // ÉèÖÃÔöÇ¿ÀàĞÍ
+        // è®¾ç½®å¢å¼ºç±»å‹
         enhancer.setSuperclass(cls);
-        // ¶¨Òå´úÀíÂß¼­¶ÔÏóÎªµ±Ç°¶ÔÏó£¬ÒªÇóµ±Ç°¶ÔÏóÊµÏÖMethodInterceptor·½·¨
+        // å®šä¹‰ä»£ç†é€»è¾‘å¯¹è±¡ä¸ºå½“å‰å¯¹è±¡ï¼Œè¦æ±‚å½“å‰å¯¹è±¡å®ç°MethodInterceptoræ–¹æ³•
         enhancer.setCallback(this);
-        // Éú³É²¢·µ»Ø´úÀí¶ÔÏó
+        // ç”Ÿæˆå¹¶è¿”å›ä»£ç†å¯¹è±¡
         return enhancer.create();
     }
 
     @Override
     public Object intercept(Object proxy, Method method,
                             Object[] args, MethodProxy methodProxy) throws Throwable {
-        System.out.println("µ÷ÓÃÕæÊµ¶ÔÏóÇ°");
-        // CGLIB·´Éäµ÷ÓÃÕæÊµ¶ÔÏó·½·¨
+        System.out.println("è°ƒç”¨çœŸå®å¯¹è±¡å‰");
+        // CGLIBåå°„è°ƒç”¨çœŸå®å¯¹è±¡æ–¹æ³•
         Object result = methodProxy.invokeSuper(proxy, args);
-        System.out.println("µ÷ÓÃÕæÊµ¶ÔÏóºó");
+        System.out.println("è°ƒç”¨çœŸå®å¯¹è±¡å");
         System.out.println("");
         return result;
     }
