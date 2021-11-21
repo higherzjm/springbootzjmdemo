@@ -16,7 +16,7 @@ public class InterceptorConfig3 {
         MyTracingInterceptor3 interceptor = new MyTracingInterceptor3();
  
         JdkRegexpMethodPointcut pointcut = new JdkRegexpMethodPointcut();
-        pointcut.setPatterns("com.zjm.springframework.springtransaction.service.impl.*");
+        pointcut.setPatterns("com.zjm.springframework.springtransaction.service.impl.StudentServiceImpl.*");
  
         // 配置增强类advisor
         DefaultPointcutAdvisor advisor = new DefaultPointcutAdvisor();
