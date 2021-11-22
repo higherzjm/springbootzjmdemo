@@ -2,7 +2,7 @@ package com.zjm.autoProxy.jdkProxy.example1;
 
 import java.lang.reflect.Proxy;
 /**
- * @Description:  jdk 动态代理
+ * @Description:  jdk InvocationHandler动态代理
  * @Author: zhujianming
  * @Date: 2021/5/25
  *  JDK动态代理是利用反射机制生成一个实现代理接口的匿名类，在调用具体方法前调用InvokeHandler来处理。

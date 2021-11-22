@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.lang.reflect.Method;
 
 /**
+ * 类方法动态代理掉用
  * @author zhujianming
  * @time 2021/11/22 9:57
  */
