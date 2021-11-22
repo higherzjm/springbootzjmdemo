@@ -1,4 +1,4 @@
-package com.zjm.autoProxy.jdkProxy;
+package com.zjm.autoProxy.jdkProxy.example1;
 
 /*
  * RealSubject（真实主题角色）：

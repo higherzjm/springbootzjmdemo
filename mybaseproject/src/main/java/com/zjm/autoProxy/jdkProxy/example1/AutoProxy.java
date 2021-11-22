@@ -1,4 +1,4 @@
-package com.zjm.autoProxy.jdkProxy;
+package com.zjm.autoProxy.jdkProxy.example1;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
