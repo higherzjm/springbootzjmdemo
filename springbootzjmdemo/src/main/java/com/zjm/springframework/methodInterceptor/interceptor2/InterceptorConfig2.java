@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
 public class InterceptorConfig2 {
  
    @Bean
-    public DefaultPointcutAdvisor defaultPointcutAdvisor3() {
+    public DefaultPointcutAdvisor defaultPointcutAdvisor2() {
         MyTracingInterceptor2 interceptor = new MyTracingInterceptor2();
  
         JdkRegexpMethodPointcut pointcut = new JdkRegexpMethodPointcut();

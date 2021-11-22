@@ -14,7 +14,7 @@ public class InterceptorConfig1 {
  
  
     @Bean
-    public DefaultPointcutAdvisor defaultPointcutAdvisor2() {
+    public DefaultPointcutAdvisor defaultPointcutAdvisor1() {
         MyTracingInterceptor1 interceptor = new MyTracingInterceptor1();
         AspectJExpressionPointcut pointcut = new AspectJExpressionPointcut();
         pointcut.setExpression(traceExecution);

@@ -41,8 +41,11 @@ public class ReflectProxyMain {
      * @throws Exception
      */
     private void twoParamProxy() throws Exception {
+        Object[] args=new Object[2];
+        args[0]="张三";
+        args[1]=30;
         Method method = StudentProxy.class.getDeclaredMethod("withTwoParam",String.class,Integer.class);
-        String ret = (String) method.invoke(StudentProxy.class.newInstance(), "张三",30);
+        String ret = (String) method.invoke(StudentProxy.class.newInstance(), args);
         log.info("ret:{}",ret);
     }
 }
