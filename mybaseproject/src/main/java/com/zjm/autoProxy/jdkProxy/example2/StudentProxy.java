@@ -5,15 +5,15 @@ package com.zjm.autoProxy.jdkProxy.example2;
  * @time 2021/11/22 9:49
  */
 public class StudentProxy {
-    public String getInfo(){
+    public String noParam(){
         return "学生信息";
     }
-    public String getWithOneParam(String name){
+    public String withOneParam(String name){
         return String.format("学生，姓名:%s",name);
     }
 
-    public String getInfoWithParam(String name,Integer age){
-        return String.format("学生，姓名:{}，年龄:{}",name,age);
+    public String withTwoParam(String name,Integer age){
+        return String.format("学生，姓名:%s，年龄:%s",name,age);
     }
 
 
