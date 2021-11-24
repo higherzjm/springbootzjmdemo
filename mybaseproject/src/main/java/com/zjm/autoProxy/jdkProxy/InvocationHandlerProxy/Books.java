@@ -1,4 +1,4 @@
-package com.zjm.autoProxy.jdkProxy.example1;
+package com.zjm.autoProxy.jdkProxy.InvocationHandlerProxy;
 
 /*
  * subject（抽象主题角色）：

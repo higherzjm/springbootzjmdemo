@@ -1,4 +1,4 @@
-package com.zjm.autoProxy.jdkProxy.example2;
+package com.zjm.autoProxy.jdkProxy.methodProxy;
 
 /**
  * @author zhujianming
