@@ -1,8 +1,8 @@
 package com.zjm.Enum;
 
 public  enum ParamTyeEnum{
-    String("java.lang.String"),
-    Integer("java.lang.Integer");
+    STRING_TYPE("java.lang.String"),
+    INTEGER_TYPE("java.lang.Integer");
 
     private Object type;
 

@@ -1,4 +1,4 @@
-package com.zjm.javaReflect.example1;
+package com.zjm.javaReflect.methodReflect;
 
 import com.zjm.VO.Student;
 import lombok.extern.slf4j.Slf4j;
@@ -7,6 +7,7 @@ import java.lang.reflect.Method;
 import java.util.*;
 
 /**
+ * æ–¹æ³•åå°„è°ƒç”¨
  * @author zhujianming
  */
 @Slf4j
@@ -20,9 +21,9 @@ public class MainClass {
         List<Class> classList = Arrays.asList(MyClass1.class, MyClass2.class);
         mainClass.initClassInfo(classList);
         try {
-            Object object = mainClass.invokeMethod(MyClass1.class, "getName1", "ÕÅÈı", 10);
+            Object object = mainClass.invokeMethod(MyClass1.class, "getName1", "å¼ ä¸‰", 10);
             System.out.println(object);
-            Student student = Student.builder().id(100).age(20).name("ÀîËÄ").build();
+            Student student = Student.builder().id(100).age(20).name("æå››").build();
             Object object2 = mainClass.invokeMethod(MyClass2.class, "getStudent2", student);
             System.out.println(object2);
         } catch (Exception e) {
@@ -33,14 +34,14 @@ public class MainClass {
     }
 
     /**
-     * @Description: ³õÊ¼»¯¶¯Ì¬´úÀíÀàĞÅÏ¢
+     * @Description: åˆå§‹åŒ–åŠ¨æ€ä»£ç†ç±»ä¿¡æ¯
      **/
     private void initClassInfo(List<Class> classList) {
         classList.forEach(tClass -> map.put(tClass, tClass.getMethods()));
     }
 
     /**
-     * @Description: ·½·¨¶¯Ì¬´úÀí
+     * @Description: æ–¹æ³•åŠ¨æ€ä»£ç†
      **/
     private <T> Object invokeMethod(Class<T> tClass, String methodName, Object... args) throws Exception {
         Method method = null;
@@ -48,8 +49,8 @@ public class MainClass {
         if (map.get(tClass) != null) {
             Method[] methods = map.get(tClass);
             for (Method method1 : methods) {
-                //·½·¨Ãû³ÆºÍ²ÎÊı¸öÊıÆ¥Åä¶¨Î»¾ßÌåµÄmethod
-                // TODO ÖØ¹¹º¯ÊıÔõÃ´Çø±ğ£¬¾ÍÊÇ¶à¸öÍ¬ÑùµÄ·½·¨Ãû³ÆºÍ·½·¨¸öÊı£¬µ«·½·¨ÀàĞÍ²»Ò»Ñù
+                //æ–¹æ³•åç§°å’Œå‚æ•°ä¸ªæ•°åŒ¹é…å®šä½å…·ä½“çš„method
+                // TODO é‡æ„å‡½æ•°æ€ä¹ˆåŒºåˆ«ï¼Œå°±æ˜¯å¤šä¸ªåŒæ ·çš„æ–¹æ³•åç§°å’Œæ–¹æ³•ä¸ªæ•°ï¼Œä½†æ–¹æ³•ç±»å‹ä¸ä¸€æ ·
                 if (method1.getName().equals(methodName) && method1.getParameters().length == args.length) {
                     method = method1;
                 }

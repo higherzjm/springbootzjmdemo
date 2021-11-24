@@ -2,12 +2,15 @@ package com.zjm.javaReflect;
 
 import com.zjm.Enum.ParamTyeEnum;
 import com.zjm.VO.Student;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.Test;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 public class BaseTest {
     private static Class<?> clazz;
 
@@ -19,51 +22,65 @@ public class BaseTest {
         }
     }
 
-    public void test1() {
+    /**
+     * é€šè¿‡ç±»è·å–æŒ‡å®šæ–¹æ³•åä¸”æŒ‡å®šå‚æ•°ç±»å‹çš„æ–¹æ³•
+     * å¹¶åŠ¨æ€æ–¹æ³•è°ƒç”¨
+     */
+    @Test
+    public void invokeMethodSignParam() {
         try {
             Method method = clazz.getMethod("getStudentInfo", Student.class);
-            Student student = Student.builder().id(10).name("ÕÅÈı").age(20).build();
+            Student student = Student.builder().id(10).name("å¼ ä¸‰").age(20).build();
             Object obj = method.invoke(clazz.newInstance(), student);
-            System.out.println(obj);
+            log.info("è¿”å›ç»“æœ:"+obj);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
-    public void test2() {
+    /**
+     * é€šè¿‡ç±»è·å–æŒ‡å®šæ–¹æ³•åä¸”æŒ‡å®šå‚æ•°ç±»å‹çš„æ–¹æ³•ï¼ˆå¤šå‚æ•°ï¼‰
+     * å¹¶åŠ¨æ€æ–¹æ³•è°ƒç”¨
+     */
+    @Test
+    public void invokeMethodMoreParam() {
         try {
             Method method = clazz.getMethod("getName", String.class, String.class, Integer.class);
-            Object obj = method.invoke(clazz.newInstance(), "ÀîÃ·", "ÉÏº£", 21);
-            System.out.println(obj);
+            Object obj = method.invoke(clazz.newInstance(), "ææ¢…", "ä¸Šæµ·", 21);
+            log.info("è¿”å›ç»“æœ:"+obj);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public <T> void test3(Class<T> clazz) throws Exception {
+    /**
+     * åŠ¨æ€æ–¹æ³•å‚æ•°ç±»å‹
+     * @throws Exception
+     */
+    @Test
+    public void dyMethodParam() throws Exception {
         Method[] methods = clazz.getMethods();
         for (Method method : methods) {
             if ("getName".equals(method.getName()) || "getStudentInfo".equals(method.getName())) {
-                System.out.println("·½·¨Ãû³Æ:" + method.getName());
+                log.info("æ–¹æ³•åç§°:" + method.getName());
                 Parameter[] parameters = method.getParameters();
-                System.out.println("²ÎÊıÊıÁ¿:" + parameters.length);
+                log.info("å‚æ•°æ•°é‡:" + parameters.length);
                 for (Parameter parameter : parameters) {
-                    System.out.println("²ÎÊıÃû³Æ:" + parameter.getName());
+                    log.info("å‚æ•°åç§°:" + parameter.getName());
                 }
                 Class[] parameterTypes = method.getParameterTypes();
-                System.out.println("²ÎÊıÀàĞÍÊıÁ¿:" + parameterTypes.length);
+                log.info("å‚æ•°ç±»å‹æ•°é‡:" + parameterTypes.length);
                 List<Object> paramValue = new ArrayList<>();
                 int i=0;
                 for (Class parameterType : parameterTypes) {
-                    System.out.println("²ÎÊıÀàĞÍ:" + parameterType.getName());
+                    log.info("å‚æ•°ç±»å‹:" + parameterType.getName());
                     ParamTyeEnum paramTyeEnum=ParamTyeEnum.paramTyeEnumValueOf(parameterType.getName());
                     if (paramTyeEnum!=null) {
                         switch (paramTyeEnum) {
-                            case String:
-                                paramValue.add("ÎÒÊÇÖĞ¹úÈË"+(i++));
+                            case STRING_TYPE:
+                                paramValue.add("å¼ ä¸‰");
                                 break;
-                            case Integer:
-                                paramValue.add(100 + (i++));
+                            case INTEGER_TYPE:
+                                paramValue.add(100);
                                 break;
                             default:
                                 paramValue.add(parameterType.newInstance());
@@ -73,23 +90,18 @@ public class BaseTest {
                     }
                 }
                 Object obj=method.invoke(clazz.newInstance(), paramValue.toArray());
-                System.out.println("invoke ret:"+obj);
-                System.out.println("----------------------------");
+                log.info("invoke ret:"+obj);
+                log.info("----------------------------");
             }
 
         }
 
     }
 
-    public static void main(String[] args) throws Exception {
-        BaseTest test1 = new BaseTest();
-        //test1.test1();
-        //test1.test2();
-        test1.test3(clazz);
-    }
+
 
     public String getName(String name, String address, Integer age) {
-        return name + "ÊÇÒ»ÃûÈËÃñ½ÌÊ¦,ÔÚ" + address + "," + age + "Ëê";
+        return name + "æ˜¯ä¸€åäººæ°‘æ•™å¸ˆ,åœ¨" + address + "," + age + "å²";
     }
 
     public Student getStudentInfo(Student student) {
