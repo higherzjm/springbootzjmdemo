@@ -25,4 +25,8 @@ public class InterceptorConfig1 {
         advisor.setAdvice(interceptor);
         return advisor;
     }
+
+    public InterceptorConfig1() {
+        System.out.println("实例化拦截器通知器配置类");
+    }
 }

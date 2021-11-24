@@ -14,4 +14,8 @@ public class MyTracingInterceptor1 implements MethodInterceptor {
         log.info("method " + i.getMethod() + " returns " + ret);
         return ret;
     }
+
+    public MyTracingInterceptor1() {
+        System.out.println("实例化拦截器类");
+    }
 }
