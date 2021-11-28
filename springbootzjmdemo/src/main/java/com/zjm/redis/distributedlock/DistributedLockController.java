@@ -121,7 +121,7 @@ public class DistributedLockController {
         RLock rLock = redissonClient.getLock(lockName);
         String  ret;
         try {
-            rLock.lock(1000, TimeUnit.MILLISECONDS);
+            rLock.lock(100, TimeUnit.MILLISECONDS);
             log.info("业务正在处理");
             Thread.sleep(10000);
             ret= "redisson分布式锁:上锁成功";
