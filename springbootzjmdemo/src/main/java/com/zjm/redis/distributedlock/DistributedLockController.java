@@ -3,6 +3,7 @@ package com.zjm.redis.distributedlock;
 import com.google.common.collect.Lists;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.redisson.Redisson;
@@ -10,6 +11,7 @@ import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.redisson.config.Config;
 import org.redisson.config.SingleServerConfig;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,6 +21,7 @@ import redis.clients.jedis.ShardedJedis;
 import redis.clients.jedis.ShardedJedisPool;
 import redis.clients.jedis.params.SetParams;
 
+import javax.annotation.Resource;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -109,28 +112,81 @@ public class DistributedLockController {
         }
         return responseResult;
     }
-    @GetMapping("/redissonLock")
-    @ApiOperation(value = "分布式锁-redisson分布式锁")
-    public String redissonLock() {
+
+    @GetMapping("/redissonLockUnitInv")
+    @ApiOperation(value = "分布式锁-redisson分布式锁【独立Redis环境】")
+    public String redissonLockUnitInv() {
         Config config = new Config();
         SingleServerConfig singleServerConfig = config.useSingleServer();
         singleServerConfig.setAddress("redis://127.0.0.1:6379");//redis ip端口不能错
-        RedissonClient redissonClient= Redisson.create(config);
-        String lockName="myLock"+Thread.currentThread().getId()+UUID.randomUUID();
-        log.info("锁id:"+lockName);
-        RLock rLock = redissonClient.getLock(lockName);
-        String  ret;
+        RedissonClient redissonClient = Redisson.create(config);
+        String unitInvLockName = "myLock" + Thread.currentThread().getId() + UUID.randomUUID();
+        log.info("锁id:" + unitInvLockName);
+        RLock rLock = redissonClient.getLock(unitInvLockName);
+        String ret;
         try {
-            rLock.lock(100, TimeUnit.MILLISECONDS);
+            //只要有锁住，不管多长时间，只要后面的业务执行完就会释放
+            rLock.lock(1, TimeUnit.MILLISECONDS);
             log.info("业务正在处理");
-            Thread.sleep(10000);
-            ret= "redisson分布式锁:上锁成功";
-        }catch (Exception e){
-            ret= "redisson分布式锁:上锁失败:"+e.getMessage();
-        }finally {
+            Thread.sleep(5000);
+            ret = "redisson分布式锁:上锁成功";
+        } catch (Exception e) {
+            ret = "redisson分布式锁:上锁失败:" + e.getMessage();
+        } finally {
             log.info("任务执行完毕，锁释放");
             rLock.unlock();
         }
         return ret;
+    }
+
+    @Resource
+    private RedissonClient redissonClient;
+
+    @GetMapping("/redissonLockSpringInt")
+    @ApiOperation(value = "分布式锁-redisson分布式锁【spring集成】")
+    public String redissonLockSpringInt() {
+        for (int i = 0; i < 10; i++) {
+            try {
+                Thread.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            Thread thread = new Thread(new ConcurrenceThread());
+            thread.start();
+        }
+        return "并发测试";
+    }
+
+    /**
+     * 并发测试
+     */
+    public void concurrenceTest() {
+        String SpringIntLockName = "myLockSpringInt" + Thread.currentThread().getId() + UUID.randomUUID();
+        log.info("锁id:" + SpringIntLockName);
+        RLock rLock = redissonClient.getLock(SpringIntLockName);
+        String ret;
+        try {
+            //释放锁的时间
+            rLock.lock(1, TimeUnit.MILLISECONDS);
+            log.info("业务正在处理");
+            Thread.sleep(5000);
+            ret = "redisson分布式锁:上锁成功";
+        } catch (Exception e) {
+            ret = "redisson分布式锁:上锁失败:" + e.getMessage();
+        } finally {
+            log.info("任务执行完毕，锁释放");
+            rLock.unlock();
+        }
+    }
+
+    /**
+     * 并发线程
+     */
+    class ConcurrenceThread implements Runnable {
+
+        @Override
+        public void run() {
+            concurrenceTest();
+        }
     }
 }

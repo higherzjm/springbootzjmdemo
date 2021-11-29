@@ -7,9 +7,9 @@ import org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration;
 import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 
-@SpringBootApplication(exclude = {RedisAutoConfiguration.class,RabbitAutoConfiguration.class})
+@SpringBootApplication(exclude = {RabbitAutoConfiguration.class})
 //@SpringBootApplication(exclude = {RabbitAutoConfiguration.class})//不加载RabbitAutoConfiguration动态配置类，避免一直尝试连接rabbitmq
-//, DataSourceAutoConfiguration.class
+//, DataSourceAutoConfiguration.class,RedisAutoConfiguration.class,
 @ServletComponentScan
 /**
  *  没有这个配置事务也可以正常运行,
