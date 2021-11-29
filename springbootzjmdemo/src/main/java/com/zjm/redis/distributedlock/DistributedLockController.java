@@ -147,7 +147,7 @@ public class DistributedLockController {
     public String redissonLockSpringInt() {
         for (int i = 0; i < 2; i++) {
             try {
-                Thread.sleep(1);
+                Thread.sleep(2000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -164,16 +164,14 @@ public class DistributedLockController {
         String SpringIntLockName = "myLockSpringInt";
         log.info("锁id:" + SpringIntLockName);
         RLock rLock = redissonClient.getLock(SpringIntLockName);
-        String ret;
         try {
-            //释放锁的时间
+            //释放锁的最长时间，如果未到这个时间，程序处理完毕执行unlock释放锁了这边也会停止lock
             rLock.lock(30, TimeUnit.SECONDS);
             log.info("业务正在处理:"+rLock.isLocked());
             Thread.sleep(5000);
             log.info("业务执行完毕:"+rLock.isLocked());
-            ret = "redisson分布式锁:上锁成功";
         } catch (Exception e) {
-            ret = "redisson分布式锁:上锁失败:" + e.getMessage();
+           e.printStackTrace();
         } finally {
             if (rLock.isLocked() && rLock.isHeldByCurrentThread()) {
                 rLock.unlock();
