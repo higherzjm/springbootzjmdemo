@@ -120,7 +120,7 @@ public class DistributedLockController {
         SingleServerConfig singleServerConfig = config.useSingleServer();
         singleServerConfig.setAddress("redis://127.0.0.1:6379");//redis ip端口不能错
         RedissonClient redissonClient = Redisson.create(config);
-        String unitInvLockName = "myLock" + Thread.currentThread().getId() + UUID.randomUUID();
+        String unitInvLockName = "redissonLockUnitInv";
         log.info("锁id:" + unitInvLockName);
         RLock rLock = redissonClient.getLock(unitInvLockName);
         String ret;
@@ -145,7 +145,7 @@ public class DistributedLockController {
     @GetMapping("/redissonLockSpringInt")
     @ApiOperation(value = "分布式锁-redisson分布式锁【spring集成】")
     public String redissonLockSpringInt() {
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 2; i++) {
             try {
                 Thread.sleep(1);
             } catch (InterruptedException e) {
@@ -161,21 +161,24 @@ public class DistributedLockController {
      * 并发测试
      */
     public void concurrenceTest() {
-        String SpringIntLockName = "myLockSpringInt" + Thread.currentThread().getId() + UUID.randomUUID();
+        String SpringIntLockName = "myLockSpringInt";
         log.info("锁id:" + SpringIntLockName);
         RLock rLock = redissonClient.getLock(SpringIntLockName);
         String ret;
         try {
             //释放锁的时间
-            rLock.lock(1, TimeUnit.MILLISECONDS);
-            log.info("业务正在处理");
+            rLock.lock(6, TimeUnit.SECONDS);
+            log.info("业务正在处理:"+rLock.isLocked());
             Thread.sleep(5000);
+            log.info("业务执行完毕:"+rLock.isLocked());
             ret = "redisson分布式锁:上锁成功";
         } catch (Exception e) {
             ret = "redisson分布式锁:上锁失败:" + e.getMessage();
         } finally {
+            if (rLock.isLocked() && rLock.isHeldByCurrentThread()) {
+                rLock.unlock();
+            }
             log.info("任务执行完毕，锁释放");
-            rLock.unlock();
         }
     }
 
