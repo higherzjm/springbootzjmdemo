@@ -173,6 +173,7 @@ public class DistributedLockController {
         } catch (Exception e) {
            e.printStackTrace();
         } finally {
+            log.info("isLocked:"+rLock.isLocked()+",isHeldByCurrentThread:"+rLock.isHeldByCurrentThread());
             if (rLock.isLocked() && rLock.isHeldByCurrentThread()) {
                 rLock.unlock();
             }
