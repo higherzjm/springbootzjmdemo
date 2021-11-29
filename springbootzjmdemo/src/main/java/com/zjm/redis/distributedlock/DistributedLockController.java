@@ -167,7 +167,7 @@ public class DistributedLockController {
         String ret;
         try {
             //释放锁的时间
-            rLock.lock(6, TimeUnit.SECONDS);
+            rLock.lock(30, TimeUnit.SECONDS);
             log.info("业务正在处理:"+rLock.isLocked());
             Thread.sleep(5000);
             log.info("业务执行完毕:"+rLock.isLocked());
