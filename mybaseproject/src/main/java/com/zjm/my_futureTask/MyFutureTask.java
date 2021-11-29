@@ -20,11 +20,9 @@ public class MyFutureTask {
     FutureTaskStudents futureTaskStudents=null;
 
     public void test1() throws Exception{
-        //³õÊ¼»¯ĞÅÏ¢
+        //åˆå§‹åŒ–ä¿¡æ¯
         initInfo();
 
-        //´´½¨Ïß³Ì³Ø
-        ExecutorService executor = Executors.newCachedThreadPool();
         FutureTask<String> futureTask = new FutureTask<>(new Callable<String>() {
             @Override
             public String call() throws Exception {
@@ -32,17 +30,20 @@ public class MyFutureTask {
                 return ret;
             }
         });
-        //Æô¶¯Ïß³Ì·½Ê½1
-        //executor.submit(futureTask);
-        //Æô¶¯Ïß³Ì·½Ê½2
+        //å¯åŠ¨çº¿ç¨‹æ–¹å¼1
+        //åˆ›å»ºçº¿ç¨‹æ± 
+       /** ExecutorService executor = Executors.newCachedThreadPool();
+        executor.submit(futureTask);*/
+        //å¯åŠ¨çº¿ç¨‹æ–¹å¼2
         futureTask.run();
-        //Æô¶¯Ïß³Ì·½Ê½3
+        
+        //å¯åŠ¨çº¿ç¨‹æ–¹å¼3
         //Thread thread = new Thread(futureTask);
         //thread.start();
 
         String ret = futureTask.get();
 
-        System.out.println(Thread.currentThread().getName() + " ·µ»Ø½á¹û:" +ret);
+        System.out.println(Thread.currentThread().getName() + " è¿”å›ç»“æœ:" +ret);
     }
 
     private void  initInfo(){
@@ -52,7 +53,7 @@ public class MyFutureTask {
                 return o.getNameAge();
             }
         };
-        futureTaskStudents=FutureTaskStudents.builder().name("ÕÅÈı").age(100).build();
+        futureTaskStudents=FutureTaskStudents.builder().name("å¼ ä¸‰").age(100).build();
     }
     private String getFunctionValue(Function<FutureTaskStudents, String> function, FutureTaskStudents students){
         return function.apply(students);
