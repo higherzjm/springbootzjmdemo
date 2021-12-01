@@ -19,19 +19,49 @@ import java.util.concurrent.*;
 public class PromiseTest {
     public static void main(String[] args) throws ExecutionException, InterruptedException {
         PromiseTest promiseTest = new PromiseTest();
-        promiseTest.test1();
+        promiseTest.mainBegin();
     }
 
-    public void test1() throws ExecutionException, InterruptedException {
-        Future<String> promise = promiseFuture("哈哈");
+    public void mainBegin() {
+        for (int i = 0; i < 2; i++) {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            int finalI = i;
+            Thread thread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    log.info("start ThreadId:"+Thread.currentThread().getId());
+                    PromiseTest promiseTest = new PromiseTest();
+                    try {
+                        promiseTest.testStart(finalI);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            thread.start();
+        }
+
+    }
+
+    public void testStart(int i) throws ExecutionException, InterruptedException {
+        final CountDownLatch l = new CountDownLatch(1000);
+        Future<String> promise = promiseFuture("学生",i);
         FutureListener futureListener = new FutureListener() {
             @Override
-            public void operationComplete(Future future) throws Exception {
+            public void operationComplete(Future future) throws Exception {//业务执行完才会进来，TODO，需要研究为什么
                 if (future.isSuccess() && future.isDone()) {
+                    log.info("success-->ThreadId:"+Thread.currentThread().getId());
                     Object retMsg = future.get();
                     Object now = future.getNow();
                     log.info("监听器operationComplete(..)打印结果:" + retMsg);
                     log.info("now:" + now);
+                } else {
+                    log.info("countDown-->ThreadId:"+Thread.currentThread().getId());
+                    l.countDown();
                 }
 
             }
@@ -40,39 +70,14 @@ public class PromiseTest {
         //执行算法添加返回结果监听
         promise.addListener(futureListener);
         log.info(promise.get() + ", 添加监听器后打印的结果");
-        log.info("任务提交完成");
 
     }
 
-
-    /**
-     *基础Promise
-     * @param value
-     * @return
-     */
-    private Promise<String> basePromise(String value) {
-        NioEventLoopGroup loop = new NioEventLoopGroup();
-        DefaultPromise<String> promise = new DefaultPromise<>(loop.next());
-        loop.schedule(new Callable<String>() {
-            @Override
-            public String call() throws Exception {
-                try {
-                    Thread.sleep(5000);
-                    promise.setSuccess("执行成功。" + value);
-                    return promise.get();
-                } catch (InterruptedException ignored) {
-                    promise.setFailure(ignored);
-                }
-                return promise.get();
-            }
-        }, 0, TimeUnit.SECONDS);
-        return promise;
-    }
 
     /**
      * netty融合FutureTask
      */
-    private Promise<String> promiseFuture(String value) {
+    private Promise<String> promiseFuture(String value,int i) {
         io.netty.channel.nio.NioEventLoopGroup loop = new NioEventLoopGroup();
         io.netty.util.concurrent.DefaultPromise<String> promise = new DefaultPromise<>(loop.next());
 
@@ -80,8 +85,12 @@ public class PromiseTest {
             @Override
             public String call() throws Exception {
                 try {
-                    Thread.sleep(5000);
-                    promise.setSuccess("执行成功。" + value);
+                    if (i==1){
+                        Thread.sleep(3000);
+                    }else {
+                        Thread.sleep(8000);
+                    }
+                    promise.setSuccess("执行成功,第 "+i+" 个" + value);
                     return promise.get();
                 } catch (InterruptedException ignored) {
                     promise.setFailure(ignored);

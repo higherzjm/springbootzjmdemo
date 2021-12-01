@@ -145,7 +145,7 @@ public class DistributedLockController {
     @GetMapping("/redissonLockSpringInt")
     @ApiOperation(value = "分布式锁-redisson分布式锁【spring集成】")
     public String redissonLockSpringInt() {
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < 2; i++) {
             try {
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
@@ -169,7 +169,7 @@ public class DistributedLockController {
             rLock.lock(30, TimeUnit.SECONDS);
 
             log.info("业务正在处理:"+rLock.isLocked());
-            Thread.sleep(5000);
+            Thread.sleep(10000);
             log.info("业务执行完毕:"+rLock.isLocked());
         } catch (Exception e) {
            e.printStackTrace();
