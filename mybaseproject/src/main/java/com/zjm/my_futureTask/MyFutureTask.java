@@ -24,11 +24,13 @@ public class MyFutureTask {
     public void test1_futureTask() throws Exception {
         //初始化信息
         initInfo();
+        log.info("run之前查看isDone()的值："+futureTask.isDone());
         //启动线程方式1
         futureTask.run();
+        log.info("run之后查看isDone()的值："+futureTask.isDone());
         String ret = futureTask.get();
 
-        System.out.println(Thread.currentThread().getName() + " 返回结果:" + ret);
+        System.out.println("future.get()输出:" + ret);
     }
     /**
      * ExecutorService 线程
@@ -67,7 +69,7 @@ public class MyFutureTask {
             @Override
             public String call() throws Exception {
                 String ret = getFunctionValue(function, futureTaskStudents);
-                System.out.println("线程返回结果:"+ret);
+                System.out.println("线程里面call里面输出:"+ret);
                 return ret;
             }
         });
