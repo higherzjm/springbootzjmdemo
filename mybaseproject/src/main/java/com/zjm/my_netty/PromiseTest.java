@@ -6,10 +6,8 @@ import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.FutureListener;
 import io.netty.util.concurrent.Promise;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Test;
 
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 /**
  * Promise与Future的角色区别
@@ -19,34 +17,30 @@ import java.util.concurrent.TimeUnit;
  */
 @Slf4j
 public class PromiseTest {
-    public static void main(String[] args){
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
         PromiseTest promiseTest=new PromiseTest();
         promiseTest.test1();
-        //promiseTest.test2();
     }
-    public void test1(){
-        PromiseTest testPromise = new PromiseTest();
-        Promise<String> promise = testPromise.doSomething("哈哈");
+    public void test1() throws ExecutionException, InterruptedException {
+        Future<String> promise = doSomething2("哈哈");
         FutureListener futureListener = new FutureListener() {
             @Override
             public void operationComplete(Future future) throws Exception {
-                System.out.println(promise.get() + ", something is done");
                 if (future.isSuccess()&&future.isDone()) {
                     Object retMsg = future.get();
+                    Object now=future.getNow();
                     log.info("something is success and is done retMsg:" + retMsg);
+                    log.info("now:"+now);
                 }
 
             }
 
         };
+        //执行算法添加返回结果监听
         promise.addListener(futureListener);
+        System.out.println(promise.get() + ", something is done");
     }
 
-    public void test2() {
-        PromiseTest testPromise = new PromiseTest();
-        Promise<String> promise = testPromise.doSomething("哈哈");
-        promise.addListener(future -> System.out.println(promise.get()+", something is done"));
-    }
 
     /**
      * 创建一个DefaultPromise并返回，将业务逻辑放入线程池中执行
@@ -66,6 +60,25 @@ public class PromiseTest {
                 promise.setFailure(ignored);
             }
             return promise;
+        }, 0, TimeUnit.SECONDS);
+        return promise;
+    }
+
+    private Promise<String> doSomething2(String value) {
+        NioEventLoopGroup loop = new NioEventLoopGroup();
+        DefaultPromise<String> promise = new DefaultPromise<>(loop.next());
+        loop.schedule(new Callable<String>() {
+            @Override
+            public String call() throws Exception {
+                try {
+                    Thread.sleep(1000);
+                    promise.setSuccess("执行成功。" + value);
+                    return promise.get();
+                } catch (InterruptedException ignored) {
+                    promise.setFailure(ignored);
+                }
+                return promise.get();
+            }
         }, 0, TimeUnit.SECONDS);
         return promise;
     }

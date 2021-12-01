@@ -12,7 +12,11 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.DelimiterBasedFrameDecoder;
 import io.netty.handler.codec.string.StringDecoder;
+import io.netty.util.concurrent.Future;
+import io.netty.util.concurrent.FutureListener;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class Server {
 
     public static void main(String[] args) throws Exception {
@@ -39,7 +43,6 @@ public class Server {
         });
         //4 绑定连接
         ChannelFuture cf = b.bind(8766).sync();
-        
         //等待服务器监听端口关闭
         cf.channel().closeFuture().sync();
         pGroup.shutdownGracefully();

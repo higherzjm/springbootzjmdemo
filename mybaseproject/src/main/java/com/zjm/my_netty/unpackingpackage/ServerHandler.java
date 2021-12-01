@@ -7,12 +7,12 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
 public class ServerHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        System.out.println(" server channel active... ");
+        System.out.println(" server channel active...:"+System.currentTimeMillis());
     }
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        System.out.println("Server :" + msg);
+        System.out.println("Server :" + msg+":"+System.currentTimeMillis());
         String response = "服务器响应: " + msg + "$_";
         ctx.writeAndFlush(Unpooled.copiedBuffer(response.getBytes()));
     }
