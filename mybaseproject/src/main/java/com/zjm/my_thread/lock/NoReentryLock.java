@@ -28,7 +28,8 @@ public class NoReentryLock {
     }
 }
 @Slf4j
-class Lock {
+class
+Lock {
     private boolean isLocked = false;
 
     public synchronized void locked() throws InterruptedException {
