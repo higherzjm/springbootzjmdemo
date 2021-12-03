@@ -6,7 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.concurrent.*;
 
 /**
- * Ïß³Ì³ØÉı¼¶°æ
+ * çº¿ç¨‹æ± å‡çº§ç‰ˆ
  * @author zhujianming
  */
 @Slf4j
@@ -21,9 +21,9 @@ public class TaskCallable {
         ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(8, 30, 60, TimeUnit.MILLISECONDS,
                 new LinkedBlockingQueue<>(100), new ThreadFactoryBuilder().setNameFormat("salary-calculation-pool-%d").build(),
                 new ThreadPoolExecutor.AbortPolicy());
-        threadPoolExecutor.allowCoreThreadTimeOut(true);//ÔÊĞíºËĞÄÏß³Ì³¬Ê±
+        threadPoolExecutor.allowCoreThreadTimeOut(true);//å…è®¸æ ¸å¿ƒçº¿ç¨‹è¶…æ—¶
         CompletionService<String> completionService = new ExecutorCompletionService<>(threadPoolExecutor);
-        MyTaskCallable myTaskCallable = new MyTaskCallable("ÎÒÊÇÖĞ¹úÈË");
+        MyTaskCallable myTaskCallable = new MyTaskCallable("æˆ‘æ˜¯ä¸­å›½äºº");
         try {
             String subRet=completionService.submit(myTaskCallable).get();
             log.info("subRet:"+subRet);
@@ -51,6 +51,6 @@ class MyTaskCallable implements Callable<String> {
 
     @Override
     public String call() throws Exception {
-        return "³õÊ¼»¯²ÎÊı:" + param;
+        return "åˆå§‹åŒ–å‚æ•°:" + param;
     }
 }

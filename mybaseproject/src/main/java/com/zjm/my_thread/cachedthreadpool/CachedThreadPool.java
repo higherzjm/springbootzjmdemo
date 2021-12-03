@@ -7,7 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.concurrent.*;
 
 /**
- * Ïß³Ì³Ø
+ * çº¿ç¨‹æ± 
  *
  * @author zhujianming
  */
@@ -20,7 +20,7 @@ public class CachedThreadPool {
     }
 
     /**
-     * @Description:  ÆÕÍ¨µÄÏß³Ì»òÏß³Ì³Ø£¬ÎŞĞè×èÈûµÈ´ı
+     * @Description:  æ™®é€šçš„çº¿ç¨‹æˆ–çº¿ç¨‹æ± ï¼Œæ— éœ€é˜»å¡ç­‰å¾…
      * @Author: zhujianming
      * @Date: 2021/5/8
      * @param:
@@ -29,20 +29,20 @@ public class CachedThreadPool {
     public void test1() throws ExecutionException, InterruptedException {
         Thread thread = new Thread(new MyThread());
         thread.start();
-        System.out.println("Ïß³ÌÕıÔÚÖ´ĞĞ------------------");
+        System.out.println("çº¿ç¨‹æ­£åœ¨æ‰§è¡Œ------------------");
 
-        //Ïß³Ì³Ø
+        //çº¿ç¨‹æ± 
         ExecutorService cachedThreadPool = Executors.newFixedThreadPool(2);
         cachedThreadPool.execute(new MyThread());
 
-        Future<String> future = cachedThreadPool.submit(new MyTaskCallable("ÎÒÊÇÖĞ¹úÈËsubmit"));
+        Future<String> future = cachedThreadPool.submit(new MyTaskCallable("æˆ‘æ˜¯ä¸­å›½äººsubmit"));
         log.info("ret:" + future.get());
-        log.info("¸Ã·½·¨Ö´ĞĞ½áÊø----------------");
+        log.info("è¯¥æ–¹æ³•æ‰§è¡Œç»“æŸ----------------");
 
 
     }
     /**
-     * @Description: ¶àÏß³ÌÖ´ĞĞµÈ´ı£¬¶à¸öÏß³ÌÊıÖ´ĞĞÍê±ÏÖ®ºó²Å¿ÉÒÔÍùÏÂÒ»²½Ö´ĞĞ¡£±ÈÈç¹¤³Ì²¿ÒªÇóÈ¥10¸öÒøĞĞÈ¡ÍêÇ®Ö®ºó²Å¿ÉÒÔÖ´ĞĞÏÂÒ»²½µÄÒµÎñ
+     * @Description: å¤šçº¿ç¨‹æ‰§è¡Œç­‰å¾…ï¼Œå¤šä¸ªçº¿ç¨‹æ•°æ‰§è¡Œå®Œæ¯•ä¹‹åæ‰å¯ä»¥å¾€ä¸‹ä¸€æ­¥æ‰§è¡Œã€‚æ¯”å¦‚å·¥ç¨‹éƒ¨è¦æ±‚å»10ä¸ªé“¶è¡Œå–å®Œé’±ä¹‹åæ‰å¯ä»¥æ‰§è¡Œä¸‹ä¸€æ­¥çš„ä¸šåŠ¡
      * @Author: zhujianming
      * @Date: 2021/5/8
      * @param:
@@ -56,8 +56,8 @@ public class CachedThreadPool {
             executorService.submit(() -> {
                 try {
                     Thread.sleep(2000);
-                    log.info("Ïß³ÌÖ´ĞĞ:"+System.nanoTime());
-                    latch.countDown();//Ã¿Ö´ĞĞÍêÒ»´Î»ò¼õ1
+                    log.info("çº¿ç¨‹æ‰§è¡Œ:"+System.nanoTime());
+                    latch.countDown();//æ¯æ‰§è¡Œå®Œä¸€æ¬¡æˆ–å‡1
                     log.info("submit->count:"+latch.getCount());
                 } catch (Exception e) {
                     Thread.currentThread().interrupt();
@@ -65,12 +65,12 @@ public class CachedThreadPool {
             });
         }
         try {
-            latch.await();//×èÈûµÈ´ı£¬Ö»µ½countÎª0µÄÊ±ºòÍ£Ö¹µÈ´ı
+            latch.await();//é˜»å¡ç­‰å¾…ï¼Œåªåˆ°countä¸º0çš„æ—¶å€™åœæ­¢ç­‰å¾…
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        log.info("Ö´ĞĞ¼¼Êõ->count:"+latch.getCount());
-        log.info("-------------Ö´ĞĞÍê±Ï------------");
+        log.info("æ‰§è¡ŒæŠ€æœ¯->count:"+latch.getCount());
+        log.info("-------------æ‰§è¡Œå®Œæ¯•------------");
     }
 }
 
@@ -78,13 +78,13 @@ class MyThread implements Runnable {
 
     @Override
     public void run() {
-        System.out.println("----------½øÈëÏß³Ì");
+        System.out.println("----------è¿›å…¥çº¿ç¨‹");
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.println("----------Ïß³ÌÖ´ĞĞ½áÊø");
+        System.out.println("----------çº¿ç¨‹æ‰§è¡Œç»“æŸ");
     }
 }
 
@@ -97,7 +97,7 @@ class MyTaskCallable implements Callable<String> {
 
     @Override
     public String call() throws Exception {
-        System.out.println("----------Ö´ĞĞCallableÏß³Ì");
-        return "³õÊ¼»¯²ÎÊı:" + param;
+        System.out.println("----------æ‰§è¡ŒCallableçº¿ç¨‹");
+        return "åˆå§‹åŒ–å‚æ•°:" + param;
     }
 }

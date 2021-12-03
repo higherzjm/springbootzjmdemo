@@ -5,8 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
 /**
- * @Description: ²»¿ÉÖØÈëËø
- * ²»¿ÉÖØÈëËø£¬¼´Èôµ±Ç°Ïß³ÌÖ´ĞĞÄ³¸ö·½·¨ÒÑ¾­»ñÈ¡ÁË¸ÃËø£¬ÄÇÃ´ÔÚ·½·¨ÖĞ³¢ÊÔÔÙ´Î»ñÈ¡ËøÊ±ÃÇ¾Í»á»ñÈ¡²»µ½±»×èÈû
+ * @Description: ä¸å¯é‡å…¥é”
+ * ä¸å¯é‡å…¥é”ï¼Œå³è‹¥å½“å‰çº¿ç¨‹æ‰§è¡ŒæŸä¸ªæ–¹æ³•å·²ç»è·å–äº†è¯¥é”ï¼Œé‚£ä¹ˆåœ¨æ–¹æ³•ä¸­å°è¯•å†æ¬¡è·å–é”æ—¶ä»¬å°±ä¼šè·å–ä¸åˆ°è¢«é˜»å¡
  * @Author: zhujianming
  * @Date: 2021/4/21
  **/
@@ -33,7 +33,7 @@ class Lock {
 
     public synchronized void locked() throws InterruptedException {
         Thread thread = Thread.currentThread();
-        log.info("threadName£º"+thread.getName());
+        log.info("threadNameï¼š"+thread.getName());
         log.info("isLocked:"+isLocked);
         while (isLocked) {
             wait();
