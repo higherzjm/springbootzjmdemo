@@ -49,8 +49,8 @@ public class PromiseTest {
 
     public void testStart(int i) throws ExecutionException, InterruptedException {
         final CountDownLatch l = new CountDownLatch(1000);
-        Future<String> promise = promiseFuture("学生",i);
-        FutureListener futureListener = new FutureListener() {
+        io.netty.util.concurrent.Future<String> promise = promiseFuture("学生",i);
+        io.netty.util.concurrent.FutureListener futureListener = new FutureListener() {
             @Override
             public void operationComplete(Future future) throws Exception {//业务执行完才会进来，TODO，需要研究为什么
                 if (future.isSuccess() && future.isDone()) {
@@ -67,8 +67,8 @@ public class PromiseTest {
             }
 
         };
-        //执行算法添加返回结果监听
-        promise.addListener(futureListener);
+        //执行算法添加返回结果监听[不加这一句线程还是会执行，只是不做监听]
+         promise.addListener(futureListener);
         log.info(promise.get() + ", 添加监听器后打印的结果");
 
     }
