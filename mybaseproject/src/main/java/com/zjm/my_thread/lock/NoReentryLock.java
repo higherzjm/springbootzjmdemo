@@ -27,6 +27,7 @@ public class NoReentryLock {
         lock.unlock();
     }
 }
+
 @Slf4j
 class
 Lock {
@@ -34,8 +35,8 @@ Lock {
 
     public synchronized void locked() throws InterruptedException {
         Thread thread = Thread.currentThread();
-        log.info("threadName："+thread.getName());
-        log.info("isLocked:"+isLocked);
+        log.info("threadName：" + thread.getName());
+        log.info("isLocked:" + isLocked);
         while (isLocked) {
             wait();
         }
