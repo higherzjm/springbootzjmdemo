@@ -17,8 +17,8 @@ import java.util.concurrent.TimeUnit;
  * @author zhujianming
  */
 @RequestMapping("/redis")
-//@RestController
-@Api(tags = "Redis应用")
+@RestController
+@Api(tags = "Redis")
 public class MyRedisController {
     @Autowired
     private RedisMessageListenerContainer messageListenerContainer;
