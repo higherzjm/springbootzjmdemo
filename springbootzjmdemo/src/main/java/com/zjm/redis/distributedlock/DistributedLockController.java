@@ -32,7 +32,7 @@ import java.util.concurrent.TimeUnit;
 @RequestMapping("/distributedLock")
 @RestController
 @Slf4j
-@Api(tags = "Redis应用")
+@Api(tags = "Redis分布式锁")
 public class DistributedLockController {
 
     @GetMapping("/test1")
