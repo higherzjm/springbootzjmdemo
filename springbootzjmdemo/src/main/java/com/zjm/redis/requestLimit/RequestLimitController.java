@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.time.Duration;
 
+/**
+ * redis 限流，如没2秒内只能限制10次请求
+ */
 @RequestMapping("/requestLimit")
 @RestController
 @Slf4j
