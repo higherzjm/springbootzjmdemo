@@ -34,9 +34,8 @@ public class MyConsumer_Predicate {
     /**
      * Update the factory's internal set of manual singleton names.
      *
-     * @param action    the modification action
-     * @param condition a precondition for the modification action
-     *                  (if this condition does not apply, the action can be skipped)
+     * @param action    函数处理
+     * @param condition 条件校验
      */
     private void updateManualSingletonNames(Consumer<List<String>> action, Predicate<List<String>> condition) {
         synchronized (this.beanDefinitionMap) {
@@ -56,31 +55,24 @@ public class MyConsumer_Predicate {
 
     @Test
     public void test2() {
-        log.info(bb());
+        log.info(start());
     }
 
-    public String bb(){
-        return  aa(a->{
-            return a.toUpperCase();
+    public String start(){
+        return  paramFunc(param->{
+            return param.toUpperCase();
         });
     }
 
-    public String  aa(Test1 test){
-        return  test.getName("aa");
+    public String  paramFunc(IParamInt paramInt){
+        return  paramInt.getName("i am a chines");
     }
 
 
 
-    public interface Test1 {
-        @Nullable
-        String getName(String a);
-    }
-    class StudentInfImpl implements Test1{
-
-        @Override
-        public String getName(String a) {
-            return a;
-        }
+    public interface IParamInt {
+        String getName(String name);
+        /* int getAge(Integer age); */
     }
 
 }
