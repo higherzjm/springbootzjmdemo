@@ -2,6 +2,7 @@ package com.zjm.jdk8lambda;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
+import org.springframework.lang.Nullable;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -53,5 +54,33 @@ public class MyConsumer_Predicate {
         }
     }
 
+    @Test
+    public void test2() {
+        log.info(bb());
+    }
+
+    public String bb(){
+        return  aa(a->{
+            return a.toUpperCase();
+        });
+    }
+
+    public String  aa(Test1 test){
+        return  test.getName("aa");
+    }
+
+
+
+    public interface Test1 {
+        @Nullable
+        String getName(String a);
+    }
+    class StudentInfImpl implements Test1{
+
+        @Override
+        public String getName(String a) {
+            return a;
+        }
+    }
 
 }
