@@ -76,8 +76,9 @@ public class MyConsumer_Predicate {
 
     public String  paramFunc(IParamInt paramInt){
         Students students=new Students();
-        return  paramInt.getName(students);
-        //return  paramInt.getAge(100).toString();
+         String ret=paramInt.getName(students);
+         ret="我的身份信息,"+ret;
+         return ret;
     }
 
 
