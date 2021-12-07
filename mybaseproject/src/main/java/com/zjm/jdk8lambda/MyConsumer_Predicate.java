@@ -17,6 +17,10 @@ import java.util.function.Predicate;
 public class MyConsumer_Predicate {
     List<String> manualSingletonNames = new ArrayList<>();
     private final Map<String, String> beanDefinitionMap = new ConcurrentHashMap<>(256);
+
+    /**
+     * Consumer,Predicate:公共类库回调
+     */
     @Test
     public void test1() {
         manualSingletonNames.add("beanName1");
@@ -53,26 +57,42 @@ public class MyConsumer_Predicate {
         }
     }
 
+
+    /**
+     *参数值回调
+     */
     @Test
     public void test2() {
-        log.info(start());
+        String ret=start();
+        log.info("ret:"+ret);
     }
 
+
     public String start(){
-        return  paramFunc(param->{
-            return param.toUpperCase();
+        return  paramFunc(students->{
+            return students.getName("张三",30);
         });
     }
 
     public String  paramFunc(IParamInt paramInt){
-        return  paramInt.getName("i am a chines");
+        Students students=new Students();
+        return  paramInt.getName(students);
+        //return  paramInt.getAge(100).toString();
     }
 
 
 
     public interface IParamInt {
-        String getName(String name);
-        /* int getAge(Integer age); */
+        String getName(Students students);
+        /**
+         * 只能有一个方法，不然调用方无法区分是那种参数类型，属于唯一匹配
+         */
+         //Integer getAge(Integer age);
     }
 
+    class Students {
+        public String getName(String name, Integer age) {
+            return "姓名:" + name + ",年龄:" + age ;
+        }
+    }
 }

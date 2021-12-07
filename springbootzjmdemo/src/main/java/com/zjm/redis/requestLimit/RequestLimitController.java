@@ -51,13 +51,13 @@ public class RequestLimitController {
         //获取命令操作对象
         ZSetOperations<String,Object> zSetOperations = redisTemplate.opsForZSet();
         //Add value to a sorted set at key, or update its score if it already exists.
-        zSetOperations.add(key, "zjm" + nowTs, nowTs);
+        zSetOperations.add(key, "zjm" + nowTs, nowTs);//[value不能一样，不然都会认为是同一个请求，测不出限流的效果]
         /**
          * Remove elements with scores between min and max from sorted set with key
          * 移除时间窗口(period/秒)之前的行为记录，剩下的都是时间窗口内的记录。
          * 【比如每5秒限制请求2次，就是当前毫秒减去5000秒为时间间隔】
          */
-        zSetOperations.removeRangeByScore(key, 0, nowTs - period * 1000);
+        //zSetOperations.removeRangeByScore(key, 0, nowTs - period * 1000); //[非必要]
         /**
          * Get the size of sorted set with key.
          *获取时间窗口内的行为数量
@@ -68,7 +68,7 @@ public class RequestLimitController {
          *设置过期时间，避免冷用户持续占用内存.过期时间应该等于时间窗口的长度，再多宽限1秒
          *【相当于是过了指定期间的时间，马上重新开始计时】
          */
-        redisTemplate.expire(key, Duration.ofSeconds(period + 1));
+        redisTemplate.expire(key, Duration.ofSeconds(period + 1));//[必要，不然会锁住前一次的计时，无法解锁]
         return count <= maxCount;
 
     }
