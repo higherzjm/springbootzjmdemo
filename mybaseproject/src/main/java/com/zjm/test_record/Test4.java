@@ -33,7 +33,22 @@ public class Test4 {
         Integer a = 1;
         String b = "1";
         System.out.println(a.toString().equals(b));
+        Test4 test4=new Test4();
+        test4.aa(1);
 
+    }
+    private  void aa(int a ){
+        if (a==2){
+            System.out.println("aaa");
+        }
+        if (a==1){
+            System.out.println("bbbb");
+            //返回不往下执行
+            return;
+        }
+        if (a==1){
+            System.out.println("ccc");
+        }
     }
 
     @Test
@@ -209,6 +224,8 @@ public class Test4 {
         private Integer studentNum;
 
     }
+
+
 }
 
 class SchoolVO {
