@@ -151,7 +151,7 @@ public class DistributedLockController {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            Thread thread = new Thread(new ConcurrenceThread());
+            Thread thread = new Thread(new ConcurrenceThread("任务"+i));
             thread.start();
         }
         return "并发测试";
@@ -160,25 +160,25 @@ public class DistributedLockController {
     /**
      * 并发测试
      */
-    public void concurrenceTest() {
+    public void concurrenceTest(String targetName) {
         String SpringIntLockName = "myLockSpringInt";
-        log.info("锁id:" + SpringIntLockName);
+        log.info("【{}】进入抢资源",targetName);
         RLock rLock = redissonClient.getLock(SpringIntLockName);
         try {
             //释放锁的最长时间，如果未到这个时间，程序处理完毕执行unlock释放锁了这边也会停止lock
             rLock.lock(30, TimeUnit.SECONDS);
 
-            log.info("业务正在处理:"+rLock.isLocked());
+            log.info("【{}】业务正在处理:"+rLock.isLocked(),targetName);
             Thread.sleep(10000);
-            log.info("业务执行完毕:"+rLock.isLocked());
+            log.info("【{}】执行完毕，是否还是锁住状态:"+rLock.isLocked()+",是否被当前线程锁住:"+rLock.isHeldByCurrentThread(),targetName);
         } catch (Exception e) {
            e.printStackTrace();
         } finally {
-            log.info("isLocked:"+rLock.isLocked()+",isHeldByCurrentThread:"+rLock.isHeldByCurrentThread());
+            log.info("【{}】进入解锁阶段",targetName);
             if (rLock.isLocked() && rLock.isHeldByCurrentThread()) {
                 rLock.unlock();
             }
-            log.info("任务执行完毕，锁释放");
+            log.info("【{}】解锁成功，锁释放",targetName);
         }
     }
 
@@ -186,10 +186,15 @@ public class DistributedLockController {
      * 并发线程
      */
     class ConcurrenceThread implements Runnable {
+        private String targetName;
+
+        public ConcurrenceThread(String targetName) {
+            this.targetName = targetName;
+        }
 
         @Override
         public void run() {
-            concurrenceTest();
+            concurrenceTest(targetName);
         }
     }
 }
