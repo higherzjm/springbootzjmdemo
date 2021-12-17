@@ -145,40 +145,73 @@ public class DistributedLockController {
     @GetMapping("/redissonLockSpringInt")
     @ApiOperation(value = "分布式锁-redisson分布式锁【spring集成】")
     public String redissonLockSpringInt() {
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 7; i++) {
             try {
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            Thread thread = new Thread(new ConcurrenceThread("任务"+i));
+            Thread thread = new Thread(new ConcurrenceThread("任务" + i));
             thread.start();
         }
         return "并发测试";
     }
 
     /**
-     * 并发测试
+     * 并发测试(无法续期，到了时间就会释放锁)
      */
     public void concurrenceTest(String targetName) {
         String SpringIntLockName = "myLockSpringInt";
-        log.info("【{}】进入抢资源",targetName);
+        log.info("【{}】进入抢资源", targetName);
         RLock rLock = redissonClient.getLock(SpringIntLockName);
         try {
-            //释放锁的最长时间，如果未到这个时间，程序处理完毕执行unlock释放锁了这边也会停止lock
-            rLock.lock(30, TimeUnit.SECONDS);
+            //30毫秒后释放锁，没有续期
+            rLock.lock(30, TimeUnit.MILLISECONDS);
 
-            log.info("【{}】业务正在处理:"+rLock.isLocked(),targetName);
+            log.info("【{}】业务正在处理:" + rLock.isLocked(), targetName);
             Thread.sleep(10000);
-            log.info("【{}】执行完毕，是否还是锁住状态:"+rLock.isLocked()+",是否被当前线程锁住:"+rLock.isHeldByCurrentThread(),targetName);
+            log.info("【{}】执行完毕，是否还是锁住状态:" + rLock.isLocked() + ",是否被当前线程锁住:" + rLock.isHeldByCurrentThread(), targetName);
         } catch (Exception e) {
-           e.printStackTrace();
+            e.printStackTrace();
         } finally {
-            log.info("【{}】进入解锁阶段",targetName);
+            log.info("【{}】进入解锁阶段", targetName);
             if (rLock.isLocked() && rLock.isHeldByCurrentThread()) {
                 rLock.unlock();
             }
-            log.info("【{}】解锁成功，锁释放",targetName);
+            log.info("【{}】解锁成功，锁释放", targetName);
+        }
+    }
+
+    /**
+     * 并发测试(锁自动续期，每隔10秒续期一次)
+     */
+    public void concurrenceTest2(String targetName) {
+        String SpringIntLockName = "myLockSpringInt2";
+        log.info("【{}】进入抢资源", targetName);
+        RLock rLock = redissonClient.getLock(SpringIntLockName);
+        boolean isGet = false;
+        try {
+            //2.如果锁已经存在，则尝试12秒获取锁，12秒内仍未获取锁则返回false【每隔10秒续期一次】
+            isGet = rLock.tryLock(12000, TimeUnit.MILLISECONDS);
+            log.info("{}是否获取锁成功:{}", targetName, isGet);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        if (isGet) {
+            try {
+                log.info("【{}】业务正在处理:" + rLock.isLocked(), targetName);
+                Thread.sleep(100000);
+                log.info("【{}】执行完毕，是否还是锁住状态:" + rLock.isLocked() + ",是否被当前线程锁住:" + rLock.isHeldByCurrentThread(), targetName);
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                log.info("【{}】进入解锁阶段", targetName);
+                if (rLock.isLocked() && rLock.isHeldByCurrentThread()) {
+                    rLock.unlock();
+                }
+                log.info("【{}】解锁成功，锁释放", targetName);
+            }
+
         }
     }
 
@@ -194,7 +227,7 @@ public class DistributedLockController {
 
         @Override
         public void run() {
-            concurrenceTest(targetName);
+            concurrenceTest2(targetName);
         }
     }
 }
