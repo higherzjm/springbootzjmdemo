@@ -15,13 +15,13 @@ import java.util.Map;
 @RequestMapping("/baseDbConnect")
 @RestController
 @Slf4j
-@Api(tags = "spring事务-jdbc数据库连接")
+@Api(tags = "数据库事务")
 public class BaseDbControl {
     /*
      * 执行sql查询语句
      */
     @PostMapping("/queryStudents/{name}")
-    @ApiOperation(value = "基础数据库连接->查询学生列表", notes = "query student list")
+    @ApiOperation(value = "jdbc基础数据库事务->查询学生列表", notes = "query student list")
     public Map<String, Object> executeQuery(@ApiParam(name = "name", value = "姓名",defaultValue = "张三") @PathVariable("name") String name) {
         String sql="select name,age from students_info where name=?";
         Map<String, Object> mapMetaData = new HashMap<>();
