@@ -1,5 +1,8 @@
-package com.zjm.kindsmodels.customermodels1;
+package com.zjm.kindsmodels.customermodels3;
 
+import com.zjm.kindsmodels.customermodels1.AbstractUniversity;
+import com.zjm.kindsmodels.customermodels1.FdUniversity1;
+import com.zjm.kindsmodels.customermodels1.XdUniversity1;
 import com.zjm.util.SpringBeanUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -15,25 +18,27 @@ import org.springframework.web.bind.annotation.RestController;
  * @author zhujianming
  * 模板方法模式
  */
-@RequestMapping("/kindsmodels1")
+@RequestMapping("/kindsmodels3")
 @RestController
 @Slf4j
 @Api(tags = "设计模式")
-public class MyController1 {
+public class MyController3 {
+
+    @Autowired
+    private UniversityContext context;
 
     /**
-     * 模板方法模式：定义一个接口，由抽象类实现，同时抽象类中定义业务抽象方法，
-     * 有业务类经常抽象类做业务逻辑细化，具有调用哪个业务逻辑，抽象类实现的接口会做动态判断
+     *
      */
     @PostMapping("/universityAddress/{universityName}")
-    @ApiOperation(value = "查询高校地址【模板方法模式】", notes = "query student list")
+    @ApiOperation(value = "查询高校地址【策略模式】", notes = "query student list")
     public String universityAddress(@ApiParam(name = "universityName", value = "厦门大学、厦门大学", defaultValue = "厦门大学") @PathVariable("universityName") String universityName) {
-        AbstractUniversity university = null;
+        String beanName = null;
         if (universityName.equals("厦门大学")) {
-            university = SpringBeanUtils.getBean(XdUniversity1.class);
+            beanName = "xd";
         } else {
-            university = SpringBeanUtils.getBean(FdUniversity1.class);
+            beanName = "fd";
         }
-        return university.analysisName(universityName);
+        return context.getContext(beanName).getAddress(universityName);
     }
 }
