@@ -9,21 +9,22 @@ import org.junit.Test;
 
 /**
  * @author zhujianming
+ * 妯℃澘鏂规硶妯″紡
  */
 @Slf4j
 public class MyController {
     @Test
     public void test1() {
         Myservice myservice = new AbstractService();
-        log.info(myservice.test1("张三", new MyServiceImpl1()));
-        log.info(myservice.test1("张三", new MyServiceImpl2()));
+        log.info(myservice.test1("寮犱笁", new MyServiceImpl1()));
+        log.info(myservice.test1("寮犱笁", new MyServiceImpl2()));
     }
 
     @Test
     public void test2() {
         Myservice myservice = new MyServiceImpl1();
-        log.info(myservice.test12("张三"));
+        log.info(myservice.test12("寮犱笁"));
         Myservice myservice2 = new MyServiceImpl2();
-        log.info(myservice2.test12("张三"));
+        log.info(myservice2.test12("寮犱笁"));
     }
 }
