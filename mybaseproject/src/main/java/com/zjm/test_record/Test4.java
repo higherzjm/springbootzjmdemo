@@ -37,6 +37,11 @@ public class Test4 {
         test4.aa(1);
 
     }
+    @Test
+    public void test(){
+        String a="aa;aaxx;";
+        System.out.println(a.substring(0,a.length()-1));
+    }
     private  void aa(int a ){
         if (a==2){
             System.out.println("aaa");
