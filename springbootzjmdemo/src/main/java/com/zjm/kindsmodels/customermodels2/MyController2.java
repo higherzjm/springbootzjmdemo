@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RequestMapping("/kindsmodels")
+@RequestMapping("/kindsmodels2")
 @RestController
 @Slf4j
 @Api(tags = "设计模式")
-public class MyController {
+public class MyController2 {
     @PostMapping("/universityAddress/{universityName}")
     @ApiOperation(value = "查询高校地址【策略模式+工厂模式】", notes = "query student list")
     public String universityAddress(@ApiParam(name = "universityName", value = "厦门大学、农林大学、厦门大学",defaultValue = "厦门大学") @PathVariable("universityName") String universityName) {

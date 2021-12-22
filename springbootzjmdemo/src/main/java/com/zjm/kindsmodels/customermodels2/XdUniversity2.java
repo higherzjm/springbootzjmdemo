@@ -5,20 +5,20 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Service;
 
 /**
- * 福大
+ * 厦大
  */
 @Slf4j
 @Service
-public class FdUniversity implements IUniversityManage, InitializingBean {
+public class XdUniversity2 implements IUniversityManage, InitializingBean {
     @Override
     public String getAddress(String name) {
         // 处理其他业务......
-        log.info("处理福州大学业务");
-        return  name+"地址:福州市静安区";
+        log.info("处理厦门大学业务");
+        return name+"地址:厦门市思明区";
     }
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        UniversityFactory.createFactory("福州大学",this);
+        UniversityFactory.createFactory("厦门大学",this);
     }
 }
