@@ -57,7 +57,7 @@ public class BaseDbControl {
      * 执行sql查询语句
      */
     @PostMapping("/updateIdentity/{id}")
-    @ApiOperation(value = "基础数据库连接->事务更新操作")
+    @ApiOperation(value = "jdbc基础数据库事务->事务更新操作")
     public String updateIdentity(@ApiParam(name = "id", value = "主键",defaultValue = "1") @PathVariable("id") String id) {
         String sql="update students_info s set s.identity='共青团' where s.id="+id;
         Connection  conn=null;
