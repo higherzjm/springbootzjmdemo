@@ -23,7 +23,7 @@ public class MyController1 {
 
     /**
      * 模板方法模式：定义一个接口，由抽象类实现，同时抽象类中定义业务抽象方法，
-     * 有业务类经常抽象类做业务逻辑细化，具有调用哪个业务逻辑，抽象类实现的接口会做动态判断
+     * 由业务类继承抽象类做业务逻辑细化，具体调用哪个业务逻辑，抽象类实现的接口会做动态判断
      */
     @PostMapping("/universityAddress/{universityName}")
     @ApiOperation(value = "查询高校地址【模板方法模式】", notes = "query student list")
