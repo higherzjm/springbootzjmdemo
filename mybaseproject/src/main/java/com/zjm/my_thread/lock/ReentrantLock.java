@@ -4,8 +4,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
 /**
- * @Description: ¿ÉÖØÈëËø
- * ¿ÉÖØÈë£¬ÒâÎ¶×ÅÏß³Ì¿ÉÒÔ½øÈëËüÒÑ¾­ÓµÓĞËøµÄÍ¬²½´úÂë¿é¡£
+ * @Description: å¯é‡å…¥é”
+ * å¯é‡å…¥ï¼Œæ„å‘³ç€çº¿ç¨‹å¯ä»¥è¿›å…¥å®ƒå·²ç»æ‹¥æœ‰é”çš„åŒæ­¥ä»£ç å—ã€‚
  * @Author: zhujianming
  * @Date: 2021/4/21
  **/
@@ -16,15 +16,15 @@ public class ReentrantLock {
     int lockedCount = 0;
     @Test
     public void test1() throws  Exception{
-        lock();//½øÈëËøµÚÒ»´Î
-        lock();//½øÈëËøµÚ¶ş´Î
+        lock();//è¿›å…¥é”ç¬¬ä¸€æ¬¡
+        lock();//è¿›å…¥é”ç¬¬äºŒæ¬¡
     }
     public synchronized void lock() throws InterruptedException {
         Thread thread = Thread.currentThread();
         while (isLocked && lockedBy!= thread) {
             wait();
         }
-        log.info("threadName£º"+thread.getName());
+        log.info("threadNameï¼š"+thread.getName());
         isLocked = true;
         lockedCount++;
         lockedBy = thread;

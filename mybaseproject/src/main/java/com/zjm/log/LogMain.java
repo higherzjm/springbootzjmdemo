@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 public class LogMain {
     private static final Logger LOGGER  = LoggerFactory.getLogger(LogMain.class);
     public static  void main(String[] args){
-        log.info("Slf4j  ÈÕÖ¾İ”³ö {}{}Ëê","ÎÒÊÇÖĞ¹úÈË,","58");
-        LOGGER.info("LoggerFactory  Êä³ö {}{}Ëê","ÎÒÊÇ¸£½¨ÈË,","20");
+        log.info("Slf4j  æ—¥å¿—è¼¸å‡º {}{}å²","æˆ‘æ˜¯ä¸­å›½äºº,","58");
+        LOGGER.error("LoggerFactory  è¾“å‡º {}{}å²","æˆ‘æ˜¯ç¦å»ºäºº,","20");
     }
 }
