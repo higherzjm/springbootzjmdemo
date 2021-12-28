@@ -1,13 +1,12 @@
 package com.zjm.kindsmodels.customermodels3;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * ¸ßĞ£ÉÏÏÂÎÄ
+ * é«˜æ ¡ä¸Šä¸‹æ–‡
  */
 @Service
 public class UniversityContext {
@@ -15,7 +14,7 @@ public class UniversityContext {
     private final Map<String, IUniversityManage> strategyMap = new ConcurrentHashMap<>();
 
     /**
-     * ¹¹Ôìº¯Êı°´ÀàĞÍ×¢Èë
+     * æ„é€ å‡½æ•°æŒ‰ç±»å‹æ³¨å…¥
      */
     public UniversityContext(Map<String, IUniversityManage> strategyMap) {
         strategyMap.forEach(this.strategyMap::put);

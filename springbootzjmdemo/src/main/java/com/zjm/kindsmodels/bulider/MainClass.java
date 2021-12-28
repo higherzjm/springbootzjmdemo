@@ -1,18 +1,18 @@
 package com.zjm.kindsmodels.bulider;
 
 /*
- * BuilderÄ£Ê½Ò²½Ğ½¨ÔìÕßÄ£Ê½»òÕßÉú³ÉÆ÷Ä£Ê½£¬
- ÊÇÓÉGoFÌá³öµÄ23ÖÖÉè¼ÆÄ£Ê½ÖĞµÄÒ»ÖÖ¡£BuilderÄ£Ê½ÊÇÒ»ÖÖ¶ÔÏó´´½¨ĞÍÄ£Ê½Ö®Ò»£¬ÓÃÀ´
- Òş²Ø¸´ºÏ¶ÔÏóµÄ´´½¨¹ı³Ì£¬Ëü°Ñ¸´ºÏ¶ÔÏóµÄ´´½¨
- ¹ı³Ì¼ÓÒÔ³éÏó£¬Í¨¹ı×ÓÀà¼Ì³ĞºÍÖØÔØµÄ·½Ê½£¬¶¯
- Ì¬µØ´´½¨¾ßÓĞ¸´ºÏÊôĞÔµÄ¶ÔÏó¡£
+ * Builderæ¨¡å¼ä¹Ÿå«å»ºé€ è€…æ¨¡å¼æˆ–è€…ç”Ÿæˆå™¨æ¨¡å¼ï¼Œ
+ æ˜¯ç”±GoFæå‡ºçš„23ç§è®¾è®¡æ¨¡å¼ä¸­çš„ä¸€ç§ã€‚Builderæ¨¡å¼æ˜¯ä¸€ç§å¯¹è±¡åˆ›å»ºå‹æ¨¡å¼ä¹‹ä¸€ï¼Œç”¨æ¥
+ éšè—å¤åˆå¯¹è±¡çš„åˆ›å»ºè¿‡ç¨‹ï¼Œå®ƒæŠŠå¤åˆå¯¹è±¡çš„åˆ›å»º
+ è¿‡ç¨‹åŠ ä»¥æŠ½è±¡ï¼Œé€šè¿‡å­ç±»ç»§æ‰¿å’Œé‡è½½çš„æ–¹å¼ï¼ŒåŠ¨
+ æ€åœ°åˆ›å»ºå…·æœ‰å¤åˆå±æ€§çš„å¯¹è±¡ã€‚
  */
 public class MainClass {
 	public static void main(String[] args) {
-		HouseBulider GYbulider = new GongyuBulider();//¹«Ô¢¹¤³Ì¶Ó
-		HouseBulider PFbulider = new PingfanBulider();//Æ½·¿¹¤³Ì¶Ó
-		new Housedirector(PFbulider);//Æ½·¿¹¤³ÌÊ¦    Òş²Ø¸´ºÏ¶ÔÏóµÄ´´½¨¹ı³Ì
-		new Housedirector(GYbulider);//¹«Ô¢¹¤³ÌÊ¦    Òş²Ø¸´ºÏ¶ÔÏóµÄ´´½¨¹ı³Ì
+		HouseBulider GYbulider = new GongyuBulider();//å…¬å¯“å·¥ç¨‹é˜Ÿ
+		HouseBulider PFbulider = new PingfanBulider();//å¹³æˆ¿å·¥ç¨‹é˜Ÿ
+		new Housedirector(PFbulider);//å¹³æˆ¿å·¥ç¨‹å¸ˆ    éšè—å¤åˆå¯¹è±¡çš„åˆ›å»ºè¿‡ç¨‹
+		new Housedirector(GYbulider);//å…¬å¯“å·¥ç¨‹å¸ˆ    éšè—å¤åˆå¯¹è±¡çš„åˆ›å»ºè¿‡ç¨‹
 		House house = PFbulider.getHouse();
 		House house2 = GYbulider.getHouse();
 		System.out.println(house.getFloor());
