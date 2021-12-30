@@ -1,4 +1,4 @@
-package com.zjm.kindsmodels.customermodels1;
+package com.zjm.kindsmodels.customermodels1_templateMethod;
 
 import org.springframework.stereotype.Service;
 

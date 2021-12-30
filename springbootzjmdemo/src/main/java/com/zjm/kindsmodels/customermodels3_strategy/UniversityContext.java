@@ -1,4 +1,4 @@
-package com.zjm.kindsmodels.customermodels3;
+package com.zjm.kindsmodels.customermodels3_strategy;
 
 import org.springframework.stereotype.Service;
 

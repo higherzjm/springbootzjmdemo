@@ -1,6 +1,6 @@
-package com.zjm.kindsmodels.customermodels1.impl;
+package com.zjm.kindsmodels.customermodels1_templateMethod.impl;
 
-import com.zjm.kindsmodels.customermodels1.AbstractService;
+import com.zjm.kindsmodels.customermodels1_templateMethod.AbstractService;
 import lombok.extern.slf4j.Slf4j;
 
 /**

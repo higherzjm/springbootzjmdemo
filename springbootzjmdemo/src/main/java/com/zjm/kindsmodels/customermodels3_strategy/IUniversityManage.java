@@ -1,13 +1,13 @@
-package com.zjm.kindsmodels.customermodels1;
+package com.zjm.kindsmodels.customermodels3_strategy;
 
 /**
  * 高校管理
  */
 public interface IUniversityManage {
     /**
-     * 名称分析
+     * 获取地址
      * @param name 学校名称
      * @return
      */
-    String analysisName(String name);
+    String getAddress(String name);
 }

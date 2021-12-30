@@ -1,4 +1,4 @@
-package com.zjm.kindsmodels.customermodels2;
+package com.zjm.kindsmodels.customermodels4_adapter;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
@@ -9,7 +9,8 @@ import org.springframework.stereotype.Service;
  */
 @Slf4j
 @Service
-public class XdUniversity2 implements IUniversityManage, InitializingBean {
+public class XdUniversity4 implements IUniversityManage, InitializingBean {
+
     @Override
     public String getAddress(String name) {
         // 处理其他业务......
@@ -18,7 +19,12 @@ public class XdUniversity2 implements IUniversityManage, InitializingBean {
     }
 
     @Override
+    public boolean supports(IUniversityManage manage) {
+        return (manage instanceof XdUniversity4);
+    }
+
+    @Override
     public void afterPropertiesSet() throws Exception {
-        UniversityFactory.createFactory("厦门大学",this);
+        HandlerUtil.handlerAdapters.add(this);
     }
 }

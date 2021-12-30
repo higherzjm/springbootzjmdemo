@@ -1,4 +1,4 @@
-package com.zjm.kindsmodels.customermodels2;
+package com.zjm.kindsmodels.customermodels2_strategyfactory;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

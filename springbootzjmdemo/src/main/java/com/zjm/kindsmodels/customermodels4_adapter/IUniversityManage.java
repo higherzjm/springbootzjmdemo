@@ -1,4 +1,4 @@
-package com.zjm.kindsmodels.customermodels3;
+package com.zjm.kindsmodels.customermodels4_adapter;
 
 /**
  * 高校管理
@@ -10,4 +10,6 @@ public interface IUniversityManage {
      * @return
      */
     String getAddress(String name);
+
+    boolean supports(IUniversityManage manage);
 }

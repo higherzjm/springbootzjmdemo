@@ -44,7 +44,7 @@ public class RedisExpireMsgListener extends KeyspaceEventMessageListener {
         String channel = new String(message.getChannel(), StandardCharsets.UTF_8);
         //过期的key
         String key = new String(message.getBody(),StandardCharsets.UTF_8);
-        System.out.println("---------- 过期信息---"+new String(pattern)+":"+channel+":"+key);
+        //System.out.println("---------- 过期信息---"+new String(pattern)+":"+channel+":"+key);
 
     }
 

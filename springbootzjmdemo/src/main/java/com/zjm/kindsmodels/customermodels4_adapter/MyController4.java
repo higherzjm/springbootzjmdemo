@@ -1,9 +1,5 @@
-package com.zjm.kindsmodels.customermodels3;
+package com.zjm.kindsmodels.customermodels4_adapter;
 
-import com.zjm.kindsmodels.customermodels1.AbstractUniversity;
-import com.zjm.kindsmodels.customermodels1.FdUniversity1;
-import com.zjm.kindsmodels.customermodels1.XdUniversity1;
-import com.zjm.util.SpringBeanUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -18,27 +14,22 @@ import org.springframework.web.bind.annotation.RestController;
  * @author zhujianming
  * 模板方法模式
  */
-@RequestMapping("/kindsmodels3")
+@RequestMapping("/kindsmodels4")
 @RestController
 @Slf4j
 @Api(tags = "设计模式")
-public class MyController3 {
+public class MyController4 {
 
     @Autowired
-    private UniversityContext context;
+    private XdUniversity4 xd;
 
     /**
      *
      */
     @PostMapping("/universityAddress/{universityName}")
-    @ApiOperation(value = "查询高校地址【策略模式】", notes = "query student list")
+    @ApiOperation(value = "查询高校地址【适配器模式】", notes = "query student list")
     public String universityAddress(@ApiParam(name = "universityName", value = "厦门大学、厦门大学", defaultValue = "厦门大学") @PathVariable("universityName") String universityName) {
-        String beanName = null;
-        if (universityName.equals("厦门大学")) {
-            beanName = "xd";
-        } else {
-            beanName = "fd";
-        }
-        return context.getContext(beanName).getAddress(universityName);
+        IUniversityManage manage=HandlerUtil.getHandler(xd);
+        return manage.getAddress(universityName);
     }
 }

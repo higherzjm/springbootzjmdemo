@@ -1,4 +1,4 @@
-package com.zjm.kindsmodels.customermodels3;
+package com.zjm.kindsmodels.customermodels3_strategy;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package com.zjm.kindsmodels.customermodels2;
+package com.zjm.kindsmodels.customermodels2_strategyfactory;
 
 import com.google.common.collect.Maps;
 
