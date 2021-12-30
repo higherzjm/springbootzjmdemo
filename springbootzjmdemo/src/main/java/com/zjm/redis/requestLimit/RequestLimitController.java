@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.Duration;
+import java.util.UUID;
 
 /**
  * redis 限流，如没2秒内只能限制10次请求
@@ -51,7 +52,7 @@ public class RequestLimitController {
         //获取命令操作对象
         ZSetOperations<String,Object> zSetOperations = redisTemplate.opsForZSet();
         //Add value to a sorted set at key, or update its score if it already exists.
-        zSetOperations.add(key, "zjm" + nowTs, nowTs);//[value不能一样，不然都会认为是同一个请求，测不出限流的效果]
+        zSetOperations.add(key, UUID.randomUUID().toString(), nowTs);//[value不能一样，不然都会认为是同一个请求，测不出限流的效果]
         /**
          * Remove elements with scores between min and max from sorted set with key
          * 移除时间窗口(period/秒)之前的行为记录，剩下的都是时间窗口内的记录。
