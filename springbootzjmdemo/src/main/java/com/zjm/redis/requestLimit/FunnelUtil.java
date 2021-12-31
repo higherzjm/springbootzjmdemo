@@ -4,6 +4,11 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigDecimal;
 
+/**
+ *  漏斗算法实现限流
+ *   思路:设置每毫秒从漏斗流出的请求数量，实例化对象是获取当前毫秒数，
+ *  流入请求时再获取当前毫秒数(容量加)，计算当前时间段流出的数量(容量减)，得出剩余的容量总数
+ */
 @Slf4j
 public class FunnelUtil {
     //容量

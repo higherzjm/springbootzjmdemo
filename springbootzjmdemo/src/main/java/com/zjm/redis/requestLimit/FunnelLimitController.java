@@ -10,15 +10,15 @@ import org.springframework.web.bind.annotation.RestController;
 import java.math.BigDecimal;
 
 /**
- * 漏斗限流
+ * 漏斗算法限流
  */
-@RequestMapping("/funnelRateLimit")
+@RequestMapping("/funnelLimit")
 @RestController
 @Slf4j
 @Api(tags = "Redis")
-public class FunnelRateLimitController {
+public class FunnelLimitController {
 
-    public FunnelRateLimitController() {
+    public FunnelLimitController() {
         //每2秒流出1个
         BigDecimal leakingRate = new BigDecimal("1").divide(new BigDecimal("2"));
         //漏斗容量5
@@ -28,7 +28,7 @@ public class FunnelRateLimitController {
         //默认剩余容量
         FunnelUtil.leftQuota=5;
     }
-    @GetMapping("/request")
+    @GetMapping("/funnelRequest")
     @ApiOperation(value = "漏斗算法实现限流")
     public String limitTest() {
       boolean waterStatus= FunnelUtil.watering(1);
