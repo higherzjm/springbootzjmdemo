@@ -15,8 +15,6 @@ import java.util.concurrent.TimeUnit;
 public class TokenUtil {
     public static ArrayBlockingQueue<String> blockingQueue;
     public static int limit;
-    public static TimeUnit timeunit;
-    public static int period;
 
     /**
      * 初始化令牌
@@ -26,24 +24,27 @@ public class TokenUtil {
         for (int i = 0; i < limit; i++) {
             blockingQueue.add("1");
         }
-
         //启动线程，指定时间往容器中添加令牌
         start();
-    }
-
-    public static void addToken() {
-        blockingQueue.offer("1");
-        log.info("添加令牌成功:" + System.currentTimeMillis() / 1000);
     }
 
     /**
      * 开启定时线程，添加令牌
      */
     public static void start() {
-        //总体延迟10秒执行，每5[period=5]秒执行一次
+        //总体延迟10秒执行，每5秒执行一次
         Executors.newScheduledThreadPool(1).scheduleAtFixedRate(() -> {
-            addToken();
-        }, 10, period, timeunit);
+                    addToken();
+                },
+                10, 5, TimeUnit.SECONDS);
+    }
+
+    /**
+     * 添加令牌
+     */
+    public static void addToken() {
+        blockingQueue.offer("1");
+        log.info("添加令牌成功,令牌桶大小:" + blockingQueue.size());
     }
 
     /**

@@ -21,8 +21,6 @@ public class TokenLimitController {
 
     public TokenLimitController() {
         TokenUtil.limit=10;
-        TokenUtil.period=5;
-        TokenUtil.timeunit= TimeUnit.SECONDS;
         TokenUtil.init();
     }
     @GetMapping("/tokenRequest")
