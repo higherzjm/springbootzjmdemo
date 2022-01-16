@@ -39,8 +39,12 @@ public class Test4 {
     }
     @Test
     public void test(){
-        String a="aa;aaxx;";
-        System.out.println(a.substring(0,a.length()-1));
+        Map<String,Integer> map1=new HashMap<>();
+        map1.put("a",12);map1.put("b",22);
+        Map<String,Integer> map2=new HashMap<>();
+        map2.put("a",33);map2.put("b",44);
+        Map<String,Integer>[] map3=new Map[]{map1,map2};
+        System.out.println("aaa:"+ map3);
     }
     private  void aa(int a ){
         if (a==2){

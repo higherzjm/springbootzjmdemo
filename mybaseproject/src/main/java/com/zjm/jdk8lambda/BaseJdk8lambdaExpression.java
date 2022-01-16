@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import java.time.Duration;
 import java.time.Instant;
 import java.util.*;
 import java.util.function.Function;
@@ -24,9 +25,9 @@ import static java.util.stream.Collectors.toMap;
 public class BaseJdk8lambdaExpression {
     public static void main(String[] args) {
         BaseJdk8lambdaExpression jdk8New = new BaseJdk8lambdaExpression();
-        List<Student> studentList = Arrays.asList(new Student(1, "张三", 10), new Student(11, "张三2", 10),
-                new Student(2, "李四", 20), new Student(3, "李四2", 20), new Student(4, "王五", 30),
-                new Student(5, "王五", 30));
+        List<Student> studentList = Arrays.asList(new Student(1, "张三", 20), new Student(11, "张三2", 10),
+                new Student(2, "李四", 30), new Student(3, "李四2", 20), new Student(4, "王五", 30),
+                new Student(5, "王五", 10));
 
         jdk8New.test1(studentList);//转换成map
         jdk8New.test2(studentList);//获取集合中的指定信息列表
@@ -45,6 +46,7 @@ public class BaseJdk8lambdaExpression {
         jdk8New.test15();//过滤新数据，对象拷贝，并按年龄分组
         jdk8New.test16(studentList);//foreach修改
         jdk8New.test17(studentList);//allMatch、noneMatch
+        jdk8New.test18(studentList);
 
 
     }
@@ -201,11 +203,34 @@ public class BaseJdk8lambdaExpression {
 
     //allMatch、noneMatch
     public void test17(List<Student> studentList) {
-        log.info("studentList:"+studentList);
+        log.info("studentList:" + studentList);
         boolean allMatch = studentList.stream().allMatch(s -> s.getAge() >= 10);
         log.info("allMatch:" + allMatch);
-        boolean noneMatch = studentList.stream().noneMatch(s -> s.getAge() >=   30);
+        boolean noneMatch = studentList.stream().noneMatch(s -> s.getAge() >= 30);
         log.info("noneMatch:" + noneMatch);
+    }
+    //sort 数组排序
+    public void test18(List<Student> studentList) {
+        List<Student> sortRet = studentList.stream()
+                .sorted((student1, student2) -> {
+                    int sortBetween = student2.getAge() - student1.getAge();
+                    if (sortBetween == 0) {
+                        return (student1.getId() - student2.getId()) >= 0 ? -1 : 1;
+                    } else {
+                        return sortBetween;
+                    }
+                }).collect(Collectors.toList());
+        log.info("sort 倒叙:"+sortRet);
+        sortRet = studentList.stream()
+                .sorted((student1, student2) -> {
+                    int sortBetween = student1.getAge() - student2.getAge();
+                    if (sortBetween == 0) {
+                        return (student1.getId() - student2.getId()) >= 0 ? 1 : -1;
+                    } else {
+                        return sortBetween;
+                    }
+                }).collect(Collectors.toList());
+        log.info("sort 正序"+sortRet);
     }
 
     @Data
