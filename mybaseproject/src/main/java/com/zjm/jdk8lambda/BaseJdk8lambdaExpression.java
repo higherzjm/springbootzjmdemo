@@ -2,6 +2,7 @@ package com.zjm.jdk8lambda;
 
 
 import cn.hutool.core.bean.BeanUtil;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.zjm.VO.Student;
 import lombok.AllArgsConstructor;
@@ -48,6 +49,7 @@ public class BaseJdk8lambdaExpression {
         jdk8New.test19(studentList);//sort 数组排序
         jdk8New.test20(studentList);//按属性分组，并返回指定属性结果集
         jdk8New.test21(studentList);//Comparator.comparingInt排序 重新定义排序规则
+        jdk8New.test22();
     }
 
     //转换成map,可以用在对一些集合进行分组，比如按学生年龄或姓名分组
@@ -259,6 +261,32 @@ public class BaseJdk8lambdaExpression {
         log.info("Comparator.comparingInt排序前:" + studentList);
         studentList.sort(Comparator.comparingInt(p0 -> newSortRole.get(p0.getAge())));
         log.info("Comparator.comparingInt排序后:" + studentList);
+    }
+
+    /**
+     * 集合取交集【两个集合同时存在的值】
+     */
+    private void test22(){
+        List<List<Integer>> all=Lists.newArrayList();
+        List<Integer> a= Lists.newArrayList(1,2,3,4,5);
+        all.add(a);
+        List<Integer> b= Lists.newArrayList(1,3,5,7,9);
+        all.add(b);
+        List<Integer> c= Lists.newArrayList(1,4,5,8,9);
+        all.add(c);
+
+        Optional<List<Integer>> result = all.parallelStream()
+                .filter(elementList -> elementList != null && elementList.size() != 0)
+                .reduce((v1, v2) -> {
+                    v1.retainAll(v2);
+                    return v1;
+                });
+        log.info("ret:"+result.get());
+        log.info("retainAll:"+a.retainAll(b));
+        log.info("a:"+a);
+        log.info("retainAll:"+c.retainAll(b));
+        log.info("c:"+c);
+
     }
 
     @Data
