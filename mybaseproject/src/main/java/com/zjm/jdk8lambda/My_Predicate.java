@@ -3,27 +3,46 @@ package com.zjm.jdk8lambda;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
+import java.util.function.BiPredicate;
 import java.util.function.Predicate;
 
 /**
- * Ìõ¼ş±í´ïÊ½
+ * æ¡ä»¶è¡¨è¾¾å¼
  */
 @Slf4j
 public class My_Predicate {
     Predicate<String> predicate1 = myStr ->
-            (myStr.startsWith("name") || myStr.contains("ÕÅÈı"));//Ìõ¼ş¶¨Òå£¬×Ö·û´®¿ªÊ¼Îªname»ò°üº¬ÕÅÈı²ÅÎªTRUE
+            (myStr.startsWith("name") || myStr.contains("å¼ ä¸‰"));//æ¡ä»¶å®šä¹‰ï¼Œå­—ç¬¦ä¸²å¼€å§‹ä¸ºnameæˆ–åŒ…å«å¼ ä¸‰æ‰ä¸ºTRUE
+
 
     @Test
     public void test1() {
-        check("ÎÒµÄÃû×ÖÊÇÀîËÄ", predicate1);
-        check("ÎÒµÄÃû×ÖÊÇÕÅÈı", predicate1);
+        check("æˆ‘çš„åå­—æ˜¯æå››", predicate1);
+        check("æˆ‘çš„åå­—æ˜¯å¼ ä¸‰", predicate1);
+        check("å¼ ä¸‰",30,(name,age)->{
+              if (name.equals("å¼ ä¸‰")&&age==30){
+                  return true;
+              }else {
+                  return false;
+              }
+        });
     }
-
-    public void check(String myStr, Predicate<String> filter) {
+   //å•å‚æ•°
+    private void check(String myStr, Predicate<String> filter) {
         if (filter.test(myStr)) {
-            log.info("×Ö·û´®'{}'Ğ£ÑéÍ¨¹ı", myStr);
+            log.info("å­—ç¬¦ä¸²'{}'æ ¡éªŒé€šè¿‡", myStr);
         } else {
-            log.info("×Ö·û´®'{}'Ğ£Ñé²»Í¨¹ı", myStr);
+            log.info("å­—ç¬¦ä¸²'{}'æ ¡éªŒä¸é€šè¿‡", myStr);
         }
     }
+   //åŒå‚æ•°
+    private void check(String name,Integer age, BiPredicate<String,Integer> filter){
+        if (filter.test(name,age)){
+            log.info("å§“å:{},å¹´é¾„:{} æ ¡éªŒé€šè¿‡",name,age);
+        }else {
+            log.info("å§“å:{},å¹´é¾„:{} æ ¡éªŒä¸é€šè¿‡",name,age);
+        }
+
+    }
+
 }
