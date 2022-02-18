@@ -27,21 +27,37 @@ public class Test1 {
 
         Test1 test1 = new Test1();
         BigDecimal bigDecimal = BigDecimal.ZERO;
-        test1.test32();
-        log.info("b:" + bigDecimal);
+        test1.test33();
 
 
     }
 
+    public void test33(){
+        List<String> a=new ArrayList<>();
+        a.add("aaa:ccc:dd");
+        a.add("ccc:fff:aaa");
+        List<String> ff = a.stream()
+                .flatMap(o -> Arrays.stream(o.split(":"))).distinct().collect(Collectors.toList());
+        log.info("ff:"+ff);
+    }
     public void test32() {
-        String name = "";
-        Student student = new Student();
-        test31(name,student);
-        log.info("name:" + name+","+student.getName());
+        List<String> a = new ArrayList<>();
+        a.add("a");
+        a.add("c");
+        a.add("d");
+        List<String> b = new ArrayList<>();
+        b.add("a1");
+        b.add("c1");
+        b.add("c1");
+        b.add("d");
+        Set<String> c=new HashSet<>();
+        c.addAll(a);
+        c.addAll(b);
+        System.out.println("c"+c);
 
     }
 
-    public void test31(String name,Student student) {
+    public void test31(String name, Student student) {
         name = "张三李四";
         student.setName(name);
 
