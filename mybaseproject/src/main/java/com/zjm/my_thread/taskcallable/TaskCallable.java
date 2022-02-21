@@ -30,9 +30,7 @@ public class TaskCallable {
         try {
             String subRet=completionService.submit(myTaskCallable).get();
             log.info("subRet:"+subRet);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
