@@ -16,7 +16,10 @@ public class TaskCallable {
         taskCallable.test1();
 
     }
-
+    /**
+     * @description 执行线程并获取返回值
+     * @date 2022/2/21 17:30
+     */
     public void test1() {
         ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(8, 30, 60, TimeUnit.MILLISECONDS,
                 new LinkedBlockingQueue<>(100), new ThreadFactoryBuilder().setNameFormat("salary-calculation-pool-%d").build(),
