@@ -38,6 +38,7 @@ public class TaskCallable {
             //submit返回的future对象直接get，会阻塞，直到线程执行结束
             Future<String> f = completionService.submit(myTaskCallable);
             log.info("异步跳过任务执行{},f:{}", System.currentTimeMillis(), f);
+            //completionService.take()  take()请求会阻塞直到线程返回结果
             Future<String> future = completionService.take();
             log.info("获取阻塞对象{},f:{}", System.currentTimeMillis(), f);
             String takeRet = future.get();
@@ -63,6 +64,7 @@ public class TaskCallable {
                 futureList.add(future);
             }
             for (Future<String> future : futureList) {
+                //future.get()  get()请求会阻塞直到线程返回结果
                 log.info("返回值{}", future.get());
             }
         } catch (Exception e) {
