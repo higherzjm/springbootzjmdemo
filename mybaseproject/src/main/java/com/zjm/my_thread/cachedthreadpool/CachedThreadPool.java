@@ -27,11 +27,12 @@ public class CachedThreadPool {
      * void
      **/
     public void test1() throws ExecutionException, InterruptedException {
+        //普通线程
         Thread thread = new Thread(new MyThread());
         thread.start();
         System.out.println("线程正在执行------------------");
 
-        //线程池
+        //普通线程->线程池
         ExecutorService cachedThreadPool = Executors.newFixedThreadPool(2);
         cachedThreadPool.execute(new MyThread());
 
@@ -78,13 +79,13 @@ class MyThread implements Runnable {
 
     @Override
     public void run() {
-        System.out.println("----------进入线程");
+        System.out.println("----------普通线程->进入线程");
         try {
-            Thread.sleep(1000);
+            Thread.sleep(10000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.println("----------线程执行结束");
+        System.out.println("----------普通线程->结束线程");
     }
 }
 
@@ -97,7 +98,8 @@ class MyTaskCallable implements Callable<String> {
 
     @Override
     public String call() throws Exception {
-        System.out.println("----------执行Callable线程");
+        System.out.println("----------阻塞线程->进入线程,执行Callable线程");
+        Thread.sleep(5000);
         return "初始化参数:" + param;
     }
 }
