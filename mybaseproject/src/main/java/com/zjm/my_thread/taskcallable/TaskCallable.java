@@ -21,8 +21,8 @@ public class TaskCallable {
 
     }
 
-    private ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(8, 30, 60, TimeUnit.MILLISECONDS,
-            new LinkedBlockingQueue<>(100), new ThreadFactoryBuilder().setNameFormat("salary-calculation-pool-%d").build(),
+    private ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(10, 20, 60, TimeUnit.MILLISECONDS,
+            new LinkedBlockingQueue<>(100), new ThreadFactoryBuilder().setNameFormat("test").build(),
             new ThreadPoolExecutor.AbortPolicy());
     private CompletionService<String> completionService = new ExecutorCompletionService<>(threadPoolExecutor);
 
@@ -57,7 +57,7 @@ public class TaskCallable {
         try {
             threadPoolExecutor.allowCoreThreadTimeOut(true);//允许核心线程超时
             List<Future<String>> futureList = Lists.newArrayList();
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < 20; i++) {
                 MyTaskCallable myTaskCallable = new MyTaskCallable("我是中国人" + i);
                 Future<String> future = completionService.submit(myTaskCallable);
                 futureList.add(future);
