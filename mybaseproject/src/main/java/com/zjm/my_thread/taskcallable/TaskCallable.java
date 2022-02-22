@@ -84,6 +84,6 @@ class MyTaskCallable implements Callable<String> {
     public String call() throws Exception {
         log.info("开始执行线程:{},{}", System.currentTimeMillis(),param);
         Thread.sleep(5000);
-        return "返回结果:" +System.currentTimeMillis()+","+ param;
+        return System.currentTimeMillis()+","+ param;
     }
 }
