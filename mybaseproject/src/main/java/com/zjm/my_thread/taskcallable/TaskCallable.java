@@ -58,11 +58,13 @@ public class TaskCallable {
         try {
             threadPoolExecutor.allowCoreThreadTimeOut(true);//允许核心线程超时
             List<Future<String>> futureList = Lists.newArrayList();
+            //20个线程发起执行
             for (int i = 0; i < 20; i++) {
                 MyTaskCallable myTaskCallable = new MyTaskCallable("我是中国人" + i);
                 Future<String> future = completionService.submit(myTaskCallable);
                 futureList.add(future);
             }
+            //阻塞等待获取线程返回结果
             for (Future<String> future : futureList) {
                 //future.get()  get()请求会阻塞直到线程返回结果
                 log.info("返回值{}", future.get());
