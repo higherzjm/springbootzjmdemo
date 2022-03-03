@@ -33,12 +33,11 @@ public class Test1 {
     }
 
     public void test33(){
-        List<String> a=new ArrayList<>();
-        a.add("aaa:ccc:dd");
-        a.add("ccc:fff:aaa");
-        List<String> ff = a.stream()
-                .flatMap(o -> Arrays.stream(o.split(":"))).distinct().collect(Collectors.toList());
-        log.info("ff:"+ff);
+        String init = "Bob-is-Bird-Bob-Superman!";
+        String changed = init.replace("-","");
+        log.info("c,{}",changed);
+        changed = "BB".replace("B","G");
+        log.info("c,{}",changed);
     }
     public void test32() {
         List<String> a = new ArrayList<>();
