@@ -17,7 +17,7 @@ public class RedBlackTreeTest {
 
     @Before
     public void init() {
-        //test commit
+        //test commit 2
         List<Integer> list = Arrays.asList(10, 5, 9, 3, 6, 7, 19, 32, 24, 17);
         RBtree.createTree(list);
     }
