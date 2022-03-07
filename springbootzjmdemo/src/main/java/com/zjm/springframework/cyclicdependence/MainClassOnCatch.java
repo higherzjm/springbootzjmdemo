@@ -33,7 +33,7 @@ public class MainClassOnCatch {
         Field[] fields = obiect.getClass().getDeclaredFields();
         for (Field field : fields) {
             field.setAccessible(true);
-            //获取需要注入宝段的class
+            //获取需要注入字段的class
             Class<?> fieldclass = field.getType();
             field.set(obiect, getBean(fieldclass));
         }
