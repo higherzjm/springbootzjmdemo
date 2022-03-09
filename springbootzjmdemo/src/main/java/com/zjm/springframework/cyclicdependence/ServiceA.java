@@ -2,7 +2,9 @@ package com.zjm.springframework.cyclicdependence;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 /**
@@ -10,13 +12,16 @@ import org.springframework.stereotype.Service;
  */
 @Service
 //@AllArgsConstructor //构造器注入注解
+//@NoArgsConstructor
 @Data
 public class ServiceA {
+    //private String name;
     @Autowired
     private ServiceB serviceB;
-   // private final ServiceB serviceB2;
-   /* public ServiceA() {
+  /*  @Lazy
+   private final ServiceB serviceB;*/
+    public ServiceA() {
         System.out.println("初始化完成ServiceA");
-    }*/
+    }
 
 }

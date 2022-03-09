@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 使用一级缓存
+ * 使用一级缓存(存在的问题，对象可能只完成了实例化，没有完成初始化)
  */
 public class MainClassOnCatch {
     private static Map<String, Object> singletonObjects = new HashMap<>(256);
@@ -29,6 +29,7 @@ public class MainClassOnCatch {
             return (T) singletonObjects.get(beanName);
         }
         Object obiect = beanClass.getDeclaredConstructor().newInstance();
+        //存在实例化完成的bean
         singletonObjects.put(beanName, obiect);
         Field[] fields = obiect.getClass().getDeclaredFields();
         for (Field field : fields) {

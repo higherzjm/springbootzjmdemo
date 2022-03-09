@@ -44,6 +44,7 @@ public class MainClassThreeCatch {
         }
         //实例化bean
         Object object = beanClass.getDeclaredConstructor().newInstance();
+        //三级缓存存放工厂的实现类
         singletonFactories.put(beanName,()->{
             Object proxy = createProxy(object);
             singletonFactories.remove(beanName);
@@ -59,6 +60,7 @@ public class MainClassThreeCatch {
             field.set(object, getBean(fieldclass));
         }
         createProxy(object);
+        //一级缓存存放初始化完成bean
         singletonObiects.put(beanName, object);
         earlySingletonObjects.remove(beanName);
         return (T) object;

@@ -40,6 +40,7 @@ public class MainClassTwoCatch {
         }
         //实例化bean
         Object object = beanClass.getDeclaredConstructor().newInstance();
+        //二级缓存存放实例化完成的bean
         earlySingletonObjects.put(beanName, object);
         Field[] fields = object.getClass().getDeclaredFields();
         for (Field field : fields) {
@@ -50,7 +51,7 @@ public class MainClassTwoCatch {
             Class<?> fieldclass = field.getType();
             field.set(object, getBean(fieldclass));
         }
-        //初始化bean
+        //一级缓存存放初始化完成bean
         singletonObiects.put(beanName, object);
         earlySingletonObjects.remove(beanName);
         return (T) object;
