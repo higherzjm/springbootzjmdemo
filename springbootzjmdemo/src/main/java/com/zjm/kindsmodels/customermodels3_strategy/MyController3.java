@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author zhujianming
- * 模板方法模式
+ * 策略模式
  */
 @RequestMapping("/kindsmodels3")
 @RestController
