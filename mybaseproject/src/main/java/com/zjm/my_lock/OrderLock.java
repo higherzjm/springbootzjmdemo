@@ -23,14 +23,6 @@ public class OrderLock {
 
     List<OrderItem> items;
 
-    @Builder
-    @Data
-    class OrderItem {
-        private String orderName;
-        int remain = 10000;
-        ReentrantLock lock = new ReentrantLock();
-    }
-
     private List<OrderItem> createCart() {
         return IntStream.rangeClosed(1, 3)
 
@@ -73,4 +65,11 @@ public class OrderLock {
 
 
     }
+}
+@Builder
+@Data
+class OrderItem {
+    private String orderName;
+    int remain = 10000;
+    ReentrantLock lock = new ReentrantLock();
 }
