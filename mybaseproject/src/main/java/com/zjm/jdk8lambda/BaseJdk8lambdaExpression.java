@@ -13,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import static java.util.Map.Entry.comparingByKey;
 import static java.util.stream.Collectors.toMap;
@@ -50,29 +51,30 @@ public class BaseJdk8lambdaExpression {
         jdk8New.test20(studentList);//按属性分组，并返回指定属性结果集
         jdk8New.test21(studentList);//Comparator.comparingInt排序 重新定义排序规则
         jdk8New.test22();
+        jdk8New.test23();
     }
 
     //转换成map,可以用在对一些集合进行分组，比如按学生年龄或姓名分组
     private void test1(List<Student> studentList) {
         log.info("----------------转换成map-------------------");
         Map<Integer, Student> studentMap = studentList.stream().collect(Collectors.toMap(Student::getId, Function.identity()));
-        log.info("转换成map前:"+studentMap);
+        log.info("转换成map前:" + studentMap);
         Map<Integer, String> studentIdNameMap = studentList.stream().filter(s -> s.getId() == 1 || s.getId() == 2).collect(Collectors.toMap(Student::getAge, Student::getName));
-        log.info("转换成map:"+studentIdNameMap);
+        log.info("转换成map:" + studentIdNameMap);
     }
 
     //获取集合中的指定信息列表，可以用在去除集合中的冗余信息，比如我就需要获取学生的姓名列表
     private void test2(List<Student> studentList) {
         log.info("----------------获取集合中的指定信息列表-------------------");
         List<String> studentNames = studentList.stream().map(Student::getName).collect(Collectors.toList());
-        log.info(""+studentNames);
+        log.info("" + studentNames);
     }
 
     //过滤，按条件获取子集合
     private void test3(List<Student> studentList) {
         log.info("----------------过滤-------------------");
         List<Student> studentList1 = studentList.stream().filter(s -> s.getAge() >= 20).collect(Collectors.toList());
-        log.info(""+studentList1);
+        log.info("" + studentList1);
     }
 
     //排序，数据的正序或倒序排
@@ -104,23 +106,23 @@ public class BaseJdk8lambdaExpression {
     private void test6(List<Student> studentList) {
         log.info("----------------判空-------------------");
         List<Student> studentsNew = Optional.ofNullable(studentList).orElse(Arrays.asList(new Student(22, "aa", 101), new Student(22, "bb", 102)));
-        log.info(""+studentsNew);
+        log.info("" + studentsNew);
         studentsNew = Optional.ofNullable(studentList).orElseGet(() -> Arrays.asList(new Student(22, "aa", 101), new Student(22, "bb", 102)));
-        log.info(""+studentsNew);
+        log.info("" + studentsNew);
     }
 
     //去重
     private void test7(List<Student> studentList) {
         log.info("----------------去重-------------------");
         List<Integer> studentAges = studentList.stream().map(Student::getAge).distinct().collect(Collectors.toList());
-        log.info(""+studentAges);
+        log.info("" + studentAges);
     }
 
     //截取
     private void test8(List<Student> studentList) {
         log.info("----------------截取-------------------");
         List<Student> studentListLimt = studentList.stream().limit(2).collect(Collectors.toList());
-        log.info(""+studentListLimt);
+        log.info("" + studentListLimt);
     }
 
     //汇总，主要用在int，long，double类型的汇总，BigDecimal类型不支持
@@ -135,7 +137,7 @@ public class BaseJdk8lambdaExpression {
     private void test10(List<Student> studentList) {
         log.info("---------------- 条件校验-------------------");
         boolean checkStatus = studentList.stream().anyMatch(s -> s.getAge() > 10);
-        log.info(""+checkStatus);
+        log.info("" + checkStatus);
     }
 
     //集合转换，该用法很多实际情况下根据指定参数返回指定的结果值
@@ -146,7 +148,7 @@ public class BaseJdk8lambdaExpression {
             stringIntegerMap.put(s.getName(), s.getAge());
             return stringIntegerMap;
         }).collect(Collectors.toList());
-        log.info(""+studentNameAgeList);
+        log.info("" + studentNameAgeList);
     }
 
     //分组
@@ -266,13 +268,13 @@ public class BaseJdk8lambdaExpression {
     /**
      * 集合取交集【两个集合同时存在的值】
      */
-    private void test22(){
-        List<List<Integer>> all=Lists.newArrayList();
-        List<Integer> a= Lists.newArrayList(1,2,3,4,5);
+    private void test22() {
+        List<List<Integer>> all = Lists.newArrayList();
+        List<Integer> a = Lists.newArrayList(1, 2, 3, 4, 5);
         all.add(a);
-        List<Integer> b= Lists.newArrayList(1,3,5,7,9);
+        List<Integer> b = Lists.newArrayList(1, 3, 5, 7, 9);
         all.add(b);
-        List<Integer> c= Lists.newArrayList(1,4,5,8,9);
+        List<Integer> c = Lists.newArrayList(1, 4, 5, 8, 9);
         all.add(c);
 
         Optional<List<Integer>> result = all.parallelStream()
@@ -281,12 +283,22 @@ public class BaseJdk8lambdaExpression {
                     v1.retainAll(v2);
                     return v1;
                 });
-        log.info("ret:"+result.get());
-        log.info("retainAll:"+a.retainAll(b));
-        log.info("a:"+a);
-        log.info("retainAll:"+c.retainAll(b));
-        log.info("c:"+c);
+        log.info("ret:" + result.get());
+        log.info("retainAll:" + a.retainAll(b));
+        log.info("a:" + a);
+        log.info("retainAll:" + c.retainAll(b));
+        log.info("c:" + c);
 
+    }
+
+    /**
+     * @description IntStream.rangeClosed 循环指定次数
+     * @date 2022/3/11 15:52
+     */
+    private void test23() {
+    List<Student>  student2List=IntStream.rangeClosed(1, 100).mapToObj(s -> Student.builder().age(30 + s).name("张三"+s).build())
+            .filter(s -> s.getAge() < 50).collect(Collectors.toList());
+    log.info("student2List:{}",student2List);
     }
 
     @Data
