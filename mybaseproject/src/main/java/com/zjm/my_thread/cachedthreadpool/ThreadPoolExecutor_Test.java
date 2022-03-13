@@ -37,6 +37,7 @@ public class ThreadPoolExecutor_Test {
         * 补充和解决方案：
         * 核心线程数满之后会把新创建的线程方案队列中，队列满之后才扩容直到最大容量，再超出就会拒绝新创建的线程；
         * 如果线程池的线程执行快会把腾出来的队列空间给刚创建的线程；
+        * 线程放到队列之前都会先初始化，所以如果队列无限大，初始化线程也是无限大，容易造成内存溢出【OOM】
         * 实际运用中为了不出现拒绝新创建线程的情况，可以把最大线程容【maximumPoolSize】量增大，或把阻塞队列【BlockingQueue】增大。
          */
         ThreadPoolExecutor threadPool = new ThreadPoolExecutor(
@@ -66,16 +67,7 @@ public class ThreadPoolExecutor_Test {
             int id = atomicInteger.incrementAndGet();
 
             try {
-                threadPool.submit(() -> {
-                    log.info("{} started", id);
-                    //每个任务耗时10秒
-                    try {
-                        TimeUnit.SECONDS.sleep(30);
-                    } catch (InterruptedException e) {
-
-                    }
-                    log.info("{} finished", id);
-                });
+                threadPool.submit(new MyPoolThread(id));
             } catch (Exception ex) {
                 //提交出现异常的话，打印出错信息并为计数器减一
                 log.error("出现异常 submitting task {}", id, ex);
@@ -89,4 +81,25 @@ public class ThreadPoolExecutor_Test {
         log.info("成功次数:{},{}" , atomicInteger.intValue(),threadPool.getCorePoolSize());
     }
 }
+@Slf4j
+class MyPoolThread implements Runnable{
 
+    private int id;
+
+    public MyPoolThread(int id) {
+        this.id = id;
+        log.info("初始化线程:{}",id);
+    }
+
+    @Override
+    public void run() {
+        log.info("{} started:{}", id,Thread.currentThread().getName());
+        //每个任务耗时10秒
+        try {
+            TimeUnit.SECONDS.sleep(30);
+        } catch (InterruptedException e) {
+
+        }
+        log.info("{} finished", id);
+    }
+}
