@@ -49,7 +49,7 @@ public class ThreadPoolExecutor_Test {
 
                 2, 5,
 
-                2, TimeUnit.MILLISECONDS,
+                2, TimeUnit.SECONDS,
 
                 new ArrayBlockingQueue<>(15),
 
@@ -69,7 +69,7 @@ public class ThreadPoolExecutor_Test {
         IntStream.rangeClosed(1, 20).forEach(i -> {
 
             try {
-                TimeUnit.SECONDS.sleep(1);
+                TimeUnit.SECONDS.sleep(4);
             } catch (Exception e) {
 
                 e.printStackTrace();
@@ -126,7 +126,7 @@ class MyPoolThread implements Runnable {
 
     public MyPoolThread(int id) {
         this.id = id;
-        log.info("初始化线程:{}", id);
+        //log.info("初始化线程:{}", id);
     }
 
     @Override
