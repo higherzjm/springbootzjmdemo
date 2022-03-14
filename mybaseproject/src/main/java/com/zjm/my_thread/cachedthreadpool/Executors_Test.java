@@ -10,7 +10,7 @@ import java.util.stream.IntStream;
 
 /**
  * @author zhujianming
- * @description
+ * @description Executors 线程池创建容易产生的问题
  * @date 2022/3/14 9:48
  */
 @Slf4j
