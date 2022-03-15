@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 /**
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 //@AllArgsConstructor //构造器注入注解
 //@NoArgsConstructor
 @Data
+//@Scope("prototype")
 public class ServiceA {
     //private String name;
     @Autowired
