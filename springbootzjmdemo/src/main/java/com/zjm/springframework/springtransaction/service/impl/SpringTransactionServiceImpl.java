@@ -51,30 +51,52 @@ public class SpringTransactionServiceImpl implements ISpringTransactionService {
 
     /**
      * mysql默认隔离级别为可重复读，同一接口同时请求多次读到的数据会一致，
-     * 如下代码加事务请求两次会插入两条，不加事务就不会
+     * 并发情况下如下代码加事务请求多次会添加多条，不加事务就不会
      * propagation==Propagation.NOT_SUPPORTED   传播级别不支持事务 或 isolation= Isolation.READ_UNCOMMITTED 隔离级别为读未提交，这样只会拆入一条
      **/
     //@Transactional(propagation= Propagation.NOT_SUPPORTED,isolation= Isolation.READ_UNCOMMITTED)
-    @Transactional
+    //@Transactional(isolation= Isolation.READ_COMMITTED)
+    //@Transactional(isolation= Isolation.READ_UNCOMMITTED)
+    //@Transactional
     @Override
     public void saveLog(LogInfo logInfo, String actionNum){
         log.info("logInfo:" + logInfo);
-        logInfo.setId(UUID.randomUUID().toString());
-         //判断是否存在
-        if (!checkLog(logInfo.getEmployeeCode(), logInfo.getMonth())) {
+        //判断是否存在
+       /* if (!checkLog(logInfo.getEmployeeCode(), logInfo.getMonth())) {
             log.info("可插入");
         }else {
-           logInfoMapper.delete(new LambdaQueryWrapper<LogInfo>().eq(LogInfo::getEmployeeCode,logInfo.getEmployeeCode()).eq(LogInfo::getMonth,logInfo.getMonth()));
+            logInfoMapper.delete(new LambdaQueryWrapper<LogInfo>().eq(LogInfo::getEmployeeCode,logInfo.getEmployeeCode()).eq(LogInfo::getMonth,logInfo.getMonth()));
         }
         logInfoMapper.insert(logInfo);
         //测试高并发的时候使用
         if ("1".equals(actionNum)) {
             try {
-                Thread.sleep(10000);
+                Thread.sleep(2000);
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
+        }*/
+
+        //------------测试存在事务，抛异常是否会回滚
+        /**
+         * @description  入库操作后业务产生异常，没有添加事务【@Transactional】不会回滚，有添加事务会回滚
+         * @date 2022/3/16 13:40
+         */
+        /*logInfoMapper.insert(logInfo);
+        int i=1/0;*/
+
+        //-----------测试跨方法存在事务是否有效
+        /**
+         * @description 事务无效
+         * @date 2022/3/16 13:54
+         */
+        saveLog2(logInfo);
+    }
+
+    @Transactional
+    public void saveLog2(LogInfo logInfo){
+        logInfoMapper.insert(logInfo);
+        int i=1/0;
     }
 
     @Override

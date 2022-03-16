@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -55,11 +56,14 @@ public class SpringTransactionController {
     @PostMapping("/saveLog")
     @ApiOperation(value = "spring事务-保存日志", notes = "保存日志")
     public String saveLog(@RequestBody @Validated LogInfoDTO logInfoDTO) throws Exception {
-        LogInfo logInfo = new LogInfo();
-        BeanUtil.copyProperties(logInfoDTO, logInfo);
-        IntStream.rangeClosed(1,3).forEach(i->{
-            log.info("i:{}",i);
-            springTransactionService.saveLog(logInfo, logInfoDTO.getActionNum());
+        IntStream.rangeClosed(1,1).forEach(i->{
+            new Thread(()->{
+                log.info("i:{}",i);
+                LogInfo logInfo = new LogInfo();
+                BeanUtil.copyProperties(logInfoDTO, logInfo);
+                springTransactionService.saveLog(logInfo, "1");
+            }).start();
+
         });
         return "保存成功";
     }

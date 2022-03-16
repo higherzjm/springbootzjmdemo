@@ -36,7 +36,7 @@ public class TokenUtil {
         Executors.newScheduledThreadPool(1).scheduleAtFixedRate(() -> {
                     addToken();
                 },
-                10, 5, TimeUnit.SECONDS);
+                10, 5, TimeUnit.MINUTES);
     }
 
     /**
