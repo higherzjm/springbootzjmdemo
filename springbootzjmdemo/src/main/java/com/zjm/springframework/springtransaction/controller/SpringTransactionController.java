@@ -16,6 +16,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * @author zhujianming
@@ -55,7 +57,10 @@ public class SpringTransactionController {
     public String saveLog(@RequestBody @Validated LogInfoDTO logInfoDTO) throws Exception {
         LogInfo logInfo = new LogInfo();
         BeanUtil.copyProperties(logInfoDTO, logInfo);
-        springTransactionService.saveLog(logInfo, logInfoDTO.getActionNum());
+        IntStream.rangeClosed(1,3).forEach(i->{
+            log.info("i:{}",i);
+            springTransactionService.saveLog(logInfo, logInfoDTO.getActionNum());
+        });
         return "保存成功";
     }
 

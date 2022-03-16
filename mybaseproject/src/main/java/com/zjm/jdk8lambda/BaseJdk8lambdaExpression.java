@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.Test;
 
 import java.util.*;
 import java.util.function.Function;
@@ -300,6 +301,19 @@ public class BaseJdk8lambdaExpression {
             .filter(s -> s.getAge() < 50).collect(Collectors.toList());
     log.info("student2List:{}",student2List);
     }
+    @Test
+    public void test24() {
+        IntStream.rangeClosed(1,3).forEach(i->{
+            log.info("i:{}",i);
+        });
+        IntStream.range(1,3).forEach(i->{
+            log.info("i2:{}",i);
+        });
+        IntStream.rangeClosed(1,3).parallel().forEach(i->{
+            log.info("i3:{}",i);
+        });
+    }
+
 
     @Data
     @AllArgsConstructor

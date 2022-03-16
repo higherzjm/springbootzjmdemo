@@ -15,6 +15,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
@@ -51,7 +54,8 @@ public class SpringTransactionServiceImpl implements ISpringTransactionService {
      * 如下代码加事务请求两次会插入两条，不加事务就不会
      * propagation==Propagation.NOT_SUPPORTED   传播级别不支持事务 或 isolation= Isolation.READ_UNCOMMITTED 隔离级别为读未提交，这样只会拆入一条
      **/
-    //@Transactional(propagation=Propagation.NOT_SUPPORTED,isolation= Isolation.READ_UNCOMMITTED)
+    //@Transactional(propagation= Propagation.NOT_SUPPORTED,isolation= Isolation.READ_UNCOMMITTED)
+    @Transactional
     @Override
     public void saveLog(LogInfo logInfo, String actionNum){
         log.info("logInfo:" + logInfo);
