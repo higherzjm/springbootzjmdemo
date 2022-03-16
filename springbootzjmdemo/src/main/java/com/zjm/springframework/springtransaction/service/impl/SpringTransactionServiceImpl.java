@@ -37,6 +37,8 @@ public class SpringTransactionServiceImpl implements ISpringTransactionService {
     private LogInfoMapper logInfoMapper;
     @Autowired
     protected SqlSession sqlSession;
+    @Autowired
+    private ISpringTransactionService service;
 
     @Override
     public List<LogInfoResultVO> findLog(LogInfoDTO logInfoDTO) {
@@ -58,7 +60,7 @@ public class SpringTransactionServiceImpl implements ISpringTransactionService {
     //@Transactional(propagation= Propagation.NOT_SUPPORTED,isolation= Isolation.READ_UNCOMMITTED)
     //@Transactional(isolation= Isolation.READ_COMMITTED)
     //@Transactional(isolation= Isolation.READ_UNCOMMITTED)
-    //@Transactional
+    @Transactional
     @Override
     public void saveLog(LogInfo logInfo, String actionNum){
         log.info("logInfo:" + logInfo);
@@ -97,11 +99,31 @@ public class SpringTransactionServiceImpl implements ISpringTransactionService {
          * @description 事务无效
          * @date 2022/3/16 13:54
          */
-        saveLog2(logInfo);
+        //saveLog2(logInfo);
+
+
+        //---- 测试子方法出现异常事务回滚，主方法捕捉异常事务不回滚
+        /**
+         * @description  要实现子方法出现异常事务回滚主方法回滚子方法需要开启新的事务，同一个事务只要表示为回滚标识，整个事务都会回滚
+         * @date 2022/3/16 16:11
+         */
+        logInfoMapper.insert(logInfo);
+        try {
+            logInfo.setId("subId000000000001");
+            service.subLogSave(logInfo);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @Transactional
     public void saveLog2(LogInfo logInfo){
+        logInfoMapper.insert(logInfo);
+        int i=1/0;
+    }
+    @Transactional(propagation=Propagation.REQUIRES_NEW)
+    @Override
+    public void subLogSave(LogInfo logInfo){
         logInfoMapper.insert(logInfo);
         int i=1/0;
     }

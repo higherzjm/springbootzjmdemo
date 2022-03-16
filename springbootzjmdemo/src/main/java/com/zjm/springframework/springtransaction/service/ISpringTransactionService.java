@@ -12,5 +12,6 @@ import java.util.List;
 public interface ISpringTransactionService {
     List<LogInfoResultVO> findLog(LogInfoDTO logInfoDTO);
     void  saveLog(LogInfo loginfo, String actionNum) ;
+    void subLogSave(LogInfo logInfo);
     <T> T queryDynamicTableInfo(String id, Class<T> dataClazz);
 }
