@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
@@ -82,8 +83,14 @@ public class SpringTransactionServiceImpl implements ISpringTransactionService {
          * @description  入库操作后业务产生异常，没有添加事务【@Transactional】不会回滚，有添加事务会回滚
          * @date 2022/3/16 13:40
          */
-        /*logInfoMapper.insert(logInfo);
-        int i=1/0;*/
+       /* logInfoMapper.insert(logInfo);
+        try {
+            int i=1/0;
+        }catch (Exception e){
+            //异常手动回滚，如果不设置回滚异常类型spring不会对所有异常进行回滚，可进行手动异常回滚
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        }*/
+
 
         //-----------测试跨方法存在事务是否有效
         /**
