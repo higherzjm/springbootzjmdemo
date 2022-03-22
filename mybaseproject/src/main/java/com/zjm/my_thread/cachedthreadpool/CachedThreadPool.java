@@ -3,6 +3,7 @@ package com.zjm.my_thread.cachedthreadpool;
 
 
 import lombok.extern.slf4j.Slf4j;
+import org.junit.Test;
 
 import java.util.concurrent.*;
 
@@ -13,11 +14,7 @@ import java.util.concurrent.*;
  */
 @Slf4j
 public class CachedThreadPool {
-    public static void main(String[] args) throws ExecutionException, InterruptedException {
-        CachedThreadPool cachedThreadPool = new CachedThreadPool();
-        // cachedThreadPool.test1();
-       cachedThreadPool.test2();
-    }
+
 
     /**
      * @Description:  普通的线程或线程池，无需阻塞等待
@@ -26,6 +23,7 @@ public class CachedThreadPool {
      * @param:
      * void
      **/
+    @Test
     public void test1() throws ExecutionException, InterruptedException {
         //普通线程
         Thread thread = new Thread(new MyThread());
@@ -49,17 +47,20 @@ public class CachedThreadPool {
      * @param:
      * void
      **/
+    @Test
     public void  test2(){
         ExecutorService executorService = Executors.newFixedThreadPool(10);
         int count=10;
         CountDownLatch latch = new CountDownLatch(count);
         for(int i = 0;i< 10; i++){
+            final long  sleepTime=20000*(i+1);
             executorService.submit(() -> {
                 try {
-                    Thread.sleep(5000);
+                    log.info("sleepTime:{}",sleepTime);
+                    Thread.sleep(sleepTime);
                     log.info("线程执行:"+System.nanoTime());
                     latch.countDown();//每执行完一次或减1
-                    log.info("submit->count:"+latch.getCount());
+                    log.info("submit:->剩余线程数:{}",latch.getCount());
                 } catch (Exception e) {
                     Thread.currentThread().interrupt();
                 }
