@@ -54,7 +54,7 @@ public class MetricsAspect {
 
     }
 
-    @Around("controllerBean() || withMetricsAnnotation())")
+    //@Around("controllerBean() || withMetricsAnnotation())")
     public Object metrics(ProceedingJoinPoint pjp) throws Throwable {
         //通过连接点获取方法签名和方法上Metrics注解，并根据方法签名生成日志中要输出的方法定义描述
         MethodSignature signature = (MethodSignature) pjp.getSignature();
@@ -114,9 +114,9 @@ public class MetricsAspect {
         }
 
         //实现了返回值的日志输出
-        if (metrics.logReturn())
-
+        if (metrics.logReturn()) {
             log.info(String.format("【出参日志】调用 %s 的返回是：【%s】", name, returnValue));
+        }
 
         return returnValue;
 
