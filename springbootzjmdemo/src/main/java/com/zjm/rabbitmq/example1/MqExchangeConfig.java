@@ -23,6 +23,18 @@ public class MqExchangeConfig {
     DirectExchange directExchange(){
         return new DirectExchange("newStudentsRegister");
     }
+    /**
+     *  创建队列
+     **/
+    @Bean
+    public Queue newStudentListsQueue(){
+        return new Queue("newStudentListsQueue");
+    }
+
+    @Bean
+    public Queue addNewStudentNoticeQueue(){
+        return new Queue("addNewStudentNoticeQueue");
+    }
 
     /**
      * 将队列绑定到指定的交换机并声明路由
