@@ -1,10 +1,7 @@
 package com.zjm.rabbitmq.example1;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.amqp.core.Binding;
-import org.springframework.amqp.core.BindingBuilder;
-import org.springframework.amqp.core.DirectExchange;
-import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.core.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -48,4 +45,21 @@ public class MqExchangeConfig {
     Binding bindExchangeB(Queue addNewStudentNoticeQueue,DirectExchange directExchange){
         return BindingBuilder.bind(addNewStudentNoticeQueue).to(directExchange).with("addNewStudentNotice");
     }
+    /**
+     * @description 定义死信队列
+     * @date 2022/3/22 17:53
+     */
+    @Bean
+    public Declarables declarablesForDead() {
+
+        Queue queue = new Queue("deadQueue");
+
+        DirectExchange directExchange = new DirectExchange("deadExchange");
+
+        return new Declarables(queue, directExchange,
+
+                BindingBuilder.bind(queue).to(directExchange).with("deadRoutingKey"));
+
+    }
+
 }

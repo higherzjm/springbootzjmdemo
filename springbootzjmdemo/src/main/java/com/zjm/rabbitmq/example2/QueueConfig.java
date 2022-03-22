@@ -18,18 +18,7 @@ public class QueueConfig {
     public Queue mqQueue_20211102() {
         return new Queue(ConstantUtil.rabbitMqQueueName);
     }
-    /**
-     *  创建队列
-     **/
-    @Bean
-    public Queue newStudentListsQueue(){
-        return new Queue("newStudentListsQueue");
-    }
- 
-    @Bean
-    public Queue addNewStudentNoticeQueue(){
-        return new Queue("addNewStudentNoticeQueue");
-    }
+
     @Bean
     public Queue baseQueue(){
         return new Queue("baseQueue");
