@@ -1,4 +1,4 @@
-package com.zjm.rabbitmq;
+package com.zjm.rabbitmq.example1;
 
 import com.alibaba.fastjson.JSONObject;
 import com.rabbitmq.client.Channel;
@@ -19,11 +19,8 @@ import java.util.concurrent.LinkedBlockingDeque;
 /**
  * @author zhujianming
  */
-@RequestMapping("/rabbitMqMsgListener")
-@RestController
-@Api(tags = "rabbitmq消息监听消费者")
 @Slf4j
-public class RabbitMqStudentHeadmasterListener {
+public class MqExchangeListener {
 
     private static BlockingDeque<List<StudentInfo>> blockingDeque = new LinkedBlockingDeque<>();
 

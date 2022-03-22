@@ -1,4 +1,4 @@
-package com.zjm.rabbitmq;
+package com.zjm.rabbitmq.example2;
 
 import com.alibaba.fastjson.JSONObject;
 import com.zjm.util.ConstantUtil;
@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @Slf4j
-public class MqConfig {
+public class QueueConfig {
 
     @Bean
     public Queue mqQueue_20211102() {
@@ -35,28 +35,6 @@ public class MqConfig {
         return new Queue("baseQueue");
     }
  
-    /**
-     * 声明一个Direct类型的交换机,新生注册交换机
-     **/
-    @Bean
-    DirectExchange directExchange(){
-        return new DirectExchange("newStudentsRegister");
-    }
 
-    /**
-     * 将队列绑定到指定的交换机并声明路由
-     */
-    @Bean
-    Binding bindExchangeA(Queue newStudentListsQueue, DirectExchange directExchange){
-        return BindingBuilder.bind(newStudentListsQueue).to(directExchange).with("newStudentLists");
-    }
- 
-    @Bean
-    Binding bindExchangeB(Queue addNewStudentNoticeQueue,DirectExchange directExchange){
-        return BindingBuilder.bind(addNewStudentNoticeQueue).to(directExchange).with("addNewStudentNotice");
-    }
 
-    public MqConfig() {
-
-    }
 }
