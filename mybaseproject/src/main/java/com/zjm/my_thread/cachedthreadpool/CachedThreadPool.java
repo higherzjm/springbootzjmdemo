@@ -15,8 +15,8 @@ import java.util.concurrent.*;
 public class CachedThreadPool {
     public static void main(String[] args) throws ExecutionException, InterruptedException {
         CachedThreadPool cachedThreadPool = new CachedThreadPool();
-        cachedThreadPool.test1();
-        //cachedThreadPool.test2();
+        // cachedThreadPool.test1();
+       cachedThreadPool.test2();
     }
 
     /**
@@ -56,7 +56,7 @@ public class CachedThreadPool {
         for(int i = 0;i< 10; i++){
             executorService.submit(() -> {
                 try {
-                    Thread.sleep(2000);
+                    Thread.sleep(5000);
                     log.info("线程执行:"+System.nanoTime());
                     latch.countDown();//每执行完一次或减1
                     log.info("submit->count:"+latch.getCount());

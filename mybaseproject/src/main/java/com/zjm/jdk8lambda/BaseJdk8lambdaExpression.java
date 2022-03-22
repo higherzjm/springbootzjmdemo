@@ -301,6 +301,10 @@ public class BaseJdk8lambdaExpression {
             .filter(s -> s.getAge() < 50).collect(Collectors.toList());
     log.info("student2List:{}",student2List);
     }
+    /**
+     * @description rangeClosed 便捷循环
+     * @date 2022/3/18 10:24
+     */
     @Test
     public void test24() {
         IntStream.rangeClosed(1,3).forEach(i->{
@@ -312,6 +316,8 @@ public class BaseJdk8lambdaExpression {
         IntStream.rangeClosed(1,3).parallel().forEach(i->{
             log.info("i3:{}",i);
         });
+        String str=IntStream.rangeClosed(1,3).mapToObj(i->"字符串").collect(Collectors.joining("-"));
+        log.info("str:{}",str);
     }
 
 
