@@ -45,6 +45,7 @@ public class SayController {
     @PostMapping("/test2")
     @ApiOperation(value = "测试2-ApplicationContext注入抽象类")
     public void test2() {
+        log.info("test2请求时间:{}",System.currentTimeMillis()/1000);
         applicationContext.getBeansOfType(AbstractService.class).values().forEach(AbstractService::say);
 
     }
@@ -62,6 +63,7 @@ public class SayController {
     @GetMapping("/test4/{paramValue}")
     @ApiOperation(value = "测试1-ApplicationContext注入子类")
     public String test4(@PathVariable String paramValue) {
+        log.info("test4请求时间:{}",System.currentTimeMillis()/1000);
         applicationContext.getBeansOfType(SayHello.class).values().forEach(SayHello::say);
         return "ret:"+paramValue;
     }
