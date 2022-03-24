@@ -1,4 +1,4 @@
-package com.zjm.springframework.aspect_unUser;
+package com.zjm.springframework.restcontroller_aspect;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -43,7 +43,7 @@ public class MetricsAspect {
     }
 
     //@annotation指示器实现对标记了Metrics注解的方法进行匹配
-    @Pointcut("within(@com.zjm.springframework.aspect_unUser.Metrics *)")
+    @Pointcut("within(@com.zjm.springframework.restcontroller_aspect.Metrics *)")
     public void withMetricsAnnotation() {
 
     }
@@ -54,7 +54,7 @@ public class MetricsAspect {
 
     }
 
-    //@Around("controllerBean() || withMetricsAnnotation())")
+    @Around("controllerBean() || withMetricsAnnotation())")
     public Object metrics(ProceedingJoinPoint pjp) throws Throwable {
         //通过连接点获取方法签名和方法上Metrics注解，并根据方法签名生成日志中要输出的方法定义描述
         MethodSignature signature = (MethodSignature) pjp.getSignature();
