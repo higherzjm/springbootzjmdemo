@@ -15,6 +15,7 @@ import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import static java.util.Map.Entry.comparingByKey;
 import static java.util.stream.Collectors.toMap;
@@ -52,7 +53,6 @@ public class BaseJdk8lambdaExpression {
         jdk8New.test20(studentList);//按属性分组，并返回指定属性结果集
         jdk8New.test21(studentList);//Comparator.comparingInt排序 重新定义排序规则
         jdk8New.test22();
-        jdk8New.test23();
     }
 
     //转换成map,可以用在对一些集合进行分组，比如按学生年龄或姓名分组
@@ -296,7 +296,8 @@ public class BaseJdk8lambdaExpression {
      * @description IntStream.rangeClosed 循环指定次数
      * @date 2022/3/11 15:52
      */
-    private void test23() {
+    @Test
+    public void test23() {
     List<Student>  student2List=IntStream.rangeClosed(1, 100).mapToObj(s -> Student.builder().age(30 + s).name("张三"+s).build())
             .filter(s -> s.getAge() < 50).collect(Collectors.toList());
     log.info("student2List:{}",student2List);
@@ -319,7 +320,27 @@ public class BaseJdk8lambdaExpression {
         String str=IntStream.rangeClosed(1,3).mapToObj(i->"字符串").collect(Collectors.joining("-"));
         log.info("str:{}",str);
     }
+    /**
+     * @description IntStream.rangeClosed list转化为数值
+     * @date 2022/3/11 15:52
+     */
+    @Test
+    public void test25() {
+        Student[] student2List= IntStream.rangeClosed(1, 100).mapToObj(s -> Student.builder().age(30 + s).name("张三"+s).build()).filter(s->s.getAge()<50).toArray(Student[]::new);
+        log.info("student2List:{}",student2List.length);
 
+        List<String> list = new ArrayList<>();
+        list.add("1");
+        list.add("2");
+        list.add("3");
+        String[] array2 =new String[list.size()];
+        String[] array = list.toArray(array2);
+        log.info("array:{}",array.length);
+
+        Integer[] integers = Stream.of(1, 2, 3, 4, 5).toArray(Integer[]::new);
+        log.info("integers:{}",integers.length);
+
+    }
 
     @Data
     @AllArgsConstructor
