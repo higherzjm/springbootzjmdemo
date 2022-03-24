@@ -321,7 +321,7 @@ public class BaseJdk8lambdaExpression {
         log.info("str:{}",str);
     }
     /**
-     * @description IntStream.rangeClosed list转化为数值
+     * @description list转化为数值
      * @date 2022/3/11 15:52
      */
     @Test
