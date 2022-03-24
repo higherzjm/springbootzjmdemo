@@ -110,17 +110,18 @@ public class SpringTransactionServiceImpl implements ISpringTransactionService {
         logInfoMapper.insert(logInfo);
         try {
             logInfo.setId("subId000000000001");
-            service.subLogSave(logInfo);
+            //service.subLogSave(logInfo);
         }catch (Exception e){
             e.printStackTrace();
         }
     }
-
+    //测试跨方法存在事务是否有效
     @Transactional
     public void saveLog2(LogInfo logInfo){
         logInfoMapper.insert(logInfo);
         int i=1/0;
     }
+    //测试子方法出现异常事务回滚，主方法捕捉异常事务不回滚
     @Transactional(propagation=Propagation.REQUIRES_NEW)
     @Override
     public void subLogSave(LogInfo logInfo){
