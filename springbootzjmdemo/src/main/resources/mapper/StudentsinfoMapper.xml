@@ -6,8 +6,6 @@
         <id column="id" property="id" />
         <result column="name" property="name" />
         <result column="age" property="age" />
-        <result column="create_time" property="createTime"/>
-        <result column="create_user" property="createUser"/>
         <result column="update_time" property="updateTime"/>
         <result column="update_user" property="updateUser"/>
 

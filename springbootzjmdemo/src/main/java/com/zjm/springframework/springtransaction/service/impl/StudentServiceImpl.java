@@ -39,26 +39,26 @@ public class StudentServiceImpl implements IStudentService {
     public List<StudentsInfoVO> queryStudentList(String name) {
         LambdaQueryWrapper<StudentsInfo> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.select(StudentsInfo::getId, StudentsInfo::getName,
-                StudentsInfo::getAge, StudentsInfo::getIdentity,StudentsInfo::getCreateUser,StudentsInfo::getIdentity,
-                StudentsInfo::getUpdateUser, StudentsInfo::getUpdateTime).orderByDesc(StudentsInfo::getAge);
+                StudentsInfo::getAge,StudentsInfo::getUpdateUser,
+                StudentsInfo::getUpdateTime).orderByDesc(StudentsInfo::getAge);
         if (!StringUtils.isEmpty(name)) {
             queryWrapper.like(StudentsInfo::getName, name);
         }
-        List<StudentsInfo> infoList=baseMapper.selectList(queryWrapper);
-        List<StudentsInfoVO> infoVOList=new ArrayList<>();
-        for (StudentsInfo studentsInfo:infoList){
-            StudentsInfoVO infoVO=new StudentsInfoVO();
-            BeanUtils.copyProperties(studentsInfo,infoVO);
+        List<StudentsInfo> infoList = baseMapper.selectList(queryWrapper);
+        List<StudentsInfoVO> infoVOList = new ArrayList<>();
+        for (StudentsInfo studentsInfo : infoList) {
+            StudentsInfoVO infoVO = new StudentsInfoVO();
+            BeanUtils.copyProperties(studentsInfo, infoVO);
             infoVOList.add(infoVO);
         }
         return infoVOList;
     }
 
-    @Transactional(propagation=Propagation.REQUIRES_NEW,isolation= Isolation.READ_UNCOMMITTED)
+    @Transactional(propagation = Propagation.REQUIRES_NEW, isolation = Isolation.READ_UNCOMMITTED)
     @HfiTrace  //自定义注解拦拦截
     @Override
     public String updateIdentityTransaction(String id, String value) {
-        LambdaUpdateWrapper<StudentsInfo> wrapper = new LambdaUpdateWrapper<StudentsInfo>().set(StudentsInfo::getIdentity, value).eq(StudentsInfo::getId, id);
+        LambdaUpdateWrapper<StudentsInfo> wrapper = new LambdaUpdateWrapper<StudentsInfo>().set(StudentsInfo::getName, value).eq(StudentsInfo::getId, id);
         baseMapper.update(null, wrapper);
         //update2(wrapper,value);//复用本次事务代理，新方法不管事务怎么设置，都复用本方法的事务隔离级别和传播机制
         //((IStudentService) AopContext.currentProxy()).update2(wrapper,value);//启用新的事务代理，新方法如未设置新事务就沿用本方法的事务隔离级别和传播机制，新事务就启用新的隔离级别
@@ -74,29 +74,30 @@ public class StudentServiceImpl implements IStudentService {
 
     @Override
     @Transactional
-    public void update2( LambdaUpdateWrapper<StudentsInfo> wrapper,String value) {
-       log.info("do  anything");
-        wrapper.set(StudentsInfo::getIdentity, value+"->再更新2");
+    public void update2(LambdaUpdateWrapper<StudentsInfo> wrapper, String value) {
+        log.info("do  anything");
+        wrapper.set(StudentsInfo::getName, value + "->再更新2");
         baseMapper.update(null, wrapper);
     }
 
     @Override
     @HfiTrace
     public String updateIdentityUnTransaction(String id, String value) {
-        LambdaUpdateWrapper<StudentsInfo> wrapper = new LambdaUpdateWrapper<StudentsInfo>().set(StudentsInfo::getIdentity, value).eq(StudentsInfo::getId, id);
+        LambdaUpdateWrapper<StudentsInfo> wrapper = new LambdaUpdateWrapper<StudentsInfo>().set(StudentsInfo::getName, value).eq(StudentsInfo::getId, id);
         baseMapper.update(null, wrapper);
         return "更新成功";
     }
+
     @Data
     @AllArgsConstructor
     @NoArgsConstructor
-    class MyThread implements Runnable{
+    class MyThread implements Runnable {
         LambdaUpdateWrapper<StudentsInfo> baseMapper;
-         String value;
+        String value;
 
         @Override
         public void run() {
-            update2(baseMapper,value);
+            update2(baseMapper, value);
         }
     }
 }

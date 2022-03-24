@@ -16,7 +16,7 @@ import java.util.Date;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@TableName("students_info")
+@TableName("student")
 public class StudentsInfo extends Model<StudentsInfo> {
 
     private static final long serialVersionUID = 1L;
@@ -37,21 +37,7 @@ public class StudentsInfo extends Model<StudentsInfo> {
 	 */
 	@TableField("age")
 	private Integer age;
-	/**
-	 * 身份:
-	 */
-	@TableField("identity")
-	private String identity ;
-	/**
-	 * 创建人
-	 */
-	@TableField(value = "create_user", fill = FieldFill.INSERT)
-	private String createUser;
-	/**
-	 * 创建时间
-	 */
-	@TableField(value = "create_time", fill = FieldFill.INSERT)
-	private Date createTime;
+
 	/**
 	 * 最后一次更新时间
 	 */
