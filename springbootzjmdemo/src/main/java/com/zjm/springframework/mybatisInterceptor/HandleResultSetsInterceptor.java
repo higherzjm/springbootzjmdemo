@@ -53,7 +53,7 @@ public class HandleResultSetsInterceptor implements Interceptor {
                 f.setAccessible(true);
                 log.info("f:{}", f.get(ret));
                 if (f.getName().equals("name")) {
-                    f.set(ret, "mybatis返回拦截修改属性值:" + f.get(ret));
+                    f.set(ret, "【mybatis返回拦截修改属性值，查询操作】:" + f.get(ret));
                 }
             } catch (IllegalAccessException e) {
                 e.printStackTrace();

@@ -12,9 +12,13 @@ public interface IStudentService {
 
     List<StudentsInfoVO> queryStudentList(String name);
 
-    String updateIdentityTransaction(String id,String value);
+    String updateIdentityTransaction(String id, String value);
 
-    void update2(LambdaUpdateWrapper<StudentsInfo> wrapper,String value);
+    void update2(LambdaUpdateWrapper<StudentsInfo> wrapper, String value);
 
-    String updateIdentityUnTransaction(String id,String value);
+    String updateIdentityUnTransaction(String id, String value);
+
+    void updateNameById_Lambda(String id, String name);
+
+    void updateNameById_mybatis(String id, String name);
 }

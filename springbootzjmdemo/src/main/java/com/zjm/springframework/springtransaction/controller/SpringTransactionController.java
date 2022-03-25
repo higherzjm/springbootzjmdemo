@@ -44,6 +44,20 @@ public class SpringTransactionController {
          studentService.saveStudentsInfo(studentsInfo);
          return "保存成功";
     }
+    @PostMapping("/updateNameById_Lambda/{id}/{value}")
+    @ApiOperation(value = "spring事务-修改学生姓名[Lambda]", notes = "修改学生姓名")
+    public String updateNameById_Lambda(@ApiParam(name = "id", value = "主键") @PathVariable("id") String id,
+                                   @ApiParam(name = "value", value = "更新值")@PathVariable("value") String name) {
+        studentService.updateNameById_Lambda(id,name);
+        return "更新成功";
+    }
+    @PostMapping("/updateNameById_mybatis/{id}/{value}")
+    @ApiOperation(value = "spring事务-修改学生姓名[mybatis]", notes = "修改学生姓名")
+    public String updateNameById_mybatis(@ApiParam(name = "id", value = "主键") @PathVariable("id") String id,
+                                        @ApiParam(name = "value", value = "更新值")@PathVariable("value") String name) {
+        studentService.updateNameById_mybatis(id,name);
+        return "更新成功";
+    }
     @PostMapping("/updateIdentityUnTransaction/{id}/{value}")
     @ApiOperation(value = "spring事务-更新学生身份_不带事务")
     public String updateIdentityUnTransaction(@ApiParam(name = "id", value = "主键",defaultValue = "1") @PathVariable("id") String id, @ApiParam(name = "value", value = "更新值")@PathVariable("value") String value) {

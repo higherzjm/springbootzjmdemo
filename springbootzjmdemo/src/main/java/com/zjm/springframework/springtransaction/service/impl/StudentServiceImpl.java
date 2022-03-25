@@ -7,6 +7,7 @@ import com.zjm.baseapplication.VO.Student;
 import com.zjm.springframework.methodInterceptor.interceptor2.HfiTrace;
 import com.zjm.springframework.springtransaction.VO.StudentsInfoVO;
 import com.zjm.springframework.springtransaction.entity.StudentsInfo;
+import com.zjm.springframework.springtransaction.mapper.StudentsInfoMapper;
 import com.zjm.springframework.springtransaction.service.IStudentService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -29,6 +30,8 @@ public class StudentServiceImpl implements IStudentService {
 
     @Autowired
     private BaseMapper<StudentsInfo> baseMapper;
+    @Autowired
+    private StudentsInfoMapper studentsInfoMapper;
 
     @Override
     public void saveStudentsInfo(StudentsInfo student) {
@@ -36,10 +39,21 @@ public class StudentServiceImpl implements IStudentService {
     }
 
     @Override
+    public void updateNameById_Lambda(String id, String name) {
+        LambdaUpdateWrapper<StudentsInfo> wrapper = new LambdaUpdateWrapper<StudentsInfo>().set(StudentsInfo::getName, name).eq(StudentsInfo::getId, id);
+        baseMapper.update(null, wrapper);
+    }
+
+    @Override
+    public void updateNameById_mybatis(String id, String name) {
+        studentsInfoMapper.updateNameById(id,name);
+    }
+
+    @Override
     public List<StudentsInfoVO> queryStudentList(String name) {
         LambdaQueryWrapper<StudentsInfo> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.select(StudentsInfo::getId, StudentsInfo::getName,
-                StudentsInfo::getAge,StudentsInfo::getUpdateUser,
+                StudentsInfo::getAge, StudentsInfo::getUpdateUser,
                 StudentsInfo::getUpdateTime).orderByDesc(StudentsInfo::getAge);
         if (!StringUtils.isEmpty(name)) {
             //queryWrapper.like(StudentsInfo::getName, name);
@@ -87,6 +101,7 @@ public class StudentServiceImpl implements IStudentService {
         baseMapper.update(null, wrapper);
         return "更新成功";
     }
+
 
     @Data
     @AllArgsConstructor

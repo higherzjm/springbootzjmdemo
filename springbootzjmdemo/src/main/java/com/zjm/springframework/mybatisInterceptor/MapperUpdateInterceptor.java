@@ -33,23 +33,34 @@ public class MapperUpdateInterceptor implements Interceptor {
         if (SqlCommandType.INSERT.equals(sqlCommandType) || SqlCommandType.UPDATE.equals(sqlCommandType)) {
             Object parameter = invocation.getArgs()[1];
             List<Object> hashParams = new ArrayList();
+
             if (parameter instanceof MapperMethod.ParamMap) {
                 Map<String, Object> paramMap = (Map) parameter;
-                paramMap.keySet().forEach((key) -> {
+            /*    paramMap.keySet().forEach((key) -> {
                     if (key.startsWith("param")) {
                         hashParams.add(paramMap.get(key));
+                    }else {
+
                     }
-                });
+                });*/
+               paramMap.forEach((k,v)->{
+                   if (k.equals("name")){
+                       paramMap.put(k,v+":【mybatis更新拦截修改属性值，修改数据操作】");
+                   }
+               });
             } else {
                 hashParams.add(parameter);
             }
 
             for (int i = 0; i < hashParams.size(); ++i) {
                 Object hashParam = hashParams.get(i);
+                if (hashParam==null){
+                    continue;
+                }
                 Class clazz = hashParam.getClass();
                 Field field = clazz.getDeclaredField("name");
                 field.setAccessible(true);
-                field.set(hashParam, "mybatis更新拦截修改属性值：" + field.get(hashParam));
+                field.set(hashParam, "【mybatis更新拦截修改属性值，保存数据操作】：" + field.get(hashParam));
                 log.info("hashParam:{}", hashParam);
 
             }
