@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import java.util.Date;
 
 /**
@@ -31,11 +33,13 @@ public class StudentsInfo extends Model<StudentsInfo> {
 	 * 姓名
 	 */
 	@TableField("name")
+	//@NotEmpty(message = "姓名不可为空")
 	private String name;
 	/**
 	 * 年龄
 	 */
 	@TableField("age")
+	//@NotBlank(message = "年龄不可为空")
 	private Integer age;
 
 	/**

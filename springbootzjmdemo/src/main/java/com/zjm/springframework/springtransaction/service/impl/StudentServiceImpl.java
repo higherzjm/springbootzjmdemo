@@ -31,8 +31,8 @@ public class StudentServiceImpl implements IStudentService {
     private BaseMapper<StudentsInfo> baseMapper;
 
     @Override
-    public void save(Student student) {
-
+    public void saveStudentsInfo(StudentsInfo student) {
+        baseMapper.insert(student);
     }
 
     @Override
@@ -42,7 +42,7 @@ public class StudentServiceImpl implements IStudentService {
                 StudentsInfo::getAge,StudentsInfo::getUpdateUser,
                 StudentsInfo::getUpdateTime).orderByDesc(StudentsInfo::getAge);
         if (!StringUtils.isEmpty(name)) {
-            queryWrapper.like(StudentsInfo::getName, name);
+            //queryWrapper.like(StudentsInfo::getName, name);
         }
         List<StudentsInfo> infoList = baseMapper.selectList(queryWrapper);
         List<StudentsInfoVO> infoVOList = new ArrayList<>();

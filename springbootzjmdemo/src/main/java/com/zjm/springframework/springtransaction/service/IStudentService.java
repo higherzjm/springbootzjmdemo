@@ -8,7 +8,7 @@ import com.zjm.springframework.springtransaction.entity.StudentsInfo;
 import java.util.List;
 
 public interface IStudentService {
-    void save(Student student);
+    void saveStudentsInfo(StudentsInfo student);
 
     List<StudentsInfoVO> queryStudentList(String name);
 

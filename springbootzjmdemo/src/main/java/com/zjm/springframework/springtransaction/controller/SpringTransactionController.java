@@ -5,6 +5,7 @@ import com.zjm.springframework.springtransaction.DTO.LogInfoDTO;
 import com.zjm.springframework.springtransaction.VO.LogInfoResultVO;
 import com.zjm.springframework.springtransaction.VO.StudentsInfoVO;
 import com.zjm.springframework.springtransaction.entity.LogInfo;
+import com.zjm.springframework.springtransaction.entity.StudentsInfo;
 import com.zjm.springframework.springtransaction.service.ISpringTransactionService;
 import com.zjm.springframework.springtransaction.service.IStudentService;
 import io.swagger.annotations.Api;
@@ -36,6 +37,12 @@ public class SpringTransactionController {
     @ApiOperation(value = "spring事务-查询学生列表", notes = "query student list")
     public List<StudentsInfoVO> queryStudentList(@ApiParam(name = "name", value = "姓名",defaultValue = "张") @PathVariable("name") String name) {
         return studentService.queryStudentList(name);
+    }
+    @PostMapping("/saveStudentsInfo")
+    @ApiOperation(value = "spring事务-添加学生信息", notes = "添加学生信息")
+    public String saveStudentsInfo(@RequestBody @Validated StudentsInfo studentsInfo) {
+         studentService.saveStudentsInfo(studentsInfo);
+         return "保存成功";
     }
     @PostMapping("/updateIdentityUnTransaction/{id}/{value}")
     @ApiOperation(value = "spring事务-更新学生身份_不带事务")

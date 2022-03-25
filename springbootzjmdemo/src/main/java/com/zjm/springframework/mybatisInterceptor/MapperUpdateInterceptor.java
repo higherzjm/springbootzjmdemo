@@ -8,15 +8,16 @@ import org.apache.ibatis.mapping.SqlCommandType;
 import org.apache.ibatis.plugin.*;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
 @Intercepts({@Signature(
-    type = Executor.class,
-    method = "update",
-    args = {MappedStatement.class, Object.class}
+        type = Executor.class,
+        method = "update",
+        args = {MappedStatement.class, Object.class}
 )})
 @Slf4j
 @Service
@@ -27,13 +28,13 @@ public class MapperUpdateInterceptor implements Interceptor {
     }
 
     public Object intercept(Invocation invocation) throws Throwable {
-        MappedStatement mappedStatement = (MappedStatement)invocation.getArgs()[0];
+        MappedStatement mappedStatement = (MappedStatement) invocation.getArgs()[0];
         SqlCommandType sqlCommandType = mappedStatement.getSqlCommandType();
         if (SqlCommandType.INSERT.equals(sqlCommandType) || SqlCommandType.UPDATE.equals(sqlCommandType)) {
             Object parameter = invocation.getArgs()[1];
             List<Object> hashParams = new ArrayList();
             if (parameter instanceof MapperMethod.ParamMap) {
-                Map<String, Object> paramMap = (Map)parameter;
+                Map<String, Object> paramMap = (Map) parameter;
                 paramMap.keySet().forEach((key) -> {
                     if (key.startsWith("param")) {
                         hashParams.add(paramMap.get(key));
@@ -43,9 +44,13 @@ public class MapperUpdateInterceptor implements Interceptor {
                 hashParams.add(parameter);
             }
 
-            for(int i = 0; i < hashParams.size(); ++i) {
+            for (int i = 0; i < hashParams.size(); ++i) {
                 Object hashParam = hashParams.get(i);
-                log.info("hashParam:{}",hashParam);
+                Class clazz = hashParam.getClass();
+                Field field = clazz.getDeclaredField("name");
+                field.setAccessible(true);
+                field.set(hashParam, "mybatis更新拦截修改属性值：" + field.get(hashParam));
+                log.info("hashParam:{}", hashParam);
 
             }
         }
