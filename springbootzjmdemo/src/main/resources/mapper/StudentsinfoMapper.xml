@@ -14,4 +14,7 @@
     <sql id="Base_Column_List">
    id,name,age,create_time,create_user,update_time,update_user
     </sql>
+    <update id="updateNameById"  parameterType="java.lang.String">
+        update  student s set s.name=#{name} where s.id=#{id}
+    </update>
 </mapper>
