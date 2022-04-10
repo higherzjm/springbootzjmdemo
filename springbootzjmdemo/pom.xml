@@ -172,21 +172,21 @@
             <version>4.5.7</version>
         </dependency>
         <!--maven 私服仓库资源-->
-       <!-- <dependency>
-            <groupId>com.xuxueli</groupId>
-            <artifactId>xxl-job-admin</artifactId>
-            <version>1.0.1-RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>com.xuxueli</groupId>
-            <artifactId>xxl-job-core</artifactId>
-            <version>1.0.1-RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>com.zjm</groupId>
-            <artifactId>zjmcommonutil</artifactId>
-            <version>1.0.0-RELEASE</version>
-        </dependency>-->
+        <!-- <dependency>
+             <groupId>com.xuxueli</groupId>
+             <artifactId>xxl-job-admin</artifactId>
+             <version>1.0.1-RELEASE</version>
+         </dependency>
+         <dependency>
+             <groupId>com.xuxueli</groupId>
+             <artifactId>xxl-job-core</artifactId>
+             <version>1.0.1-RELEASE</version>
+         </dependency>
+         <dependency>
+             <groupId>com.zjm</groupId>
+             <artifactId>zjmcommonutil</artifactId>
+             <version>1.0.0-RELEASE</version>
+         </dependency>-->
         <!--maven 私服仓库资源-->
         <dependency>
             <groupId>com.alibaba</groupId>
@@ -214,8 +214,8 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
-           <!-- <version>5.3.8</version>
-            <scope>test</scope>-->
+            <!-- <version>5.3.8</version>
+             <scope>test</scope>-->
             <scope>compile</scope>
         </dependency>
         <dependency>
@@ -230,12 +230,27 @@
         <dependency>
             <groupId>org.elasticsearch.client</groupId>
             <artifactId>elasticsearch-rest-high-level-client</artifactId>
-            <version>7.6.2</version>
+            <version>6.5.2</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>elasticsearch</artifactId>
+                    <groupId>org.elasticsearch</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>elasticsearch-rest-client</artifactId>
+                    <groupId>org.elasticsearch.client</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.elasticsearch</groupId>
+            <artifactId>elasticsearch</artifactId>
+            <version>6.5.2</version>
         </dependency>
         <dependency>
             <groupId>org.elasticsearch.client</groupId>
             <artifactId>elasticsearch-rest-client</artifactId>
-            <version>7.6.2</version>
+            <version>6.5.2</version>
             <exclusions>
                 <exclusion>
                     <artifactId>commons-logging</artifactId>
@@ -243,22 +258,36 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <dependency>
+            <groupId>org.elasticsearch.client</groupId>
+            <artifactId>transport</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-elasticsearch</artifactId>
+            <version>3.2.3.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.elasticsearch.plugin</groupId>
+            <artifactId>transport-netty4-client</artifactId>
+            <version>5.6.12</version>
+        </dependency>
     </dependencies>
     <repositories>
         <!--配置优先使用私服仓库加载依赖，如果私服仓库没有对应的依赖会去外网拉-->
-     <!--   <repository>
-            <snapshots>
-                <enabled>true</enabled>&lt;!&ndash;快照版是否支持更新 &ndash;&gt;
-            </snapshots>
-            <releases>
-                <enabled>false</enabled>&lt;!&ndash;快照版是否支持更新 &ndash;&gt;
-            </releases>
-            <id>zjmrepository</id>
-            <name>zjmrepository maven</name>
-            <url>http://127.0.0.1:8081/repository/zjmrepository/</url>
-        </repository>-->
+        <!--   <repository>
+               <snapshots>
+                   <enabled>true</enabled>&lt;!&ndash;快照版是否支持更新 &ndash;&gt;
+               </snapshots>
+               <releases>
+                   <enabled>false</enabled>&lt;!&ndash;快照版是否支持更新 &ndash;&gt;
+               </releases>
+               <id>zjmrepository</id>
+               <name>zjmrepository maven</name>
+               <url>http://127.0.0.1:8081/repository/zjmrepository/</url>
+           </repository>-->
 
-       <repository>
+        <repository>
             <id>public</id>
             <name>aliyun nexus</name>
             <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
