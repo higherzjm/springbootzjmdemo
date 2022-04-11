@@ -72,9 +72,9 @@ public class EsController {
     }
 
     @GetMapping("/esquery")
-    @ApiOperation(value = "es查询")
-    public List<Students> esquery() {
-        return queryEsData("苏州街桔子");
+    @ApiOperation(value = "es命令查询")
+    public List<Students> esquery(@RequestParam(defaultValue = "苏州街桔子") String name) {
+        return queryEsData(name);
     }
 
     private List<Students> queryEsData(String name) {
@@ -83,7 +83,10 @@ public class EsController {
         searchRequest.indices("studentsinfo2");
         //查询条件
         BoolQueryBuilder boolQueryBuilder = new BoolQueryBuilder();
+        //match有做分词查询
         boolQueryBuilder.must(QueryBuilders.matchQuery("name", name));
+        //term未做分词查询
+        //boolQueryBuilder.must(QueryBuilders.termQuery("name", name));
         SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
         sourceBuilder.query(boolQueryBuilder);
         //各种组合条件
@@ -113,7 +116,7 @@ public class EsController {
     public List<Students> esSpringQuery(@RequestParam(defaultValue = "苏州街桔子") String name, @RequestParam(defaultValue = "0") Integer pageNo, @RequestParam(defaultValue = "10") Integer pageSize) {
 
         Pageable pageable= PageRequest.of(pageNo,pageSize);
-       Page<Students> pageData=studentsRepository.findByName(name,pageable);
+       Page<Students> pageData=studentsRepository.findByNameLike(name,pageable);
         return pageData!=null?pageData.getContent():null;
     }
 }
