@@ -17,14 +17,14 @@ public class BlockQueue {
   public static void main(String[] args){
       BlockQueue myQueue=new BlockQueue();
       myQueue.start();
-      myQueue.quequeTake();
+      myQueue.queueTake();
 
   }
   public void start(){
       Thread thread=new Thread(new MyThread());
       thread.start();
   }
-  public void  quequeTake(){
+  public void  queueTake(){
       while (true){
           String str="";
           try {
