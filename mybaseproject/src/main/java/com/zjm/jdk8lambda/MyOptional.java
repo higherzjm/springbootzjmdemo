@@ -12,7 +12,7 @@ import java.util.Optional;
 @Slf4j
 public class MyOptional {
     /**
-     * 但属性判断
+     * 对属性判断
      */
     @Test
     public void test1_base() {
