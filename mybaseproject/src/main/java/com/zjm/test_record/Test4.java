@@ -37,6 +37,7 @@ public class Test4 {
         test4.aa(1);
 
     }
+   private volatile  Integer c=4;
     @Test
     public void test(){
         Map<String,Integer> map1=new HashMap<>();
@@ -45,6 +46,15 @@ public class Test4 {
         map2.put("a",33);map2.put("b",44);
         Map<String,Integer>[] map3=new Map[]{map1,map2};
         System.out.println("aaa:"+ map3);
+
+        //Integer c=4;
+        bb(c);
+        log.info("c0:"+c);
+    }
+    private void bb(Integer c){
+        c=3;
+        log.info("c1:"+c);
+
     }
     private  void aa(int a ){
         if (a==2){
